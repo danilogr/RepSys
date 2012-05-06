@@ -1,13 +1,13 @@
 package vo;
 
-import java.util.Date;
+import java.util.Calendar;
 
 /**
  * @author Nelson
  */
 public class ItemFaturaTelefonicaVO extends ObjectVO {
     
-    private Date dataHora;
+    private Calendar dataHora;
 
     private FaturaTelefonicaVO fatura;
     
@@ -17,10 +17,8 @@ public class ItemFaturaTelefonicaVO extends ObjectVO {
     
     private String duracao;
 
-    public ItemFaturaTelefonicaVO(){
-    }
     
-    public ItemFaturaTelefonicaVO(Date dataHora, FaturaTelefonicaVO fatura, NumeroTelefonicoVO numero,
+    public ItemFaturaTelefonicaVO(Calendar dataHora, FaturaTelefonicaVO fatura, NumeroTelefonicoVO numero,
             int valor, String duracao) {
         this.dataHora = dataHora;
         this.duracao = duracao;
@@ -30,11 +28,11 @@ public class ItemFaturaTelefonicaVO extends ObjectVO {
     }
     
     
-    public Date getDataHora() {
+    public Calendar getDataHora() {
         return dataHora;
     }
 
-    public void setDataHora(Date dataHora) {
+    public void setDataHora(Calendar dataHora) {
         this.dataHora = dataHora;
     }
 

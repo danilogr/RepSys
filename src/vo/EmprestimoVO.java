@@ -1,29 +1,31 @@
 package vo;
 
-import java.util.Date;
+import java.util.Calendar;
 
 
 public class EmprestimoVO extends ObjectVO {
-	private Date dataHora;
+	private Calendar dataHora;
 	private double valor;
 	private String descricao;
 	
-	public EmprestimoVO(Date datahora, double valor, String descricao) {
-		setDataHora(datahora);
-		setValor(valor);
-		setDescricao(descricao);
+	public EmprestimoVO(Calendar datahora, double valor, String descricao) {
+                super();
+		this.setDataHora(datahora);
+		this.setValor(valor);
+		this.setDescricao(descricao);
 	}
 	
-	public EmprestimoVO(Date datahora, double valor) {
-		setDataHora(datahora);
-		setValor(valor);
+	public EmprestimoVO(Calendar datahora, double valor) {
+                super();
+		this.setDataHora(datahora);
+		this.setValor(valor);
 	}
 	
-	public Date getDataHora() {
+	public Calendar getDataHora() {
 		return dataHora;
 	}
 	
-	public void setDataHora(Date dataHora) {
+	public void setDataHora(Calendar dataHora) {
 		this.dataHora = dataHora;
 	}
 	
