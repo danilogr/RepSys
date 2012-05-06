@@ -1,9 +1,6 @@
 package vo;
 
-public class ObjectVO {
+abstract public class ObjectVO {
 
-    public ObjectVO() {
-        super();
-    }
 
 }

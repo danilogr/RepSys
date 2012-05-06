@@ -16,11 +16,11 @@ public class ContaVO extends ObjectVO {
 
 	private String descricao;
 
-	private List devedores;
+	private List<UsuarioVO> devedores;
 
 	public ContaVO() {
 		super();
-		devedores = (List) new ArrayList<UsuarioVO>();
+		devedores = (List<UsuarioVO>) new ArrayList<UsuarioVO>();
 	}
 
 	public ContaVO(String nome, Double valor, UsuarioVO usuarioResponsavel,
@@ -64,11 +64,11 @@ public class ContaVO extends ObjectVO {
 		this.descricao = descricao;
 	}
 
-	public List getDevedores() {
+	public List<UsuarioVO> getDevedores() {
 		return devedores;
 	}
 
-	public void setDevedores(List devedores) {
+	public void setDevedores(List<UsuarioVO> devedores) {
 		this.devedores = devedores;
 	}
 	
