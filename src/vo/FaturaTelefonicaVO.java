@@ -1,7 +1,7 @@
 package vo;
 
 import java.util.Calendar;
-import java.util.Date;
+import java.util.Calendar;
 import java.util.GregorianCalendar;
 
 
@@ -15,35 +15,33 @@ public class FaturaTelefonicaVO {
     
     private int ano;
     
-    private Date vencimento;
+    private Calendar vencimento;
 
-    public FaturaTelefonicaVO(Date vencimento) {
+    public FaturaTelefonicaVO(Calendar vencimento) {
         super();
         this.mes = Calendar.getInstance().get(Calendar.MONTH);
         this.ano = Calendar.getInstance().get(Calendar.YEAR);
         this.vencimento = vencimento;
     }  
 
-    public FaturaTelefonicaVO(int mes, int ano, Date vencimento) {
+    public FaturaTelefonicaVO(int mes, int ano, Calendar vencimento) {
         super();
         this.mes = mes;
         this.ano = ano;
         this.vencimento = vencimento;
     }
     
-    public FaturaTelefonicaVO(Date mesAno, Date vencimento){
+    public FaturaTelefonicaVO(Calendar mesAno, Calendar vencimento){
         super();
-        Calendar cal = new GregorianCalendar();
-        cal.setTime(mesAno);                
-        this.mes = cal.get(Calendar.MONTH);
+        this.mes = mesAno.get(Calendar.MONTH);
         
         /*	
-         * Não precisa do - 1900, o problema é na classe Date.
+         * Não precisa do - 1900, o problema é na classe Calendar.
          * A classe Calendar retorna o ano correto. 
          * this.ano = cal.get(Calendar.YEAR) - 1900;
          */
         
-        this.ano = cal.get(Calendar.YEAR);
+        this.ano = mesAno.get(Calendar.YEAR);
         this.vencimento = vencimento;
     }
 
@@ -55,7 +53,7 @@ public class FaturaTelefonicaVO {
         return mes;
     }
 
-    public Date getVencimento() {
+    public Calendar getVencimento() {
         return vencimento;
     }
 
@@ -69,7 +67,7 @@ public class FaturaTelefonicaVO {
         else this.mes = Calendar.getInstance().get(Calendar.MONTH);
     }
 
-    public void setVencimento(Date vencimento) {
+    public void setVencimento(Calendar vencimento) {
         this.vencimento = vencimento;
     }
 }
