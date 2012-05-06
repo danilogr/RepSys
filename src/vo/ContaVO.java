@@ -1,60 +1,60 @@
 package vo;
 
 /**
- * @author Delano
+ * @author Henrique Barcelos
  */
 public class ContaVO extends ObjectVO {
 
-	private String numero;
+	private String nome;
+	
+	private Double valor;
 
-	private Double saldo;
-
-	private UserVO usuario;
+	private UserVO usuarioResponsavel;
+	
+	private String descricao;
 
 	public ContaVO() {
 		super();
 	}
 
-	public ContaVO(String number, UserVO usuario) {
-		this(number, new Double(0.0), usuario);
-	}
-
-	public ContaVO(String numero, Double saldo, UserVO usuario) {
+	public ContaVO(String nome, Double valor, UserVO usuarioResponsavel, String descricao) {
 		super();
-		this.numero = numero;
-		this.saldo = saldo;
-		this.usuario = usuario;
+		this.nome = nome;
+		this.valor = valor;
+		this.usuarioResponsavel = usuarioResponsavel;
+		this.descricao = descricao;
 	}
 
-	public ContaVO(int id, String numero, Double saldo, UserVO usuario) {
-		super(id);
-		this.numero = numero;
-		this.saldo = saldo;
-		this.usuario = usuario;
+	public String getNome() {
+		return this.nome;
 	}
 
-	public String getNumero() {
-		return this.numero;
-	}
-
-	public void setNumero(String numero) {
-		this.numero = numero;
+	public void setNome(String nome) {
+		this.nome = nome;
 	}
 
 	public Double getSaldo() {
-		return this.saldo;
+		return this.valor;
 	}
 
-	public void setSaldo(Double saldo) {
-		this.saldo = saldo;
+	public void setSaldo(Double valor) {
+		this.valor = valor;
 	}
 
 	public UserVO getUsuario() {
-		return this.usuario;
+		return this.usuarioResponsavel;
 	}
 
-	public void setUsuario(UserVO usuario) {
-		this.usuario = usuario;
+	public void setUsuario(UserVO usuarioResponsavel) {
+		this.usuarioResponsavel = usuarioResponsavel;
+	}
+	
+	public String getDescricao() {
+		return this.descricao;
+	}
+	
+	public void setDescricao(String descricao) {
+		this.descricao = descricao;
 	}
 
         @Override
@@ -62,13 +62,13 @@ public class ContaVO extends ObjectVO {
 		StringBuilder buffer = new StringBuilder();
 		buffer.append("[");
 		buffer.append("id = ");
-		buffer.append(this.getId());
-		buffer.append(", numero = ");
-		buffer.append(this.getNumero());
-		buffer.append(", saldo = ");
+		buffer.append(this.getNome());
+		buffer.append(", nome = ");
+		buffer.append(this.getNome());
+		buffer.append(", valor = ");
 		buffer.append(this.getSaldo());
-		buffer.append(", usuario = ");
-		buffer.append(this.getUsuario());
+		buffer.append(", usuarioResponsavel = ");
+		buffer.append(this.getUsuario().getNome());
 		buffer.append("]");
 		return buffer.toString();
 	}

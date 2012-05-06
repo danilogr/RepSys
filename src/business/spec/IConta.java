@@ -15,7 +15,7 @@ public interface IConta {
 
 	ContaVO getConta(int id) throws BusinessException;
 
-	ContaVO getContaByUsuario(int id) throws BusinessException;
+	ContaVO getContaByUsuario(String email) throws BusinessException;
 
 	List getAll() throws BusinessException;
 
