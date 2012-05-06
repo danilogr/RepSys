@@ -4,7 +4,7 @@
  */
 package vo;
 
-import java.util.Date;
+import java.util.Calendar;
 
 /**
  *
@@ -15,11 +15,11 @@ public class UsuarioNumeroTelefonicoVO extends ObjectVO {
     
     private UsuarioVO usuario;
     private NumeroTelefonicoVO numero;
-    private Date dataHora;
+    private Calendar dataHora;
     private int recorrencia;
 
  
-    public UsuarioNumeroTelefonicoVO(UsuarioVO usuario, NumeroTelefonicoVO numero, Date dataHora, int recorrencia) {
+    public UsuarioNumeroTelefonicoVO(UsuarioVO usuario, NumeroTelefonicoVO numero, Calendar dataHora, int recorrencia) {
         this.usuario = usuario;
         this.numero = numero;
         this.dataHora = dataHora;
@@ -35,11 +35,11 @@ public class UsuarioNumeroTelefonicoVO extends ObjectVO {
     }
 
 
-    public Date getDataHora() {
+    public Calendar getDataHora() {
         return dataHora;
     }
 
-    public void setDataHora(Date dataHora) {
+    public void setDataHora(Calendar dataHora) {
         this.dataHora = dataHora;
     }
 
