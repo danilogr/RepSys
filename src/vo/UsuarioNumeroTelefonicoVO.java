@@ -16,12 +16,24 @@ public class UsuarioNumeroTelefonicoVO extends ObjectVO {
     private UsuarioVO usuario;
     private NumeroTelefonicoVO numero;
     private Date dataHora;
+    private int recorrencia;
 
-    public UsuarioNumeroTelefonicoVO(UsuarioVO usuario, NumeroTelefonicoVO numero, Date dataHora) {
+ 
+    public UsuarioNumeroTelefonicoVO(UsuarioVO usuario, NumeroTelefonicoVO numero, Date dataHora, int recorrencia) {
         this.usuario = usuario;
         this.numero = numero;
         this.dataHora = dataHora;
+        this.recorrencia = recorrencia;
+    }    
+    
+    public int getRecorrencia() {
+        return recorrencia;
     }
+
+    public void setRecorrencia(int recorrencia) {
+        this.recorrencia = recorrencia;
+    }
+
 
     public Date getDataHora() {
         return dataHora;
