@@ -15,8 +15,8 @@ public class CriaPopulaBD {
     public static Connection getConnection() {
 
         if (connection == null) {
-            Properties properties = new Properties();
             try {
+                Properties properties = new Properties();
                 InputStream stream = CriaPopulaBD.class.getResourceAsStream("/configuration.properties");
                 properties.load(stream);
                 String driver = properties.getProperty("jdbc.driver");
