@@ -2,6 +2,7 @@ package vo;
 
 import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 
 
 /**
@@ -27,6 +28,15 @@ public class FaturaTelefonicaVO {
         super();
         this.mes = mes;
         this.ano = ano;
+        this.vencimento = vencimento;
+    }
+    
+    public FaturaTelefonicaVO(Date mesAno, Date vencimento){
+        super();
+        Calendar cal = new GregorianCalendar();
+        cal.setTime(mesAno);                
+        this.mes = cal.get(Calendar.MONTH);
+        this.ano = cal.get(Calendar.YEAR) - 1900;
         this.vencimento = vencimento;
     }
 
