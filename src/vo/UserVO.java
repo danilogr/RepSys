@@ -2,51 +2,48 @@ package vo;
 
 public class UserVO extends ObjectVO {
 
-	private String login;
+	private String email;
 
-	private String password;
+	private String senha;
 
 	private String nome;
 
-	private ContaVO conta;
-
-	
 	public UserVO() {
 	}
 
-	public UserVO(String login, String password) {
-		this.login = login;
-		this.password = password;
+	public UserVO(String email, String senha) {
+		this.email = email;
+		this.senha = senha;
 	}
 
-	public UserVO(String login, String password, String nome) {
+	public UserVO(String email, String senha, String nome) {
 		super();
-		this.login = login;
-		this.password = password;
+		this.email = email;
+		this.senha = senha;
 		this.nome = nome;
 	}
 
-	public UserVO(int id, String login, String password, String nome) {
+	public UserVO(int id, String email, String senha, String nome) {
 		super(id);
-		this.login = login;
-		this.password = password;
+		this.email = email;
+		this.senha = senha;
 		this.nome = nome;
 	}
 
-	public String getLogin() {
-		return this.login;
+	public String getEmail() {
+		return this.email;
 	}
 
-	public void setLogin(String login) {
-		this.login = login;
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
-	public String getPassword() {
-		return this.password;
+	public String getSenha() {
+		return this.senha;
 	}
 
-	public void setPassword(String password) {
-		this.password = password;
+	public void setSenha(String senha) {
+		this.senha = senha;
 	}
 
 	public String getNome() {
@@ -57,15 +54,7 @@ public class UserVO extends ObjectVO {
 		this.nome = nome;
 	}
 
-	public ContaVO getConta() {
-		return conta;
-	}
-
-	public void setConta(ContaVO conta) {
-		this.conta = conta;
-	}
-
-        @Override
+    @Override
 	public String toString() {
 		StringBuilder buffer = new StringBuilder();
 		buffer.append("[");
@@ -73,8 +62,8 @@ public class UserVO extends ObjectVO {
 		buffer.append(this.getId());
 		buffer.append(", nome = ");
 		buffer.append(this.getNome());
-		buffer.append(", login = ");
-		buffer.append(this.getLogin());
+		buffer.append(", email = ");
+		buffer.append(this.getEmail());
 		buffer.append("]");
 		return buffer.toString();
 	}

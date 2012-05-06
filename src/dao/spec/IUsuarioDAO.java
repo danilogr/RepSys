@@ -5,8 +5,8 @@ import dao.DAOException;
 
 public interface IUsuarioDAO extends IGenericDAO {
 
-	boolean checkLoginPassword(String login, String password)
+	boolean checkEmailSenha(String email, String senha)
 			throws DAOException;
 
-	UserVO selectByLogin(String login) throws DAOException;
+	UserVO selectByEmail(String email) throws DAOException;
 }

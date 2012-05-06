@@ -61,11 +61,11 @@ public class Usuario implements IUsuario {
 		}
 	}
 
-	public UserVO getUsuarioByLogin(String login) throws BusinessException {
+	public UserVO getUsuarioByLogin(String email) throws BusinessException {
 		DAOFactory factory = DAOFactory.getInstance();
 		try {
 			IUsuarioDAO dao = factory.getUserDAO();
-			return (UserVO) dao.selectByLogin(login);
+			return (UserVO) dao.selectByEmail(email);
 		} catch (Exception e) {
 			throw new BusinessException(e);
 		}
@@ -75,7 +75,7 @@ public class Usuario implements IUsuario {
 		DAOFactory factory = DAOFactory.getInstance();
 		try {
 			IUsuarioDAO dao = factory.getUserDAO();
-			return dao.checkLoginPassword(user.getLogin(), user.getPassword());
+			return dao.checkEmailSenha(user.getEmail(), user.getSenha());
 		} catch (Exception e) {
                     e.printStackTrace();
 			throw new BusinessException(e);

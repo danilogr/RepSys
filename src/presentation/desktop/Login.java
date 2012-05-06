@@ -69,7 +69,7 @@ public class Login extends JFrame {
 		this.initComponents();
 	}
 
-	public String getLogin() {
+	public String getEmail() {
 		return loginText.getText();
 	}
 

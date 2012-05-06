@@ -144,7 +144,7 @@ public class Menu extends JFrame {
 		String[][] data;
 		BusinessFactory factory = BusinessFactory.getInstance();
 		try {
-			String login = Login.getInstance().getLogin();
+			String login = Login.getInstance().getEmail();
 			IUsuario user = factory.getUser();
 			UserVO userVO = user.getUsuarioByLogin(login);
 			IConta account = factory.getAccount();
@@ -180,7 +180,7 @@ public class Menu extends JFrame {
 
 			for (int i = 0; i < size; i++) {
 				UserVO vo = (UserVO) list.get(i);
-				data[i][0] = vo.getLogin();
+				data[i][0] = vo.getEmail();
 				data[i][1] = vo.getNome();
 			}
 			table.setModel(new DefaultTableModel(data, header));
