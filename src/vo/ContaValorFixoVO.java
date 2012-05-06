@@ -1,10 +1,10 @@
 package vo;
 
-import java.util.Date;
+import java.util.Calendar;
 
 public class ContaValorFixoVO extends ContaVO {
 	private ContaVO conta;
-	private Date dataInicial;
+	private Calendar dataInicial;
 	private int tempoRecorrencia;
 	private String periodoRecorrencia;
 	
@@ -16,11 +16,11 @@ public class ContaValorFixoVO extends ContaVO {
 		this.conta = conta;
 	}
 	
-	public Date getDataInicial() {
+	public Calendar getDataInicial() {
 		return dataInicial;
 	}
 	
-	public void setDataInicial(Date dataInicial) {
+	public void setDataInicial(Calendar dataInicial) {
 		this.dataInicial = dataInicial;
 	}
 	
