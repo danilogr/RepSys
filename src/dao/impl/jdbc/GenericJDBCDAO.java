@@ -38,49 +38,6 @@ public abstract class GenericJDBCDAO implements IGenericDAO {
 		return connection;
 	}
 
-	public final int selectLastID() throws DAOException {
-		int lastID = 0;
-		String sql = "SELECT MAX(ID) FROM " + this.getTableName();
-		try {
-			Statement stmt = connection.createStatement();
-			ResultSet rs = stmt.executeQuery(sql);
-			if (rs.next()) {
-				lastID = rs.getInt(1);
-			}
-		} catch (SQLException e) {
-			throw new DAOException(e);
-		}
-		return lastID;
-	}
-
-	public final void delete(int id) throws DAOException {
-		try {
-			String sql = "DELETE FROM " + this.getTableName() + " WHERE ID = ?";
-			PreparedStatement stmt = this.getConnection().prepareStatement(sql);
-			stmt.setInt(1, id);
-			stmt.executeUpdate();
-		} catch (SQLException e) {
-			throw new DAOException(e);
-		}
-	}
-
-	public final ObjectVO selectByID(int id) throws DAOException {
-		ObjectVO vo = null;
-		try {
-			Statement stmt = this.getConnection().createStatement();
-			String sql = "SELECT * FROM " + this.getTableName()
-					+ " WHERE ID = " + id;
-			ResultSet rs = stmt.executeQuery(sql);
-
-			if (rs.next()) {
-				vo = this.createVO(rs);
-			}
-		} catch (SQLException e) {
-			throw new DAOException(e);
-		}
-		return vo;
-	}
-
 	public final List selectAll() throws DAOException {
 		String sql = "SELECT * FROM " + this.getTableName();
 		List<ObjectVO> list = new ArrayList<ObjectVO>();
