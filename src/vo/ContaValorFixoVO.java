@@ -28,9 +28,9 @@ public class ContaValorFixoVO extends ContaVO {
 		return tempoRecorrencia;
 	}
 	
-	public void setTempoRecorrencia(int tempoRecorrencia) {
+	public void setTempoRecorrencia(int tempoRecorrencia) throws VOException {
 		if(tempoRecorrencia <= 0) {
-			//throw new VOException('O tempo de recorrência deve ser maior que 0');
+			throw new VOException("O tempo de recorrência deve ser maior que 0");
 		}
 		this.tempoRecorrencia = tempoRecorrencia;
 	}

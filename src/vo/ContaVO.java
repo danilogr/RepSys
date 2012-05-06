@@ -8,15 +8,15 @@ import java.util.ArrayList;
  */
 public class ContaVO extends ObjectVO {
 
-	private String nome;
+	protected String nome;
 
-	private Double valor;
+	protected Double valor;
 
-	private UsuarioVO usuarioResponsavel;
+	protected UsuarioVO usuarioResponsavel;
 
-	private String descricao;
+	protected String descricao;
 
-	private List<UsuarioVO> devedores;
+	protected List<UsuarioVO> devedores;
 
 	public ContaVO() {
 		super();
