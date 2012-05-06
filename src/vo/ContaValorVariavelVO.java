@@ -1,15 +1,15 @@
 package vo;
 
-import java.util.Date;
+import java.util.Calendar;
 
 public class ContaValorVariavelVO extends ContaVO {
-	private Date dataVencimento;
+	private Calendar dataVencimento;
 
-	public Date getDataVencimento() {
+	public Calendar getDataVencimento() {
 		return dataVencimento;
 	}
 
-	public void setDataVencimento(Date dataVencimento) {
+	public void setDataVencimento(Calendar dataVencimento) {
 		this.dataVencimento = dataVencimento;
 	}
 }
