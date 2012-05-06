@@ -12,9 +12,9 @@ public class JDBCDAOFactory extends DAOFactory {
 	private Properties properties;
 	
 	/**
-	 * ImplementaÁ„o do padr„o Factory Method
+	 * Implementa√ß√£oo do padr√£o Factory Method
 	 * 
-	 * java.util.Properties È uma extens„o de java.util.HashTable.
+	 * java.util.Properties √© uma extens√£o de java.util.HashTable.
 	 * @param properties
 	 */
 	public JDBCDAOFactory(Properties properties) {
