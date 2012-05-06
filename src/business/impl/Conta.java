@@ -20,11 +20,12 @@ public class Conta implements IConta {
 		}
 	}
 
-	public void delete(int id) throws BusinessException {
+	public void delete(String name) throws BusinessException {
 		DAOFactory factory = DAOFactory.getInstance();
 		try {
 			IContaDAO dao = factory.getAccountDAO();
-			dao.delete(id);
+			ContaVO conta = getConta(name);
+			dao.delete(conta);
 		} catch (Exception e) {
 			throw new BusinessException(e);
 		}
@@ -40,11 +41,11 @@ public class Conta implements IConta {
 		}
 	}
 
-	public ContaVO getConta(int id) throws BusinessException {
+	public ContaVO getConta(String name) throws BusinessException {
 		DAOFactory factory = DAOFactory.getInstance();
 		try {
 			IContaDAO dao = factory.getAccountDAO();
-			return (ContaVO) dao.selectByID(id);
+			return (ContaVO) dao.selectByName(name);
 		} catch (Exception e) {
 			throw new BusinessException(e);
 		}
