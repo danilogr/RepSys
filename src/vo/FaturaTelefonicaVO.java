@@ -36,7 +36,14 @@ public class FaturaTelefonicaVO {
         Calendar cal = new GregorianCalendar();
         cal.setTime(mesAno);                
         this.mes = cal.get(Calendar.MONTH);
-        this.ano = cal.get(Calendar.YEAR) - 1900;
+        
+        /*	
+         * Não precisa do - 1900, o problema é na classe Date.
+         * A classe Calendar retorna o ano correto. 
+         * this.ano = cal.get(Calendar.YEAR) - 1900;
+         */
+        
+        this.ano = cal.get(Calendar.YEAR);
         this.vencimento = vencimento;
     }
 
