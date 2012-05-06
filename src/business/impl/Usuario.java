@@ -24,7 +24,6 @@ public class Usuario implements IUsuario {
 		DAOFactory factory = DAOFactory.getInstance();
 		try {
 			IUsuarioDAO dao = factory.getUserDAO();
-			user.setId(dao.selectLastID() + 1);
 			dao.insert(user);
 		} catch (Exception e) {
 			throw new BusinessException(e);

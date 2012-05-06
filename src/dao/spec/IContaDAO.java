@@ -5,6 +5,6 @@ import dao.DAOException;
 
 public interface IContaDAO extends IGenericDAO {
 
-	ContaVO selectByUsuario(int id) throws DAOException;
+	ContaVO selectByUsuario(String email) throws DAOException;
 
 }

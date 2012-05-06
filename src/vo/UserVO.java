@@ -23,13 +23,6 @@ public class UserVO extends ObjectVO {
 		this.nome = nome;
 	}
 
-	public UserVO(int id, String email, String senha, String nome) {
-		super(id);
-		this.email = email;
-		this.senha = senha;
-		this.nome = nome;
-	}
-
 	public String getEmail() {
 		return this.email;
 	}
@@ -58,8 +51,8 @@ public class UserVO extends ObjectVO {
 	public String toString() {
 		StringBuilder buffer = new StringBuilder();
 		buffer.append("[");
-		buffer.append("id = ");
-		buffer.append(this.getId());
+		buffer.append("email = ");
+		buffer.append(this.getEmail());
 		buffer.append(", nome = ");
 		buffer.append(this.getNome());
 		buffer.append(", email = ");

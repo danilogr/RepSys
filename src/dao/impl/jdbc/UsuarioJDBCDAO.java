@@ -20,10 +20,9 @@ public class UsuarioJDBCDAO extends GenericJDBCDAO implements IUsuarioDAO {
     public void update(ObjectVO vo) throws DAOException {
         UserVO user = (UserVO) vo;
         String sql = "UPDATE " + this.getTableName()
-                + " SET EMAIL = ?, SENHA = ?, NOME = ? WHERE ID = ?";
+                + " SET EMAIL = ?, SENHA = ?, WHERE NOME = ?";
         try {
             PreparedStatement stmt = this.getConnection().prepareStatement(sql);
-            stmt.setInt(4, user.getId());
             stmt.setString(1, user.getEmail());
             stmt.setString(2, user.getSenha());
             stmt.setString(3, user.getNome());
@@ -73,11 +72,10 @@ public class UsuarioJDBCDAO extends GenericJDBCDAO implements IUsuarioDAO {
 
     protected ObjectVO createVO(ResultSet rs) throws DAOException {
         try {
-            int id = rs.getInt("ID");
             String login = rs.getString("EMAIL");
             String password = rs.getString("SENHA");
             String nome = rs.getString("NOME");
-            return new UserVO(id, login, password, nome);
+            return new UserVO(login, password, nome);
         } catch (SQLException e) {
             throw new DAOException(e);
         }

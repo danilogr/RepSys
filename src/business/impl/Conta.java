@@ -14,7 +14,6 @@ public class Conta implements IConta {
 		DAOFactory factory = DAOFactory.getInstance();
 		try {
 			IContaDAO dao = factory.getAccountDAO();
-			vo.setId(dao.selectLastID() + 1);
 			dao.insert(vo);
 		} catch (Exception e) {
 			throw new BusinessException(e);
@@ -51,11 +50,11 @@ public class Conta implements IConta {
 		}
 	}
 
-	public ContaVO getContaByUsuario(int id) throws BusinessException {
+	public ContaVO getContaByUsuario(String email) throws BusinessException {
 		DAOFactory factory = DAOFactory.getInstance();
 		try {
 			IContaDAO dao = factory.getAccountDAO();
-			return dao.selectByUsuario(id);
+			return dao.selectByUsuario(email);
 		} catch (Exception e) {
 			throw new BusinessException(e);
 		}

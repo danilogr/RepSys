@@ -148,7 +148,7 @@ public class Menu extends JFrame {
 			IUsuario user = factory.getUser();
 			UserVO userVO = user.getUsuarioByLogin(login);
 			IConta account = factory.getAccount();
-			ContaVO accountVO = account.getContaByUsuario(userVO.getId());
+			ContaVO accountVO = account.getContaByUsuario(userVO.getEmail());
 			header = new String[2];
 			header[0] = bundle.getString("login");
 			header[1] = bundle.getString("balance");

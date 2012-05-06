@@ -22,14 +22,13 @@ class ContaJDBCDAO extends GenericJDBCDAO implements IContaDAO {
 
 	public void update(ObjectVO vo) throws DAOException {
 		String sql = "UPDATE " + this.getTableName()
-				+ " SET NUMERO = ?, SALDO = ?, USUARIO_ID = ? WHERE ID = ?";
+				+ " VALOR = ?, EMAIL = ? WHERE NOME = ?";
 		try {
 			PreparedStatement stmt = this.getConnection().prepareStatement(sql);
-			ContaVO account = (ContaVO) vo;
-			stmt.setString(1, account.getNumero());
-			stmt.setDouble(2, account.getSaldo());
-			stmt.setInt(3, account.getUsuario().getId());
-			stmt.setInt(4, account.getId());
+			ContaVO conta = (ContaVO) vo;
+			stmt.setDouble(1, conta.getSaldo());
+			stmt.setString(2, conta.getUsuario().getEmail());
+			stmt.setString(3, conta.getNome());
 			stmt.executeUpdate();
 		} catch (SQLException e) {
 			throw new DAOException(e);
@@ -38,23 +37,23 @@ class ContaJDBCDAO extends GenericJDBCDAO implements IContaDAO {
 
 	public void insert(ObjectVO vo) throws DAOException {
 		String sql = "INSERT INTO " + this.getTableName()
-				+ " (NUMERO, SALDO, USUARIO_ID) VALUES (?,?,?)";
+				+ " (NOME, VALOR, EMAIL) VALUES (?,?,?)";
 		try {
-			ContaVO account = (ContaVO) vo;
+			ContaVO conta = (ContaVO) vo;
 			PreparedStatement stmt = this.getConnection().prepareStatement(sql);
-			stmt.setString(1, account.getNumero());
-			stmt.setDouble(2, account.getSaldo());
-			stmt.setInt(3, account.getUsuario().getId());
+			stmt.setString(1, conta.getNome());
+			stmt.setDouble(2, conta.getSaldo());
+			stmt.setString(3, conta.getUsuario().getEmail());
 			stmt.executeUpdate();
 		} catch (SQLException e) {
 			throw new DAOException(e);
 		}
 	}
 
-	public ContaVO selectByUsuario(int id) throws DAOException {
+	public ContaVO selectByUsuario(String email) throws DAOException {
 		ContaVO vo = null;
 		String sql = "SELECT * FROM " + this.getTableName()
-				+ " WHERE USUARIO_ID = " + id;
+				+ " WHERE EMAIL = " + email;
 		try {
 			Statement stmt = this.getConnection().createStatement();
 			ResultSet rs = stmt.executeQuery(sql);
@@ -73,13 +72,14 @@ class ContaJDBCDAO extends GenericJDBCDAO implements IContaDAO {
 
 	protected ObjectVO createVO(ResultSet rs) throws DAOException {
 		try {
-			int id = rs.getInt("ID");
-			String number = rs.getString("NUMERO");
-			float balance = rs.getFloat("SALDO");
-			int userID = rs.getInt("USUARIO_ID");
+			String nome = rs.getString("NOME");
+			float valor = rs.getFloat("VALOR");
+			String userEmail = rs.getString("EMAIL");
+			String desc = rs.getString("DESCRICAO");
+			
 			IUsuarioDAO userDAO = DAOFactory.getInstance().getUserDAO();
-			UserVO user = (UserVO) userDAO.selectByID(userID);
-			return new ContaVO(id, number, new Double(balance), user);
+			UserVO user = (UserVO) userDAO.selectByEmail(userEmail);
+			return new ContaVO(nome, new Double(valor), user, desc);
 		} catch (SQLException e) {
 			throw new DAOException(e);
 		}
