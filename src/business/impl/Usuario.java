@@ -2,7 +2,7 @@ package business.impl;
 
 import java.util.List;
 
-import vo.UserVO;
+import vo.UsuarioVO;
 import business.BusinessException;
 import business.spec.IUsuario;
 import dao.DAOFactory;
@@ -20,7 +20,7 @@ public class Usuario implements IUsuario {
 		}
 	}
 
-	public void create(UserVO user) throws BusinessException {
+	public void create(UsuarioVO user) throws BusinessException {
 		DAOFactory factory = DAOFactory.getInstance();
 		try {
 			IUsuarioDAO dao = factory.getUserDAO();
@@ -30,7 +30,7 @@ public class Usuario implements IUsuario {
 		}
 	}
 
-	public void update(UserVO user) throws BusinessException {
+	public void update(UsuarioVO user) throws BusinessException {
 		DAOFactory factory = DAOFactory.getInstance();
 		try {
 			IUsuarioDAO dao = factory.getUserDAO();
@@ -40,11 +40,11 @@ public class Usuario implements IUsuario {
 		}
 	}
 
-	public UserVO getUsuario(int id) throws BusinessException {
+	public UsuarioVO getUsuario(int id) throws BusinessException {
 		DAOFactory factory = DAOFactory.getInstance();
 		try {
 			IUsuarioDAO dao = factory.getUserDAO();
-			return (UserVO) dao.selectByID(id);
+			return (UsuarioVO) dao.selectByID(id);
 		} catch (Exception e) {
 			throw new BusinessException(e);
 		}
@@ -60,17 +60,17 @@ public class Usuario implements IUsuario {
 		}
 	}
 
-	public UserVO getUsuarioByLogin(String email) throws BusinessException {
+	public UsuarioVO getUsuarioByLogin(String email) throws BusinessException {
 		DAOFactory factory = DAOFactory.getInstance();
 		try {
 			IUsuarioDAO dao = factory.getUserDAO();
-			return (UserVO) dao.selectByEmail(email);
+			return (UsuarioVO) dao.selectByEmail(email);
 		} catch (Exception e) {
 			throw new BusinessException(e);
 		}
 	}
 
-	public boolean authenticate(UserVO user) throws BusinessException {
+	public boolean authenticate(UsuarioVO user) throws BusinessException {
 		DAOFactory factory = DAOFactory.getInstance();
 		try {
 			IUsuarioDAO dao = factory.getUserDAO();

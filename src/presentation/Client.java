@@ -5,7 +5,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import vo.ContaVO;
-import vo.UserVO;
+import vo.UsuarioVO;
 import business.BusinessFactory;
 import business.spec.IConta;
 import business.spec.IUsuario;

@@ -18,7 +18,7 @@ import javax.swing.WindowConstants;
 import javax.swing.table.DefaultTableModel;
 
 import vo.ContaVO;
-import vo.UserVO;
+import vo.UsuarioVO;
 import business.BusinessException;
 import business.BusinessFactory;
 import business.spec.IConta;
@@ -146,7 +146,7 @@ public class Menu extends JFrame {
 		try {
 			String login = Login.getInstance().getEmail();
 			IUsuario user = factory.getUser();
-			UserVO userVO = user.getUsuarioByLogin(login);
+			UsuarioVO userVO = user.getUsuarioByLogin(login);
 			IConta account = factory.getAccount();
 			ContaVO accountVO = account.getContaByUsuario(userVO.getEmail());
 			header = new String[2];
@@ -179,7 +179,7 @@ public class Menu extends JFrame {
 			data = new String[size][2];
 
 			for (int i = 0; i < size; i++) {
-				UserVO vo = (UserVO) list.get(i);
+				UsuarioVO vo = (UsuarioVO) list.get(i);
 				data[i][0] = vo.getEmail();
 				data[i][1] = vo.getNome();
 			}

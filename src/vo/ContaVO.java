@@ -1,23 +1,30 @@
 package vo;
 
+import java.util.List;
+import java.util.ArrayList;
+
 /**
  * @author Henrique Barcelos
  */
 public class ContaVO extends ObjectVO {
 
 	private String nome;
-	
+
 	private Double valor;
 
-	private UserVO usuarioResponsavel;
-	
+	private UsuarioVO usuarioResponsavel;
+
 	private String descricao;
+
+	private List devedores;
 
 	public ContaVO() {
 		super();
+		devedores = (List) new ArrayList<UsuarioVO>();
 	}
 
-	public ContaVO(String nome, Double valor, UserVO usuarioResponsavel, String descricao) {
+	public ContaVO(String nome, Double valor, UsuarioVO usuarioResponsavel,
+			String descricao) {
 		super();
 		this.nome = nome;
 		this.valor = valor;
@@ -41,23 +48,39 @@ public class ContaVO extends ObjectVO {
 		this.valor = valor;
 	}
 
-	public UserVO getUsuario() {
+	public UsuarioVO getUsuario() {
 		return this.usuarioResponsavel;
 	}
 
-	public void setUsuario(UserVO usuarioResponsavel) {
+	public void setUsuario(UsuarioVO usuarioResponsavel) {
 		this.usuarioResponsavel = usuarioResponsavel;
 	}
-	
+
 	public String getDescricao() {
 		return this.descricao;
 	}
-	
+
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
 	}
 
-        @Override
+	public List getDevedores() {
+		return devedores;
+	}
+
+	public void setDevedores(List devedores) {
+		this.devedores = devedores;
+	}
+	
+	public void addDevedor(UsuarioVO user) {
+		this.devedores.add(user);
+	}
+	
+	public void removeDevedor(UsuarioVO user) {
+		this.devedores.remove(user);
+	}
+
+	@Override
 	public String toString() {
 		StringBuilder buffer = new StringBuilder();
 		buffer.append("[");

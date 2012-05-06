@@ -2,23 +2,23 @@ package business.spec;
 
 import java.util.List;
 
-import vo.UserVO;
+import vo.UsuarioVO;
 import business.BusinessException;
 
 public interface IUsuario {
 
 	void delete(int id) throws BusinessException;
 
-	void create(UserVO user) throws BusinessException;
+	void create(UsuarioVO user) throws BusinessException;
 
-	void update(UserVO user) throws BusinessException;
+	void update(UsuarioVO user) throws BusinessException;
 
-	UserVO getUsuario(int id) throws BusinessException;
+	UsuarioVO getUsuario(int id) throws BusinessException;
 
 	List getAll() throws BusinessException;
 
-	UserVO getUsuarioByLogin(String login) throws BusinessException;
+	UsuarioVO getUsuarioByLogin(String login) throws BusinessException;
 
-	boolean authenticate(UserVO user) throws BusinessException;
+	boolean authenticate(UsuarioVO user) throws BusinessException;
 
 }

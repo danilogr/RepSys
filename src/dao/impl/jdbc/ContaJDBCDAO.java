@@ -8,7 +8,7 @@ import java.util.Properties;
 
 import vo.ContaVO;
 import vo.ObjectVO;
-import vo.UserVO;
+import vo.UsuarioVO;
 import dao.DAOException;
 import dao.DAOFactory;
 import dao.spec.IContaDAO;
@@ -78,7 +78,7 @@ class ContaJDBCDAO extends GenericJDBCDAO implements IContaDAO {
 			String desc = rs.getString("DESCRICAO");
 			
 			IUsuarioDAO userDAO = DAOFactory.getInstance().getUserDAO();
-			UserVO user = (UserVO) userDAO.selectByEmail(userEmail);
+			UsuarioVO user = (UsuarioVO) userDAO.selectByEmail(userEmail);
 			return new ContaVO(nome, new Double(valor), user, desc);
 		} catch (SQLException e) {
 			throw new DAOException(e);

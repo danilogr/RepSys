@@ -1,6 +1,9 @@
 package vo;
 
-public class UserVO extends ObjectVO {
+/**
+ * @author Henrique Barcelos
+ */
+public class UsuarioVO extends ObjectVO {
 
 	private String email;
 
@@ -8,15 +11,15 @@ public class UserVO extends ObjectVO {
 
 	private String nome;
 
-	public UserVO() {
+	public UsuarioVO() {
 	}
 
-	public UserVO(String email, String senha) {
+	public UsuarioVO(String email, String senha) {
 		this.email = email;
 		this.senha = senha;
 	}
 
-	public UserVO(String email, String senha, String nome) {
+	public UsuarioVO(String email, String senha, String nome) {
 		super();
 		this.email = email;
 		this.senha = senha;

@@ -7,7 +7,7 @@ import java.sql.Statement;
 import java.util.Properties;
 
 import vo.ObjectVO;
-import vo.UserVO;
+import vo.UsuarioVO;
 import dao.DAOException;
 import dao.spec.IUsuarioDAO;
 
@@ -18,7 +18,7 @@ public class UsuarioJDBCDAO extends GenericJDBCDAO implements IUsuarioDAO {
     }
 
     public void update(ObjectVO vo) throws DAOException {
-        UserVO user = (UserVO) vo;
+        UsuarioVO user = (UsuarioVO) vo;
         String sql = "UPDATE " + this.getTableName()
                 + " SET EMAIL = ?, SENHA = ?, WHERE NOME = ?";
         try {
@@ -37,7 +37,7 @@ public class UsuarioJDBCDAO extends GenericJDBCDAO implements IUsuarioDAO {
                 + " (EMAIL, SENHA, NOME) VALUES (?,?,?)";
         try {
             PreparedStatement stmt = this.getConnection().prepareStatement(sql);
-            UserVO user = (UserVO) vo;
+            UsuarioVO user = (UsuarioVO) vo;
             stmt.setString(1, user.getEmail());
             stmt.setString(2, user.getSenha());
             stmt.setString(3, user.getNome());
@@ -75,13 +75,13 @@ public class UsuarioJDBCDAO extends GenericJDBCDAO implements IUsuarioDAO {
             String login = rs.getString("EMAIL");
             String password = rs.getString("SENHA");
             String nome = rs.getString("NOME");
-            return new UserVO(login, password, nome);
+            return new UsuarioVO(login, password, nome);
         } catch (SQLException e) {
             throw new DAOException(e);
         }
     }
 
-    public final UserVO selectByEmail(String login) throws DAOException {
+    public final UsuarioVO selectByEmail(String login) throws DAOException {
         ObjectVO vo = null;
         String sql = "SELECT * FROM " + this.getTableName() + " WHERE EMAIL = '"
                 + login + "'";
@@ -94,6 +94,6 @@ public class UsuarioJDBCDAO extends GenericJDBCDAO implements IUsuarioDAO {
         } catch (SQLException e) {
             throw new DAOException(e);
         }
-        return (UserVO) vo;
+        return (UsuarioVO) vo;
     }
 }
