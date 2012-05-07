@@ -13,6 +13,6 @@ public interface IConta {
 
 	ContaVO getContaByUsuario(String email) throws BusinessException;
 
-	List getAll() throws BusinessException;
+	List<Object> getAll() throws BusinessException;
 
 }

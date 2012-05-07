@@ -4,8 +4,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.List;
 import java.util.Properties;
 
+import util.Configuration;
 import vo.ContaVO;
 import vo.ObjectVO;
 import vo.UsuarioVO;
@@ -34,7 +36,7 @@ public class UsuarioJDBCDAO extends GenericJDBCDAO implements IUsuarioDAO {
 	}
 
 	public void update(ObjectVO vo) throws DAOException {
-
+		update(vo, false);
 	}
 
 	public void update(ObjectVO vo, boolean updatePassword) throws DAOException {
@@ -65,28 +67,31 @@ public class UsuarioJDBCDAO extends GenericJDBCDAO implements IUsuarioDAO {
 
 	@Override
 	public void delete(ObjectVO vo) throws DAOException {
-		String sql = "DELETE FROM " + this.getTableName() + "WHERE NOME = ?";
+		String sql = "DELETE FROM " + this.getTableName() 
+					+ " WHERE NOME = ?";
 		try {
 			ContaVO conta = (ContaVO) vo;
 			PreparedStatement stmt = this.getConnection().prepareStatement(sql);
 			stmt.setString(1, conta.getNome());
+			stmt.executeUpdate();
 		} catch (Exception e) {
 			throw new DAOException(e);
 		}
-
 	}
 
-	public boolean checkEmailSenha(String login, String password)
+	public boolean checkEmailSenha(String email, String senha)
 			throws DAOException {
 		boolean isAuthenticated = false;
-		String sql = "SELECT SENHA FROM " + this.getTableName()
-				+ " WHERE EMAIL = '" + login + "'";
+		String sql = "SELECT COUNT(*) AS TOTAL FROM " + this.getTableName()
+				+ " WHERE EMAIL = ? AND SENHA = MD5(?)";
 		try {
-			Statement stmt = this.getConnection().createStatement();
-			ResultSet rs = stmt.executeQuery(sql);
+			PreparedStatement stmt = this.getConnection().prepareStatement(sql);
+			stmt.setString(1, email);
+			stmt.setString(2, senha);
+			ResultSet rs = stmt.executeQuery();
 			if (rs.next()) {
-				String result = rs.getString("SENHA");
-				isAuthenticated = result.equals(password);
+				int total = rs.getInt("TOTAL");
+				isAuthenticated = total == 1;
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -124,5 +129,14 @@ public class UsuarioJDBCDAO extends GenericJDBCDAO implements IUsuarioDAO {
 			throw new DAOException(e);
 		}
 		return (UsuarioVO) vo;
+	}
+	
+	public static void main(String[] argv) throws DAOException {
+		UsuarioJDBCDAO uDAO = new UsuarioJDBCDAO(Configuration.getInstance().getProperties());
+		List l = uDAO.selectAll("EMAIL", "ASC");
+		for(Object o : l) {
+			UsuarioVO user = (UsuarioVO) o;
+			System.out.println(user.toString());
+		}
 	}
 }

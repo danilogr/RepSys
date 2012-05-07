@@ -30,7 +30,7 @@ public class Configuration {
 			FileInputStream stream = new FileInputStream(file);
 			properties.load(stream);
 		} catch (Exception e) {
-			System.out.println("Erro no acesso ao arquivo de configura��o");
+			System.out.println("Erro no acesso ao arquivo de configuração");
 		}
 	}
 

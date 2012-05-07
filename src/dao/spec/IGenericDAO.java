@@ -7,7 +7,7 @@ import dao.DAOException;
 
 public interface IGenericDAO {
 
-	List selectAll() throws DAOException;
+	List<Object> selectAll() throws DAOException;
 
 	void insert(ObjectVO vo) throws DAOException;
 
