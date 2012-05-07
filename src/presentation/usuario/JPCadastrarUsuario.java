@@ -14,7 +14,7 @@ package presentation.usuario;
  *
  * @author Endril
  */
-public class JPCadastrarUsuario extends javax.swing.JPanel {
+public class JPCadastrarUsuario extends javax.swing.JPanel implements presentation.lib.ReturnEvent {
 
     /** Creates new form CriarUsuario */
     public JPCadastrarUsuario() {
@@ -163,4 +163,8 @@ private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
     // End of variables declaration//GEN-END:variables
+
+    public void onReturnFromOtherWindow(Object returnedObject) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
 }

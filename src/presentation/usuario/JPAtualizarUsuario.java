@@ -14,7 +14,7 @@ package presentation.usuario;
  *
  * @author Endril
  */
-public class JPAtualizarUsuario extends javax.swing.JPanel {
+public class JPAtualizarUsuario extends javax.swing.JPanel implements presentation.lib.ReturnEvent {
 
     /** Creates new form JPAtualizarUsuario */
     public JPAtualizarUsuario() {
@@ -181,4 +181,8 @@ private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
     // End of variables declaration//GEN-END:variables
+
+    public void onReturnFromOtherWindow(Object returnedObject) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
 }
