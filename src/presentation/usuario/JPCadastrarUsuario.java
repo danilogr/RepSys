@@ -14,10 +14,10 @@ package presentation.usuario;
  *
  * @author Endril
  */
-public class JPCriarUsuario extends javax.swing.JPanel {
+public class JPCadastrarUsuario extends javax.swing.JPanel {
 
     /** Creates new form CriarUsuario */
-    public JPCriarUsuario() {
+    public JPCadastrarUsuario() {
         initComponents();
     }
 
@@ -42,22 +42,23 @@ public class JPCriarUsuario extends javax.swing.JPanel {
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
+        jSeparator1 = new javax.swing.JSeparator();
 
         jLabel1.setFont(new java.awt.Font("Catriel", 1, 30)); // NOI18N
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("I18n/Bundle_pt_BR"); // NOI18N
-        jLabel1.setText(bundle.getString("JPCriarUsuario.jLabel1.text")); // NOI18N
+        jLabel1.setText(bundle.getString("JPCadastrarUsuario.jLabel1.text")); // NOI18N
 
         jLabel2.setFont(new java.awt.Font("Catriel", 3, 18)); // NOI18N
-        jLabel2.setText(bundle.getString("JPCriarUsuario.jLabel2.text")); // NOI18N
+        jLabel2.setText(bundle.getString("JPCadastrarUsuario.jLabel2.text")); // NOI18N
 
         jLabel3.setFont(new java.awt.Font("Catriel", 3, 18)); // NOI18N
-        jLabel3.setText(bundle.getString("JPCriarUsuario.jLabel3.text")); // NOI18N
+        jLabel3.setText(bundle.getString("JPCadastrarUsuario.jLabel3.text")); // NOI18N
 
         jLabel4.setFont(new java.awt.Font("Catriel", 3, 18)); // NOI18N
-        jLabel4.setText(bundle.getString("JPCriarUsuario.jLabel4.text")); // NOI18N
+        jLabel4.setText(bundle.getString("JPCadastrarUsuario.jLabel4.text")); // NOI18N
 
         jLabel5.setFont(new java.awt.Font("Catriel", 3, 18)); // NOI18N
-        jLabel5.setText(bundle.getString("JPCriarUsuario.jLabel5.text")); // NOI18N
+        jLabel5.setText(bundle.getString("JPCadastrarUsuario.jLabel5.text")); // NOI18N
 
         jPasswordField1.setFont(new java.awt.Font("Catriel", 0, 11)); // NOI18N
 
@@ -65,7 +66,7 @@ public class JPCriarUsuario extends javax.swing.JPanel {
 
         jTextField1.setFont(new java.awt.Font("Catriel", 0, 11));
         java.util.ResourceBundle bundle1 = java.util.ResourceBundle.getBundle("I18n/Bundle"); // NOI18N
-        jTextField1.setToolTipText(bundle1.getString("JPCriarUsuario.jTextField1.toolTipText")); // NOI18N
+        jTextField1.setToolTipText(bundle1.getString("JPCadastrarUsuario.jTextField1.toolTipText")); // NOI18N
         jTextField1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField1ActionPerformed(evt);
@@ -75,13 +76,13 @@ public class JPCriarUsuario extends javax.swing.JPanel {
         jTextField2.setFont(new java.awt.Font("Catriel", 0, 11));
 
         jButton1.setFont(new java.awt.Font("Catriel", 1, 12)); // NOI18N
-        jButton1.setText(bundle1.getString("JPCriarUsuario.jButton1.text")); // NOI18N
+        jButton1.setText(bundle1.getString("JPCadastrarUsuario.jButton1.text")); // NOI18N
 
         jButton2.setFont(new java.awt.Font("Catriel", 1, 12)); // NOI18N
-        jButton2.setText(bundle1.getString("JPCriarUsuario.jButton2.text")); // NOI18N
+        jButton2.setText(bundle1.getString("JPCadastrarUsuario.jButton2.text")); // NOI18N
 
         jLabel6.setForeground(new java.awt.Color(255, 0, 0));
-        jLabel6.setText(bundle1.getString("JPCriarUsuario.jLabel6.text")); // NOI18N
+        jLabel6.setText(bundle1.getString("JPCadastrarUsuario.jLabel6.text")); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -90,7 +91,9 @@ public class JPCriarUsuario extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jSeparator1, javax.swing.GroupLayout.DEFAULT_SIZE, 536, Short.MAX_VALUE)
                     .addComponent(jLabel1)
+                    .addComponent(jButton2, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel5)
@@ -99,15 +102,14 @@ public class JPCriarUsuario extends javax.swing.JPanel {
                             .addComponent(jLabel3))
                         .addGap(10, 10, 10)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextField2, javax.swing.GroupLayout.DEFAULT_SIZE, 360, Short.MAX_VALUE)
-                            .addComponent(jPasswordField1, javax.swing.GroupLayout.DEFAULT_SIZE, 360, Short.MAX_VALUE)
-                            .addComponent(jPasswordField2, javax.swing.GroupLayout.DEFAULT_SIZE, 360, Short.MAX_VALUE)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, 360, Short.MAX_VALUE)))
+                            .addComponent(jTextField2, javax.swing.GroupLayout.DEFAULT_SIZE, 324, Short.MAX_VALUE)
+                            .addComponent(jPasswordField1, javax.swing.GroupLayout.DEFAULT_SIZE, 324, Short.MAX_VALUE)
+                            .addComponent(jPasswordField2, javax.swing.GroupLayout.DEFAULT_SIZE, 324, Short.MAX_VALUE)
+                            .addComponent(jTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, 324, Short.MAX_VALUE)))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jButton1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 88, Short.MAX_VALUE)
-                        .addComponent(jLabel6))
-                    .addComponent(jButton2, javax.swing.GroupLayout.Alignment.TRAILING))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 52, Short.MAX_VALUE)
+                        .addComponent(jLabel6)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -115,6 +117,8 @@ public class JPCriarUsuario extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
@@ -135,7 +139,7 @@ public class JPCriarUsuario extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
                     .addComponent(jLabel6))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 77, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
                 .addComponent(jButton2)
                 .addContainerGap())
         );
@@ -156,6 +160,7 @@ private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
     private javax.swing.JLabel jLabel6;
     private javax.swing.JPasswordField jPasswordField1;
     private javax.swing.JPasswordField jPasswordField2;
+    private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
     // End of variables declaration//GEN-END:variables
