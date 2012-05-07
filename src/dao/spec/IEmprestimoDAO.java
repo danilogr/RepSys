@@ -8,6 +8,6 @@ import vo.EmprestimoVO;
  */
 public interface IEmprestimoDAO extends IGenericDAO{
     
-    EmprestimoVO selectByName(String emprestimo) throws DAOException;
+    EmprestimoVO selectByName(String name) throws DAOException;
     
 }

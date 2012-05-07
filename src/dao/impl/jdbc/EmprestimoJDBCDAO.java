@@ -8,10 +8,8 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.Properties;
 
-import vo.ContaUsuarioDevedorVO;
 import vo.EmprestimoVO;
 import vo.ObjectVO;
-import vo.UsuarioVO;
 import dao.DAOException;
 import dao.spec.IEmprestimoDAO;
 
@@ -100,6 +98,12 @@ public class EmprestimoJDBCDAO extends GenericJDBCDAO implements IEmprestimoDAO 
 		} catch (SQLException e) {
 			throw new DAOException(e);
 		}
+	}
+
+	@Override
+	public EmprestimoVO selectByName(String name) throws DAOException {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

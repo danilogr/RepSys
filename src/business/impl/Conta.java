@@ -51,21 +51,23 @@ public class Conta implements IConta {
 		}
 	}
 
-	public ContaVO getContaByUsuario(String email) throws BusinessException {
-		DAOFactory factory = DAOFactory.getInstance();
-		try {
-			IContaDAO dao = factory.getAccountDAO();
-			return dao.selectByUsuario(email);
-		} catch (Exception e) {
-			throw new BusinessException(e);
-		}
-	}
-
 	public List<Object> getAll() throws BusinessException {
 		DAOFactory factory = DAOFactory.getInstance();
 		try {
 			IContaDAO dao = factory.getAccountDAO();
 			return dao.selectAll();
+		} catch (Exception e) {
+			throw new BusinessException(e);
+		}
+	}
+
+	@Override
+	public List<ContaVO> getContasByUsuario(String email)
+			throws BusinessException {
+		DAOFactory factory = DAOFactory.getInstance();
+		try {
+			IContaDAO dao = factory.getAccountDAO();
+			return dao.selectByUsuario(email);
 		} catch (Exception e) {
 			throw new BusinessException(e);
 		}

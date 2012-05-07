@@ -1,5 +1,7 @@
 package dao.impl.jdbc;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -50,20 +52,20 @@ class ContaJDBCDAO extends GenericJDBCDAO implements IContaDAO {
 		}
 	}
 
-	public ContaVO selectByUsuario(String email) throws DAOException {
-		ContaVO vo = null;
+	public List<ContaVO> selectByUsuario(String email) throws DAOException {
+		List<ContaVO> list = new ArrayList<ContaVO>();
 		String sql = "SELECT * FROM " + this.getTableName()
 				+ " WHERE EMAIL = " + email;
 		try {
 			Statement stmt = this.getConnection().createStatement();
 			ResultSet rs = stmt.executeQuery(sql);
-			if (rs.next()) {
-				vo = (ContaVO) this.createVO(rs);
+			while(rs.next()) {
+				list.add((ContaVO) this.createVO(rs));
 			}
 		} catch (SQLException e) {
 			throw new DAOException(e);
 		}
-		return vo;
+		return list;
 	}
 	
 	@Override
