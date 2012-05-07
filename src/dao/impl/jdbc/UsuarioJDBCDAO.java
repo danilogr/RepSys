@@ -11,6 +11,7 @@ import util.Configuration;
 import vo.ContaVO;
 import vo.ObjectVO;
 import vo.UsuarioVO;
+import vo.VOException;
 import dao.DAOException;
 import dao.spec.IUsuarioDAO;
 
@@ -131,7 +132,7 @@ public class UsuarioJDBCDAO extends GenericJDBCDAO implements IUsuarioDAO {
 		return (UsuarioVO) vo;
 	}
 	
-	public static void main(String[] argv) throws DAOException {
+	public static void main(String[] argv) throws DAOException, VOException {
 		UsuarioJDBCDAO uDAO = new UsuarioJDBCDAO(Configuration.getInstance().getProperties());
 		List l = uDAO.selectAll("EMAIL", "ASC");
 		for(Object o : l) {

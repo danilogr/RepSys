@@ -40,11 +40,11 @@ public class ContaVO extends ObjectVO {
 		this.nome = nome;
 	}
 
-	public Double getSaldo() {
+	public Double getValor() {
 		return this.valor;
 	}
 
-	public void setSaldo(Double valor) {
+	public void setValor(Double valor) {
 		this.valor = valor;
 	}
 
@@ -89,7 +89,7 @@ public class ContaVO extends ObjectVO {
 		buffer.append(", nome = ");
 		buffer.append(this.getNome());
 		buffer.append(", valor = ");
-		buffer.append(this.getSaldo());
+		buffer.append(this.getValor());
 		buffer.append(", usuarioResponsavel = ");
 		buffer.append(this.getUsuario().getNome());
 		buffer.append("]");

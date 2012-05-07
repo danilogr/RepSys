@@ -11,6 +11,7 @@ import java.util.Properties;
 import vo.ContaVO;
 import vo.ObjectVO;
 import vo.UsuarioVO;
+import vo.VOException;
 import dao.DAOException;
 import dao.DAOFactory;
 import dao.spec.IContaDAO;
@@ -28,7 +29,7 @@ class ContaJDBCDAO extends GenericJDBCDAO implements IContaDAO {
 		try {
 			PreparedStatement stmt = this.getConnection().prepareStatement(sql);
 			ContaVO conta = (ContaVO) vo;
-			stmt.setDouble(1, conta.getSaldo());
+			stmt.setDouble(1, conta.getValor());
 			stmt.setString(2, conta.getUsuario().getEmail());
 			stmt.setString(3, conta.getNome());
 			stmt.executeUpdate();
@@ -44,7 +45,7 @@ class ContaJDBCDAO extends GenericJDBCDAO implements IContaDAO {
 			ContaVO conta = (ContaVO) vo;
 			PreparedStatement stmt = this.getConnection().prepareStatement(sql);
 			stmt.setString(1, conta.getNome());
-			stmt.setDouble(2, conta.getSaldo());
+			stmt.setDouble(2, conta.getValor());
 			stmt.setString(3, conta.getUsuario().getEmail());
 			stmt.executeUpdate();
 		} catch (SQLException e) {
@@ -52,7 +53,7 @@ class ContaJDBCDAO extends GenericJDBCDAO implements IContaDAO {
 		}
 	}
 
-	public List<ContaVO> selectByUsuario(String email) throws DAOException {
+	public List<ContaVO> selectByUsuario(String email) throws DAOException, VOException {
 		List<ContaVO> list = new ArrayList<ContaVO>();
 		String sql = "SELECT * FROM " + this.getTableName()
 				+ " WHERE EMAIL = " + email;
@@ -60,7 +61,11 @@ class ContaJDBCDAO extends GenericJDBCDAO implements IContaDAO {
 			Statement stmt = this.getConnection().createStatement();
 			ResultSet rs = stmt.executeQuery(sql);
 			while(rs.next()) {
-				list.add((ContaVO) this.createVO(rs));
+				try {
+					list.add((ContaVO) this.createVO(rs));
+				} catch (Exception e) {
+					throw new VOException(e);
+				}
 			}
 		} catch (SQLException e) {
 			throw new DAOException(e);
@@ -69,13 +74,14 @@ class ContaJDBCDAO extends GenericJDBCDAO implements IContaDAO {
 	}
 	
 	@Override
-	public ContaVO selectByName(String name) throws DAOException {
+	public ContaVO selectByName(String nome) throws DAOException, VOException {
 		ContaVO vo = null;
 		String sql = "SELECT * FROM " + this.getTableName()
-				+ " WHERE NOME = " + name;
+				+ " WHERE NOME = ?";
 		try {
-			Statement stmt = this.getConnection().createStatement();
-			ResultSet rs = stmt.executeQuery(sql);
+			PreparedStatement stmt = this.getConnection().prepareStatement(sql);
+			stmt.setString(1, nome);
+			ResultSet rs = stmt.executeQuery();
 			if (rs.next()) {
 				vo = (ContaVO) this.createVO(rs);
 			}
@@ -98,11 +104,11 @@ class ContaJDBCDAO extends GenericJDBCDAO implements IContaDAO {
 		}
 	}
 
-	public String getTableName() {
+	protected String getTableName() {
 		return "CONTA";
 	}
 
-	protected ObjectVO createVO(ResultSet rs) throws DAOException {
+	protected ObjectVO createVO(ResultSet rs) throws DAOException, VOException {
 		try {
 			String nome = rs.getString("NOME");
 			float valor = rs.getFloat("VALOR");
