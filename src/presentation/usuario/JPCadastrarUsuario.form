@@ -20,7 +20,7 @@
           <Group type="102" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="jSeparator1" alignment="0" pref="536" max="32767" attributes="0"/>
+                  <Component id="jSeparator1" alignment="0" pref="555" max="32767" attributes="0"/>
                   <Component id="jLabel1" alignment="0" min="-2" max="-2" attributes="0"/>
                   <Component id="jButton2" alignment="1" min="-2" max="-2" attributes="0"/>
                   <Group type="102" alignment="0" attributes="0">
@@ -32,15 +32,15 @@
                       </Group>
                       <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jTextField2" alignment="0" pref="404" max="32767" attributes="1"/>
-                          <Component id="jPasswordField1" alignment="0" pref="404" max="32767" attributes="1"/>
-                          <Component id="jPasswordField2" alignment="0" pref="404" max="32767" attributes="1"/>
-                          <Component id="jTextField1" alignment="0" pref="404" max="32767" attributes="1"/>
+                          <Component id="jTextField2" alignment="0" pref="343" max="32767" attributes="1"/>
+                          <Component id="jPasswordField1" alignment="0" pref="343" max="32767" attributes="1"/>
+                          <Component id="jPasswordField2" alignment="0" pref="343" max="32767" attributes="1"/>
+                          <Component id="jTextField1" alignment="0" pref="343" max="32767" attributes="1"/>
                       </Group>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
                       <Component id="jButton1" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="52" max="32767" attributes="0"/>
+                      <EmptySpace pref="71" max="32767" attributes="0"/>
                       <Component id="jLabel6" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
