@@ -4,9 +4,9 @@
  */
 
 /*
- * CriarUsuario.java
+ * JPAtualizarUsuario.java
  *
- * Created on 06/05/2012, 21:49:05
+ * Created on 07/05/2012, 00:06:38
  */
 package presentation.usuario;
 
@@ -14,10 +14,10 @@ package presentation.usuario;
  *
  * @author Endril
  */
-public class JPCadastrarUsuario extends javax.swing.JPanel {
+public class JPAtualizarUsuario extends javax.swing.JPanel {
 
-    /** Creates new form CriarUsuario */
-    public JPCadastrarUsuario() {
+    /** Creates new form JPAtualizarUsuario */
+    public JPAtualizarUsuario() {
         initComponents();
     }
 
@@ -41,8 +41,9 @@ public class JPCadastrarUsuario extends javax.swing.JPanel {
         jTextField2 = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
-        jLabel6 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
+        jLabel6 = new javax.swing.JLabel();
+        jPasswordField3 = new javax.swing.JPasswordField();
 
         jLabel1.setFont(new java.awt.Font("Cambria", 1, 30)); // NOI18N
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("I18n/Bundle"); // NOI18N
@@ -80,8 +81,10 @@ public class JPCadastrarUsuario extends javax.swing.JPanel {
         jButton2.setFont(new java.awt.Font("Calibri", 1, 12)); // NOI18N
         jButton2.setText(bundle.getString("JPCadastrarUsuario.jButton2.text")); // NOI18N
 
-        jLabel6.setForeground(new java.awt.Color(255, 0, 0));
-        jLabel6.setText(bundle.getString("JPCadastrarUsuario.jLabel6.text")); // NOI18N
+        jLabel6.setFont(new java.awt.Font("Calibri", 3, 18)); // NOI18N
+        jLabel6.setText(bundle.getString("JPCadastrarUsuario.jLabel4.text")); // NOI18N
+
+        jPasswordField3.setFont(new java.awt.Font("Catriel", 0, 11)); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -90,25 +93,32 @@ public class JPCadastrarUsuario extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jSeparator1, javax.swing.GroupLayout.DEFAULT_SIZE, 555, Short.MAX_VALUE)
+                    .addComponent(jSeparator1, javax.swing.GroupLayout.DEFAULT_SIZE, 468, Short.MAX_VALUE)
                     .addComponent(jLabel1)
-                    .addComponent(jButton2, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jButton1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 264, Short.MAX_VALUE)
+                        .addComponent(jButton2))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel3))
+                        .addGap(134, 134, 134)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jTextField2, javax.swing.GroupLayout.DEFAULT_SIZE, 282, Short.MAX_VALUE)
+                            .addComponent(jTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, 282, Short.MAX_VALUE)))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel5)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel4)
-                            .addComponent(jLabel3))
+                            .addComponent(jLabel4))
                         .addGap(10, 10, 10)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextField2, javax.swing.GroupLayout.DEFAULT_SIZE, 369, Short.MAX_VALUE)
-                            .addComponent(jPasswordField1, javax.swing.GroupLayout.DEFAULT_SIZE, 369, Short.MAX_VALUE)
-                            .addComponent(jPasswordField2, javax.swing.GroupLayout.DEFAULT_SIZE, 369, Short.MAX_VALUE)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, 369, Short.MAX_VALUE)))
+                            .addComponent(jPasswordField1, javax.swing.GroupLayout.DEFAULT_SIZE, 282, Short.MAX_VALUE)
+                            .addComponent(jPasswordField2, javax.swing.GroupLayout.DEFAULT_SIZE, 282, Short.MAX_VALUE)))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButton1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 91, Short.MAX_VALUE)
-                        .addComponent(jLabel6)))
+                        .addComponent(jLabel6)
+                        .addGap(79, 79, 79)
+                        .addComponent(jPasswordField3, javax.swing.GroupLayout.DEFAULT_SIZE, 282, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -126,6 +136,10 @@ public class JPCadastrarUsuario extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 25, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel6)
+                    .addComponent(jPasswordField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -136,10 +150,8 @@ public class JPCadastrarUsuario extends javax.swing.JPanel {
                     .addComponent(jPasswordField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jLabel6))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 9, Short.MAX_VALUE)
-                .addComponent(jButton2)
+                    .addComponent(jButton2)
+                    .addComponent(jButton1))
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -159,6 +171,7 @@ private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
     private javax.swing.JLabel jLabel6;
     private javax.swing.JPasswordField jPasswordField1;
     private javax.swing.JPasswordField jPasswordField2;
+    private javax.swing.JPasswordField jPasswordField3;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
