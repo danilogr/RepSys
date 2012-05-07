@@ -22,7 +22,7 @@ class ContaJDBCDAO extends GenericJDBCDAO implements IContaDAO {
 
 	public void update(ObjectVO vo) throws DAOException {
 		String sql = "UPDATE " + this.getTableName()
-				+ " VALOR = ?, EMAIL = ? WHERE NOME = ?";
+				+ " SET VALOR = ?, EMAIL = ? WHERE NOME = ?";
 		try {
 			PreparedStatement stmt = this.getConnection().prepareStatement(sql);
 			ContaVO conta = (ContaVO) vo;
@@ -85,11 +85,12 @@ class ContaJDBCDAO extends GenericJDBCDAO implements IContaDAO {
 	
 	public void delete(ObjectVO vo) throws DAOException {
 		String sql = "DELETE FROM " + this.getTableName()
-					+ "WHERE NOME = ?";
+					+ " WHERE NOME = ?";
 		try {
 			ContaVO conta = (ContaVO) vo;
 			PreparedStatement stmt = this.getConnection().prepareStatement(sql);
 			stmt.setString(1, conta.getNome());
+			stmt.executeUpdate();
 		} catch(Exception e){
 			throw new DAOException(e);
 		}
