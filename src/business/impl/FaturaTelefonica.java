@@ -6,6 +6,7 @@ import business.spec.IFaturaTelefonica;
 import dao.DAOFactory;
 import dao.spec.IFaturaTelefonicaDAO;
 import java.util.List;
+import vo.EmprestimoVO;
 
 /**
  * @author Nelson
@@ -22,11 +23,12 @@ public class FaturaTelefonica implements IFaturaTelefonica {
 		}
 	}
     
-    	public void delete(int id) throws BusinessException {
+    	public void delete(String name) throws BusinessException {
 		DAOFactory factory = DAOFactory.getInstance();
 		try {
 			IFaturaTelefonicaDAO dao = factory.getFaturaTelefonicaDAO();
-			dao.delete(id);
+			FaturaTelefonicaVO fatura = getFaturaTelefonica(name);
+			dao.delete(fatura);
 		} catch (Exception e) {
 			throw new BusinessException(e);
 		}
@@ -42,11 +44,11 @@ public class FaturaTelefonica implements IFaturaTelefonica {
             }
 	}
         
-       	public FaturaTelefonicaVO getFaturaTelefonica(int id) throws BusinessException {
+       	public FaturaTelefonicaVO getFaturaTelefonica(String name) throws BusinessException {
 	DAOFactory factory = DAOFactory.getInstance();
 	try {
 		IFaturaTelefonicaDAO dao = factory.getFaturaTelefonicaDAO();
-		return (FaturaTelefonicaVO) dao.selectByID(id);
+		return (FaturaTelefonicaVO) dao.selectByName(name);
             } catch (Exception e) {
 		throw new BusinessException(e);
             }

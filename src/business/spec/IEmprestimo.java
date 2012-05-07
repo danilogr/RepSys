@@ -11,11 +11,11 @@ public interface IEmprestimo {
 
 	void create(EmprestimoVO vo) throws BusinessException;
 
-	void delete(int id) throws BusinessException;
+	void delete(String name) throws BusinessException;
 
 	void update(EmprestimoVO vo) throws BusinessException;
 
-	EmprestimoVO getEmprestimo(int id) throws BusinessException;
+	EmprestimoVO getEmprestimo(String name) throws BusinessException;
 
 	List getAll() throws BusinessException;
 
