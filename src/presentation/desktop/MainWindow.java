@@ -10,7 +10,11 @@
  */
 package presentation.desktop;
 
-import presentation.JPLogin;
+import java.awt.CardLayout;
+import java.util.ArrayList;
+import java.util.List;
+import presentation.lib.ReturnEvent;
+
 
 /**
  *
@@ -18,37 +22,103 @@ import presentation.JPLogin;
  */
 public class MainWindow extends javax.swing.JFrame {
 
+    /*
+     * Parte do sistema que trabalha o movimento das janelas internas
+     */
+    private List<ReturnEvent> eventosDeRetorno; //pilha de eventos de retorno
+    private List<String> eventosDeRetornoNome;  //pilha com os identificadores dos eventos
+    
+    /*
+     * Parte que cuida da autenticação
+     */
     private boolean USUARIO_AUTENTICADO = false;
-    //DECLARAR VARIAVEL PARA GUARDAR OBJETO DO USUARIO AUTENTICADO.
+    // #TODO: DECLARAR VARIAVEL PARA GUARDAR OBJETO DO USUARIO AUTENTICADO.
+    
+    private CardLayout content, loginArea;
     
     /** Creates new form MainWindow */
     public MainWindow() {
         initComponents();
         
-        //Como, inicialmente nao temos nenhum usuario autenticado
-          /* 
-      Após a declaração das variaveis
-     * vamos chamar o painel de Login
-     */
+        //Cria a lista de eventos de retorno
+        eventosDeRetorno = new ArrayList<ReturnEvent>();
+        eventosDeRetornoNome = new ArrayList<String>();
+        
+        //salva os CardLayouts
+        loginArea = (CardLayout) jPanelLoginArea.getLayout();
+        content = (CardLayout) jPanelContent.getLayout();
+        
+        //Instanciar a tela de Login
+        //JPLogin login = new JPLogin();
+        //jPanelLoginArea.add(login, LOGIN);
+        //loginArea.show(jPanelLoginArea, LOGIN);
+        
+        //INSTANCIAR AQUI A JANELA PRINCIPAL
+        // Jpanel2 jp1 = new Jpanel2();   
+        // showCard(jp1, jp1);
     
-    JPLogin login = new JPLogin();
-    jPanelTop.add(login);
-    
-    javax.swing.GroupLayout jPanelLoginAreaLayout = new javax.swing.GroupLayout(login);
-        login.setLayout(jPanelLoginAreaLayout);
-        jPanelLoginAreaLayout.setHorizontalGroup(
-            jPanelLoginAreaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 238, Short.MAX_VALUE)
-        );
-        jPanelLoginAreaLayout.setVerticalGroup(
-            jPanelLoginAreaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 133, Short.MAX_VALUE)
-        );
-    jPanelTop.validate();
-    pack();
-    validate();
             
     }
+    
+    /**  **/
+    
+    public void showCard(ReturnEvent callback, javax.swing.JPanel card)
+    {
+       
+        String cardName = Integer.toString(eventosDeRetorno.size());
+        eventosDeRetornoNome.add(cardName);
+        eventosDeRetorno.add(callback);
+        
+        jPanelContent.add(card,cardName);
+        content.show(jPanelContent,cardName);
+    }
+ 
+    /*
+      Funcao que fecha um objeto
+     */
+    public void closeCurrentCard(Object returnedValue)
+    {
+        if(!eventosDeRetorno.isEmpty())
+        {
+            int index = eventosDeRetornoNome.size();
+            ReturnEvent re = eventosDeRetorno.remove(index-1);
+            eventosDeRetornoNome.remove(index-1);
+            
+            //apenas executa a funcao de retorno quando o valor retornado for diferente de null
+            //e quando nao for a primeira janela criada (mesmo que ela indique um valor de retorno)
+            if(eventosDeRetorno.size() >= 1 && returnedValue != null)
+            {
+                //chama a funcao de retorno
+                re.onReturnFromOtherWindow(returnedValue);
+            }
+            
+            jPanelContent.remove(this);
+            content.show(jPanelContent, eventosDeRetornoNome.get(index-2));
+        }   
+
+    }
+    
+    
+    public void closeCurrentCard()
+    {
+        closeCurrentCard(null);
+    }
+    
+    
+    /*
+       Funcao que permite pegar o objeto corrente desta classes
+     */
+    static private MainWindow mainwindow = null;
+    
+    public static MainWindow getInstance()
+    {
+        if(mainwindow == null)
+        {
+            mainwindow = new MainWindow();
+        }
+        return mainwindow;
+    }
+
 
     /** This method is called from within the constructor to
      * initialize the form.
@@ -60,8 +130,10 @@ public class MainWindow extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanelTop = new javax.swing.JPanel();
+        jPanelLoginArea = new javax.swing.JPanel();
         jPanelContainerBottom = new javax.swing.JPanel();
         jScrollPanelContent = new javax.swing.JScrollPane();
+        jPanelContent = new javax.swing.JPanel();
         jPanelMenu = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -69,21 +141,30 @@ public class MainWindow extends javax.swing.JFrame {
 
         jPanelTop.setName("jPanelTop"); // NOI18N
 
+        jPanelLoginArea.setName("jPanelLoginArea"); // NOI18N
+        jPanelLoginArea.setLayout(new java.awt.CardLayout());
+
         javax.swing.GroupLayout jPanelTopLayout = new javax.swing.GroupLayout(jPanelTop);
         jPanelTop.setLayout(jPanelTopLayout);
         jPanelTopLayout.setHorizontalGroup(
             jPanelTopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 570, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelTopLayout.createSequentialGroup()
+                .addContainerGap(372, Short.MAX_VALUE)
+                .addComponent(jPanelLoginArea, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         jPanelTopLayout.setVerticalGroup(
             jPanelTopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 133, Short.MAX_VALUE)
+            .addComponent(jPanelLoginArea, javax.swing.GroupLayout.DEFAULT_SIZE, 106, Short.MAX_VALUE)
         );
 
         jPanelContainerBottom.setName("jPanelContainerBottom"); // NOI18N
 
         jScrollPanelContent.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jScrollPanelContent.setName("jScrollPanelContent"); // NOI18N
+
+        jPanelContent.setName("jPanelContent"); // NOI18N
+        jPanelContent.setLayout(new java.awt.CardLayout());
+        jScrollPanelContent.setViewportView(jPanelContent);
 
         jPanelMenu.setName("jPanelMenu"); // NOI18N
 
@@ -95,7 +176,7 @@ public class MainWindow extends javax.swing.JFrame {
         );
         jPanelMenuLayout.setVerticalGroup(
             jPanelMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 312, Short.MAX_VALUE)
+            .addGap(0, 339, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout jPanelContainerBottomLayout = new javax.swing.GroupLayout(jPanelContainerBottom);
@@ -110,7 +191,7 @@ public class MainWindow extends javax.swing.JFrame {
         jPanelContainerBottomLayout.setVerticalGroup(
             jPanelContainerBottomLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanelMenu, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jScrollPanelContent, javax.swing.GroupLayout.DEFAULT_SIZE, 312, Short.MAX_VALUE)
+            .addComponent(jScrollPanelContent, javax.swing.GroupLayout.DEFAULT_SIZE, 339, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -162,17 +243,18 @@ public class MainWindow extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
 
             public void run() {
-                new MainWindow().setVisible(true);
+                getInstance().setVisible(true);
             }
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel jPanelContainerBottom;
+    private javax.swing.JPanel jPanelContent;
+    private javax.swing.JPanel jPanelLoginArea;
     private javax.swing.JPanel jPanelMenu;
     private javax.swing.JPanel jPanelTop;
     private javax.swing.JScrollPane jScrollPanelContent;
     // End of variables declaration//GEN-END:variables
     
-  
 
 }
