@@ -37,16 +37,20 @@ public class JDBCDAOFactory extends DAOFactory {
 		return new EmprestimoJDBCDAO(this.properties);
 	}
         
-       	public IFaturaTelefonicaDAO getFaturaTelefonicaDAO() throws DAOException {
-        	return new FaturaTelefonicaJDBCDAO(this.properties);
+	//TODO: acertas estes métodos após implementar os DAOS
+    public IFaturaTelefonicaDAO getFaturaTelefonicaDAO() throws DAOException {
+        //return new FaturaTelefonicaJDBCDAO(this.properties);
+    	return null;
 	}
 
 	public IItemFaturaTelefonicaDAO getItemFaturaTelefonicaDAO() throws DAOException {
-		return new ItemFaturaTelefonicaJDBCDAO(this.properties);
+		//return new ItemFaturaTelefonicaJDBCDAO(this.properties);
+		return null;
 	}
 
 	public INumeroTelefonicoDAO getNumeroTelefonicoDAO() throws DAOException {
-		return new NumeroTelefonicoJDBCDAO(this.properties);
+		//return new NumeroTelefonicoJDBCDAO(this.properties);
+		return null;
 	}
         
         

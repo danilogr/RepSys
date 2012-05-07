@@ -7,16 +7,16 @@ import business.BusinessException;
 
 public interface IConta {
 
-	void create(ContaVO vo) throws BusinessException;
+	public void create(ContaVO vo) throws BusinessException;
 
-	void update(ContaVO vo) throws BusinessException;
+	public void update(ContaVO vo) throws BusinessException;
         
-        void delete(String name) throws BusinessException;
+	public void delete(String name) throws BusinessException;
         
-        ContaVO getConta(String name) throws BusinessException;
+	public ContaVO getConta(String name) throws BusinessException;
 
-	ContaVO getContaByUsuario(String email) throws BusinessException;
+	public List<ContaVO> getContasByUsuario(String email) throws BusinessException;
 
-	List<Object> getAll() throws BusinessException;
+	public List<Object> getAll() throws BusinessException;
 
 }

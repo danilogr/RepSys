@@ -1,12 +1,14 @@
 package dao.spec;
 
+import java.util.List;
+
 import vo.ContaVO;
 import dao.DAOException;
 
 public interface IContaDAO extends IGenericDAO {
 
-	ContaVO selectByUsuario(String email) throws DAOException;
+	public List selectByUsuario(String email) throws DAOException;
 
-	ContaVO selectByName(String conta) throws DAOException;
+	public ContaVO selectByName(String conta) throws DAOException;
 
 }
