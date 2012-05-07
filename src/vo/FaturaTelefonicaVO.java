@@ -9,7 +9,7 @@ import java.util.GregorianCalendar;
  *
  * @author Daniel
  */
-public class FaturaTelefonicaVO {
+public class FaturaTelefonicaVO extends ObjectVO{
     
     private int mes;
     
