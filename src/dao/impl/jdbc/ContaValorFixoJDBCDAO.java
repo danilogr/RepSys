@@ -29,6 +29,7 @@ public class ContaValorFixoJDBCDAO extends ContaJDBCDAO implements IContaValorFi
 
 	@Override
 	public void insert(ObjectVO vo) throws DAOException {
+		super.insert(vo);
 		String sql = "INSERT INTO " + this.getTableName()
 					+ " (NOME, DATA_INICIAL, TEMPO_RECORRENCIA, PERIODO_RECORRENCIA)"
 					+ " VALUES (?, ?, ?, ?)";
@@ -49,6 +50,7 @@ public class ContaValorFixoJDBCDAO extends ContaJDBCDAO implements IContaValorFi
 
 	@Override
 	public void update(ObjectVO vo) throws DAOException {
+		super.update(vo);
 		String sql  = "UPDATE " + this.getTableName() + " SET"
 					+ " DATA_INICIAL = ?, TEMPO_RECORRENCIA = ?, PERIODO_RECORRENCIA = ?" 
 					+ " WHERE NOME = ?";

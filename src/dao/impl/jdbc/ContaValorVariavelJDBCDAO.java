@@ -29,6 +29,7 @@ public class ContaValorVariavelJDBCDAO extends ContaJDBCDAO implements IContaVal
 
 	@Override
 	public void insert(ObjectVO vo) throws DAOException {
+		super.insert(vo);
 		String sql = "INSERT INTO " + this.getTableName()
 					+ " (NOME, DATA__DE_VENCIMENTO)"
 					+ " VALUES (?, ?)";
@@ -47,6 +48,7 @@ public class ContaValorVariavelJDBCDAO extends ContaJDBCDAO implements IContaVal
 
 	@Override
 	public void update(ObjectVO vo) throws DAOException {
+		super.update(vo);
 		String sql  = "UPDATE " + this.getTableName() + " SET"
 					+ " DATA_DE_VENCIMENTO = ? WHERE NOME = ?";
 		try {
@@ -108,6 +110,10 @@ public class ContaValorVariavelJDBCDAO extends ContaJDBCDAO implements IContaVal
 	public static void main(String[] argv) throws DAOException, VOException {
 		ContaValorVariavelJDBCDAO cvfDAO = new ContaValorVariavelJDBCDAO(Configuration.getInstance().getProperties());
 		ContaValorVariavelVO vo = cvfDAO.selectByName("Luz-02/2013");
+		Calendar cal = new GregorianCalendar();
+		cal.set(2013, 02, 20);
+		vo.setDataVencimento(cal);
+		cvfDAO.update(vo);
 		System.out.println(vo.toString());
 	}
 
