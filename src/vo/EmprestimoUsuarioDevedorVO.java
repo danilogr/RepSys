@@ -22,7 +22,6 @@ public class EmprestimoUsuarioDevedorVO extends ObjectVO {
         
     }
     
-    
     public EmprestimoVO getEmprestimo() {
         return emprestimo;
     }

@@ -52,6 +52,68 @@ public abstract class GenericJDBCDAO implements IGenericDAO {
 		}
 		return list;
 	}
+	
+	public final List selectAll(String order, String sort) throws DAOException {
+		if(!(sort.equalsIgnoreCase("DESC") || sort.equalsIgnoreCase("ASC"))) {
+			sort = "DESC";
+		}
+		
+		String sql = "SELECT * FROM " + this.getTableName()
+					+ " ORDER BY " + order + " " + sort;
+		List<ObjectVO> list = new ArrayList<ObjectVO>();
+		try {
+			Statement stmt = this.getConnection().createStatement();
+			ResultSet rs = stmt.executeQuery(sql);
+			while (rs.next()) {
+				list.add(this.createVO(rs));
+			}
+		} catch (SQLException e) {
+			throw new DAOException(e);
+		}
+		return list;
+	}
+	
+	public final List selectAll(String order, String sort, int limit) throws DAOException {
+		if(!(sort.equalsIgnoreCase("DESC") || sort.equalsIgnoreCase("ASC"))) {
+			sort = "DESC";
+		}
+		
+		String sql = "SELECT * FROM " + this.getTableName()
+					+ " ORDER BY " + order + " " + sort
+					+ " LIMIT " + limit;
+		List<ObjectVO> list = new ArrayList<ObjectVO>();
+		try {
+			Statement stmt = this.getConnection().createStatement();
+			ResultSet rs = stmt.executeQuery(sql);
+			while (rs.next()) {
+				list.add(this.createVO(rs));
+			}
+		} catch (SQLException e) {
+			throw new DAOException(e);
+		}
+		return list;
+	}
+	
+	public final List selectAll(String order, String sort, int limit, int offset) throws DAOException {
+		if(!(sort.equalsIgnoreCase("DESC") || sort.equalsIgnoreCase("ASC"))) {
+			sort = "DESC";
+		}
+		
+		String sql = "SELECT * FROM " + this.getTableName()
+					+ " ORDER BY " + order + " " + sort
+					+ " LIMIT " + limit + " OFFSET " + offset;
+		List<ObjectVO> list = new ArrayList<ObjectVO>();
+		try {
+			Statement stmt = this.getConnection().createStatement();
+			ResultSet rs = stmt.executeQuery(sql);
+			while (rs.next()) {
+				list.add(this.createVO(rs));
+			}
+		} catch (SQLException e) {
+			throw new DAOException(e);
+		}
+		return list;
+	}
 
 	protected abstract String getTableName();
 

@@ -5,7 +5,6 @@ import java.sql.ResultSet;
 import java.util.Properties;
 
 import vo.ContaUsuarioDevedorVO;
-import vo.ContaVO;
 import vo.ObjectVO;
 import dao.DAOException;
 
@@ -27,6 +26,7 @@ public class ContaUsuarioDevedorJDBCDAO extends GenericJDBCDAO {
 			stmt.setString(1, cud.getUsuario().getEmail());
 			stmt.setString(2, cud.getConta().getNome());
 			stmt.setFloat(3, cud.getProporcao());
+			stmt.executeUpdate();
 		} catch (Exception e) {
 			throw new DAOException(e);
 		}
@@ -36,13 +36,29 @@ public class ContaUsuarioDevedorJDBCDAO extends GenericJDBCDAO {
 	@Override
 	public void update(ObjectVO vo) throws DAOException {
 		String sql = "UPDATE " + this.getTableName()
-				   + " PROPORCAO = ? WHERE EMAIL = ? AND NOME = ?";
+				   + " SET PROPORCAO = ? WHERE EMAIL = ? AND NOME = ?";
 		try {
 			ContaUsuarioDevedorVO cud = (ContaUsuarioDevedorVO) vo;
 			PreparedStatement stmt = this.getConnection().prepareStatement(sql);
 			stmt.setFloat(1, cud.getProporcao());
 			stmt.setString(2, cud.getUsuario().getEmail());
 			stmt.setString(3, cud.getConta().getNome());
+			stmt.executeUpdate();
+		} catch (Exception e) {
+			throw new DAOException(e);
+		}
+	}
+	
+	@Override
+	public void delete(ObjectVO vo) throws DAOException {
+		String sql = "DELETE FROM " + this.getTableName() 
+					+ " WHERE EMAIL = ? AND NOME = ?";
+		try {
+			ContaUsuarioDevedorVO cud = (ContaUsuarioDevedorVO) vo;
+			PreparedStatement stmt = this.getConnection().prepareStatement(sql);
+			stmt.setString(1, cud.getUsuario().getEmail());
+			stmt.setString(2, cud.getConta().getNome());
+			stmt.executeUpdate();
 		} catch (Exception e) {
 			throw new DAOException(e);
 		}
@@ -50,20 +66,13 @@ public class ContaUsuarioDevedorJDBCDAO extends GenericJDBCDAO {
 
 	@Override
 	protected String getTableName() {
-		// TODO Auto-generated method stub
-		return null;
+		return "CONTA_USUARIO_DEVEDOR";
 	}
 
 	@Override
 	protected ObjectVO createVO(ResultSet rs) throws DAOException {
 		// TODO Auto-generated method stub
 		return null;
-	}
-
-	@Override
-	public void delete(ObjectVO vo) throws DAOException {
-		// TODO Auto-generated method stub
-		
 	}
 
 }
