@@ -14,7 +14,8 @@ public class Usuario implements IUsuario {
 		DAOFactory factory = DAOFactory.getInstance();
 		try {
 			IUsuarioDAO dao = factory.getUserDAO();
-			dao.delete(id);
+			// TODO: alter the call of method delete do apdapt it to the new interface
+			//dao.delete(id);
 		} catch (Exception e) {
 			throw new BusinessException(e);
 		}
@@ -44,7 +45,8 @@ public class Usuario implements IUsuario {
 		DAOFactory factory = DAOFactory.getInstance();
 		try {
 			IUsuarioDAO dao = factory.getUserDAO();
-			return (UsuarioVO) dao.selectByID(id);
+			// TODO: method selectByID not exists anymore
+			//return (UsuarioVO) dao.selectByID(id);
 		} catch (Exception e) {
 			throw new BusinessException(e);
 		}

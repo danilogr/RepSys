@@ -65,6 +65,35 @@ class ContaJDBCDAO extends GenericJDBCDAO implements IContaDAO {
 		}
 		return vo;
 	}
+	
+	@Override
+	public ContaVO selectByName(String name) throws DAOException {
+		ContaVO vo = null;
+		String sql = "SELECT * FROM " + this.getTableName()
+				+ " WHERE NOME = " + name;
+		try {
+			Statement stmt = this.getConnection().createStatement();
+			ResultSet rs = stmt.executeQuery(sql);
+			if (rs.next()) {
+				vo = (ContaVO) this.createVO(rs);
+			}
+		} catch (SQLException e) {
+			throw new DAOException(e);
+		}
+		return vo;
+	}
+	
+	public void delete(ObjectVO vo) throws DAOException {
+		String sql = "DELETE FROM " + this.getTableName()
+					+ "WHERE NOME = ?";
+		try {
+			ContaVO conta = (ContaVO) vo;
+			PreparedStatement stmt = this.getConnection().prepareStatement(sql);
+			stmt.setString(1, conta.getNome());
+		} catch(Exception e){
+			throw new DAOException(e);
+		}
+	}
 
 	public String getTableName() {
 		return "CONTA";

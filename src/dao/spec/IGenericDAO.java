@@ -11,11 +11,7 @@ public interface IGenericDAO {
 
 	void insert(ObjectVO vo) throws DAOException;
 
-	int selectLastID() throws DAOException;
-
-	ObjectVO selectByID(int id) throws DAOException;
-
-	void delete(int id) throws DAOException;
+	void delete(ObjectVO vo) throws DAOException;
 
 	void update(ObjectVO vo) throws DAOException;
 
