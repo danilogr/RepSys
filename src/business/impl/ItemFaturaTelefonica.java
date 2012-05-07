@@ -12,7 +12,7 @@ import java.util.List;
  */
 
 
-public class ItemFaturaTelefonica {
+public class ItemFaturaTelefonica implements IItemFaturaTelefonica{
 
         public void create(ItemFaturaTelefonicaVO vo) throws BusinessException {
 		DAOFactory factory = DAOFactory.getInstance();
@@ -24,11 +24,12 @@ public class ItemFaturaTelefonica {
 		}
 	}
     
-    	public void delete(int id) throws BusinessException {
+    	public void delete(String name) throws BusinessException {
 		DAOFactory factory = DAOFactory.getInstance();
 		try {
 			IItemFaturaTelefonicaDAO dao = factory.getItemFaturaTelefonicaDAO();
-			dao.delete(id);
+			ItemFaturaTelefonicaVO itemFatura = getItemFaturaTelefonica(name);
+			dao.delete(itemFatura);
 		} catch (Exception e) {
 			throw new BusinessException(e);
 		}
@@ -44,11 +45,11 @@ public class ItemFaturaTelefonica {
             }
 	}
         
-       	public ItemFaturaTelefonicaVO getItemFaturaTelefonica(int id) throws BusinessException {
+       	public ItemFaturaTelefonicaVO getItemFaturaTelefonica(String name) throws BusinessException {
 	DAOFactory factory = DAOFactory.getInstance();
 	try {
 		IItemFaturaTelefonicaDAO dao = factory.getItemFaturaTelefonicaDAO();
-		return (ItemFaturaTelefonicaVO) dao.selectByID(id);
+		return (ItemFaturaTelefonicaVO) dao.selectByName(name);
             } catch (Exception e) {
 		throw new BusinessException(e);
             }

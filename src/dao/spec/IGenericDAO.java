@@ -14,5 +14,4 @@ public interface IGenericDAO {
 	void delete(ObjectVO vo) throws DAOException;
 
 	void update(ObjectVO vo) throws DAOException;
-
 }

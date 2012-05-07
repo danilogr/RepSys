@@ -22,11 +22,12 @@ public class Emprestimo implements IEmprestimo {
 		}
 	}
     
-    	public void delete(int id) throws BusinessException {
+    	public void delete(String name) throws BusinessException {
 		DAOFactory factory = DAOFactory.getInstance();
 		try {
 			IEmprestimoDAO dao = factory.getEmprestimoDAO();
-			dao.delete(id);
+			EmprestimoVO emprestimo = getEmprestimo(name);
+			dao.delete(emprestimo);
 		} catch (Exception e) {
 			throw new BusinessException(e);
 		}
@@ -42,11 +43,11 @@ public class Emprestimo implements IEmprestimo {
             }
 	}
         
-       	public EmprestimoVO getEmprestimo(int id) throws BusinessException {
+       	public EmprestimoVO getEmprestimo(String name) throws BusinessException {
 	DAOFactory factory = DAOFactory.getInstance();
 	try {
 		IEmprestimoDAO dao = factory.getEmprestimoDAO();
-		return (EmprestimoVO) dao.selectByID(id);
+		return (EmprestimoVO) dao.selectByName(name);
             } catch (Exception e) {
 		throw new BusinessException(e);
             }
@@ -60,7 +61,6 @@ public class Emprestimo implements IEmprestimo {
 		} catch (Exception e) {
 			throw new BusinessException(e);
 		}
-	}  
-    
+	}
 }
 
