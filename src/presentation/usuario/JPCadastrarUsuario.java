@@ -45,7 +45,7 @@ public class JPCadastrarUsuario extends javax.swing.JPanel {
         jSeparator1 = new javax.swing.JSeparator();
 
         jLabel1.setFont(new java.awt.Font("Catriel", 1, 30)); // NOI18N
-        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("I18n/Bundle_pt_BR"); // NOI18N
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("I18n/Bundle"); // NOI18N
         jLabel1.setText(bundle.getString("JPCadastrarUsuario.jLabel1.text")); // NOI18N
 
         jLabel2.setFont(new java.awt.Font("Catriel", 3, 18)); // NOI18N
@@ -65,8 +65,7 @@ public class JPCadastrarUsuario extends javax.swing.JPanel {
         jPasswordField2.setFont(new java.awt.Font("Catriel", 0, 11)); // NOI18N
 
         jTextField1.setFont(new java.awt.Font("Catriel", 0, 11));
-        java.util.ResourceBundle bundle1 = java.util.ResourceBundle.getBundle("I18n/Bundle"); // NOI18N
-        jTextField1.setToolTipText(bundle1.getString("JPCadastrarUsuario.jTextField1.toolTipText")); // NOI18N
+        jTextField1.setToolTipText(bundle.getString("JPCadastrarUsuario.jTextField1.toolTipText")); // NOI18N
         jTextField1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField1ActionPerformed(evt);
@@ -76,13 +75,13 @@ public class JPCadastrarUsuario extends javax.swing.JPanel {
         jTextField2.setFont(new java.awt.Font("Catriel", 0, 11));
 
         jButton1.setFont(new java.awt.Font("Catriel", 1, 12)); // NOI18N
-        jButton1.setText(bundle1.getString("JPCadastrarUsuario.jButton1.text")); // NOI18N
+        jButton1.setText(bundle.getString("JPCadastrarUsuario.jButton1.text")); // NOI18N
 
         jButton2.setFont(new java.awt.Font("Catriel", 1, 12)); // NOI18N
-        jButton2.setText(bundle1.getString("JPCadastrarUsuario.jButton2.text")); // NOI18N
+        jButton2.setText(bundle.getString("JPCadastrarUsuario.jButton2.text")); // NOI18N
 
         jLabel6.setForeground(new java.awt.Color(255, 0, 0));
-        jLabel6.setText(bundle1.getString("JPCadastrarUsuario.jLabel6.text")); // NOI18N
+        jLabel6.setText(bundle.getString("JPCadastrarUsuario.jLabel6.text")); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
