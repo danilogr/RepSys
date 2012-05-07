@@ -5,6 +5,10 @@ import java.util.Properties;
 import dao.DAOException;
 import dao.DAOFactory;
 import dao.spec.IContaDAO;
+import dao.spec.IEmprestimoDAO;
+import dao.spec.IFaturaTelefonicaDAO;
+import dao.spec.IItemFaturaTelefonicaDAO;
+import dao.spec.INumeroTelefonicoDAO;
 import dao.spec.IUsuarioDAO;
 
 public class JDBCDAOFactory extends DAOFactory {
@@ -28,4 +32,22 @@ public class JDBCDAOFactory extends DAOFactory {
 	public IContaDAO getAccountDAO() throws DAOException {
 		return new ContaJDBCDAO(this.properties);
 	}
+        
+	public IEmprestimoDAO getEmprestimoDAO() throws DAOException {
+		return new EmprestimoJDBCDAO(this.properties);
+	}
+        
+       	public IFaturaTelefonicaDAO getFaturaTelefonicaDAO() throws DAOException {
+        	return new FaturaTelefonicaJDBCDAO(this.properties);
+	}
+
+	public IItemFaturaTelefonicaDAO getItemFaturaTelefonicaDAO() throws DAOException {
+		return new ItemFaturaTelefonicaJDBCDAO(this.properties);
+	}
+
+	public INumeroTelefonicoDAO getNumeroTelefonicoDAO() throws DAOException {
+		return new NumeroTelefonicoJDBCDAO(this.properties);
+	}
+        
+        
 }

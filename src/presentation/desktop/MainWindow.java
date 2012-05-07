@@ -10,15 +10,44 @@
  */
 package presentation.desktop;
 
+import presentation.JPLogin;
+
 /**
  *
  * @author danilogr
  */
 public class MainWindow extends javax.swing.JFrame {
 
+    private boolean USUARIO_AUTENTICADO = false;
+    //DECLARAR VARIAVEL PARA GUARDAR OBJETO DO USUARIO AUTENTICADO.
+    
     /** Creates new form MainWindow */
     public MainWindow() {
         initComponents();
+        
+        //Como, inicialmente nao temos nenhum usuario autenticado
+          /* 
+      Após a declaração das variaveis
+     * vamos chamar o painel de Login
+     */
+    
+    JPLogin login = new JPLogin();
+    jPanelTop.add(login);
+    
+    javax.swing.GroupLayout jPanelLoginAreaLayout = new javax.swing.GroupLayout(login);
+        login.setLayout(jPanelLoginAreaLayout);
+        jPanelLoginAreaLayout.setHorizontalGroup(
+            jPanelLoginAreaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 238, Short.MAX_VALUE)
+        );
+        jPanelLoginAreaLayout.setVerticalGroup(
+            jPanelLoginAreaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 133, Short.MAX_VALUE)
+        );
+    jPanelTop.validate();
+    pack();
+    validate();
+            
     }
 
     /** This method is called from within the constructor to
@@ -30,17 +59,73 @@ public class MainWindow extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPanelTop = new javax.swing.JPanel();
+        jPanelContainerBottom = new javax.swing.JPanel();
+        jScrollPanelContent = new javax.swing.JScrollPane();
+        jPanelMenu = new javax.swing.JPanel();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setName("Form"); // NOI18N
+
+        jPanelTop.setName("jPanelTop"); // NOI18N
+
+        javax.swing.GroupLayout jPanelTopLayout = new javax.swing.GroupLayout(jPanelTop);
+        jPanelTop.setLayout(jPanelTopLayout);
+        jPanelTopLayout.setHorizontalGroup(
+            jPanelTopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 570, Short.MAX_VALUE)
+        );
+        jPanelTopLayout.setVerticalGroup(
+            jPanelTopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 133, Short.MAX_VALUE)
+        );
+
+        jPanelContainerBottom.setName("jPanelContainerBottom"); // NOI18N
+
+        jScrollPanelContent.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jScrollPanelContent.setName("jScrollPanelContent"); // NOI18N
+
+        jPanelMenu.setName("jPanelMenu"); // NOI18N
+
+        javax.swing.GroupLayout jPanelMenuLayout = new javax.swing.GroupLayout(jPanelMenu);
+        jPanelMenu.setLayout(jPanelMenuLayout);
+        jPanelMenuLayout.setHorizontalGroup(
+            jPanelMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 177, Short.MAX_VALUE)
+        );
+        jPanelMenuLayout.setVerticalGroup(
+            jPanelMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 312, Short.MAX_VALUE)
+        );
+
+        javax.swing.GroupLayout jPanelContainerBottomLayout = new javax.swing.GroupLayout(jPanelContainerBottom);
+        jPanelContainerBottom.setLayout(jPanelContainerBottomLayout);
+        jPanelContainerBottomLayout.setHorizontalGroup(
+            jPanelContainerBottomLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelContainerBottomLayout.createSequentialGroup()
+                .addComponent(jPanelMenu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPanelContent, javax.swing.GroupLayout.DEFAULT_SIZE, 387, Short.MAX_VALUE))
+        );
+        jPanelContainerBottomLayout.setVerticalGroup(
+            jPanelContainerBottomLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanelMenu, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jScrollPanelContent, javax.swing.GroupLayout.DEFAULT_SIZE, 312, Short.MAX_VALUE)
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addComponent(jPanelContainerBottom, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanelTop, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanelTop, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanelContainerBottom, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -82,5 +167,12 @@ public class MainWindow extends javax.swing.JFrame {
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel jPanelContainerBottom;
+    private javax.swing.JPanel jPanelMenu;
+    private javax.swing.JPanel jPanelTop;
+    private javax.swing.JScrollPane jScrollPanelContent;
     // End of variables declaration//GEN-END:variables
+    
+  
+
 }

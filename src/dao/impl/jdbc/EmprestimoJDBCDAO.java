@@ -13,8 +13,9 @@ import vo.EmprestimoVO;
 import vo.ObjectVO;
 import vo.UsuarioVO;
 import dao.DAOException;
+import dao.spec.IEmprestimoDAO;
 
-public class EmprestimoJDBCDAO extends GenericJDBCDAO {
+public class EmprestimoJDBCDAO extends GenericJDBCDAO implements IEmprestimoDAO {
 
 	public EmprestimoJDBCDAO(Properties properties) throws DAOException {
 		super(properties);

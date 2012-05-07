@@ -47,6 +47,7 @@ public class Usuario implements IUsuario {
 			IUsuarioDAO dao = factory.getUserDAO();
 			// TODO: method selectByID not exists anymore
 			//return (UsuarioVO) dao.selectByID(id);
+                        return null;
 		} catch (Exception e) {
 			throw new BusinessException(e);
 		}
