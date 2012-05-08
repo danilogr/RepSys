@@ -4,17 +4,16 @@
  */
 package vo;
 
-
 /**
  *
  * @author danilogr
  */
-public class EmprestimoUsuarioDevedorVO extends ObjectVO {
+public class EmprestimoUsuarioRelVO extends ObjectVO {
 
     private EmprestimoVO emprestimo;
     private UsuarioVO usuario;
     
-    public EmprestimoUsuarioDevedorVO(EmprestimoVO emprestimo,UsuarioVO usuario)
+    public EmprestimoUsuarioRelVO(EmprestimoVO emprestimo,UsuarioVO usuario)
     {
         super();
         this.emprestimo = emprestimo;
