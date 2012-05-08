@@ -13,13 +13,13 @@ public class ItemFaturaTelefonicaVO extends ObjectVO {
     
     private NumeroTelefonicoVO numero;
     
-    private int valor;
+    private double valor;
     
     private String duracao;
 
     
     public ItemFaturaTelefonicaVO(Calendar dataHora, FaturaTelefonicaVO fatura, NumeroTelefonicoVO numero,
-            int valor, String duracao) {
+            double valor, String duracao) {
         this.dataHora = dataHora;
         this.duracao = duracao;
         this.numero = numero;
@@ -60,7 +60,7 @@ public class ItemFaturaTelefonicaVO extends ObjectVO {
         this.numero = numero;
     }
 
-    public int getValor() {
+    public double getValor() {
         return valor;
     }
 

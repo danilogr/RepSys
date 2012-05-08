@@ -14,7 +14,7 @@ import vo.ItemFaturaTelefonicaVO;
  */
 public interface IItemFaturaTelefonicaDAO extends IGenericDAO{
     
-    ItemFaturaTelefonicaVO selectByMesAnoDataHora(int mes, int ano, Calendar dataHora) throws DAOException;
+    ItemFaturaTelefonicaVO selectByNumeroDataHora(String numero, Calendar dataHora) throws DAOException;
     
     
 }

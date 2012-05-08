@@ -12,8 +12,5 @@ import vo.NumeroTelefonicoVO;
  * @author Nelson
  */
 public interface INumeroTelefonicoDAO extends IGenericDAO{
-    
-    NumeroTelefonicoVO selectByNumero(int numero) throws DAOException;
-    
-    
+	NumeroTelefonicoVO selectByNumero(String numero) throws DAOException;
 }

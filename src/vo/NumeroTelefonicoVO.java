@@ -7,10 +7,6 @@ public class NumeroTelefonicoVO extends ObjectVO {
     
     private String numero;
     
-    public NumeroTelefonicoVO() {
-        super();
-    }
-    
     public NumeroTelefonicoVO(String numero){
         super();
         this.numero = numero;
