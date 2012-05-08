@@ -1,12 +1,14 @@
 package business.spec;
 
-/**
- * @author Nelson
- */
+import java.util.Calendar;
 import java.util.List;
 import vo.EmprestimoVO;
 import business.BusinessException;
 
+/**
+ * @author Nelson
+ * @author Henrique (Alterações)
+ */
 public interface IEmprestimo {
 
 	void create(EmprestimoVO vo) throws BusinessException;
@@ -15,7 +17,7 @@ public interface IEmprestimo {
 
 	void update(EmprestimoVO vo) throws BusinessException;
 
-	EmprestimoVO getEmprestimo(String name) throws BusinessException;
+	EmprestimoVO getEmprestimo(Calendar date) throws BusinessException;
 
 	List getAll() throws BusinessException;
 
