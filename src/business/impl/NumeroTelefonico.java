@@ -22,12 +22,12 @@ public class NumeroTelefonico implements INumeroTelefonico {
 		}
 	}
     
-    	public void delete(String name) throws BusinessException {
+    	public void delete(int numero) throws BusinessException {
 		DAOFactory factory = DAOFactory.getInstance();
 		try {
 			INumeroTelefonicoDAO dao = factory.getNumeroTelefonicoDAO();
-			NumeroTelefonicoVO numero = getNumeroTelefonico(name);
-			dao.delete(numero);
+			NumeroTelefonicoVO numeroTelefonico = getNumeroTelefonico(numero);
+			dao.delete(numeroTelefonico);
 		} catch (Exception e) {
 			throw new BusinessException(e);
 		}
@@ -43,11 +43,11 @@ public class NumeroTelefonico implements INumeroTelefonico {
             }
 	}
         
-       	public NumeroTelefonicoVO getNumeroTelefonico(String name) throws BusinessException {
+       	public NumeroTelefonicoVO getNumeroTelefonico(int numero) throws BusinessException {
 	DAOFactory factory = DAOFactory.getInstance();
 	try {
 		INumeroTelefonicoDAO dao = factory.getNumeroTelefonicoDAO();
-		return (NumeroTelefonicoVO) dao.selectByName(name);
+		return (NumeroTelefonicoVO) dao.selectByNumero(numero);
             } catch (Exception e) {
 		throw new BusinessException(e);
             }

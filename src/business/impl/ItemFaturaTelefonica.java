@@ -5,6 +5,7 @@ import business.BusinessException;
 import business.spec.IItemFaturaTelefonica;
 import dao.DAOFactory;
 import dao.spec.IItemFaturaTelefonicaDAO;
+import java.util.Calendar;
 import java.util.List;
 
 /**
@@ -24,11 +25,11 @@ public class ItemFaturaTelefonica implements IItemFaturaTelefonica{
 		}
 	}
     
-    	public void delete(String name) throws BusinessException {
+    	public void delete(int mes, int ano, Calendar dataHora) throws BusinessException {
 		DAOFactory factory = DAOFactory.getInstance();
 		try {
 			IItemFaturaTelefonicaDAO dao = factory.getItemFaturaTelefonicaDAO();
-			ItemFaturaTelefonicaVO itemFatura = getItemFaturaTelefonica(name);
+			ItemFaturaTelefonicaVO itemFatura = getItemFaturaTelefonica(mes, ano, dataHora);
 			dao.delete(itemFatura);
 		} catch (Exception e) {
 			throw new BusinessException(e);
@@ -45,11 +46,11 @@ public class ItemFaturaTelefonica implements IItemFaturaTelefonica{
             }
 	}
         
-       	public ItemFaturaTelefonicaVO getItemFaturaTelefonica(String name) throws BusinessException {
+       	public ItemFaturaTelefonicaVO getItemFaturaTelefonica(int mes, int ano, Calendar dataHora) throws BusinessException {
 	DAOFactory factory = DAOFactory.getInstance();
 	try {
 		IItemFaturaTelefonicaDAO dao = factory.getItemFaturaTelefonicaDAO();
-		return (ItemFaturaTelefonicaVO) dao.selectByName(name);
+		return (ItemFaturaTelefonicaVO) dao.selectByMesAnoDataHora(mes,ano,dataHora);
             } catch (Exception e) {
 		throw new BusinessException(e);
             }
