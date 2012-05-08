@@ -47,18 +47,19 @@ public class JPUsuariosCadastrados extends javax.swing.JPanel implements present
         jTable1.setFont(new java.awt.Font("Calibri", 1, 12)); // NOI18N
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null}
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
             },
             new String [] {
-                "Usuário", "E-mail"
+                "Usuário", "E-mail", "Saldo em Empréstimos"
             }
         ));
         jScrollPane1.setViewportView(jTable1);
         jTable1.getColumnModel().getColumn(0).setHeaderValue(bundle.getString("JPUsuariosCadastrados.jTable1.columnModel.title0")); // NOI18N
         jTable1.getColumnModel().getColumn(1).setHeaderValue(bundle.getString("JPUsuariosCadastrados.jTable1.columnModel.title1")); // NOI18N
+        jTable1.getColumnModel().getColumn(2).setHeaderValue(bundle.getString("JPUsuariosCadastrados.jTable1.columnModel.title2_1")); // NOI18N
 
         jButton3.setFont(new java.awt.Font("Calibri", 1, 12)); // NOI18N
         jButton3.setText(bundle.getString("JPUsuariosCadastrados.jButton3.text")); // NOI18N
