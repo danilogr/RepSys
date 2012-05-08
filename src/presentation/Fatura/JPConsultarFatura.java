@@ -32,7 +32,7 @@ public class JPConsultarFatura extends javax.swing.JPanel {
 
         jLabelConsultarFaturas = new javax.swing.JLabel();
         jLabelFatura = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox();
+        jComboBoxFatura = new javax.swing.JComboBox();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableDetalhes = new javax.swing.JTable();
         jScrollPane2 = new javax.swing.JScrollPane();
@@ -48,10 +48,10 @@ public class JPConsultarFatura extends javax.swing.JPanel {
         jLabelFatura.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
         jLabelFatura.setText("Fatura:");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
+        jComboBoxFatura.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBoxFatura.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBox1ActionPerformed(evt);
+                jComboBoxFaturaActionPerformed(evt);
             }
         });
 
@@ -129,7 +129,7 @@ public class JPConsultarFatura extends javax.swing.JPanel {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabelFatura)
                         .addGap(18, 18, 18)
-                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jComboBoxFatura, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(77, 77, 77)
                         .addComponent(jToggleButtonConfirmar, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jSeparator1, javax.swing.GroupLayout.DEFAULT_SIZE, 537, Short.MAX_VALUE))
@@ -145,7 +145,7 @@ public class JPConsultarFatura extends javax.swing.JPanel {
                 .addGap(5, 5, 5)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabelFatura)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jComboBoxFatura, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jToggleButtonConfirmar))
                 .addGap(30, 30, 30)
                 .addComponent(jLabelResumo)
@@ -159,12 +159,12 @@ public class JPConsultarFatura extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+private void jComboBoxFaturaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxFaturaActionPerformed
 // TODO add your handling code here:
-}//GEN-LAST:event_jComboBox1ActionPerformed
+}//GEN-LAST:event_jComboBoxFaturaActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JComboBox jComboBox1;
+    private javax.swing.JComboBox jComboBoxFatura;
     private javax.swing.JLabel jLabelConsultarFaturas;
     private javax.swing.JLabel jLabelDetalhes;
     private javax.swing.JLabel jLabelFatura;
