@@ -3,6 +3,8 @@ package dao;
 import util.Configuration;
 import dao.impl.jdbc.JDBCDAOFactory;
 import dao.spec.IContaDAO;
+import dao.spec.IContaValorFixoDAO;
+import dao.spec.IContaValorVariavelDAO;
 import dao.spec.IEmprestimoDAO;
 import dao.spec.IFaturaTelefonicaDAO;
 import dao.spec.IItemFaturaTelefonicaDAO;
@@ -27,7 +29,11 @@ abstract public class DAOFactory {
 
 	public abstract IUsuarioDAO getUsuarioDAO() throws DAOException;
 
-	public abstract IContaDAO getAccountDAO() throws DAOException;
+	public abstract IContaDAO getContaDAO() throws DAOException;
+
+	public abstract IContaValorFixoDAO getContaValorFixoDAO() throws DAOException;
+
+	public abstract IContaValorVariavelDAO getContaValorVariavelDAO() throws DAOException;
         
         public abstract IEmprestimoDAO getEmprestimoDAO() throws DAOException;
         
