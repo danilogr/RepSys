@@ -29,11 +29,7 @@ abstract public class DAOFactory {
 
 	public abstract IUsuarioDAO getUsuarioDAO() throws DAOException;
 
-	public abstract IContaDAO getContaDAO() throws DAOException;
-
-	public abstract IContaValorFixoDAO getContaValorFixoDAO() throws DAOException;
-
-	public abstract IContaValorVariavelDAO getContaValorVariavelDAO() throws DAOException;
+	public abstract IContaDAO getAccountDAO() throws DAOException;
         
         public abstract IEmprestimoDAO getEmprestimoDAO() throws DAOException;
         
@@ -42,4 +38,20 @@ abstract public class DAOFactory {
         public abstract IItemFaturaTelefonicaDAO getItemFaturaTelefonicaDAO() throws DAOException;
         
         public abstract INumeroTelefonicoDAO getNumeroTelefonicoDAO() throws DAOException;
+
+		public IContaValorVariavelDAO getContaValorVariavelDAO()
+				throws DAOException {
+			// TODO Auto-generated method stub
+			return null;
+		}
+
+		public IContaDAO getContaDAO() throws DAOException {
+			// TODO Auto-generated method stub
+			return null;
+		}
+
+		public IContaValorFixoDAO getContaValorFixoDAO() throws DAOException {
+			// TODO Auto-generated method stub
+			return null;
+		}
 }

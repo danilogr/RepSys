@@ -7,25 +7,14 @@ import business.BusinessException;
 import business.spec.IConta;
 import dao.DAOFactory;
 import dao.spec.IContaDAO;
-import dao.spec.IContaValorFixoDAO;
-import dao.spec.IContaValorVariavelDAO;
-import vo.ContaValorFixoVO;
-import vo.ContaValorVariavelVO;
 
 public class Conta implements IConta {
 
 	public void create(ContaVO vo) throws BusinessException {
 		DAOFactory factory = DAOFactory.getInstance();
 		try {
-                        if (vo instanceof ContaValorFixoVO){
-                        	IContaValorFixoDAO dao = factory.getContaValorFixoDAO();
-                        	dao.insert(vo);
-                        }
-                        if(vo instanceof ContaValorVariavelVO){
-        			IContaValorVariavelDAO dao = factory.getContaValorVariavelDAO();
-                		dao.insert(vo);
-                        }
-                            
+			IContaDAO dao = factory.getContaDAO();
+			dao.insert(vo);
 		} catch (Exception e) {
 			throw new BusinessException(e);
 		}
