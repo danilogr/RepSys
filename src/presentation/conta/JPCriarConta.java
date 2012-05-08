@@ -73,35 +73,33 @@ public class JPCriarConta extends javax.swing.JPanel implements presentation.lib
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
 
-        setMinimumSize(null);
-
-        jLabel8.setFont(new java.awt.Font("Cambria", 1, 30)); // NOI18N
+        jLabel8.setFont(new java.awt.Font("Cambria", 1, 30));
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("I18n/Bundle"); // NOI18N
         jLabel8.setText(bundle.getString("JPCriarConta.jLabel8.text")); // NOI18N
 
-        jLabel9.setFont(new java.awt.Font("Calibri", 3, 18)); // NOI18N
+        jLabel9.setFont(new java.awt.Font("Calibri", 3, 18));
         jLabel9.setText(bundle.getString("JPCriarConta.jLabel9.text")); // NOI18N
 
-        jLabel10.setFont(new java.awt.Font("Calibri", 3, 18)); // NOI18N
+        jLabel10.setFont(new java.awt.Font("Calibri", 3, 18));
         jLabel10.setText(bundle.getString("JPCriarConta.jLabel10.text")); // NOI18N
 
-        jLabel11.setFont(new java.awt.Font("Calibri", 3, 18)); // NOI18N
+        jLabel11.setFont(new java.awt.Font("Calibri", 3, 18));
         jLabel11.setText(bundle.getString("JPCriarConta.jLabel11.text")); // NOI18N
 
-        jTextField3.setFont(new java.awt.Font("Catriel", 0, 11)); // NOI18N
+        jTextField3.setFont(new java.awt.Font("Catriel", 0, 11));
         jTextField3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField3ActionPerformed(evt);
             }
         });
 
-        jTextField4.setFont(new java.awt.Font("Catriel", 0, 11)); // NOI18N
+        jTextField4.setFont(new java.awt.Font("Catriel", 0, 11));
 
         jLabel12.setForeground(new java.awt.Color(255, 0, 0));
         jLabel12.setText(bundle.getString("JPCriarConta.jLabel12.text")); // NOI18N
 
         buttonGroup1.add(jRadioButton3);
-        jRadioButton3.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+        jRadioButton3.setFont(new java.awt.Font("Calibri", 0, 14));
         jRadioButton3.setText(bundle.getString("JPCriarConta.jRadioButton3.text")); // NOI18N
         jRadioButton3.addChangeListener(new javax.swing.event.ChangeListener() {
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
@@ -110,7 +108,7 @@ public class JPCriarConta extends javax.swing.JPanel implements presentation.lib
         });
 
         buttonGroup1.add(jRadioButton4);
-        jRadioButton4.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+        jRadioButton4.setFont(new java.awt.Font("Calibri", 0, 14));
         jRadioButton4.setText(bundle.getString("JPCriarConta.jRadioButton4.text")); // NOI18N
         jRadioButton4.addChangeListener(new javax.swing.event.ChangeListener() {
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
@@ -128,13 +126,11 @@ public class JPCriarConta extends javax.swing.JPanel implements presentation.lib
 
         jPanel3.setLayout(new java.awt.CardLayout());
 
-        jPanel4.setMinimumSize(null);
-
-        jLabel14.setFont(new java.awt.Font("Calibri", 3, 18)); // NOI18N
+        jLabel14.setFont(new java.awt.Font("Calibri", 3, 18));
         jLabel14.setText(bundle.getString("JPCriarConta.jLabel14.text")); // NOI18N
 
         jTextField5.setEditable(false);
-        jTextField5.setFont(new java.awt.Font("Catriel", 0, 11)); // NOI18N
+        jTextField5.setFont(new java.awt.Font("Catriel", 0, 11));
         jTextField5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField5ActionPerformed(evt);
@@ -179,10 +175,10 @@ public class JPCriarConta extends javax.swing.JPanel implements presentation.lib
         jTable2.getTableHeader().setReorderingAllowed(false);
         jScrollPane4.setViewportView(jTable2);
 
-        jLabel15.setFont(new java.awt.Font("Calibri", 3, 18)); // NOI18N
+        jLabel15.setFont(new java.awt.Font("Calibri", 3, 18));
         jLabel15.setText(bundle.getString("JPCriarConta.jLabel15.text")); // NOI18N
 
-        jCheckBox2.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+        jCheckBox2.setFont(new java.awt.Font("Calibri", 0, 14));
         jCheckBox2.setText(bundle.getString("JPCriarConta.jCheckBox2.text")); // NOI18N
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
@@ -192,7 +188,7 @@ public class JPCriarConta extends javax.swing.JPanel implements presentation.lib
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jTextField5, javax.swing.GroupLayout.DEFAULT_SIZE, 133, Short.MAX_VALUE)
+                .addComponent(jTextField5, javax.swing.GroupLayout.DEFAULT_SIZE, 66, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addGroup(jPanel4Layout.createSequentialGroup()
@@ -201,7 +197,7 @@ public class JPCriarConta extends javax.swing.JPanel implements presentation.lib
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addComponent(jCheckBox2)
                 .addContainerGap())
-            .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 336, Short.MAX_VALUE)
+            .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 269, Short.MAX_VALUE)
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -218,10 +214,10 @@ public class JPCriarConta extends javax.swing.JPanel implements presentation.lib
                 .addComponent(jCheckBox2))
         );
 
-        jButton1.setFont(new java.awt.Font("Calibri", 1, 12)); // NOI18N
+        jButton1.setFont(new java.awt.Font("Calibri", 1, 12));
         jButton1.setText(bundle.getString("JPCriarConta.jButton1.text")); // NOI18N
 
-        jButton2.setFont(new java.awt.Font("Calibri", 1, 12)); // NOI18N
+        jButton2.setFont(new java.awt.Font("Calibri", 1, 12));
         jButton2.setText(bundle.getString("JPCriarConta.jButton2.text")); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -231,7 +227,7 @@ public class JPCriarConta extends javax.swing.JPanel implements presentation.lib
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jSeparator2, javax.swing.GroupLayout.DEFAULT_SIZE, 657, Short.MAX_VALUE)
+                    .addComponent(jSeparator2, javax.swing.GroupLayout.DEFAULT_SIZE, 962, Short.MAX_VALUE)
                     .addComponent(jLabel8)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -255,7 +251,7 @@ public class JPCriarConta extends javax.swing.JPanel implements presentation.lib
                         .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel12)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 220, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 459, Short.MAX_VALUE)
                         .addComponent(jButton1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jButton2)))
