@@ -13,7 +13,7 @@ public interface IEmprestimo {
 
 	void create(EmprestimoVO vo) throws BusinessException;
 
-	void delete(String name) throws BusinessException;
+	void delete(Calendar Date) throws BusinessException;
 
 	void update(EmprestimoVO vo) throws BusinessException;
 

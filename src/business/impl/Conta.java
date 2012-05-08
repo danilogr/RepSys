@@ -13,7 +13,7 @@ public class Conta implements IConta {
 	public void create(ContaVO vo) throws BusinessException {
 		DAOFactory factory = DAOFactory.getInstance();
 		try {
-			IContaDAO dao = factory.getAccountDAO();
+			IContaDAO dao = factory.getContaDAO();
 			dao.insert(vo);
 		} catch (Exception e) {
 			throw new BusinessException(e);
@@ -23,7 +23,7 @@ public class Conta implements IConta {
 	public void delete(String name) throws BusinessException {
 		DAOFactory factory = DAOFactory.getInstance();
 		try {
-			IContaDAO dao = factory.getAccountDAO();
+			IContaDAO dao = factory.getContaDAO();
 			ContaVO conta = getConta(name);
 			dao.delete(conta);
 		} catch (Exception e) {
@@ -34,7 +34,7 @@ public class Conta implements IConta {
 	public void update(ContaVO vo) throws BusinessException {
 		DAOFactory factory = DAOFactory.getInstance();
 		try {
-			IContaDAO dao = factory.getAccountDAO();
+			IContaDAO dao = factory.getContaDAO();
 			dao.update(vo);
 		} catch (Exception e) {
 			throw new BusinessException(e);
@@ -44,7 +44,7 @@ public class Conta implements IConta {
 	public ContaVO getConta(String name) throws BusinessException {
 		DAOFactory factory = DAOFactory.getInstance();
 		try {
-			IContaDAO dao = factory.getAccountDAO();
+			IContaDAO dao = factory.getContaDAO();
 			return (ContaVO) dao.selectByName(name);
 		} catch (Exception e) {
 			throw new BusinessException(e);
@@ -54,7 +54,7 @@ public class Conta implements IConta {
 	public List<Object> getAll() throws BusinessException {
 		DAOFactory factory = DAOFactory.getInstance();
 		try {
-			IContaDAO dao = factory.getAccountDAO();
+			IContaDAO dao = factory.getContaDAO();
 			return dao.selectAll();
 		} catch (Exception e) {
 			throw new BusinessException(e);
@@ -66,7 +66,7 @@ public class Conta implements IConta {
 			throws BusinessException {
 		DAOFactory factory = DAOFactory.getInstance();
 		try {
-			IContaDAO dao = factory.getAccountDAO();
+			IContaDAO dao = factory.getContaDAO();
 			return dao.selectByUsuario(email);
 		} catch (Exception e) {
 			throw new BusinessException(e);

@@ -65,10 +65,4 @@ public class Emprestimo implements IEmprestimo {
 			throw new BusinessException(e);
 		}
 	}
-
-	@Override
-	public void delete(String name) throws BusinessException {
-		// TODO Auto-generated method stub
-		
-	}
 }

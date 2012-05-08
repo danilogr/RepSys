@@ -13,7 +13,7 @@ import vo.NumeroTelefonicoVO;
  */
 public interface INumeroTelefonicoDAO extends IGenericDAO{
     
-    NumeroTelefonicoVO selectByName(String numero) throws DAOException;
+    NumeroTelefonicoVO selectByNumero(int numero) throws DAOException;
     
     
 }
