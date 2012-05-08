@@ -30,23 +30,23 @@ public class JPConsultarFatura extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
+        jLabelConsultarFaturas = new javax.swing.JLabel();
+        jLabelFatura = new javax.swing.JLabel();
         jComboBox1 = new javax.swing.JComboBox();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        jTableDetalhes = new javax.swing.JTable();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        jToggleButton1 = new javax.swing.JToggleButton();
+        jTableResumo = new javax.swing.JTable();
+        jLabelResumo = new javax.swing.JLabel();
+        jLabelDetalhes = new javax.swing.JLabel();
+        jToggleButtonConfirmar = new javax.swing.JToggleButton();
         jSeparator1 = new javax.swing.JSeparator();
 
-        jLabel1.setFont(new java.awt.Font("Cambria", 1, 30)); // NOI18N
-        jLabel1.setText("Consultar faturas");
+        jLabelConsultarFaturas.setFont(new java.awt.Font("Cambria", 1, 30)); // NOI18N
+        jLabelConsultarFaturas.setText("Consultar faturas");
 
-        jLabel2.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
-        jLabel2.setText("Fatura:");
+        jLabelFatura.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
+        jLabelFatura.setText("Fatura:");
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         jComboBox1.addActionListener(new java.awt.event.ActionListener() {
@@ -55,7 +55,7 @@ public class JPConsultarFatura extends javax.swing.JPanel {
             }
         });
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        jTableDetalhes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null, null},
                 {null, null, null, null, null, null, null},
@@ -74,16 +74,16 @@ public class JPConsultarFatura extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(jTable1);
-        jTable1.getColumnModel().getColumn(0).setResizable(false);
-        jTable1.getColumnModel().getColumn(1).setResizable(false);
-        jTable1.getColumnModel().getColumn(2).setResizable(false);
-        jTable1.getColumnModel().getColumn(3).setResizable(false);
-        jTable1.getColumnModel().getColumn(4).setResizable(false);
-        jTable1.getColumnModel().getColumn(5).setResizable(false);
-        jTable1.getColumnModel().getColumn(6).setResizable(false);
+        jScrollPane1.setViewportView(jTableDetalhes);
+        jTableDetalhes.getColumnModel().getColumn(0).setResizable(false);
+        jTableDetalhes.getColumnModel().getColumn(1).setResizable(false);
+        jTableDetalhes.getColumnModel().getColumn(2).setResizable(false);
+        jTableDetalhes.getColumnModel().getColumn(3).setResizable(false);
+        jTableDetalhes.getColumnModel().getColumn(4).setResizable(false);
+        jTableDetalhes.getColumnModel().getColumn(5).setResizable(false);
+        jTableDetalhes.getColumnModel().getColumn(6).setResizable(false);
 
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+        jTableResumo.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null},
                 {null, null},
@@ -102,17 +102,17 @@ public class JPConsultarFatura extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane2.setViewportView(jTable2);
-        jTable2.getColumnModel().getColumn(0).setResizable(false);
-        jTable2.getColumnModel().getColumn(1).setResizable(false);
+        jScrollPane2.setViewportView(jTableResumo);
+        jTableResumo.getColumnModel().getColumn(0).setResizable(false);
+        jTableResumo.getColumnModel().getColumn(1).setResizable(false);
 
-        jLabel3.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
-        jLabel3.setText("Resumo");
+        jLabelResumo.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
+        jLabelResumo.setText("Resumo");
 
-        jLabel4.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
-        jLabel4.setText("Detalhes");
+        jLabelDetalhes.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
+        jLabelDetalhes.setText("Detalhes");
 
-        jToggleButton1.setText("Confirmar");
+        jToggleButtonConfirmar.setText("Confirmar");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -123,15 +123,15 @@ public class JPConsultarFatura extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 537, Short.MAX_VALUE)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 537, Short.MAX_VALUE)
-                    .addComponent(jLabel3)
-                    .addComponent(jLabel4)
-                    .addComponent(jLabel1)
+                    .addComponent(jLabelResumo)
+                    .addComponent(jLabelDetalhes)
+                    .addComponent(jLabelConsultarFaturas)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel2)
+                        .addComponent(jLabelFatura)
                         .addGap(18, 18, 18)
                         .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(77, 77, 77)
-                        .addComponent(jToggleButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jToggleButtonConfirmar, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jSeparator1, javax.swing.GroupLayout.DEFAULT_SIZE, 537, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -139,20 +139,20 @@ public class JPConsultarFatura extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1)
+                .addComponent(jLabelConsultarFaturas)
                 .addGap(3, 3, 3)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(5, 5, 5)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
+                    .addComponent(jLabelFatura)
                     .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jToggleButton1))
+                    .addComponent(jToggleButtonConfirmar))
                 .addGap(30, 30, 30)
-                .addComponent(jLabel3)
+                .addComponent(jLabelResumo)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel4)
+                .addComponent(jLabelDetalhes)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(62, 62, 62))
@@ -165,15 +165,15 @@ private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox jComboBox1;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabelConsultarFaturas;
+    private javax.swing.JLabel jLabelDetalhes;
+    private javax.swing.JLabel jLabelFatura;
+    private javax.swing.JLabel jLabelResumo;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTable jTable2;
-    private javax.swing.JToggleButton jToggleButton1;
+    private javax.swing.JTable jTableDetalhes;
+    private javax.swing.JTable jTableResumo;
+    private javax.swing.JToggleButton jToggleButtonConfirmar;
     // End of variables declaration//GEN-END:variables
 }

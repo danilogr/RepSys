@@ -8,7 +8,7 @@ import vo.FaturaTelefonicaVO;
  */
 public interface IFaturaTelefonicaDAO extends IGenericDAO{
     
-    FaturaTelefonicaVO selectByName(String fatura) throws DAOException;
+    FaturaTelefonicaVO selectByMesAno(int mes, int ano) throws DAOException;
 
     
 }

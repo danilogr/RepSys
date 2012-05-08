@@ -1,5 +1,7 @@
 package dao.spec;
 
+import java.util.Calendar;
+
 import dao.DAOException;
 import vo.EmprestimoVO;
 
@@ -8,6 +10,7 @@ import vo.EmprestimoVO;
  */
 public interface IEmprestimoDAO extends IGenericDAO{
     
-    EmprestimoVO selectByName(String name) throws DAOException;
+
+	EmprestimoVO selectByData(Calendar date) throws DAOException;
     
 }

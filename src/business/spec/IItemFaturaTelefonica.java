@@ -3,6 +3,7 @@ package business.spec;
 import java.util.List;
 import vo.ItemFaturaTelefonicaVO;
 import business.BusinessException;
+import java.util.Calendar;
 
 /**
  * @author Nelson
@@ -12,11 +13,11 @@ public interface IItemFaturaTelefonica {
 
 	void create(ItemFaturaTelefonicaVO vo) throws BusinessException;
 
-	void delete(String name) throws BusinessException;
+	void delete(int mes, int ano, Calendar dataHora) throws BusinessException;
 
 	void update(ItemFaturaTelefonicaVO vo) throws BusinessException;
 
-	ItemFaturaTelefonicaVO getItemFaturaTelefonica(String name) throws BusinessException;
+	ItemFaturaTelefonicaVO getItemFaturaTelefonica(int mes, int ano, Calendar dataHora) throws BusinessException;
 
 	List getAll() throws BusinessException;
 
