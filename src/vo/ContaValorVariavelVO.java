@@ -6,7 +6,7 @@ import java.util.Calendar;
 public class ContaValorVariavelVO extends ContaVO {
 	private Calendar dataVencimento;
 
-	public ContaValorVariavelVO(String nome, Double valor,
+	public ContaValorVariavelVO(String nome, double valor,
 			UsuarioVO usuarioResponsavel, String descricao,
 			Calendar dataVencimento) throws VOException {
 		super(nome, valor, usuarioResponsavel, descricao);

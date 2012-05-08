@@ -21,7 +21,8 @@ import dao.DAOException;
 import dao.spec.IContaDAO;
 import dao.spec.IContaValorVariavelDAO;
 
-public class ContaValorVariavelJDBCDAO extends ContaJDBCDAO implements IContaValorVariavelDAO {
+public class ContaValorVariavelJDBCDAO extends ContaJDBCDAO implements
+		IContaValorVariavelDAO {
 
 	public ContaValorVariavelJDBCDAO(Properties properties) throws DAOException {
 		super(properties);
@@ -31,17 +32,17 @@ public class ContaValorVariavelJDBCDAO extends ContaJDBCDAO implements IContaVal
 	public void insert(ObjectVO vo) throws DAOException {
 		super.insert(vo);
 		String sql = "INSERT INTO " + this.getTableName()
-					+ " (NOME, DATA__DE_VENCIMENTO)"
-					+ " VALUES (?, ?)";
+				+ " (NOME, DATA_DE_VENCIMENTO)" + " VALUES (?, ?)";
 		try {
 			ContaValorVariavelVO cvf = (ContaValorVariavelVO) vo;
 			PreparedStatement stmt = this.getConnection().prepareStatement(sql);
-			
+
 			stmt.setString(1, cvf.getNome());
-			stmt.setDate(2, new Date(cvf.getDataVencimento().getTime().getTime()));
-			
+			stmt.setDate(2, new Date(cvf.getDataVencimento().getTime()
+					.getTime()));
+
 			stmt.executeUpdate();
-		} catch(Exception e){
+		} catch (Exception e) {
 			throw new DAOException(e);
 		}
 	}
@@ -49,16 +50,30 @@ public class ContaValorVariavelJDBCDAO extends ContaJDBCDAO implements IContaVal
 	@Override
 	public void update(ObjectVO vo) throws DAOException {
 		super.update(vo);
-		String sql  = "UPDATE " + this.getTableName() + " SET"
-					+ " DATA_DE_VENCIMENTO = ? WHERE NOME = ?";
+		String sql = "UPDATE " + this.getTableName() + " SET"
+				+ " DATA_DE_VENCIMENTO = ? WHERE NOME = ?";
 		try {
 			ContaValorVariavelVO cvf = (ContaValorVariavelVO) vo;
 			PreparedStatement stmt = this.getConnection().prepareStatement(sql);
-			stmt.setDate(1, new Date(cvf.getDataVencimento().getTime().getTime()));
+			stmt.setDate(1, new Date(cvf.getDataVencimento().getTime()
+					.getTime()));
 			stmt.setString(2, cvf.getNome());
-			
+
 			stmt.executeUpdate();
-		} catch(Exception e){
+		} catch (Exception e) {
+			throw new DAOException(e);
+		}
+	}
+
+	public void delete(ObjectVO vo) throws DAOException {
+		String sql = "DELETE FROM " + this.getTableName() + " WHERE NOME = ?";
+		try {
+			ContaVO conta = (ContaVO) vo;
+			PreparedStatement stmt = this.getConnection().prepareStatement(sql);
+			stmt.setString(1, conta.getNome());
+			stmt.executeUpdate();
+			super.delete(vo);
+		} catch (Exception e) {
 			throw new DAOException(e);
 		}
 	}
@@ -72,7 +87,7 @@ public class ContaValorVariavelJDBCDAO extends ContaJDBCDAO implements IContaVal
 	protected ObjectVO createVO(ResultSet rs) throws DAOException, VOException {
 		try {
 			ContaVO conta = (ContaVO) super.createVO(rs);
-			
+
 			Calendar dataVenc = new GregorianCalendar();
 			dataVenc.setTime(rs.getDate("DATA_DE_VENCIMENTO"));
 
@@ -89,7 +104,8 @@ public class ContaValorVariavelJDBCDAO extends ContaJDBCDAO implements IContaVal
 	}
 
 	@Override
-	public ContaValorVariavelVO selectByName(String nome) throws DAOException, VOException {
+	public ContaValorVariavelVO selectByName(String nome) throws DAOException,
+			VOException {
 		ContaValorVariavelVO vo = null;
 		String sql = "SELECT * FROM " + this.getTableName()
 				+ " AS CVF INNER JOIN " + super.getTableName() + " AS C"
@@ -106,15 +122,21 @@ public class ContaValorVariavelJDBCDAO extends ContaJDBCDAO implements IContaVal
 		}
 		return vo;
 	}
-	
+
 	public static void main(String[] argv) throws DAOException, VOException {
-		ContaValorVariavelJDBCDAO cvfDAO = new ContaValorVariavelJDBCDAO(Configuration.getInstance().getProperties());
-		ContaValorVariavelVO vo = cvfDAO.selectByName("Luz-02/2013");
+		ContaValorVariavelJDBCDAO cvfDAO = new ContaValorVariavelJDBCDAO(
+				Configuration.getInstance().getProperties());
+		UsuarioJDBCDAO uDAO = new UsuarioJDBCDAO(Configuration.getInstance()
+				.getProperties());
+		UsuarioVO user = uDAO.selectByEmail("endril.caps@gmail.com");
 		Calendar cal = new GregorianCalendar();
-		cal.set(2013, 02, 20);
-		vo.setDataVencimento(cal);
-		cvfDAO.update(vo);
-		System.out.println(vo.toString());
+		cal.set(2013, 02, 11);
+		ContaValorVariavelVO vo = new ContaValorVariavelVO("Luz-02/2013",
+				124.18d, user,
+				"Conta referente ao consumo de luz do mes de fevereiro", cal);
+		cvfDAO.insert(vo);
+//		ContaValorVariavelVO vo = cvfDAO.selectByName("Luz-02/2013");
+//		cvfDAO.delete(vo);
 	}
 
 }

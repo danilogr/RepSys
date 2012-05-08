@@ -67,6 +67,20 @@ public class ContaValorFixoJDBCDAO extends ContaJDBCDAO implements IContaValorFi
 			throw new DAOException(e);
 		}
 	}
+	
+	public void delete(ObjectVO vo) throws DAOException {
+		String sql = "DELETE FROM " + this.getTableName()
+					+ " WHERE NOME = ?";
+		try {
+			ContaVO conta = (ContaVO) vo;
+			PreparedStatement stmt = this.getConnection().prepareStatement(sql);
+			stmt.setString(1, conta.getNome());
+			stmt.executeUpdate();
+			super.delete(vo);
+		} catch(Exception e){
+			throw new DAOException(e);
+		}
+	}
 
 	@Override
 	protected String getTableName() {
