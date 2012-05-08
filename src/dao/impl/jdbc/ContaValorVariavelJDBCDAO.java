@@ -12,18 +12,19 @@ import java.util.Properties;
 
 import util.Configuration;
 import vo.ContaVO;
-import vo.ContaValorFixoVO;
+import vo.ContaValorVariavelVO;
 import vo.EmprestimoVO;
 import vo.ObjectVO;
 import vo.UsuarioVO;
 import vo.VOException;
 import dao.DAOException;
 import dao.spec.IContaDAO;
-import dao.spec.IContaValorFixoDAO;
+import dao.spec.IContaValorVariavelDAO;
 
-public class ContaValorFixoJDBCDAO extends ContaJDBCDAO implements IContaValorFixoDAO {
+public class ContaValorVariavelJDBCDAO extends ContaJDBCDAO implements
+		IContaValorVariavelDAO {
 
-	public ContaValorFixoJDBCDAO(Properties properties) throws DAOException {
+	public ContaValorVariavelJDBCDAO(Properties properties) throws DAOException {
 		super(properties);
 	}
 
@@ -31,19 +32,17 @@ public class ContaValorFixoJDBCDAO extends ContaJDBCDAO implements IContaValorFi
 	public void insert(ObjectVO vo) throws DAOException {
 		super.insert(vo);
 		String sql = "INSERT INTO " + this.getTableName()
-					+ " (NOME, DATA_INICIAL, TEMPO_RECORRENCIA, PERIODO_RECORRENCIA)"
-					+ " VALUES (?, ?, ?, ?)";
+				+ " (NOME, DATA_DE_VENCIMENTO)" + " VALUES (?, ?)";
 		try {
-			ContaValorFixoVO cvf = (ContaValorFixoVO) vo;
+			ContaValorVariavelVO cvf = (ContaValorVariavelVO) vo;
 			PreparedStatement stmt = this.getConnection().prepareStatement(sql);
-			
+
 			stmt.setString(1, cvf.getNome());
-			stmt.setDate(2, new Date(cvf.getDataInicial().getTime().getTime()));
-			stmt.setInt(3, cvf.getTempoRecorrencia());
-			stmt.setString(4, cvf.getPeriodoRecorrencia());
-			
+			stmt.setDate(2, new Date(cvf.getDataVencimento().getTime()
+					.getTime()));
+
 			stmt.executeUpdate();
-		} catch(Exception e){
+		} catch (Exception e) {
 			throw new DAOException(e);
 		}
 	}
@@ -51,53 +50,48 @@ public class ContaValorFixoJDBCDAO extends ContaJDBCDAO implements IContaValorFi
 	@Override
 	public void update(ObjectVO vo) throws DAOException {
 		super.update(vo);
-		String sql  = "UPDATE " + this.getTableName() + " SET"
-					+ " DATA_INICIAL = ?, TEMPO_RECORRENCIA = ?, PERIODO_RECORRENCIA = ?" 
-					+ " WHERE NOME = ?";
+		String sql = "UPDATE " + this.getTableName() + " SET"
+				+ " DATA_DE_VENCIMENTO = ? WHERE NOME = ?";
 		try {
-			ContaValorFixoVO cvf = (ContaValorFixoVO) vo;
+			ContaValorVariavelVO cvf = (ContaValorVariavelVO) vo;
 			PreparedStatement stmt = this.getConnection().prepareStatement(sql);
-			stmt.setDate(1, new Date(cvf.getDataInicial().getTime().getTime()));
-			stmt.setInt(2, cvf.getTempoRecorrencia());
-			stmt.setString(3, cvf.getPeriodoRecorrencia());
-			stmt.setString(4, cvf.getNome());
-			
+			stmt.setDate(1, new Date(cvf.getDataVencimento().getTime()
+					.getTime()));
+			stmt.setString(2, cvf.getNome());
+
 			stmt.executeUpdate();
-		} catch(Exception e){
+		} catch (Exception e) {
 			throw new DAOException(e);
 		}
 	}
-	
+
 	public void delete(ObjectVO vo) throws DAOException {
-		String sql = "DELETE FROM " + this.getTableName()
-					+ " WHERE NOME = ?";
+		String sql = "DELETE FROM " + this.getTableName() + " WHERE NOME = ?";
 		try {
 			ContaVO conta = (ContaVO) vo;
 			PreparedStatement stmt = this.getConnection().prepareStatement(sql);
 			stmt.setString(1, conta.getNome());
 			stmt.executeUpdate();
 			super.delete(vo);
-		} catch(Exception e){
+		} catch (Exception e) {
 			throw new DAOException(e);
 		}
 	}
 
 	@Override
 	protected String getTableName() {
-		return "VALORFIXO";
+		return "VALORVARIAVEL";
 	}
 
 	@Override
 	protected ObjectVO createVO(ResultSet rs) throws DAOException, VOException {
 		try {
 			ContaVO conta = (ContaVO) super.createVO(rs);
-			
-			Calendar cal = new GregorianCalendar();
-			cal.setTime(rs.getDate("DATA_INICIAL"));
-			int tempoRec = rs.getInt("TEMPO_RECORRENCIA");
-			String periodoRec = rs.getString("PERIODO_RECORRENCIA");
 
-			return new ContaValorFixoVO(conta, cal, tempoRec, periodoRec);
+			Calendar dataVenc = new GregorianCalendar();
+			dataVenc.setTime(rs.getDate("DATA_DE_VENCIMENTO"));
+
+			return new ContaValorVariavelVO(conta, dataVenc);
 		} catch (SQLException e) {
 			throw new DAOException(e);
 		}
@@ -110,8 +104,9 @@ public class ContaValorFixoJDBCDAO extends ContaJDBCDAO implements IContaValorFi
 	}
 
 	@Override
-	public ContaValorFixoVO selectByName(String nome) throws DAOException, VOException {
-		ContaValorFixoVO vo = null;
+	public ContaValorVariavelVO selectByName(String nome) throws DAOException,
+			VOException {
+		ContaValorVariavelVO vo = null;
 		String sql = "SELECT * FROM " + this.getTableName()
 				+ " AS CVF INNER JOIN " + super.getTableName() + " AS C"
 				+ " ON CVF.NOME = C.NOME WHERE C.NOME = ?";
@@ -120,18 +115,28 @@ public class ContaValorFixoJDBCDAO extends ContaJDBCDAO implements IContaValorFi
 			stmt.setString(1, nome);
 			ResultSet rs = stmt.executeQuery();
 			if (rs.next()) {
-				vo = (ContaValorFixoVO) this.createVO(rs);
+				vo = (ContaValorVariavelVO) this.createVO(rs);
 			}
 		} catch (SQLException e) {
 			throw new DAOException(e);
 		}
 		return vo;
 	}
-	
+
 	public static void main(String[] argv) throws DAOException, VOException {
-		ContaValorFixoJDBCDAO cvfDAO = new ContaValorFixoJDBCDAO(Configuration.getInstance().getProperties());
-		ContaValorFixoVO vo = cvfDAO.selectByName("Aluguel");
-		System.out.println(vo.toString());
+		ContaValorVariavelJDBCDAO cvfDAO = new ContaValorVariavelJDBCDAO(
+				Configuration.getInstance().getProperties());
+		UsuarioJDBCDAO uDAO = new UsuarioJDBCDAO(Configuration.getInstance()
+				.getProperties());
+		UsuarioVO user = uDAO.selectByEmail("endril.caps@gmail.com");
+		Calendar cal = new GregorianCalendar();
+		cal.set(2013, 02, 11);
+		ContaValorVariavelVO vo = new ContaValorVariavelVO("Luz-02/2013",
+				124.18d, user,
+				"Conta referente ao consumo de luz do mes de fevereiro", cal);
+		cvfDAO.insert(vo);
+//		ContaValorVariavelVO vo = cvfDAO.selectByName("Luz-02/2013");
+//		cvfDAO.delete(vo);
 	}
 
 }

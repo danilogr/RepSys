@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Properties;
 
 import vo.ObjectVO;
+import vo.VOException;
 import dao.DAOException;
 import dao.spec.IGenericDAO;
 
@@ -38,7 +39,7 @@ public abstract class GenericJDBCDAO implements IGenericDAO {
 		return connection;
 	}
 
-	public final List selectAll() throws DAOException {
+	public final List selectAll() throws DAOException, VOException {
 		String sql = "SELECT * FROM " + this.getTableName();
 		List<ObjectVO> list = new ArrayList<ObjectVO>();
 		try {
@@ -53,7 +54,7 @@ public abstract class GenericJDBCDAO implements IGenericDAO {
 		return list;
 	}
 	
-	public final List selectAll(String order, String sort) throws DAOException {
+	public final List selectAll(String order, String sort) throws DAOException, VOException {
 		if(!(sort.equalsIgnoreCase("DESC") || sort.equalsIgnoreCase("ASC"))) {
 			sort = "DESC";
 		}
@@ -73,7 +74,7 @@ public abstract class GenericJDBCDAO implements IGenericDAO {
 		return list;
 	}
 	
-	public final List selectAll(String order, String sort, int limit) throws DAOException {
+	public final List selectAll(String order, String sort, int limit) throws DAOException, VOException {
 		if(!(sort.equalsIgnoreCase("DESC") || sort.equalsIgnoreCase("ASC"))) {
 			sort = "DESC";
 		}
@@ -94,7 +95,7 @@ public abstract class GenericJDBCDAO implements IGenericDAO {
 		return list;
 	}
 	
-	public final List selectAll(String order, String sort, int limit, int offset) throws DAOException {
+	public final List selectAll(String order, String sort, int limit, int offset) throws DAOException, VOException {
 		if(!(sort.equalsIgnoreCase("DESC") || sort.equalsIgnoreCase("ASC"))) {
 			sort = "DESC";
 		}
@@ -117,6 +118,6 @@ public abstract class GenericJDBCDAO implements IGenericDAO {
 
 	protected abstract String getTableName();
 
-	protected abstract ObjectVO createVO(ResultSet rs) throws DAOException;
+	protected abstract ObjectVO createVO(ResultSet rs) throws DAOException, VOException;
 
 }

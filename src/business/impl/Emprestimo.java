@@ -5,14 +5,17 @@ import business.BusinessException;
 import business.spec.IEmprestimo;
 import dao.DAOFactory;
 import dao.spec.IEmprestimoDAO;
+
+import java.util.Calendar;
 import java.util.List;
 
 /**
  * @author Nelson
+ * @author Henrique (Alterações)
  */
 public class Emprestimo implements IEmprestimo {
-    
-        public void create(EmprestimoVO vo) throws BusinessException {
+
+	public void create(EmprestimoVO vo) throws BusinessException {
 		DAOFactory factory = DAOFactory.getInstance();
 		try {
 			IEmprestimoDAO dao = factory.getEmprestimoDAO();
@@ -21,36 +24,36 @@ public class Emprestimo implements IEmprestimo {
 			throw new BusinessException(e);
 		}
 	}
-    
-    	public void delete(String name) throws BusinessException {
+
+	public void delete(Calendar date) throws BusinessException {
 		DAOFactory factory = DAOFactory.getInstance();
 		try {
 			IEmprestimoDAO dao = factory.getEmprestimoDAO();
-			EmprestimoVO emprestimo = getEmprestimo(name);
+			EmprestimoVO emprestimo = getEmprestimo(date);
 			dao.delete(emprestimo);
 		} catch (Exception e) {
 			throw new BusinessException(e);
 		}
 	}
 
-      	public void update(EmprestimoVO vo) throws BusinessException {
-	DAOFactory factory = DAOFactory.getInstance();
-	try {
-		IEmprestimoDAO dao = factory.getEmprestimoDAO();
-		dao.update(vo);
-            } catch (Exception e) {
-		throw new BusinessException(e);
-            }
+	public void update(EmprestimoVO vo) throws BusinessException {
+		DAOFactory factory = DAOFactory.getInstance();
+		try {
+			IEmprestimoDAO dao = factory.getEmprestimoDAO();
+			dao.update(vo);
+		} catch (Exception e) {
+			throw new BusinessException(e);
+		}
 	}
-        
-       	public EmprestimoVO getEmprestimo(String name) throws BusinessException {
-	DAOFactory factory = DAOFactory.getInstance();
-	try {
-		IEmprestimoDAO dao = factory.getEmprestimoDAO();
-		return (EmprestimoVO) dao.selectByName(name);
-            } catch (Exception e) {
-		throw new BusinessException(e);
-            }
+
+	public EmprestimoVO getEmprestimo(Calendar date) throws BusinessException {
+		DAOFactory factory = DAOFactory.getInstance();
+		try {
+			IEmprestimoDAO dao = factory.getEmprestimoDAO();
+			return (EmprestimoVO) dao.selectByData(date);
+		} catch (Exception e) {
+			throw new BusinessException(e);
+		}
 	}
 
 	public List getAll() throws BusinessException {
@@ -63,4 +66,3 @@ public class Emprestimo implements IEmprestimo {
 		}
 	}
 }
-

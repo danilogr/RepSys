@@ -23,22 +23,23 @@ public class EmprestimoJDBCDAO extends GenericJDBCDAO implements IEmprestimoDAO 
 	@Override
 	public void insert(ObjectVO vo) throws DAOException {
 		String sql = "INSERT INTO " + this.getTableName()
-					+ "(DATA_HORA, VALOR, DESCRICAO) VALUES(?,?,?)";
+				+ "(DATA_HORA, VALOR, DESCRICAO) VALUES(?,?,?)";
 		try {
 			EmprestimoVO emprestimo = (EmprestimoVO) vo;
 			PreparedStatement stmt = this.getConnection().prepareStatement(sql);
 
-			// Criando um objeto java.sql.Date a partir de um objeto java.util.Calendar
+			// Criando um objeto java.sql.Date a partir de um objeto
+			// java.util.Calendar
 			Date dt = new Date(emprestimo.getDataHora().getTime().getTime());
-			stmt.setDate(1,  dt);
+			stmt.setDate(1, dt);
 			stmt.setDouble(2, emprestimo.getValor());
 			stmt.setString(3, emprestimo.getDescricao());
 			stmt.executeUpdate();
-		} catch(Exception e) {
+		} catch (Exception e) {
 			throw new DAOException(e);
 		}
 	}
-	
+
 	@Override
 	public void update(ObjectVO vo) throws DAOException {
 		String sql = "UPDATE " + this.getTableName()
@@ -46,16 +47,17 @@ public class EmprestimoJDBCDAO extends GenericJDBCDAO implements IEmprestimoDAO 
 		try {
 			EmprestimoVO emprestimo = (EmprestimoVO) vo;
 			PreparedStatement stmt = this.getConnection().prepareStatement(sql);
-	
+
 			stmt.setDouble(1, emprestimo.getValor());
 			stmt.setString(2, emprestimo.getDescricao());
 
-			// Criando um objeto java.sql.Date a partir de um objeto java.util.Calendar
+			// Criando um objeto java.sql.Date a partir de um objeto
+			// java.util.Calendar
 			Date dt = new Date(emprestimo.getDataHora().getTime().getTime());
-			stmt.setDate(3,  dt);
-			
+			stmt.setDate(3, dt);
+
 			stmt.executeUpdate();
-		} catch(Exception e) {
+		} catch (Exception e) {
 			throw new DAOException(e);
 		}
 	}
@@ -63,16 +65,17 @@ public class EmprestimoJDBCDAO extends GenericJDBCDAO implements IEmprestimoDAO 
 	@Override
 	public void delete(ObjectVO vo) throws DAOException {
 		String sql = "DELETE FROM " + this.getTableName()
-					+ " WHERE DATA_HORA = ?";
-		
+				+ " WHERE DATA_HORA = ?";
+
 		try {
 			EmprestimoVO emprestimo = (EmprestimoVO) vo;
 			PreparedStatement stmt = this.getConnection().prepareStatement(sql);
-	
-			// Criando um objeto java.sql.Date a partir de um objeto java.util.Calendar
+
+			// Criando um objeto java.sql.Date a partir de um objeto
+			// java.util.Calendar
 			Date dt = new Date(emprestimo.getDataHora().getTime().getTime());
-			stmt.setDate(1,  dt);
-			
+			stmt.setDate(1, dt);
+
 			stmt.executeUpdate();
 		} catch (Exception e) {
 			throw new DAOException(e);
@@ -90,10 +93,10 @@ public class EmprestimoJDBCDAO extends GenericJDBCDAO implements IEmprestimoDAO 
 			Date dt = rs.getDate("DATA_HORA");
 			double valor = rs.getDouble("VALOR");
 			String desc = rs.getString("DESCRICAO");
-			
+
 			Calendar cal = new GregorianCalendar();
 			cal.setTime(dt);
-			
+
 			return new EmprestimoVO(cal, valor, desc);
 		} catch (SQLException e) {
 			throw new DAOException(e);
@@ -101,8 +104,22 @@ public class EmprestimoJDBCDAO extends GenericJDBCDAO implements IEmprestimoDAO 
 	}
 
 	@Override
-	public EmprestimoVO selectByName(String name) throws DAOException {
-		// TODO Auto-generated method stub
+	public EmprestimoVO selectByData(Calendar date) throws DAOException {
+		String sql = "SELECT * FROM " + this.getTableName()
+				+ " WHERE data_hora = ?";
+		try {
+			Date dt = new Date(date.getTime().getTime());
+			PreparedStatement stmt = this.getConnection().prepareStatement(sql);
+			
+			stmt.setDate(1, dt);
+			
+			ResultSet rs = stmt.executeQuery();
+			if(rs.next()) {
+				return (EmprestimoVO) createVO(rs);
+			}
+		} catch (Exception e) {
+			throw new DAOException(e);
+		}
 		return null;
 	}
 

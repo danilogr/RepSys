@@ -5,6 +5,8 @@ import java.util.Properties;
 import dao.DAOException;
 import dao.DAOFactory;
 import dao.spec.IContaDAO;
+import dao.spec.IContaValorFixoDAO;
+import dao.spec.IContaValorVariavelDAO;
 import dao.spec.IEmprestimoDAO;
 import dao.spec.IFaturaTelefonicaDAO;
 import dao.spec.IItemFaturaTelefonicaDAO;
@@ -50,6 +52,31 @@ public class JDBCDAOFactory extends DAOFactory {
 
 	public INumeroTelefonicoDAO getNumeroTelefonicoDAO() throws DAOException {
 		//return new NumeroTelefonicoJDBCDAO(this.properties);
+		return null;
+	}
+
+	@Override
+	public IUsuarioDAO getUsuarioDAO() throws DAOException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public IContaDAO getContaDAO() throws DAOException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public IContaValorFixoDAO getContaValorFixoDAO() throws DAOException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public IContaValorVariavelDAO getContaValorVariavelDAO()
+			throws DAOException {
+		// TODO Auto-generated method stub
 		return null;
 	}
         
