@@ -62,6 +62,20 @@ public class ContaValorVariavelJDBCDAO extends ContaJDBCDAO implements IContaVal
 			throw new DAOException(e);
 		}
 	}
+	
+	public void delete(ObjectVO vo) throws DAOException {
+		String sql = "DELETE FROM " + this.getTableName()
+					+ " WHERE NOME = ?";
+		try {
+			ContaVO conta = (ContaVO) vo;
+			PreparedStatement stmt = this.getConnection().prepareStatement(sql);
+			stmt.setString(1, conta.getNome());
+			stmt.executeUpdate();
+			super.delete(vo);
+		} catch(Exception e){
+			throw new DAOException(e);
+		}
+	}
 
 	@Override
 	protected String getTableName() {
@@ -110,11 +124,7 @@ public class ContaValorVariavelJDBCDAO extends ContaJDBCDAO implements IContaVal
 	public static void main(String[] argv) throws DAOException, VOException {
 		ContaValorVariavelJDBCDAO cvfDAO = new ContaValorVariavelJDBCDAO(Configuration.getInstance().getProperties());
 		ContaValorVariavelVO vo = cvfDAO.selectByName("Luz-02/2013");
-		Calendar cal = new GregorianCalendar();
-		cal.set(2013, 02, 20);
-		vo.setDataVencimento(cal);
-		cvfDAO.update(vo);
-		System.out.println(vo.toString());
+		cvfDAO.delete(vo);
 	}
 
 }
