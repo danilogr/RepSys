@@ -10,15 +10,18 @@
  */
 package presentation.usuario;
 
+import presentation.lib.Consultavel;
+
 /**
  *
  * @author Endril
  */
-public class JPUsuariosCadastrados extends javax.swing.JPanel implements presentation.lib.ReturnEvent {
+public class JPUsuariosCadastrados extends javax.swing.JPanel implements presentation.lib.ReturnEvent,Consultavel{
 
     /** Creates new form JPUsuariosCadastrados */
     public JPUsuariosCadastrados() {
         initComponents();
+        this.setMode(Mode.NORMAL);
     }
 
     /** This method is called from within the constructor to
@@ -36,15 +39,16 @@ public class JPUsuariosCadastrados extends javax.swing.JPanel implements present
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         jButton3 = new javax.swing.JButton();
+        jButton4 = new javax.swing.JButton();
 
-        jLabel1.setFont(new java.awt.Font("Cambria", 1, 30)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Cambria", 1, 30));
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("I18n/Bundle"); // NOI18N
         jLabel1.setText(bundle.getString("JPUsuariosCadastrados.jLabel1.text")); // NOI18N
 
         jButton2.setFont(new java.awt.Font("Calibri", 1, 12)); // NOI18N
         jButton2.setText(bundle.getString("JPUsuariosCadastrados.jButton2.text")); // NOI18N
 
-        jTable1.setFont(new java.awt.Font("Calibri", 1, 12)); // NOI18N
+        jTable1.setFont(new java.awt.Font("Calibri", 1, 12));
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null},
@@ -61,13 +65,16 @@ public class JPUsuariosCadastrados extends javax.swing.JPanel implements present
         jTable1.getColumnModel().getColumn(1).setHeaderValue(bundle.getString("JPUsuariosCadastrados.jTable1.columnModel.title1")); // NOI18N
         jTable1.getColumnModel().getColumn(2).setHeaderValue(bundle.getString("JPUsuariosCadastrados.jTable1.columnModel.title2_1")); // NOI18N
 
-        jButton3.setFont(new java.awt.Font("Calibri", 1, 12)); // NOI18N
+        jButton3.setFont(new java.awt.Font("Calibri", 1, 12));
         jButton3.setText(bundle.getString("JPUsuariosCadastrados.jButton3.text")); // NOI18N
         jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton3ActionPerformed(evt);
             }
         });
+
+        jButton4.setFont(new java.awt.Font("Calibri", 1, 12)); // NOI18N
+        jButton4.setText(bundle.getString("JPUsuariosCadastrados.jButton4.text")); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -81,7 +88,9 @@ public class JPUsuariosCadastrados extends javax.swing.JPanel implements present
                     .addComponent(jLabel1)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(jButton3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 413, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 314, Short.MAX_VALUE)
+                        .addComponent(jButton4)
+                        .addGap(18, 18, 18)
                         .addComponent(jButton2)))
                 .addContainerGap())
         );
@@ -97,7 +106,8 @@ public class JPUsuariosCadastrados extends javax.swing.JPanel implements present
                 .addGap(31, 31, 31)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton2)
-                    .addComponent(jButton3))
+                    .addComponent(jButton3)
+                    .addComponent(jButton4))
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -109,13 +119,42 @@ private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables
 
+    private Mode mode;
+    
     public void onReturnFromOtherWindow(Object returnedObject) {
         throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    public Mode getMode() {
+        return this.mode;
+    }
+
+    public void setMode(Mode newMode) {
+        this.mode = newMode;
+        
+        switch (this.mode){
+            case NORMAL:
+                this.jButton4.setEnabled(false);
+                this.jTable1.setRowSelectionAllowed(false);
+                this.jTable1.setColumnSelectionAllowed(false);
+                this.jTable1.setCellSelectionEnabled(false);
+                break;
+            case SELECIONAVEL:
+                this.jButton4.setEnabled(true);
+                this.jTable1.setRowSelectionAllowed(true);
+                this.jTable1.setColumnSelectionAllowed(false);
+                this.jTable1.setCellSelectionEnabled(false);
+                break;
+            case EDITAVEL:
+                this.jButton4.setEnabled(true);
+                break;
+        }
     }
 }
