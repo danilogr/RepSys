@@ -116,10 +116,10 @@ public class UsuarioJDBCDAO extends GenericJDBCDAO implements IUsuarioDAO {
 		}
 	}
 
-	public final UsuarioVO selectByEmail(String email) throws DAOException {
+	public final UsuarioVO selectByEmail(String login) throws DAOException {
 		ObjectVO vo = null;
 		String sql = "SELECT * FROM " + this.getTableName()
-				+ " WHERE EMAIL = '" + email + "'";
+				+ " WHERE EMAIL = '" + login + "'";
 		try {
 			Statement stmt = this.getConnection().createStatement();
 			ResultSet rs = stmt.executeQuery(sql);

@@ -116,7 +116,7 @@ class ContaJDBCDAO extends GenericJDBCDAO implements IContaDAO {
 			String userEmail = rs.getString("EMAIL");
 			String desc = rs.getString("DESCRICAO");
 			
-			IUsuarioDAO userDAO = DAOFactory.getInstance().getUserDAO();
+			IUsuarioDAO userDAO = DAOFactory.getInstance().getUsuarioDAO();
 			UsuarioVO user = (UsuarioVO) userDAO.selectByEmail(userEmail);
 			return new ContaVO(nome, new Double(valor), user, desc);
 		} catch (SQLException e) {

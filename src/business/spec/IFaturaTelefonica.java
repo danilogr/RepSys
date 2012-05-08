@@ -11,11 +11,11 @@ public interface IFaturaTelefonica {
 
 	void create(FaturaTelefonicaVO vo) throws BusinessException;
 
-	void delete(String name) throws BusinessException;
+	void delete(int mes, int ano) throws BusinessException;
 
 	void update(FaturaTelefonicaVO vo) throws BusinessException;
 
-	FaturaTelefonicaVO getFaturaTelefonica(String name) throws BusinessException;
+	FaturaTelefonicaVO getFaturaTelefonica(int mes, int ano) throws BusinessException;
 
 	List getAll() throws BusinessException;
 

@@ -5,6 +5,7 @@
 package dao.spec;
 
 import dao.DAOException;
+import java.util.Calendar;
 import vo.ItemFaturaTelefonicaVO;
 
 /**
@@ -13,7 +14,7 @@ import vo.ItemFaturaTelefonicaVO;
  */
 public interface IItemFaturaTelefonicaDAO extends IGenericDAO{
     
-    ItemFaturaTelefonicaVO selectByName(String itemFatura) throws DAOException;
+    ItemFaturaTelefonicaVO selectByMesAnoDataHora(int mes, int ano, Calendar dataHora) throws DAOException;
     
     
 }

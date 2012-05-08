@@ -10,12 +10,12 @@ import dao.spec.IUsuarioDAO;
 
 public class Usuario implements IUsuario {
 
-	public void delete(int id) throws BusinessException {
+	public void delete(String email) throws BusinessException {
 		DAOFactory factory = DAOFactory.getInstance();
 		try {
-			IUsuarioDAO dao = factory.getUserDAO();
-			// TODO: alter the call of method delete do apdapt it to the new interface
-			//dao.delete(id);
+			IUsuarioDAO dao = factory.getUsuarioDAO();
+			UsuarioVO user = getUsuario(email);
+			dao.delete(user);
 		} catch (Exception e) {
 			throw new BusinessException(e);
 		}
@@ -24,7 +24,7 @@ public class Usuario implements IUsuario {
 	public void create(UsuarioVO user) throws BusinessException {
 		DAOFactory factory = DAOFactory.getInstance();
 		try {
-			IUsuarioDAO dao = factory.getUserDAO();
+			IUsuarioDAO dao = factory.getUsuarioDAO();
 			dao.insert(user);
 		} catch (Exception e) {
 			throw new BusinessException(e);
@@ -34,20 +34,18 @@ public class Usuario implements IUsuario {
 	public void update(UsuarioVO user) throws BusinessException {
 		DAOFactory factory = DAOFactory.getInstance();
 		try {
-			IUsuarioDAO dao = factory.getUserDAO();
+			IUsuarioDAO dao = factory.getUsuarioDAO();
 			dao.update(user);
 		} catch (Exception e) {
 			throw new BusinessException(e);
 		}
 	}
 
-	public UsuarioVO getUsuario(int id) throws BusinessException {
+	public UsuarioVO getUsuario(String email) throws BusinessException {
 		DAOFactory factory = DAOFactory.getInstance();
 		try {
-			IUsuarioDAO dao = factory.getUserDAO();
-			// TODO: method selectByID not exists anymore
-			//return (UsuarioVO) dao.selectByID(id);
-                        return null;
+			IUsuarioDAO dao = factory.getUsuarioDAO();
+			return (UsuarioVO) dao.selectByEmail(email);
 		} catch (Exception e) {
 			throw new BusinessException(e);
 		}
@@ -56,17 +54,17 @@ public class Usuario implements IUsuario {
 	public List getAll() throws BusinessException {
 		DAOFactory factory = DAOFactory.getInstance();
 		try {
-			IUsuarioDAO dao = factory.getUserDAO();
+			IUsuarioDAO dao = factory.getUsuarioDAO();
 			return dao.selectAll();
 		} catch (Exception e) {
 			throw new BusinessException(e);
 		}
 	}
 
-	public UsuarioVO getUsuarioByLogin(String email) throws BusinessException {
+	public UsuarioVO getUsuarioByEmail(String email) throws BusinessException {
 		DAOFactory factory = DAOFactory.getInstance();
 		try {
-			IUsuarioDAO dao = factory.getUserDAO();
+			IUsuarioDAO dao = factory.getUsuarioDAO();
 			return (UsuarioVO) dao.selectByEmail(email);
 		} catch (Exception e) {
 			throw new BusinessException(e);
@@ -76,7 +74,7 @@ public class Usuario implements IUsuario {
 	public boolean authenticate(UsuarioVO user) throws BusinessException {
 		DAOFactory factory = DAOFactory.getInstance();
 		try {
-			IUsuarioDAO dao = factory.getUserDAO();
+			IUsuarioDAO dao = factory.getUsuarioDAO();
 			return dao.checkEmailSenha(user.getEmail(), user.getSenha());
 		} catch (Exception e) {
                     e.printStackTrace();

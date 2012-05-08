@@ -3,6 +3,8 @@ package dao;
 import util.Configuration;
 import dao.impl.jdbc.JDBCDAOFactory;
 import dao.spec.IContaDAO;
+import dao.spec.IContaValorFixoDAO;
+import dao.spec.IContaValorVariavelDAO;
 import dao.spec.IEmprestimoDAO;
 import dao.spec.IFaturaTelefonicaDAO;
 import dao.spec.IItemFaturaTelefonicaDAO;
@@ -25,7 +27,7 @@ abstract public class DAOFactory {
 		return instance;
 	}
 
-	public abstract IUsuarioDAO getUserDAO() throws DAOException;
+	public abstract IUsuarioDAO getUsuarioDAO() throws DAOException;
 
 	public abstract IContaDAO getAccountDAO() throws DAOException;
         
@@ -36,4 +38,20 @@ abstract public class DAOFactory {
         public abstract IItemFaturaTelefonicaDAO getItemFaturaTelefonicaDAO() throws DAOException;
         
         public abstract INumeroTelefonicoDAO getNumeroTelefonicoDAO() throws DAOException;
+
+		public IContaValorVariavelDAO getContaValorVariavelDAO()
+				throws DAOException {
+			// TODO Auto-generated method stub
+			return null;
+		}
+
+		public IContaDAO getContaDAO() throws DAOException {
+			// TODO Auto-generated method stub
+			return null;
+		}
+
+		public IContaValorFixoDAO getContaValorFixoDAO() throws DAOException {
+			// TODO Auto-generated method stub
+			return null;
+		}
 }
