@@ -80,7 +80,7 @@ public class JPCadastrarUsuario extends javax.swing.JPanel implements presentati
             }
         });
 
-        jPasswordField2.setFont(new java.awt.Font("Catriel", 0, 11));
+        jPasswordField2.setFont(new java.awt.Font("Catriel", 0, 11)); // NOI18N
         jPasswordField2.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 jPasswordField2FocusLost(evt);
@@ -107,7 +107,7 @@ public class JPCadastrarUsuario extends javax.swing.JPanel implements presentati
             }
         });
 
-        jButton1.setFont(new java.awt.Font("Calibri", 1, 12));
+        jButton1.setFont(new java.awt.Font("Calibri", 1, 12)); // NOI18N
         jButton1.setText(bundle.getString("JPCadastrarUsuario.jButton1.text")); // NOI18N
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -204,7 +204,7 @@ private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
 // TODO add your handling code here:
 }//GEN-LAST:event_jTextField1ActionPerformed
 
-private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-LAST:event_jButton1ActionPerformed                                        
 
     String nome = jTextField1.getText();
     String email = jTextField2.getText();
@@ -251,7 +251,7 @@ private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
         }
     }
     
-}//GEN-LAST:event_jButton1ActionPerformed
+}//GEN-LAST:event_jButton1ActionPerformed                                       
 
 private void jTextField1FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextField1FocusLost
     if (!jTextField1.getText().isEmpty()) {
@@ -305,6 +305,7 @@ private void jPasswordField1FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRS
 private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
     MainWindow.getInstance().closeCurrentCard();
 }//GEN-LAST:event_jButton2ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;

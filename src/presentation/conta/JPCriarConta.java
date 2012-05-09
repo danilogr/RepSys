@@ -436,19 +436,6 @@ private void jTextField5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
 
     private void salvarConta() throws BusinessException {
         //throw new UnsupportedOperationException("Not yet implemented");
-        BusinessFactory factory = BusinessFactory.getInstance();
-        try {
-            ContaVO conta = new ContaVO(nomeConta, Double.parseDouble(valorConta), usuarioResponsavel, descricaoConta);
-            if(this.isValorFixo){
-                ContaValorFixoVO novaContaValorFixo = new ContaValorFixoVO(conta, dataInicialContaValorFixo, recorrenciaContaValorFixo, repeticoesContaValorFixo);
-            }
-            else{
-                ContaValorVariavelVO novaContaValorVariavel = new ContaValorVariavelVO(conta, vencimentoContaValorVariavel);                
-            }
-                
-            
-        } catch (BusinessException e) {
-            throw e;
-        }
+
     }
 }

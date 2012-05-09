@@ -26,15 +26,7 @@ public class JDBCDAOFactory extends DAOFactory {
 	public JDBCDAOFactory(Properties properties) {
 		this.properties = properties;
 	}
-	
-	public IUsuarioDAO getUserDAO() throws DAOException {
-		return new UsuarioJDBCDAO(this.properties);
-	}
 
-	public IContaDAO getAccountDAO() throws DAOException {
-		return new ContaJDBCDAO(this.properties);
-	}
-        
 	public IEmprestimoDAO getEmprestimoDAO() throws DAOException {
 		return new EmprestimoJDBCDAO(this.properties);
 	}
@@ -58,13 +50,13 @@ public class JDBCDAOFactory extends DAOFactory {
 	@Override
 	public IUsuarioDAO getUsuarioDAO() throws DAOException {
 		// TODO Auto-generated method stub
-		return null;
+		return new UsuarioJDBCDAO(this.properties);
 	}
 
 	@Override
 	public IContaDAO getContaDAO() throws DAOException {
 		// TODO Auto-generated method stub
-		return null;
+		return new ContaJDBCDAO(this.properties);
 	}
 
 	@Override
