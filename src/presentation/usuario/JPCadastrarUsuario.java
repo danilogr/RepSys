@@ -10,6 +10,8 @@
  */
 package presentation.usuario;
 
+import vo.UsuarioVO;
+
 /**
  *
  * @author Endril
@@ -44,27 +46,27 @@ public class JPCadastrarUsuario extends javax.swing.JPanel implements presentati
         jLabel6 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
 
-        jLabel1.setFont(new java.awt.Font("Cambria", 1, 30)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Cambria", 1, 30));
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("I18n/Bundle"); // NOI18N
         jLabel1.setText(bundle.getString("JPCadastrarUsuario.jLabel1.text")); // NOI18N
 
-        jLabel2.setFont(new java.awt.Font("Calibri", 3, 18)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Calibri", 3, 18));
         jLabel2.setText(bundle.getString("JPCadastrarUsuario.jLabel2.text")); // NOI18N
 
-        jLabel3.setFont(new java.awt.Font("Calibri", 3, 18)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("Calibri", 3, 18));
         jLabel3.setText(bundle.getString("JPCadastrarUsuario.jLabel3.text")); // NOI18N
 
-        jLabel4.setFont(new java.awt.Font("Calibri", 3, 18)); // NOI18N
+        jLabel4.setFont(new java.awt.Font("Calibri", 3, 18));
         jLabel4.setText(bundle.getString("JPCadastrarUsuario.jLabel4.text")); // NOI18N
 
-        jLabel5.setFont(new java.awt.Font("Calibri", 3, 18)); // NOI18N
+        jLabel5.setFont(new java.awt.Font("Calibri", 3, 18));
         jLabel5.setText(bundle.getString("JPCadastrarUsuario.jLabel5.text")); // NOI18N
 
         jPasswordField1.setFont(new java.awt.Font("Catriel", 0, 11)); // NOI18N
 
         jPasswordField2.setFont(new java.awt.Font("Catriel", 0, 11)); // NOI18N
 
-        jTextField1.setFont(new java.awt.Font("Catriel", 0, 11));
+        jTextField1.setFont(new java.awt.Font("Catriel", 0, 11)); // NOI18N
         jTextField1.setToolTipText(bundle.getString("JPCadastrarUsuario.jTextField1.toolTipText")); // NOI18N
         jTextField1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -72,12 +74,17 @@ public class JPCadastrarUsuario extends javax.swing.JPanel implements presentati
             }
         });
 
-        jTextField2.setFont(new java.awt.Font("Catriel", 0, 11));
+        jTextField2.setFont(new java.awt.Font("Catriel", 0, 11)); // NOI18N
 
         jButton1.setFont(new java.awt.Font("Calibri", 1, 12)); // NOI18N
         jButton1.setText(bundle.getString("JPCadastrarUsuario.jButton1.text")); // NOI18N
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
-        jButton2.setFont(new java.awt.Font("Calibri", 1, 12)); // NOI18N
+        jButton2.setFont(new java.awt.Font("Calibri", 1, 12));
         jButton2.setText(bundle.getString("JPCadastrarUsuario.jButton2.text")); // NOI18N
 
         jLabel6.setForeground(new java.awt.Color(255, 0, 0));
@@ -147,6 +154,16 @@ public class JPCadastrarUsuario extends javax.swing.JPanel implements presentati
 private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
 // TODO add your handling code here:
 }//GEN-LAST:event_jTextField1ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        
+        
+        UsuarioVO user = new UsuarioVO();
+        user.setEmail(jTextField1.getText());
+        
+        
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;

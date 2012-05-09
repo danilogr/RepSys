@@ -10,15 +10,20 @@
  */
 package presentation;
 
+import business.BusinessFactory;
+import business.spec.IUsuario;
+
 import java.awt.event.ItemEvent;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 import java.util.ResourceBundle;
+import javax.swing.JOptionPane;
 import presentation.desktop.MainWindow;
 import presentation.lib.ReturnEvent;
 import presentation.usuario.JPCadastrarUsuario;
 import util.Configuration;
+import vo.UsuarioVO;
 
 /**
  *
@@ -35,6 +40,7 @@ public class JPLogin extends javax.swing.JPanel implements ReturnEvent {
     public void onReturnFromOtherWindow(Object returnedObject)
     {
        jTextName.setText((String) returnedObject);
+       //colocar funcao de retorno aqui
     }
 
     
@@ -60,11 +66,6 @@ public class JPLogin extends javax.swing.JPanel implements ReturnEvent {
                 locales.put(locale.getDisplayName(), locale);
                 jComboBox1.addItem(locale.getDisplayName());
 
-//                item.addActionListener(new ActionListener() {
-//                        public void actionPerformed(ActionEvent event) {
-//                                Locale.setDefault(locale);
-//                                bundle = ResourceBundle.getBundle("I18n.Resources");
- //                       }
         }
         //seleciona o primeiro objeto
         jComboBox1.setSelectedIndex(0);
@@ -99,10 +100,6 @@ public class JPLogin extends javax.swing.JPanel implements ReturnEvent {
         jTextPassword = new javax.swing.JPasswordField();
         jButton1 = new javax.swing.JButton();
 
-        setBackground(new java.awt.Color(255, 255, 255));
-
-        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
-
         jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/presentation/resources/computer.png"))); // NOI18N
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("I18n/Bundle"); // NOI18N
         jLabel6.setText(bundle.getString("JPLogin.jLabel6.text")); // NOI18N
@@ -124,6 +121,7 @@ public class JPLogin extends javax.swing.JPanel implements ReturnEvent {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        jPanel3.setBackground(java.awt.SystemColor.controlHighlight);
         jPanel3.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 14));
@@ -148,11 +146,11 @@ public class JPLogin extends javax.swing.JPanel implements ReturnEvent {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.Alignment.LEADING, 0, 83, Short.MAX_VALUE)
+                    .addComponent(jComboBox1, javax.swing.GroupLayout.Alignment.LEADING, 0, 122, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel3Layout.createSequentialGroup()
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel4)
-                            .addComponent(jSeparator2, javax.swing.GroupLayout.DEFAULT_SIZE, 79, Short.MAX_VALUE))
+                            .addComponent(jSeparator2, javax.swing.GroupLayout.DEFAULT_SIZE, 118, Short.MAX_VALUE))
                         .addGap(4, 4, 4)))
                 .addContainerGap())
         );
@@ -168,6 +166,7 @@ public class JPLogin extends javax.swing.JPanel implements ReturnEvent {
                 .addContainerGap())
         );
 
+        jPanel4.setBackground(java.awt.SystemColor.controlHighlight);
         jPanel4.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 1, 14));
@@ -209,6 +208,7 @@ public class JPLogin extends javax.swing.JPanel implements ReturnEvent {
                 .addContainerGap())
         );
 
+        jPanel1.setBackground(java.awt.SystemColor.controlHighlight);
         jPanel1.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
 
         jLabel7.setFont(new java.awt.Font("Tahoma", 1, 14));
@@ -227,6 +227,16 @@ public class JPLogin extends javax.swing.JPanel implements ReturnEvent {
 
         jButton1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jButton1.setText(bundle.getString("JPLogin.jButton1.text")); // NOI18N
+        jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton1MouseClicked(evt);
+            }
+        });
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -235,7 +245,7 @@ public class JPLogin extends javax.swing.JPanel implements ReturnEvent {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jSeparator4, javax.swing.GroupLayout.DEFAULT_SIZE, 250, Short.MAX_VALUE)
+                    .addComponent(jSeparator4, javax.swing.GroupLayout.DEFAULT_SIZE, 289, Short.MAX_VALUE)
                     .addComponent(jLabel7)
                     .addComponent(jButton1, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -244,8 +254,8 @@ public class JPLogin extends javax.swing.JPanel implements ReturnEvent {
                             .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jTextName, javax.swing.GroupLayout.DEFAULT_SIZE, 180, Short.MAX_VALUE)
-                            .addComponent(jTextPassword, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 180, Short.MAX_VALUE))))
+                            .addComponent(jTextName, javax.swing.GroupLayout.DEFAULT_SIZE, 219, Short.MAX_VALUE)
+                            .addComponent(jTextPassword, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 219, Short.MAX_VALUE))))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -274,32 +284,33 @@ public class JPLogin extends javax.swing.JPanel implements ReturnEvent {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
+                        .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(40, 40, 40)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(7, 7, 7)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(43, Short.MAX_VALUE))
+                            .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(46, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -330,7 +341,49 @@ public class JPLogin extends javax.swing.JPanel implements ReturnEvent {
     }//GEN-LAST:event_jComboBox1ItemStateChanged
 
     /*
+     * Evento executado pelo clique do Mouse no Botao
+     */
+    private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
+ 
+    }//GEN-LAST:event_jButton1MouseClicked
+
+    private void authenticate()
+    {
+               try {
+                
+                    String email = jTextName.getText();
+                    String password = String.copyValueOf(jTextPassword.getPassword());
+
+                    boolean isAuthenticated = false;
+                    IUsuario user = BusinessFactory.getInstance().getUser();
+                    UsuarioVO vo = new UsuarioVO(email, password);
+                    try {
+                            isAuthenticated = user.authenticate(vo);
+                    } catch (Exception e) {
+                            isAuthenticated = false;
+                    }
+             
+                    if (isAuthenticated) {
+                            MainWindow.getInstance().authenticateUser(vo);			
+                    } else {
+                            JOptionPane.showMessageDialog(MainWindow.getInstance(),
+                            bundle.getString("JPLogin.Messages.LoginError"),
+                            bundle.getString("JPLogin.Messages.LoginError.Title"),
+                            JOptionPane.WARNING_MESSAGE);
+                    }
+		} catch (Exception e) {
+			e.printStackTrace();
+		}        
+    }
+    
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        authenticate();
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+  
+    /*
        Atualiza os componentes da tela de login
+     * Utilizado quando ocorre a troca de idiomas
      */
     private void updateComponents(){
             jLabel6.setText(bundle.getString("JPLogin.jLabel6.text")); // NOI18N
@@ -339,10 +392,9 @@ public class JPLogin extends javax.swing.JPanel implements ReturnEvent {
             jButton2.setText(bundle.getString("JPLogin.jButton2.text"));
             jLabel7.setText(bundle.getString("JPLogin.jLabel7.text")); // NOI18N
             jLabel8.setText(bundle.getString("JPLogin.jLabel8.text"));
-            jTextName.setText(bundle.getString("JPLogin.jTextName.text"));
             jLabel9.setText(bundle.getString("JPLogin.jLabel9.text"));
-            jTextPassword.setText(bundle.getString("JPLogin.jTextPassword.text"));
             jButton1.setText(bundle.getString("JPLogin.jButton1.text"));
+            //TODO: Chamar o evento que atualiza os componentes do MainWindow
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
