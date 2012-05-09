@@ -17,15 +17,19 @@ import java.awt.CardLayout;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.JRadioButton;
 import javax.swing.table.TableColumn;
 import org.hamcrest.Factory;
 import presentation.desktop.MainWindow;
+import presentation.lib.IMultiModePanel.Mode;
 import presentation.usuario.JPUsuariosCadastrados;
 import vo.ContaVO;
 import vo.ContaValorFixoVO;
 import vo.ContaValorVariavelVO;
+import vo.UsuarioVO;
+import vo.VOException;
 
 /**
  *
@@ -140,9 +144,9 @@ public class JPCriarConta extends javax.swing.JPanel implements presentation.lib
         });
 
         jButton3.setText(bundle.getString("JPCriarConta.jButton3.text")); // NOI18N
-        jButton3.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jButton3MouseClicked(evt);
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
             }
         });
 
@@ -221,10 +225,15 @@ public class JPCriarConta extends javax.swing.JPanel implements presentation.lib
                 .addComponent(jCheckBox2))
         );
 
-        jButton1.setFont(new java.awt.Font("Calibri", 1, 12));
+        jButton1.setFont(new java.awt.Font("Calibri", 1, 12)); // NOI18N
         jButton1.setText(bundle.getString("JPCriarConta.jButton1.text")); // NOI18N
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
-        jButton2.setFont(new java.awt.Font("Calibri", 1, 12));
+        jButton2.setFont(new java.awt.Font("Calibri", 1, 12)); // NOI18N
         jButton2.setText(bundle.getString("JPCriarConta.jButton2.text")); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -315,9 +324,8 @@ private void jRadioButton3StateChanged(javax.swing.event.ChangeEvent evt) {//GEN
 // TODO add your handling code here:
     JRadioButton rb = (JRadioButton)evt.getSource();
     if(rb.getModel() == buttonGroup1.getSelection()){
-        
-    CardLayout cl = (CardLayout)(this.jPanel3.getLayout());
-    cl.show(this.jPanel3, "fix");
+        CardLayout cl = (CardLayout)(this.jPanel3.getLayout());
+        cl.show(this.jPanel3, "fix");
     }   
 }//GEN-LAST:event_jRadioButton3StateChanged
 
@@ -325,9 +333,8 @@ private void jRadioButton4StateChanged(javax.swing.event.ChangeEvent evt) {//GEN
 // TODO add your handling code here:
     JRadioButton rb = (JRadioButton)evt.getSource();
     if(rb.getModel() == buttonGroup1.getSelection()){
-        
-    CardLayout cl = (CardLayout)(this.jPanel3.getLayout());
-    cl.show(this.jPanel3, "var");
+        CardLayout cl = (CardLayout)(this.jPanel3.getLayout());
+        cl.show(this.jPanel3, "var");
     }
 }//GEN-LAST:event_jRadioButton4StateChanged
 
@@ -335,12 +342,16 @@ private void jTextField5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
 // TODO add your handling code here:
 }//GEN-LAST:event_jTextField5ActionPerformed
 
-private void jButton3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton3MouseClicked
+private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+// TODO add your handling code here:
+}//GEN-LAST:event_jButton1ActionPerformed
+
+private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
 // TODO add your handling code here:
     JPUsuariosCadastrados jpanel = new JPUsuariosCadastrados();
-    jpanel.setMode
-    MainWindow.getInstance().showCard(this, );
-}//GEN-LAST:event_jButton3MouseClicked
+    jpanel.setMode(Mode.SELECIONAVEL);
+    MainWindow.getInstance().showCard(this, jpanel);
+}//GEN-LAST:event_jButton3ActionPerformed
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroup1;
@@ -374,14 +385,16 @@ private void jButton3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:ev
     private JPValorFixo cardFix;
     private JPValorVariavel cardVar;
     
-    private ArrayList usuariosEnvolvidos;
+    private List usuariosEnvolvidos;
     private String nomeConta;
-    private String valorConta;
+    private double valorConta;
     private String descricaoConta;
     private Boolean isValorFixo;
     private String recorrenciaContaValorFixo;
     private int repeticoesContaValorFixo;
+    private Calendar dataInicialContaValorFixo;
     private Calendar vencimentoContaValorVariavel;
+    private UsuarioVO usuarioResponsavel;
     
     
     private void initCardLayout(){
@@ -394,8 +407,6 @@ private void jButton3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:ev
     }
 
     private void myInit(){
-        
-        
         int colIndex = 0;
         int width = 75;
         TableColumn col = this.jTable2.getColumnModel().getColumn(colIndex);
@@ -412,21 +423,25 @@ private void jButton3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:ev
     }
     
     public void onReturnFromOtherWindow(Object returnedObject) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        if (returnedObject instanceof UsuarioVO){
+            this.usuarioResponsavel = (UsuarioVO)returnedObject;
+        }
     }
 
     private void parseFormData() throws ParseException,Exception, NumberFormatException{        
+        
         usuariosEnvolvidos = new ArrayList();
         for (int i=0; i < this.jTable2.getRowCount();i++){
             if ((Boolean)this.jTable2.getValueAt(i, 2)){
                 usuariosEnvolvidos.add(this.jTable2.getValueAt(i,2));
             }
         }
+        
         nomeConta = this.jTextField3.getText();
-        valorConta = this.jTextField4.getText();
         descricaoConta = this.jTextArea2.getText();
         isValorFixo = this.jRadioButton3.isSelected();
-        try{
+        try{            
+            valorConta = Double.parseDouble(jTextField4.getText());
             if(isValorFixo) {
                     recorrenciaContaValorFixo = this.cardFix.getRecorrencia();
                     repeticoesContaValorFixo = this.cardFix.getRepeticoes();
@@ -444,24 +459,24 @@ private void jButton3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:ev
         }
         catch(Exception e){
             throw e;
-        }
-        
+        }        
     }
 
-    private void salvarConta() throws BusinessException {
+    private void salvarConta() throws BusinessException, VOException {
         //throw new UnsupportedOperationException("Not yet implemented");
         BusinessFactory factory = BusinessFactory.getInstance();
         try {
-            ContaVO conta = new ContaVO(nomeConta, Double.parseDouble(valorConta), usuarioResponsavel, descricaoConta);
-            if(this.isValorFixo){
-                ContaValorFixoVO novaContaValorFixo = new ContaValorFixoVO(conta, dataInicialContaValorFixo, recorrenciaContaValorFixo, repeticoesContaValorFixo);
-            }
-            else{
-                ContaValorVariavelVO novaContaValorVariavel = new ContaValorVariavelVO(conta, vencimentoContaValorVariavel);                
-            }
-                
+            ContaVO conta = new ContaVO(nomeConta, valorConta, usuarioResponsavel, descricaoConta);
             
+            if(this.isValorFixo){
+                factory.getAccount().create(new ContaValorFixoVO(conta, dataInicialContaValorFixo,  repeticoesContaValorFixo, recorrenciaContaValorFixo));
+            }
+            else{                
+                factory.getAccount().create(new ContaValorVariavelVO(conta, vencimentoContaValorVariavel));         
+            }
         } catch (BusinessException e) {
+            throw e;
+        } catch (VOException e){
             throw e;
         }
     }
