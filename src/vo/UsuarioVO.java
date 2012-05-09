@@ -46,9 +46,14 @@ public class UsuarioVO extends ObjectVO {
 		return this.nome;
 	}
 
-	public void setName(String nome) {
+	public void setNome(String nome) {
 		this.nome = nome;
 	}
+        
+        static public boolean verificaEmail(String email) {
+            // TODO
+            return true;
+        }
 
     @Override
 	public String toString() {
