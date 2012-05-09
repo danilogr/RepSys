@@ -10,6 +10,12 @@
  */
 package presentation.usuario;
 
+import business.BusinessException;
+import business.BusinessFactory;
+import java.awt.Color;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import presentation.desktop.MainWindow;
 import vo.UsuarioVO;
 
 /**
@@ -18,6 +24,9 @@ import vo.UsuarioVO;
  */
 public class JPCadastrarUsuario extends javax.swing.JPanel implements presentation.lib.ReturnEvent {
 
+    private boolean emailOK = false;
+    private boolean senhaOK = false;
+    
     /** Creates new form CriarUsuario */
     public JPCadastrarUsuario() {
         initComponents();
@@ -45,6 +54,8 @@ public class JPCadastrarUsuario extends javax.swing.JPanel implements presentati
         jButton2 = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
 
         jLabel1.setFont(new java.awt.Font("Cambria", 1, 30));
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("I18n/Bundle"); // NOI18N
@@ -62,19 +73,39 @@ public class JPCadastrarUsuario extends javax.swing.JPanel implements presentati
         jLabel5.setFont(new java.awt.Font("Calibri", 3, 18));
         jLabel5.setText(bundle.getString("JPCadastrarUsuario.jLabel5.text")); // NOI18N
 
-        jPasswordField1.setFont(new java.awt.Font("Catriel", 0, 11)); // NOI18N
+        jPasswordField1.setFont(new java.awt.Font("Catriel", 0, 11));
+        jPasswordField1.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jPasswordField1FocusLost(evt);
+            }
+        });
 
         jPasswordField2.setFont(new java.awt.Font("Catriel", 0, 11)); // NOI18N
+        jPasswordField2.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jPasswordField2FocusLost(evt);
+            }
+        });
 
-        jTextField1.setFont(new java.awt.Font("Catriel", 0, 11)); // NOI18N
+        jTextField1.setFont(new java.awt.Font("Catriel", 0, 11));
         jTextField1.setToolTipText(bundle.getString("JPCadastrarUsuario.jTextField1.toolTipText")); // NOI18N
         jTextField1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField1ActionPerformed(evt);
             }
         });
+        jTextField1.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jTextField1FocusLost(evt);
+            }
+        });
 
-        jTextField2.setFont(new java.awt.Font("Catriel", 0, 11)); // NOI18N
+        jTextField2.setFont(new java.awt.Font("Catriel", 0, 11));
+        jTextField2.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jTextField2FocusLost(evt);
+            }
+        });
 
         jButton1.setFont(new java.awt.Font("Calibri", 1, 12)); // NOI18N
         jButton1.setText(bundle.getString("JPCadastrarUsuario.jButton1.text")); // NOI18N
@@ -86,9 +117,23 @@ public class JPCadastrarUsuario extends javax.swing.JPanel implements presentati
 
         jButton2.setFont(new java.awt.Font("Calibri", 1, 12));
         jButton2.setText(bundle.getString("JPCadastrarUsuario.jButton2.text")); // NOI18N
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jLabel6.setForeground(new java.awt.Color(255, 0, 0));
         jLabel6.setText(bundle.getString("JPCadastrarUsuario.jLabel6.text")); // NOI18N
+        jLabel6.setVisible(false);
+
+        jLabel7.setForeground(new java.awt.Color(255, 0, 0));
+        jLabel7.setText(bundle.getString("JPCadastrarUsuario.jLabel7.text")); // NOI18N
+        jLabel7.setVisible(false);
+
+        jLabel8.setForeground(new java.awt.Color(255, 0, 0));
+        jLabel8.setText(bundle.getString("JPCadastrarUsuario.jLabel8.text")); // NOI18N
+        jLabel8.setVisible(false);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -105,17 +150,17 @@ public class JPCadastrarUsuario extends javax.swing.JPanel implements presentati
                             .addComponent(jLabel5)
                             .addComponent(jLabel2)
                             .addComponent(jLabel4)
-                            .addComponent(jLabel3))
+                            .addComponent(jLabel3)
+                            .addComponent(jButton1))
                         .addGap(10, 10, 10)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel8)
                             .addComponent(jTextField2, javax.swing.GroupLayout.DEFAULT_SIZE, 369, Short.MAX_VALUE)
                             .addComponent(jPasswordField1, javax.swing.GroupLayout.DEFAULT_SIZE, 369, Short.MAX_VALUE)
                             .addComponent(jPasswordField2, javax.swing.GroupLayout.DEFAULT_SIZE, 369, Short.MAX_VALUE)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, 369, Short.MAX_VALUE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButton1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 91, Short.MAX_VALUE)
-                        .addComponent(jLabel6)))
+                            .addComponent(jTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, 369, Short.MAX_VALUE)
+                            .addComponent(jLabel6)
+                            .addComponent(jLabel7))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -133,7 +178,9 @@ public class JPCadastrarUsuario extends javax.swing.JPanel implements presentati
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(1, 1, 1)
+                .addComponent(jLabel6)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4))
@@ -141,11 +188,13 @@ public class JPCadastrarUsuario extends javax.swing.JPanel implements presentati
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
                     .addComponent(jPasswordField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel7)
+                .addGap(22, 22, 22)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
-                    .addComponent(jLabel6))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 9, Short.MAX_VALUE)
+                    .addComponent(jLabel8))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jButton2)
                 .addContainerGap())
         );
@@ -155,15 +204,108 @@ private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
 // TODO add your handling code here:
 }//GEN-LAST:event_jTextField1ActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        
-        
-        UsuarioVO user = new UsuarioVO();
-        user.setEmail(jTextField1.getText());
-        
-        
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-LAST:event_jButton1ActionPerformed                                        
+
+    String nome = jTextField1.getText();
+    String email = jTextField2.getText();
+    String senha = String.copyValueOf(jPasswordField1.getPassword());
+    boolean ok = true;
+    
+    if (senha.isEmpty()) {
+        jPasswordField1.setBackground(Color.red);
+        jPasswordField1.grabFocus();
+        ok = false;
+    } else {
+        jPasswordField1.setBackground(Color.white);
+    }
+
+    if (email.isEmpty()) {
+        jTextField2.setBackground(Color.red);
+        jTextField2.grabFocus();
+        ok = false;
+    } else {
+        jTextField2.setBackground(Color.white);
+    }
+    
+    if (nome.isEmpty()) {
+        jTextField1.setBackground(Color.red);
+        jTextField1.grabFocus();
+        ok = false;
+    } else {
+        jTextField1.setBackground(Color.white);
+    }    
+    
+    jLabel8.setVisible(ok);
+    
+    if (ok && emailOK && senhaOK) {
+        BusinessFactory factory = BusinessFactory.getInstance();
+        UsuarioVO user = new UsuarioVO(); 
+        user.setNome(nome);
+        user.setEmail(email);
+        user.setSenha(senha);
+        try {
+            factory.getUsuario().create(user);
+            MainWindow.getInstance().closeCurrentCard(user);
+        } catch (BusinessException ex) {
+            Logger.getLogger(JPCadastrarUsuario.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+}//GEN-LAST:event_jButton1ActionPerformed                                       
+
+private void jTextField1FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextField1FocusLost
+    if (!jTextField1.getText().isEmpty()) {
+        jTextField1.setBackground(Color.white);
+    }
+}//GEN-LAST:event_jTextField1FocusLost
+
+private void jTextField2FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextField2FocusLost
+    if (!jTextField2.getText().isEmpty()) {
+        /*
+        if (UsuarioVO.verificaEmail(jTextField2.getText()) == false) {
+            emailOK = false;
+            // TODO: erro
+        } else {*/
+            BusinessFactory factory = BusinessFactory.getInstance();
+            try {
+                if (factory.getUsuario().getUsuarioByEmail(jTextField2.getText()) == null) {
+                    emailOK = false;
+                    jTextField2.setBackground(Color.red);
+                } else {
+                    emailOK = true;
+                    jTextField2.setBackground(Color.white);
+                }
+                jLabel6.setVisible(!emailOK);
+            } catch (BusinessException ex) {
+                Logger.getLogger(JPCadastrarUsuario.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        //}   
+    }
+}//GEN-LAST:event_jTextField2FocusLost
+
+private void jPasswordField2FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jPasswordField2FocusLost
+    if (jPasswordField2.getPassword().length > 0) {
+        if (jPasswordField2.getPassword() != jPasswordField1.getPassword()) {
+            senhaOK = false;
+            jPasswordField2.setBackground(Color.red);
+        } else {
+            senhaOK = true;
+            jPasswordField2.setBackground(Color.white);
+        }
+        jLabel7.setVisible(!senhaOK);
+    }
+}//GEN-LAST:event_jPasswordField2FocusLost
+
+private void jPasswordField1FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jPasswordField1FocusLost
+    if (!String.copyValueOf(jPasswordField1.getPassword()).isEmpty()) {
+        jPasswordField1.setBackground(Color.white);
+    }
+}//GEN-LAST:event_jPasswordField1FocusLost
+
+private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    MainWindow.getInstance().closeCurrentCard();
+}//GEN-LAST:event_jButton2ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
@@ -174,6 +316,8 @@ private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JPasswordField jPasswordField1;
     private javax.swing.JPasswordField jPasswordField2;
     private javax.swing.JSeparator jSeparator1;

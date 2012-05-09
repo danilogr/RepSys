@@ -355,7 +355,7 @@ public class JPLogin extends javax.swing.JPanel implements ReturnEvent {
                     String password = String.copyValueOf(jTextPassword.getPassword());
 
                     boolean isAuthenticated = false;
-                    IUsuario user = BusinessFactory.getInstance().getUser();
+                    IUsuario user = BusinessFactory.getInstance().getUsuario();
                     UsuarioVO vo = new UsuarioVO(email, password);
                     try {
                             isAuthenticated = user.authenticate(vo);

@@ -121,7 +121,7 @@ public class MainWindow extends javax.swing.JFrame {
      */
     public void authenticateUser(UsuarioVO usuario)
     {
-        IUsuario user = BusinessFactory.getInstance().getUser();
+        IUsuario user = BusinessFactory.getInstance().getUsuario();
         try {
             if(user.authenticate(usuario))
             {
