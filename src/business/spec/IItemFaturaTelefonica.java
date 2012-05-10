@@ -13,11 +13,11 @@ public interface IItemFaturaTelefonica {
 
 	void create(ItemFaturaTelefonicaVO vo) throws BusinessException;
 
-	void delete(String numero,int mes, int ano, Calendar dataHora) throws BusinessException;
+	void delete(String numero, Calendar dataHora) throws BusinessException;
 
 	void update(ItemFaturaTelefonicaVO vo) throws BusinessException;
 
-	ItemFaturaTelefonicaVO getItemFaturaTelefonica(String numero, int mes, int ano, Calendar dataHora) throws BusinessException;
+	ItemFaturaTelefonicaVO getItemFaturaTelefonica(String numero, Calendar dataHora) throws BusinessException;
 
 	List getAll() throws BusinessException;
 
