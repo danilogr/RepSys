@@ -15,6 +15,10 @@ import vo.EmprestimoVO;
 import vo.ObjectVO;
 import dao.DAOException;
 import dao.spec.IEmprestimoDAO;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
+import vo.VOException;
 
 public class EmprestimoJDBCDAO extends GenericJDBCDAO implements IEmprestimoDAO {
 
@@ -110,6 +114,22 @@ public class EmprestimoJDBCDAO extends GenericJDBCDAO implements IEmprestimoDAO 
 			throw new DAOException(e);
 		}
 		return null;
+	}
+        
+    @Override
+    public final List selectAll() throws DAOException, VOException {
+		String sql = "SELECT * FROM " + this.getTableName()+" ORDER BY data_hora DESC";
+		List<ObjectVO> list = new ArrayList<ObjectVO>();
+		try {
+			Statement stmt = this.getConnection().createStatement();
+			ResultSet rs = stmt.executeQuery(sql);
+			while (rs.next()) {
+				list.add(this.createVO(rs));
+			}
+		} catch (SQLException e) {
+			throw new DAOException(e);
+		}
+		return list;
 	}
 
 }

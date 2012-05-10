@@ -12,10 +12,13 @@ package presentation.emprestimo;
 
 import business.BusinessException;
 import business.BusinessFactory;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
+import presentation.desktop.MainWindow;
 import vo.EmprestimoVO;
 
 /**
@@ -32,7 +35,8 @@ public class JPConsultarEmprestimo extends javax.swing.JPanel implements present
             int counter = 0;
             DefaultTableModel model =(DefaultTableModel) jTable2.getModel();
             for (EmprestimoVO emprestimo:emprestimos) {
-                model.insertRow(counter, new Object[]{emprestimo.getDataHora(),emprestimo.getDescricao(),emprestimo.getValor()});
+                DateFormat df = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+                model.insertRow(counter, new Object[]{df.format(emprestimo.getDataHora().getTime()),emprestimo.getDescricao(),emprestimo.getValor()});
                 counter++;
                 }
         } catch (BusinessException ex) {
@@ -63,6 +67,11 @@ public class JPConsultarEmprestimo extends javax.swing.JPanel implements present
 
         jButton2.setFont(new java.awt.Font("Calibri", 1, 12));
         jButton2.setText(bundle.getString("JPConsultarEmprestimo.jButton2.text")); // NOI18N
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jTable2.setFont(new java.awt.Font("Calibri", 0, 12));
         jTable2.setModel(new javax.swing.table.DefaultTableModel(
@@ -113,6 +122,11 @@ public class JPConsultarEmprestimo extends javax.swing.JPanel implements present
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+       MainWindow.getInstance().closeCurrentCard();
+    }//GEN-LAST:event_jButton2ActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
