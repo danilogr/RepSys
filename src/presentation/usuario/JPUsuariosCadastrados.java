@@ -10,15 +10,31 @@
  */
 package presentation.usuario;
 
+import business.BusinessException;
+import business.BusinessFactory;
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.JOptionPane;
+import javax.swing.ListSelectionModel;
+import presentation.desktop.MainWindow;
+import presentation.lib.IMultiModePanel;
+import vo.UsuarioVO;
+
 /**
  *
  * @author Endril
  */
-public class JPUsuariosCadastrados extends javax.swing.JPanel implements presentation.lib.ReturnEvent {
+public class JPUsuariosCadastrados extends javax.swing.JPanel implements presentation.lib.ReturnEvent,IMultiModePanel{
 
     /** Creates new form JPUsuariosCadastrados */
     public JPUsuariosCadastrados() {
         initComponents();
+        this.setMode(Mode.NORMAL);
+    }
+    
+    public JPUsuariosCadastrados(Mode mode) {
+        initComponents();
+        this.setMode(mode);
     }
 
     /** This method is called from within the constructor to
@@ -31,20 +47,27 @@ public class JPUsuariosCadastrados extends javax.swing.JPanel implements present
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        jButton2 = new javax.swing.JButton();
+        buttonVoltar = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JSeparator();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
-        jButton3 = new javax.swing.JButton();
+        buttonRemover = new javax.swing.JButton();
+        buttonConfirmarSelecao = new javax.swing.JButton();
+        buttonEditar = new javax.swing.JButton();
 
-        jLabel1.setFont(new java.awt.Font("Cambria", 1, 30)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Cambria", 1, 30));
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("I18n/Bundle"); // NOI18N
         jLabel1.setText(bundle.getString("JPUsuariosCadastrados.jLabel1.text")); // NOI18N
 
-        jButton2.setFont(new java.awt.Font("Calibri", 1, 12)); // NOI18N
-        jButton2.setText(bundle.getString("JPUsuariosCadastrados.jButton2.text")); // NOI18N
+        buttonVoltar.setFont(new java.awt.Font("Calibri", 1, 12)); // NOI18N
+        buttonVoltar.setText(bundle.getString("JPUsuariosCadastrados.buttonVoltar.text")); // NOI18N
+        buttonVoltar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonVoltarActionPerformed(evt);
+            }
+        });
 
-        jTable1.setFont(new java.awt.Font("Calibri", 1, 12)); // NOI18N
+        jTable1.setFont(new java.awt.Font("Calibri", 1, 12));
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null},
@@ -55,17 +78,43 @@ public class JPUsuariosCadastrados extends javax.swing.JPanel implements present
             new String [] {
                 "Usuário", "E-mail", "Saldo em Empréstimos"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jTable1.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        jTable1.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(jTable1);
         jTable1.getColumnModel().getColumn(0).setHeaderValue(bundle.getString("JPUsuariosCadastrados.jTable1.columnModel.title0")); // NOI18N
         jTable1.getColumnModel().getColumn(1).setHeaderValue(bundle.getString("JPUsuariosCadastrados.jTable1.columnModel.title1")); // NOI18N
         jTable1.getColumnModel().getColumn(2).setHeaderValue(bundle.getString("JPUsuariosCadastrados.jTable1.columnModel.title2_1")); // NOI18N
 
-        jButton3.setFont(new java.awt.Font("Calibri", 1, 12)); // NOI18N
-        jButton3.setText(bundle.getString("JPUsuariosCadastrados.jButton3.text")); // NOI18N
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        buttonRemover.setFont(new java.awt.Font("Calibri", 1, 12)); // NOI18N
+        buttonRemover.setText(bundle.getString("JPUsuariosCadastrados.buttonRemover.text")); // NOI18N
+        buttonRemover.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                buttonRemoverActionPerformed(evt);
+            }
+        });
+
+        buttonConfirmarSelecao.setFont(new java.awt.Font("Calibri", 1, 12)); // NOI18N
+        buttonConfirmarSelecao.setText(bundle.getString("JPUsuariosCadastrados.buttonConfirmarSelecao.text")); // NOI18N
+        buttonConfirmarSelecao.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonConfirmarSelecaoActionPerformed(evt);
+            }
+        });
+
+        buttonEditar.setFont(new java.awt.Font("Calibri", 1, 12)); // NOI18N
+        buttonEditar.setText(bundle.getString("JPUsuariosCadastrados.buttonEditar.text")); // NOI18N
+        buttonEditar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonEditarActionPerformed(evt);
             }
         });
 
@@ -76,19 +125,22 @@ public class JPUsuariosCadastrados extends javax.swing.JPanel implements present
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 553, Short.MAX_VALUE)
-                    .addComponent(jSeparator1, javax.swing.GroupLayout.DEFAULT_SIZE, 553, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 504, Short.MAX_VALUE)
+                    .addComponent(jSeparator1, javax.swing.GroupLayout.DEFAULT_SIZE, 504, Short.MAX_VALUE)
                     .addComponent(jLabel1)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jButton3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 413, Short.MAX_VALUE)
-                        .addComponent(jButton2)))
+                        .addComponent(buttonRemover)
+                        .addGap(18, 18, 18)
+                        .addComponent(buttonEditar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 182, Short.MAX_VALUE)
+                        .addComponent(buttonConfirmarSelecao)
+                        .addGap(18, 18, 18)
+                        .addComponent(buttonVoltar)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -96,26 +148,103 @@ public class JPUsuariosCadastrados extends javax.swing.JPanel implements present
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 274, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(31, 31, 31)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton2)
-                    .addComponent(jButton3))
-                .addContainerGap())
+                    .addComponent(buttonVoltar)
+                    .addComponent(buttonRemover)
+                    .addComponent(buttonConfirmarSelecao)
+                    .addComponent(buttonEditar))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
-private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+private void buttonRemoverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonRemoverActionPerformed
 // TODO add your handling code here:
-}//GEN-LAST:event_jButton3ActionPerformed
+    if(this.mode == Mode.NORMAL){
+        try{
+            this.chamarRemocao();
+        }
+        catch(BusinessException e){
+            JOptionPane.showMessageDialog(this, "erro:"+e.toString());
+        }            
+    }
+}//GEN-LAST:event_buttonRemoverActionPerformed
+
+private void buttonConfirmarSelecaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonConfirmarSelecaoActionPerformed
+// TODO add your handling code here:
+    if(this.mode == Mode.SELECIONAVEL)
+        this.retornarUsuarioSelecionado();
+}//GEN-LAST:event_buttonConfirmarSelecaoActionPerformed
+
+private void buttonVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonVoltarActionPerformed
+// TODO add your handling code here:
+    MainWindow.getInstance().closeCurrentCard();
+}//GEN-LAST:event_buttonVoltarActionPerformed
+
+private void buttonEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonEditarActionPerformed
+// TODO add your handling code here:
+    if(this.mode == Mode.NORMAL)
+        this.chamarEdicao();
+}//GEN-LAST:event_buttonEditarActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
+    private javax.swing.JButton buttonConfirmarSelecao;
+    private javax.swing.JButton buttonEditar;
+    private javax.swing.JButton buttonRemover;
+    private javax.swing.JButton buttonVoltar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables
 
+    private Mode mode;
+    private List<UsuarioVO> usuarios;
+    
     public void onReturnFromOtherWindow(Object returnedObject) {
-        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    public Mode getMode() {
+        return this.mode;
+    }
+
+    public void setMode(Mode newMode) {
+        
+        this.mode = newMode;
+        
+        switch (this.mode){
+            case NORMAL:
+                this.buttonEditar.setEnabled(true);
+                this.buttonRemover.setEnabled(true);
+                this.jTable1.setRowSelectionAllowed(false);
+                this.jTable1.setColumnSelectionAllowed(false);
+                this.jTable1.setCellSelectionEnabled(false);
+                break;
+            case SELECIONAVEL:
+                this.buttonEditar.setEnabled(false);
+                this.buttonRemover.setEnabled(false);
+                this.jTable1.setRowSelectionAllowed(true);
+                this.jTable1.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+                this.jTable1.setColumnSelectionAllowed(false);
+                this.jTable1.setCellSelectionEnabled(false);
+                break;
+        }
+    }
+    
+    private void retornarUsuarioSelecionado(){
+        MainWindow.getInstance().closeCurrentCard(usuarios.get((this.jTable1.getSelectedRow())));
+    }
+
+    private void chamarEdicao() {
+        MainWindow.getInstance().showCard(this, new JPAtualizarUsuario());
+    }
+
+    private void chamarRemocao() throws BusinessException {
+        UsuarioVO selecionado = usuarios.get((this.jTable1.getSelectedRow()));
+        BusinessFactory factory = BusinessFactory.getInstance();
+        try{
+            factory.getUsuario().delete(selecionado.getEmail());
+        }
+        catch(BusinessException e){
+            throw e;
+        }
     }
 }

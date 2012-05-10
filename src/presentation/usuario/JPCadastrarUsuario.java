@@ -24,8 +24,8 @@ import vo.UsuarioVO;
  */
 public class JPCadastrarUsuario extends javax.swing.JPanel implements presentation.lib.ReturnEvent {
 
-    private boolean emailOK = false;
-    private boolean senhaOK = false;
+    private boolean emailOK = true;
+    private boolean senhaOK = true;
     
     /** Creates new form CriarUsuario */
     public JPCadastrarUsuario() {
@@ -80,7 +80,7 @@ public class JPCadastrarUsuario extends javax.swing.JPanel implements presentati
             }
         });
 
-        jPasswordField2.setFont(new java.awt.Font("Catriel", 0, 11)); // NOI18N
+        jPasswordField2.setFont(new java.awt.Font("Catriel", 0, 11));
         jPasswordField2.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 jPasswordField2FocusLost(evt);
@@ -107,7 +107,7 @@ public class JPCadastrarUsuario extends javax.swing.JPanel implements presentati
             }
         });
 
-        jButton1.setFont(new java.awt.Font("Calibri", 1, 12)); // NOI18N
+        jButton1.setFont(new java.awt.Font("Calibri", 1, 12));
         jButton1.setText(bundle.getString("JPCadastrarUsuario.jButton1.text")); // NOI18N
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -142,25 +142,30 @@ public class JPCadastrarUsuario extends javax.swing.JPanel implements presentati
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jSeparator1, javax.swing.GroupLayout.DEFAULT_SIZE, 555, Short.MAX_VALUE)
+                    .addComponent(jSeparator1, javax.swing.GroupLayout.DEFAULT_SIZE, 463, Short.MAX_VALUE)
                     .addComponent(jLabel1)
-                    .addComponent(jButton2, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jButton1)
+                        .addGap(59, 59, 59)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel6)
+                            .addComponent(jLabel7)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(jLabel8)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
+                                .addComponent(jButton2))))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel5)
                             .addComponent(jLabel2)
-                            .addComponent(jLabel4)
                             .addComponent(jLabel3)
-                            .addComponent(jButton1))
+                            .addComponent(jLabel4)
+                            .addComponent(jLabel5))
                         .addGap(10, 10, 10)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel8)
-                            .addComponent(jTextField2, javax.swing.GroupLayout.DEFAULT_SIZE, 369, Short.MAX_VALUE)
-                            .addComponent(jPasswordField1, javax.swing.GroupLayout.DEFAULT_SIZE, 369, Short.MAX_VALUE)
-                            .addComponent(jPasswordField2, javax.swing.GroupLayout.DEFAULT_SIZE, 369, Short.MAX_VALUE)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, 369, Short.MAX_VALUE)
-                            .addComponent(jLabel6)
-                            .addComponent(jLabel7))))
+                            .addComponent(jTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, 277, Short.MAX_VALUE)
+                            .addComponent(jPasswordField1, javax.swing.GroupLayout.DEFAULT_SIZE, 277, Short.MAX_VALUE)
+                            .addComponent(jPasswordField2, javax.swing.GroupLayout.DEFAULT_SIZE, 277, Short.MAX_VALUE)
+                            .addComponent(jTextField2, javax.swing.GroupLayout.DEFAULT_SIZE, 277, Short.MAX_VALUE))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -174,28 +179,32 @@ public class JPCadastrarUsuario extends javax.swing.JPanel implements presentati
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3))
-                .addGap(1, 1, 1)
-                .addComponent(jLabel6)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
                     .addComponent(jPasswordField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel7)
-                .addGap(22, 22, 22)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(9, 9, 9)
+                        .addComponent(jButton1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jLabel6)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel7)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButton2)
                     .addComponent(jLabel8))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton2)
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -204,38 +213,40 @@ private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
 // TODO add your handling code here:
 }//GEN-LAST:event_jTextField1ActionPerformed
 
-private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-LAST:event_jButton1ActionPerformed                                        
+private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {                                                                                
 
+    // Cadastra o usuário
+    
     String nome = jTextField1.getText();
     String email = jTextField2.getText();
     String senha = String.copyValueOf(jPasswordField1.getPassword());
     boolean ok = true;
     
+    if (String.copyValueOf(jPasswordField2.getPassword()).isEmpty()) {
+        jPasswordField2.setBackground(Color.red);
+        jPasswordField2.grabFocus();
+        ok = false;
+    }
+    
     if (senha.isEmpty()) {
         jPasswordField1.setBackground(Color.red);
         jPasswordField1.grabFocus();
         ok = false;
-    } else {
-        jPasswordField1.setBackground(Color.white);
     }
 
     if (email.isEmpty()) {
         jTextField2.setBackground(Color.red);
         jTextField2.grabFocus();
         ok = false;
-    } else {
-        jTextField2.setBackground(Color.white);
     }
     
     if (nome.isEmpty()) {
         jTextField1.setBackground(Color.red);
         jTextField1.grabFocus();
         ok = false;
-    } else {
-        jTextField1.setBackground(Color.white);
-    }    
+    }
     
-    jLabel8.setVisible(ok);
+    jLabel8.setVisible(!ok);
     
     if (ok && emailOK && senhaOK) {
         BusinessFactory factory = BusinessFactory.getInstance();
@@ -251,15 +262,17 @@ private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-LAST
         }
     }
     
-}//GEN-LAST:event_jButton1ActionPerformed                                       
+}                                                                               
 
 private void jTextField1FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextField1FocusLost
+    // Verifica se o nome foi digitado
     if (!jTextField1.getText().isEmpty()) {
         jTextField1.setBackground(Color.white);
     }
 }//GEN-LAST:event_jTextField1FocusLost
 
 private void jTextField2FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextField2FocusLost
+    // Verifica se o e-mail foi digitado e é válido
     if (!jTextField2.getText().isEmpty()) {
         /*
         if (UsuarioVO.verificaEmail(jTextField2.getText()) == false) {
@@ -268,7 +281,7 @@ private void jTextField2FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:ev
         } else {*/
             BusinessFactory factory = BusinessFactory.getInstance();
             try {
-                if (factory.getUsuario().getUsuarioByEmail(jTextField2.getText()) == null) {
+                if (factory.getUsuario().getUsuarioByEmail(jTextField2.getText()) != null) {
                     emailOK = false;
                     jTextField2.setBackground(Color.red);
                 } else {
@@ -279,26 +292,38 @@ private void jTextField2FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:ev
             } catch (BusinessException ex) {
                 Logger.getLogger(JPCadastrarUsuario.class.getName()).log(Level.SEVERE, null, ex);
             }
-        //}   
+        //}
     }
 }//GEN-LAST:event_jTextField2FocusLost
 
 private void jPasswordField2FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jPasswordField2FocusLost
+    // Verifica se as senhas conferem
     if (jPasswordField2.getPassword().length > 0) {
-        if (jPasswordField2.getPassword() != jPasswordField1.getPassword()) {
-            senhaOK = false;
-            jPasswordField2.setBackground(Color.red);
-        } else {
+        if (String.copyValueOf(jPasswordField2.getPassword()).equals(String.copyValueOf(jPasswordField1.getPassword()))) {
             senhaOK = true;
             jPasswordField2.setBackground(Color.white);
+        } else {
+            senhaOK = false;
+            jPasswordField2.setBackground(Color.red);
         }
         jLabel7.setVisible(!senhaOK);
     }
 }//GEN-LAST:event_jPasswordField2FocusLost
 
 private void jPasswordField1FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jPasswordField1FocusLost
+    // Verifica se a senha foi digitada
     if (!String.copyValueOf(jPasswordField1.getPassword()).isEmpty()) {
         jPasswordField1.setBackground(Color.white);
+        if (jPasswordField2.getPassword().length > 0) {
+            if (String.copyValueOf(jPasswordField2.getPassword()).equals(String.copyValueOf(jPasswordField1.getPassword()))) {
+                senhaOK = true;
+                jPasswordField2.setBackground(Color.white);
+            } else {
+                senhaOK = false;
+                jPasswordField2.setBackground(Color.red);
+            }
+            jLabel7.setVisible(!senhaOK);
+        }
     }
 }//GEN-LAST:event_jPasswordField1FocusLost
 
