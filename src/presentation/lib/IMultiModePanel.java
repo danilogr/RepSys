@@ -8,9 +8,9 @@ package presentation.lib;
  *
  * @author Daniel
  */
-public interface Consultavel {
+public interface IMultiModePanel {
     public enum Mode  {
-        NORMAL, SELECIONAVEL, EDITAVEL
+        NORMAL, SELECIONAVEL
     }
     
     public Mode getMode();

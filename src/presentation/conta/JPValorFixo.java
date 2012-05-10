@@ -10,6 +10,11 @@
  */
 package presentation.conta;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+
 /**
  *
  * @author Daniel
@@ -135,6 +140,20 @@ public class JPValorFixo extends javax.swing.JPanel {
         catch(NumberFormatException e){
             throw e;
         }  
+    }
+    
+    public Calendar getDataInicial() throws ParseException{
+        String fieldText = this.jTextField3.getText();
+        try{
+            SimpleDateFormat sdf = new SimpleDateFormat("dd/mmm/yyyy");
+            Date fieldDate = sdf.parse(fieldText);
+            Calendar fieldCal = Calendar.getInstance();
+            fieldCal.setTime(fieldDate);
+            return fieldCal;
+        }
+        catch(ParseException e){
+            throw e;
+        }          
     }
 
 }
