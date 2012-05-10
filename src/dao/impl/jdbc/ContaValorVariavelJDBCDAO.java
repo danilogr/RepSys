@@ -1,6 +1,6 @@
 package dao.impl.jdbc;
 
-import java.sql.Date;
+import java.sql.Timestamp;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -38,7 +38,7 @@ public class ContaValorVariavelJDBCDAO extends ContaJDBCDAO implements
 			PreparedStatement stmt = this.getConnection().prepareStatement(sql);
 
 			stmt.setString(1, cvf.getNome());
-			stmt.setDate(2, new Date(cvf.getDataVencimento().getTime()
+			stmt.setTimestamp(2, new Timestamp(cvf.getDataVencimento().getTime()
 					.getTime()));
 
 			stmt.executeUpdate();
@@ -55,7 +55,7 @@ public class ContaValorVariavelJDBCDAO extends ContaJDBCDAO implements
 		try {
 			ContaValorVariavelVO cvf = (ContaValorVariavelVO) vo;
 			PreparedStatement stmt = this.getConnection().prepareStatement(sql);
-			stmt.setDate(1, new Date(cvf.getDataVencimento().getTime()
+			stmt.setTimestamp(1, new Timestamp(cvf.getDataVencimento().getTime()
 					.getTime()));
 			stmt.setString(2, cvf.getNome());
 
@@ -89,7 +89,7 @@ public class ContaValorVariavelJDBCDAO extends ContaJDBCDAO implements
 			ContaVO conta = (ContaVO) super.createVO(rs);
 
 			Calendar dataVenc = new GregorianCalendar();
-			dataVenc.setTime(rs.getDate("DATA_DE_VENCIMENTO"));
+			dataVenc.setTime(rs.getTimestamp("DATA_DE_VENCIMENTO"));
 
 			return new ContaValorVariavelVO(conta, dataVenc);
 		} catch (SQLException e) {

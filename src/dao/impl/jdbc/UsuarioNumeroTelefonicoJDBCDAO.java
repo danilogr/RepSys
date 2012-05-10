@@ -1,6 +1,6 @@
 package dao.impl.jdbc;
 
-import java.sql.Date;
+import java.sql.Timestamp;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
@@ -38,7 +38,7 @@ public class UsuarioNumeroTelefonicoJDBCDAO extends GenericJDBCDAO implements
 
 			stmt.setString(1, unt.getUsuario().getEmail());
 			stmt.setString(2, unt.getNumero().getNumero());
-			stmt.setDate(3, new Date(unt.getDataHora().getTime().getTime()));
+			stmt.setTimestamp(3, new Timestamp(unt.getDataHora().getTime().getTime()));
 			stmt.setInt(4, unt.getRecorrencia());
 
 			stmt.executeUpdate();
@@ -75,7 +75,7 @@ public class UsuarioNumeroTelefonicoJDBCDAO extends GenericJDBCDAO implements
 		try {
 			PreparedStatement stmt = this.getConnection().prepareStatement(sql);
 
-			stmt.setDate(1, new Date(unt.getDataHora().getTime().getTime()));
+			stmt.setTimestamp(1, new Timestamp(unt.getDataHora().getTime().getTime()));
 			stmt.setInt(2, unt.getRecorrencia());
 			stmt.setString(3, unt.getUsuario().getEmail());
 			stmt.setString(4, unt.getNumero().getNumero());
@@ -96,7 +96,7 @@ public class UsuarioNumeroTelefonicoJDBCDAO extends GenericJDBCDAO implements
 		try {
 			String email = rs.getString("EMAIL");
 			String numero = rs.getString("NUMERO");
-			Date dataHora = rs.getDate("DATA_HORA");
+			Timestamp dataHora = rs.getTimestamp("DATA_HORA");
 			Calendar cal = new GregorianCalendar();
 			cal.setTime(dataHora);
 			int recorrencia = rs.getInt("RECORRENCIA");

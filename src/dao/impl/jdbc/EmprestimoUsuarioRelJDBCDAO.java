@@ -1,6 +1,6 @@
 package dao.impl.jdbc;
 
-import java.sql.Date;
+import java.sql.Timestamp;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
@@ -36,9 +36,9 @@ public abstract class EmprestimoUsuarioRelJDBCDAO extends GenericJDBCDAO
 			PreparedStatement stmt = this.getConnection().prepareStatement(sql);
 			EmprestimoUsuarioRelVO eur = (EmprestimoUsuarioRelVO) vo;
 
-			Date dt = new Date(eur.getEmprestimo().getDataHora().getTime()
+			Timestamp dt = new Timestamp(eur.getEmprestimo().getDataHora().getTime()
 					.getTime());
-			stmt.setDate(1, dt);
+			stmt.setTimestamp(1, dt);
 			stmt.setString(2, eur.getUsuario().getEmail());
 
 			stmt.executeUpdate();
@@ -55,9 +55,9 @@ public abstract class EmprestimoUsuarioRelJDBCDAO extends GenericJDBCDAO
 			EmprestimoUsuarioRelVO euc = (EmprestimoUsuarioRelVO) vo;
 			PreparedStatement stmt = this.getConnection().prepareStatement(sql);
 
-			Date dt = new Date(euc.getEmprestimo().getDataHora().getTime()
+			Timestamp dt = new Timestamp(euc.getEmprestimo().getDataHora().getTime()
 					.getTime());
-			stmt.setDate(1, dt);
+			stmt.setTimestamp(1, dt);
 			stmt.setString(2, euc.getUsuario().getEmail());
 
 			stmt.executeUpdate();
@@ -82,7 +82,7 @@ public abstract class EmprestimoUsuarioRelJDBCDAO extends GenericJDBCDAO
 	protected ObjectVO createVO(ResultSet rs) throws DAOException, VOException {
 		try {
 			String email = rs.getString("EMAIL");
-			Date dt = rs.getDate("DATA_HORA");
+			Timestamp dt = rs.getTimestamp("DATA_HORA");
 			Calendar cal = new GregorianCalendar();
 			cal.setTime(dt);
 
@@ -108,12 +108,12 @@ public abstract class EmprestimoUsuarioRelJDBCDAO extends GenericJDBCDAO
 
 		UsuarioJDBCDAO uDAO = new UsuarioJDBCDAO(Configuration.getInstance()
 				.getProperties());
-		Date dt = new Date(emprestimo.getDataHora().getTime().getTime());
+		Timestamp dt = new Timestamp(emprestimo.getDataHora().getTime().getTime());
 
 		try {
 
 			PreparedStatement stmt = this.getConnection().prepareStatement(sql);
-			stmt.setDate(1, dt);
+			stmt.setTimestamp(1, dt);
 
 			ResultSet rs = stmt.executeQuery();
 
@@ -145,7 +145,7 @@ public abstract class EmprestimoUsuarioRelJDBCDAO extends GenericJDBCDAO
 			ResultSet rs = stmt.executeQuery();
 
 			while (rs.next()) {
-				Date dt = rs.getDate("DATA_HORA");
+				Timestamp dt = rs.getTimestamp("DATA_HORA");
 				Calendar cal = new GregorianCalendar();
 				cal.setTime(dt);
 				list.add(eDAO.selectByData(cal));
