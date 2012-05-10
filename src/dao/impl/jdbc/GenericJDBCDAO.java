@@ -38,6 +38,18 @@ public abstract class GenericJDBCDAO implements IGenericDAO {
 	protected Connection getConnection() {
 		return connection;
 	}
+	
+	public void setAutoCommit(boolean opt) throws SQLException {
+		connection.setAutoCommit(opt);
+	}
+	
+	public void commit() throws SQLException {
+		connection.commit();
+	}
+	
+	public void rollback() throws SQLException {
+		connection.rollback();
+	}
 
 	public final List selectAll() throws DAOException, VOException {
 		String sql = "SELECT * FROM " + this.getTableName();
