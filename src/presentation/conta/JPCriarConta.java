@@ -10,24 +10,21 @@
  */
 package presentation.conta;
 
-import business.BusinessException;
 import business.BusinessFactory;
 import java.awt.CardLayout;
 import java.text.ParseException;
-import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.JRadioButton;
 import javax.swing.table.TableColumn;
 import presentation.desktop.MainWindow;
 import presentation.lib.IMultiModePanel.Mode;
 import presentation.usuario.JPUsuariosCadastrados;
+import vo.ContaUsuarioDevedorVO;
 import vo.ContaVO;
 import vo.ContaValorFixoVO;
 import vo.ContaValorVariavelVO;
 import vo.UsuarioVO;
-import vo.VOException;
 
 /**
  *
@@ -350,8 +347,7 @@ private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
 // TODO add your handling code here:
     try{
         if(isTudoPreenchido()){
-            this.parseFormData();
-            this.salvarConta();
+            this.parseFormDataAndSave();
             JOptionPane.showMessageDialog(this, "Conta cadastrada.");
             MainWindow.getInstance().closeCurrentCard();
         }
@@ -401,9 +397,7 @@ private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
     
     private JPValorFixo cardFix;
     private JPValorVariavel cardVar;
-    
-    private List<String> usuariosEnvolvidos;
-    
+        
     private String nomeConta;
     private double valorConta;
     private String descricaoConta;
@@ -449,18 +443,11 @@ private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
         }
     }
 
-    private void parseFormData() throws ParseException,Exception, NumberFormatException{        
-        
-        usuariosEnvolvidos = new ArrayList();
-        for (int i=0; i < this.jTable2.getRowCount();i++){
-            if ((Boolean)this.jTable2.getValueAt(i, 0)){
-                usuariosEnvolvidos.add((String)this.jTable2.getValueAt(i,2));
-            }
-        }
-        
-        nomeConta = this.textFieldNomeConta.getText();
-        descricaoConta = this.jTextArea2.getText();
-        try{            
+    private void parseFormDataAndSave() throws ParseException,Exception, NumberFormatException{        
+        try{ 
+            nomeConta = this.textFieldNomeConta.getText();
+            descricaoConta = this.jTextArea2.getText();
+                   
             valorConta = Double.parseDouble(textFieldValorConta.getText());
             if(isValorFixo) {
                     recorrenciaContaValorFixo = this.cardFix.getRecorrencia();
@@ -469,7 +456,25 @@ private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
             else {
                 vencimentoContaValorVariavel = this.cardVar.getVencimento();
             }
-        
+                        
+            ContaVO conta;
+            
+            if(isValorFixo){
+                conta = new ContaValorFixoVO(nomeConta, valorConta, usuarioResponsavel, descricaoConta, dataInicialContaValorFixo,  repeticoesContaValorFixo, recorrenciaContaValorFixo);
+            }
+            else{                
+                conta = new ContaValorVariavelVO(nomeConta, valorConta, usuarioResponsavel, descricaoConta, vencimentoContaValorVariavel);         
+            }
+            
+            BusinessFactory factory = BusinessFactory.getInstance();
+            for (int i=0; i < this.jTable2.getRowCount();i++){
+                if ((Boolean)this.jTable2.getValueAt(i, 0)){
+                    String email = (String)this.jTable2.getValueAt(i,2);
+                    Double prop = (Double)this.jTable2.getValueAt(i,3);
+                    if (email != null && prop != null)
+                        factory.getConta().create(new ContaUsuarioDevedorVO(factory.getUsuario().getUsuarioByEmail(email),conta,prop.floatValue()));
+                }
+            }
         }
         catch(ParseException e){
             throw e;
@@ -480,25 +485,6 @@ private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
         catch(Exception e){
             throw e;
         }        
-    }
-
-    private void salvarConta() throws BusinessException, VOException {
-        //throw new UnsupportedOperationException("Not yet implemented");
-        BusinessFactory factory = BusinessFactory.getInstance();
-        try {
-            ContaVO conta = new ContaVO(nomeConta, valorConta, usuarioResponsavel, descricaoConta);
-            
-            if(this.isValorFixo){
-                factory.getConta().create(new ContaValorFixoVO(conta, dataInicialContaValorFixo,  repeticoesContaValorFixo, recorrenciaContaValorFixo),usuariosEnvolvidos);
-            }
-            else{                
-                factory.getConta().create(new ContaValorVariavelVO(conta, vencimentoContaValorVariavel),usuariosEnvolvidos);         
-            }
-        } catch (BusinessException e) {
-            throw e;
-        } catch (VOException e){
-            throw e;
-        }
     }
 
     private boolean isTudoPreenchido() throws Exception {        
