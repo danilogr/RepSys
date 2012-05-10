@@ -8,7 +8,7 @@ import vo.ContaUsuarioDevedorVO;
 
 public interface IConta {
 
-	public void create(ContaUsuarioDevedorVO vo) throws BusinessException;
+	public void create(ContaUsuarioDevedorVO vo, boolean first) throws BusinessException;
 
 	public void update(ContaVO vo, List<String> emails) throws BusinessException;
         

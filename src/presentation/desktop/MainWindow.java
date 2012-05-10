@@ -824,13 +824,13 @@ showFirstCard(  new JPConsultarLigacao());
             jLabelUsuarioEmail.setText(bundle.getString("MainWindow.jLabelUsuarioEmail.text"));            
             jButton1.setText(bundle.getString("MainWindow.jButton1.text"));
             jButton2.setText(bundle.getString("MainWindow.jButton2.text"));
-            jButton3.setText(bundle.getString("MainWindow.jButton3text"));
+            jButton3.setText(bundle.getString("MainWindow.jButton3.text"));
             jButton5.setText(bundle.getString("MainWindow.jButton5.text"));
             jButton6.setText(bundle.getString("MainWindow.jButton6.text"));
-            jButton7.setText(bundle.getString("MainWindow.jButton7text"));
+            jButton7.setText(bundle.getString("MainWindow.jButton7.text"));
             jButton8.setText(bundle.getString("MainWindow.jButton8.text"));
             jButton10.setText(bundle.getString("MainWindow.jButton10.text"));
-            jButton11.setText(bundle.getString("MainWindow.jButton11text"));
+            jButton11.setText(bundle.getString("MainWindow.jButton11.text"));
             jButton12.setText(bundle.getString("MainWindow.jButton12.text"));
             jButton13.setText(bundle.getString("MainWindow.jButton13.text"));
 

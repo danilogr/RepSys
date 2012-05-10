@@ -16,13 +16,13 @@ import vo.ContaValorVariavelVO;
 
 public class Conta implements IConta {
 
-	public void create(ContaUsuarioDevedorVO vo) throws BusinessException {
-                
+	public void create(ContaUsuarioDevedorVO vo, boolean first) throws BusinessException {
             ContaVO conta = vo.getConta();
  		
             DAOFactory factory = DAOFactory.getInstance();
             try {
-                    if (conta instanceof ContaValorFixoVO){
+                if(first){
+                    if(conta instanceof ContaValorFixoVO){
                         IContaValorFixoDAO dao = factory.getContaValorFixoDAO();
                         dao.insert(conta);
                     }
@@ -30,9 +30,10 @@ public class Conta implements IConta {
                         IContaValorVariavelDAO dao = factory.getContaValorVariavelDAO();
                         dao.insert(conta);
                     }
+                }
 
-                    IContaUsuarioDevedorDAO dao = factory.getContaUsuarioDevedorDAO();
-                    dao.insert(vo);
+                IContaUsuarioDevedorDAO dao = factory.getContaUsuarioDevedorDAO();
+                dao.insert(vo);
 
             } catch (Exception e) {
                     throw new BusinessException(e);

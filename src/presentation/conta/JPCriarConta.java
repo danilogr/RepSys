@@ -10,13 +10,19 @@
  */
 package presentation.conta;
 
+import business.BusinessException;
 import business.BusinessFactory;
 import java.awt.CardLayout;
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.JRadioButton;
+import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 import presentation.desktop.MainWindow;
 import presentation.lib.IMultiModePanel.Mode;
@@ -60,7 +66,6 @@ public class JPCriarConta extends javax.swing.JPanel implements presentation.lib
         jScrollPane4 = new javax.swing.JScrollPane();
         jTable2 = new javax.swing.JTable();
         jLabel15 = new javax.swing.JLabel();
-        jCheckBox2 = new javax.swing.JCheckBox();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
@@ -95,7 +100,7 @@ public class JPCriarConta extends javax.swing.JPanel implements presentation.lib
             }
         });
 
-        jButton3.setText(bundle.getString("JPCriarConta.jButton3.text")); // NOI18N
+        jButton3.setText("..."); // NOI18N
         jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton3ActionPerformed(evt);
@@ -104,17 +109,7 @@ public class JPCriarConta extends javax.swing.JPanel implements presentation.lib
 
         jTable2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, "Daniel", "daniel@gmail.com", null},
-                {null, "João", "joão@gmail.com", null},
-                {null, "Pedro", "pedro@gmail.com", null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
                 "Selecionar", "Nome", "e-mail", "Proporção (%)"
@@ -145,9 +140,6 @@ public class JPCriarConta extends javax.swing.JPanel implements presentation.lib
         jLabel15.setFont(new java.awt.Font("Calibri", 3, 18));
         jLabel15.setText(bundle.getString("JPCriarConta.jLabel15.text")); // NOI18N
 
-        jCheckBox2.setFont(new java.awt.Font("Calibri", 0, 14));
-        jCheckBox2.setText(bundle.getString("JPCriarConta.jCheckBox2.text")); // NOI18N
-
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
@@ -160,9 +152,6 @@ public class JPCriarConta extends javax.swing.JPanel implements presentation.lib
                 .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addComponent(jLabel15)
-                .addContainerGap())
-            .addGroup(jPanel4Layout.createSequentialGroup()
-                .addComponent(jCheckBox2)
                 .addContainerGap())
             .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 584, Short.MAX_VALUE)
         );
@@ -177,12 +166,10 @@ public class JPCriarConta extends javax.swing.JPanel implements presentation.lib
                 .addComponent(jLabel15)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jCheckBox2)
-                .addContainerGap(64, Short.MAX_VALUE))
+                .addContainerGap(91, Short.MAX_VALUE))
         );
 
-        jButton1.setFont(new java.awt.Font("Calibri", 1, 12));
+        jButton1.setFont(new java.awt.Font("Calibri", 1, 12)); // NOI18N
         jButton1.setText(bundle.getString("JPCriarConta.jButton1.text")); // NOI18N
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -190,7 +177,7 @@ public class JPCriarConta extends javax.swing.JPanel implements presentation.lib
             }
         });
 
-        jButton2.setFont(new java.awt.Font("Calibri", 1, 12));
+        jButton2.setFont(new java.awt.Font("Calibri", 1, 12)); // NOI18N
         jButton2.setText(bundle.getString("JPCriarConta.jButton2.text")); // NOI18N
 
         textFieldValorConta.setFont(new java.awt.Font("Catriel", 0, 11));
@@ -344,13 +331,17 @@ private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
     ResourceBundle bundle = ResourceBundle.getBundle("I18n/Bundle");      
     try {
         if(isTudoPreenchido()){
+            jLabel12.setVisible(false);
             this.parseFormDataAndSave();
+            if (!isAnyUsuarioSelecionado)
+                throw new Exception();
             JOptionPane.showMessageDialog(this, bundle.getString("JPCriarConta.Mensagem.OK"));
             MainWindow.getInstance().closeCurrentCard();
         }
         else
-            jLabel14.setVisible(true);
+            jLabel12.setVisible(true);
     } catch (Exception ex) {
+        Logger.getLogger(JPCriarConta.class.getName()).log(Level.SEVERE, null, ex);
         JOptionPane.showMessageDialog(this, bundle.getString("JPCriarConta.Mensagem.Erro1"));
     }
 }//GEN-LAST:event_jButton1ActionPerformed
@@ -392,7 +383,6 @@ private void jRadioButton3StateChanged(javax.swing.event.ChangeEvent evt) {//GEN
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
-    private javax.swing.JCheckBox jCheckBox2;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
@@ -443,12 +433,14 @@ private void jRadioButton3StateChanged(javax.swing.event.ChangeEvent evt) {//GEN
     }
 
     private void myInit(){
+        jLabel12.setVisible(false);
+        
         int colIndex = 0;
         int width = 75;
         TableColumn col = this.jTable2.getColumnModel().getColumn(colIndex);
         col.setMinWidth(width);
         col.setMaxWidth(width);
-        col.setPreferredWidth(width); 
+        col.setPreferredWidth(width);
         
         colIndex = 3;
         width=100;
@@ -456,6 +448,22 @@ private void jRadioButton3StateChanged(javax.swing.event.ChangeEvent evt) {//GEN
         col.setMinWidth(width);
         col.setMaxWidth(width);
         col.setPreferredWidth(width);
+        
+        List<UsuarioVO> usuarios = new ArrayList<UsuarioVO>();
+        BusinessFactory factory = BusinessFactory.getInstance();
+        
+        try {
+            usuarios = factory.getUsuario().getAll();
+        } catch (BusinessException ex) {
+            Logger.getLogger(JPCriarConta.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        int counter=0;
+        DefaultTableModel model = (DefaultTableModel) jTable2.getModel();
+        for (UsuarioVO usuario:usuarios) {
+            model.insertRow(counter, new Object[]{false, usuario.getNome(),usuario.getEmail()});
+            counter++;
+        }
     }
     
     public void onReturnFromOtherWindow(Object returnedObject) {
@@ -475,6 +483,7 @@ private void jRadioButton3StateChanged(javax.swing.event.ChangeEvent evt) {//GEN
             if(isValorFixo) {
                     recorrenciaContaValorFixo = this.cardFix.getRecorrencia();
                     repeticoesContaValorFixo = this.cardFix.getRepeticoes();
+                    dataInicialContaValorFixo = this.cardFix.getDataInicial();
             }
             else {
                 vencimentoContaValorVariavel = this.cardVar.getVencimento();
@@ -491,20 +500,25 @@ private void jRadioButton3StateChanged(javax.swing.event.ChangeEvent evt) {//GEN
             
             BusinessFactory factory = BusinessFactory.getInstance();
             isAnyUsuarioSelecionado=false;
+            int counter=0;
             for (int i=0; i < this.jTable2.getRowCount();i++){
                 if ((Boolean)this.jTable2.getValueAt(i, 0)){
-                    isAnyUsuarioSelecionado = true;
                     String email = (String)this.jTable2.getValueAt(i,2);
                     Double prop = (Double)this.jTable2.getValueAt(i,3);
-                    if (email != null && prop != null)
-                        factory.getConta().create(new ContaUsuarioDevedorVO(factory.getUsuario().getUsuarioByEmail(email),conta,prop.floatValue()));
+                    if (email != null && prop != null){
+                    isAnyUsuarioSelecionado = true;
+                        if(++counter==1)
+                            factory.getConta().create(new ContaUsuarioDevedorVO(factory.getUsuario().getUsuarioByEmail(email),conta,prop.floatValue()), true);
+                        else
+                            factory.getConta().create(new ContaUsuarioDevedorVO(factory.getUsuario().getUsuarioByEmail(email),conta,prop.floatValue()), false);
+                    }
                 }
             }
             
     }
 
     private boolean isTudoPreenchido() throws Exception {
-            if ( !isAnyUsuarioSelecionado || this.textFieldNomeConta.getText().equals("") || this.textFieldValorConta.getText().equals("") )
+            if ( this.textFieldNomeConta.getText().isEmpty() || this.textFieldValorConta.getText().isEmpty() )
                 return false;
             
             else if(this.isValorFixo)

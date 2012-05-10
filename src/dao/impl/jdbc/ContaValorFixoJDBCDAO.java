@@ -20,6 +20,7 @@ import vo.VOException;
 import dao.DAOException;
 import dao.spec.IContaDAO;
 import dao.spec.IContaValorFixoDAO;
+import org.postgresql.util.PGInterval;
 
 public class ContaValorFixoJDBCDAO extends ContaJDBCDAO implements IContaValorFixoDAO {
 
@@ -40,7 +41,7 @@ public class ContaValorFixoJDBCDAO extends ContaJDBCDAO implements IContaValorFi
 			stmt.setString(1, cvf.getNome());
 			stmt.setTimestamp(2, new Timestamp(cvf.getDataInicial().getTime().getTime()));
 			stmt.setInt(3, cvf.getTempoRecorrencia());
-			stmt.setString(4, cvf.getPeriodoRecorrencia());
+			stmt.setObject(4, new PGInterval(cvf.getPeriodoRecorrencia()));
 			
 			stmt.executeUpdate();
 		} catch(Exception e){
@@ -59,7 +60,7 @@ public class ContaValorFixoJDBCDAO extends ContaJDBCDAO implements IContaValorFi
 			PreparedStatement stmt = this.getConnection().prepareStatement(sql);
 			stmt.setTimestamp(1, new Timestamp(cvf.getDataInicial().getTime().getTime()));
 			stmt.setInt(2, cvf.getTempoRecorrencia());
-			stmt.setString(3, cvf.getPeriodoRecorrencia());
+			stmt.setObject(3, new PGInterval(cvf.getPeriodoRecorrencia()));
 			stmt.setString(4, cvf.getNome());
 			
 			stmt.executeUpdate();
