@@ -11,11 +11,11 @@ public interface INumeroTelefonico {
 
 	void create(NumeroTelefonicoVO vo) throws BusinessException;
 
-	void delete(int numero) throws BusinessException;
+	void delete(String numero) throws BusinessException;
 
 	void update(NumeroTelefonicoVO vo) throws BusinessException;
 
-	NumeroTelefonicoVO getNumeroTelefonico(int numero) throws BusinessException;
+	NumeroTelefonicoVO getNumeroTelefonico(String numero) throws BusinessException;
 
 	List getAll() throws BusinessException;
 

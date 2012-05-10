@@ -23,7 +23,7 @@ public class EmprestimoJDBCDAO extends GenericJDBCDAO implements IEmprestimoDAO 
 	@Override
 	public void insert(ObjectVO vo) throws DAOException {
 		String sql = "INSERT INTO " + this.getTableName()
-				+ "(DATA_HORA, VALOR, DESCRICAO) VALUES(?,?,?)";
+				+ " (DATA_HORA, VALOR, DESCRICAO) VALUES(?,?,?)";
 		try {
 			EmprestimoVO emprestimo = (EmprestimoVO) vo;
 			PreparedStatement stmt = this.getConnection().prepareStatement(sql);

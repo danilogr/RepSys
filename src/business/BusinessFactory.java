@@ -19,11 +19,11 @@ public class BusinessFactory {
 		return instance;
 	}
 
-	public IConta getAccount() {
+	public IConta getConta() {
 		return new Conta();
 	}
 
-	public IUsuario getUser() {
+	public IUsuario getUsuario() {
 		return new Usuario();
 	}
 }

@@ -11,8 +11,8 @@ import java.util.List;
  * @author Nelson
  */
 public class NumeroTelefonico implements INumeroTelefonico {
-    
-        public void create(NumeroTelefonicoVO vo) throws BusinessException {
+
+	public void create(NumeroTelefonicoVO vo) throws BusinessException {
 		DAOFactory factory = DAOFactory.getInstance();
 		try {
 			INumeroTelefonicoDAO dao = factory.getNumeroTelefonicoDAO();
@@ -21,8 +21,8 @@ public class NumeroTelefonico implements INumeroTelefonico {
 			throw new BusinessException(e);
 		}
 	}
-    
-    	public void delete(int numero) throws BusinessException {
+
+	public void delete(String numero) throws BusinessException {
 		DAOFactory factory = DAOFactory.getInstance();
 		try {
 			INumeroTelefonicoDAO dao = factory.getNumeroTelefonicoDAO();
@@ -33,24 +33,25 @@ public class NumeroTelefonico implements INumeroTelefonico {
 		}
 	}
 
-      	public void update(NumeroTelefonicoVO vo) throws BusinessException {
-	DAOFactory factory = DAOFactory.getInstance();
-	try {
-		INumeroTelefonicoDAO dao = factory.getNumeroTelefonicoDAO();
-		dao.update(vo);
-            } catch (Exception e) {
-		throw new BusinessException(e);
-            }
+	public void update(NumeroTelefonicoVO vo) throws BusinessException {
+		DAOFactory factory = DAOFactory.getInstance();
+		try {
+			INumeroTelefonicoDAO dao = factory.getNumeroTelefonicoDAO();
+			dao.update(vo);
+		} catch (Exception e) {
+			throw new BusinessException(e);
+		}
 	}
-        
-       	public NumeroTelefonicoVO getNumeroTelefonico(int numero) throws BusinessException {
-	DAOFactory factory = DAOFactory.getInstance();
-	try {
-		INumeroTelefonicoDAO dao = factory.getNumeroTelefonicoDAO();
-		return (NumeroTelefonicoVO) dao.selectByNumero(numero);
-            } catch (Exception e) {
-		throw new BusinessException(e);
-            }
+
+	public NumeroTelefonicoVO getNumeroTelefonico(String numero)
+			throws BusinessException {
+		DAOFactory factory = DAOFactory.getInstance();
+		try {
+			INumeroTelefonicoDAO dao = factory.getNumeroTelefonicoDAO();
+			return (NumeroTelefonicoVO) dao.selectByNumero(numero);
+		} catch (Exception e) {
+			throw new BusinessException(e);
+		}
 	}
 
 	public List getAll() throws BusinessException {
@@ -63,6 +64,4 @@ public class NumeroTelefonico implements INumeroTelefonico {
 		}
 	}
 
-    
-    
 }

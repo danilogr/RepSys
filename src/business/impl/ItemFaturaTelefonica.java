@@ -13,7 +13,7 @@ import java.util.List;
  */
 
 
-public class ItemFaturaTelefonica implements IItemFaturaTelefonica{
+public class ItemFaturaTelefonica implements IItemFaturaTelefonica {
 
         public void create(ItemFaturaTelefonicaVO vo) throws BusinessException {
 		DAOFactory factory = DAOFactory.getInstance();
@@ -25,11 +25,11 @@ public class ItemFaturaTelefonica implements IItemFaturaTelefonica{
 		}
 	}
     
-    	public void delete(int mes, int ano, Calendar dataHora) throws BusinessException {
+    	public void delete(String numero, Calendar dataHora) throws BusinessException {
 		DAOFactory factory = DAOFactory.getInstance();
 		try {
 			IItemFaturaTelefonicaDAO dao = factory.getItemFaturaTelefonicaDAO();
-			ItemFaturaTelefonicaVO itemFatura = getItemFaturaTelefonica(mes, ano, dataHora);
+			ItemFaturaTelefonicaVO itemFatura = getItemFaturaTelefonica(numero, dataHora);
 			dao.delete(itemFatura);
 		} catch (Exception e) {
 			throw new BusinessException(e);
@@ -46,11 +46,11 @@ public class ItemFaturaTelefonica implements IItemFaturaTelefonica{
             }
 	}
         
-       	public ItemFaturaTelefonicaVO getItemFaturaTelefonica(int mes, int ano, Calendar dataHora) throws BusinessException {
+       	public ItemFaturaTelefonicaVO getItemFaturaTelefonica(String numero, Calendar dataHora) throws BusinessException {
 	DAOFactory factory = DAOFactory.getInstance();
 	try {
 		IItemFaturaTelefonicaDAO dao = factory.getItemFaturaTelefonicaDAO();
-		return (ItemFaturaTelefonicaVO) dao.selectByMesAnoDataHora(mes,ano,dataHora);
+		return (ItemFaturaTelefonicaVO) dao.selectByNumeroDataHora(numero ,dataHora);
             } catch (Exception e) {
 		throw new BusinessException(e);
             }
