@@ -5,6 +5,7 @@ import java.util.Properties;
 import dao.DAOException;
 import dao.DAOFactory;
 import dao.spec.IContaDAO;
+import dao.spec.IContaUsuarioDevedorDAO;
 import dao.spec.IContaValorFixoDAO;
 import dao.spec.IContaValorVariavelDAO;
 import dao.spec.IEmprestimoDAO;
@@ -71,6 +72,10 @@ public class JDBCDAOFactory extends DAOFactory {
 		// TODO Auto-generated method stub
 		return null;
 	}
-        
-        
+
+	@Override
+	public IContaUsuarioDevedorDAO getContaUsuarioDevedorDAO()
+			throws DAOException {
+		return new ContaUsuarioDevedorJDBCDAO(this.properties);
+	}
 }

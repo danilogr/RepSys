@@ -16,10 +16,10 @@ import vo.UsuarioNumeroTelefonicoVO;
 import vo.UsuarioVO;
 import vo.VOException;
 import dao.DAOException;
-import dao.spec.IUsuarioNumeroTelefonico;
+import dao.spec.IUsuarioNumeroTelefonicoDAO;
 
 public class UsuarioNumeroTelefonicoJDBCDAO extends GenericJDBCDAO implements
-		IUsuarioNumeroTelefonico {
+		IUsuarioNumeroTelefonicoDAO {
 
 	public UsuarioNumeroTelefonicoJDBCDAO(Properties properties)
 			throws DAOException {
