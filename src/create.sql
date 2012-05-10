@@ -127,14 +127,14 @@ alter table emprestimo_usuario_credor
    drop constraint euc_data_hora_fk,
    drop constraint euc_email_fk,
    add constraint euc_data_hora_fk foreign key (data_hora) references emprestimo(data_hora) ON DELETE CASCADE,
-   add constraint euc_email_fk foreign key (email) references usuario(email) ON DELETE SET NULL;
+   add constraint euc_email_fk foreign key (email) references usuario(email) ON DELETE CASCADE;
    
    
 alter table emprestimo_usuario_devedor
    drop constraint "fk_emprestimo_datahora",
    drop constraint "fk_usuario_email",
    add constraint "fk_emprestimo_datahora" FOREIGN KEY (data_hora) REFERENCES emprestimo(data_hora) ON DELETE CASCADE,
-   add constraint "fk_usuario_email" FOREIGN KEY (email) REFERENCES usuario(email) ON DELETE SET NULL;
+   add constraint "fk_usuario_email" FOREIGN KEY (email) REFERENCES usuario(email) ON DELETE CASCADE;
    
 
 alter table itemfaturatelefonica
