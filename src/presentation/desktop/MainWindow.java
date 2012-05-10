@@ -35,6 +35,7 @@ public class MainWindow extends javax.swing.JFrame {
      */
     private List<ReturnEvent> eventosDeRetorno; //pilha de eventos de retorno
     private List<String> eventosDeRetornoNome;  //pilha com os identificadores dos eventos
+    private javax.swing.JPanel currentCard;                 //fecha a atual
     
     /*
      * Parte que cuida da autenticação
@@ -78,6 +79,7 @@ public class MainWindow extends javax.swing.JFrame {
         String cardName = Integer.toString(eventosDeRetorno.size());
         eventosDeRetornoNome.add(cardName);
         eventosDeRetorno.add(callback);
+        currentCard = card;
         
         jPanelContent.add(card,cardName);
         content.show(jPanelContent,cardName);
@@ -102,9 +104,17 @@ public class MainWindow extends javax.swing.JFrame {
                 re.onReturnFromOtherWindow(returnedValue);
             }
             
-            jPanelContent.remove((javax.swing.JPanel)re);
+            content.removeLayoutComponent(currentCard);
+            jPanelContent.remove(currentCard);
+            
             if(index > 0)
+            {
                 content.show(jPanelContent, eventosDeRetornoNome.get(index-1));
+                currentCard = (javax.swing.JPanel) re;
+            }
+            else
+                currentCard = null;
+            
         }   
 
     }
