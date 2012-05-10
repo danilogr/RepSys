@@ -109,7 +109,7 @@ public class JPValorFixo extends javax.swing.JPanel {
         String returnValue="";
         String fieldText = this.jTextField1.getText();
         try{
-            if(fieldText.equals("")) return null;
+            if(fieldText.isEmpty()) return null;
             int fieldInt = Integer.parseInt(fieldText);
             if(fieldInt <= 0)
                 throw new Exception();
@@ -131,7 +131,7 @@ public class JPValorFixo extends javax.swing.JPanel {
     public Integer getRepeticoes() throws Exception,NumberFormatException{
         String fieldText = this.jTextField2.getText();
         try{
-            if(fieldText.equals("")) return null;
+            if(fieldText.isEmpty()) return null;
             int fieldInt = Integer.parseInt(fieldText);
             if(fieldInt <= 0)
                 throw new Exception();
@@ -145,7 +145,7 @@ public class JPValorFixo extends javax.swing.JPanel {
     
     public Calendar getDataInicial() throws ParseException{
         String fieldText = this.jTextField3.getText();
-        if(fieldText.equals("")) return null;
+        if(fieldText.isEmpty()) return null;
         try{
             SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
             Date fieldDate = sdf.parse(fieldText);
