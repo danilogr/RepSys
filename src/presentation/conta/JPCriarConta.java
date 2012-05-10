@@ -17,13 +17,19 @@ import java.awt.CardLayout;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.JRadioButton;
 import javax.swing.table.TableColumn;
 import org.hamcrest.Factory;
+import presentation.desktop.MainWindow;
+import presentation.lib.IMultiModePanel.Mode;
+import presentation.usuario.JPUsuariosCadastrados;
 import vo.ContaVO;
 import vo.ContaValorFixoVO;
 import vo.ContaValorVariavelVO;
+import vo.UsuarioVO;
+import vo.VOException;
 
 /**
  *
@@ -138,6 +144,11 @@ public class JPCriarConta extends javax.swing.JPanel implements presentation.lib
         });
 
         jButton3.setText(bundle.getString("JPCriarConta.jButton3.text")); // NOI18N
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
         jTable2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -188,7 +199,7 @@ public class JPCriarConta extends javax.swing.JPanel implements presentation.lib
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jTextField5, javax.swing.GroupLayout.DEFAULT_SIZE, 66, Short.MAX_VALUE)
+                .addComponent(jTextField5, javax.swing.GroupLayout.DEFAULT_SIZE, 133, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addGroup(jPanel4Layout.createSequentialGroup()
@@ -197,7 +208,7 @@ public class JPCriarConta extends javax.swing.JPanel implements presentation.lib
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addComponent(jCheckBox2)
                 .addContainerGap())
-            .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 269, Short.MAX_VALUE)
+            .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 336, Short.MAX_VALUE)
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -214,10 +225,15 @@ public class JPCriarConta extends javax.swing.JPanel implements presentation.lib
                 .addComponent(jCheckBox2))
         );
 
-        jButton1.setFont(new java.awt.Font("Calibri", 1, 12));
+        jButton1.setFont(new java.awt.Font("Calibri", 1, 12)); // NOI18N
         jButton1.setText(bundle.getString("JPCriarConta.jButton1.text")); // NOI18N
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
-        jButton2.setFont(new java.awt.Font("Calibri", 1, 12));
+        jButton2.setFont(new java.awt.Font("Calibri", 1, 12)); // NOI18N
         jButton2.setText(bundle.getString("JPCriarConta.jButton2.text")); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -227,7 +243,7 @@ public class JPCriarConta extends javax.swing.JPanel implements presentation.lib
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jSeparator2, javax.swing.GroupLayout.DEFAULT_SIZE, 962, Short.MAX_VALUE)
+                    .addComponent(jSeparator2, javax.swing.GroupLayout.DEFAULT_SIZE, 1029, Short.MAX_VALUE)
                     .addComponent(jLabel8)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -251,7 +267,7 @@ public class JPCriarConta extends javax.swing.JPanel implements presentation.lib
                         .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel12)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 459, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 526, Short.MAX_VALUE)
                         .addComponent(jButton1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jButton2)))
@@ -308,9 +324,8 @@ private void jRadioButton3StateChanged(javax.swing.event.ChangeEvent evt) {//GEN
 // TODO add your handling code here:
     JRadioButton rb = (JRadioButton)evt.getSource();
     if(rb.getModel() == buttonGroup1.getSelection()){
-        
-    CardLayout cl = (CardLayout)(this.jPanel3.getLayout());
-    cl.show(this.jPanel3, "fix");
+        CardLayout cl = (CardLayout)(this.jPanel3.getLayout());
+        cl.show(this.jPanel3, "fix");
     }   
 }//GEN-LAST:event_jRadioButton3StateChanged
 
@@ -318,15 +333,25 @@ private void jRadioButton4StateChanged(javax.swing.event.ChangeEvent evt) {//GEN
 // TODO add your handling code here:
     JRadioButton rb = (JRadioButton)evt.getSource();
     if(rb.getModel() == buttonGroup1.getSelection()){
-        
-    CardLayout cl = (CardLayout)(this.jPanel3.getLayout());
-    cl.show(this.jPanel3, "var");
+        CardLayout cl = (CardLayout)(this.jPanel3.getLayout());
+        cl.show(this.jPanel3, "var");
     }
 }//GEN-LAST:event_jRadioButton4StateChanged
 
 private void jTextField5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField5ActionPerformed
 // TODO add your handling code here:
 }//GEN-LAST:event_jTextField5ActionPerformed
+
+private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+// TODO add your handling code here:
+}//GEN-LAST:event_jButton1ActionPerformed
+
+private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+// TODO add your handling code here:
+    JPUsuariosCadastrados jpanel = new JPUsuariosCadastrados();
+    jpanel.setMode(Mode.SELECIONAVEL);
+    MainWindow.getInstance().showCard(this, jpanel);
+}//GEN-LAST:event_jButton3ActionPerformed
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroup1;
@@ -360,14 +385,16 @@ private void jTextField5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
     private JPValorFixo cardFix;
     private JPValorVariavel cardVar;
     
-    private ArrayList usuariosEnvolvidos;
+    private List usuariosEnvolvidos;
     private String nomeConta;
-    private String valorConta;
+    private double valorConta;
     private String descricaoConta;
     private Boolean isValorFixo;
     private String recorrenciaContaValorFixo;
     private int repeticoesContaValorFixo;
+    private Calendar dataInicialContaValorFixo;
     private Calendar vencimentoContaValorVariavel;
+    private UsuarioVO usuarioResponsavel;
     
     
     private void initCardLayout(){
@@ -380,8 +407,6 @@ private void jTextField5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
     }
 
     private void myInit(){
-        
-        
         int colIndex = 0;
         int width = 75;
         TableColumn col = this.jTable2.getColumnModel().getColumn(colIndex);
@@ -398,21 +423,25 @@ private void jTextField5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
     }
     
     public void onReturnFromOtherWindow(Object returnedObject) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        if (returnedObject instanceof UsuarioVO){
+            this.usuarioResponsavel = (UsuarioVO)returnedObject;
+        }
     }
 
     private void parseFormData() throws ParseException,Exception, NumberFormatException{        
+        
         usuariosEnvolvidos = new ArrayList();
         for (int i=0; i < this.jTable2.getRowCount();i++){
             if ((Boolean)this.jTable2.getValueAt(i, 2)){
                 usuariosEnvolvidos.add(this.jTable2.getValueAt(i,2));
             }
         }
+        
         nomeConta = this.jTextField3.getText();
-        valorConta = this.jTextField4.getText();
         descricaoConta = this.jTextArea2.getText();
         isValorFixo = this.jRadioButton3.isSelected();
-        try{
+        try{            
+            valorConta = Double.parseDouble(jTextField4.getText());
             if(isValorFixo) {
                     recorrenciaContaValorFixo = this.cardFix.getRecorrencia();
                     repeticoesContaValorFixo = this.cardFix.getRepeticoes();
@@ -430,12 +459,25 @@ private void jTextField5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
         }
         catch(Exception e){
             throw e;
-        }
-        
+        }        
     }
 
-    private void salvarConta() throws BusinessException {
+    private void salvarConta() throws BusinessException, VOException {
         //throw new UnsupportedOperationException("Not yet implemented");
-
+        BusinessFactory factory = BusinessFactory.getInstance();
+        try {
+            ContaVO conta = new ContaVO(nomeConta, valorConta, usuarioResponsavel, descricaoConta);
+            
+            if(this.isValorFixo){
+                factory.getConta().create(new ContaValorFixoVO(conta, dataInicialContaValorFixo,  repeticoesContaValorFixo, recorrenciaContaValorFixo));
+            }
+            else{                
+                factory.getConta().create(new ContaValorVariavelVO(conta, vencimentoContaValorVariavel));         
+            }
+        } catch (BusinessException e) {
+            throw e;
+        } catch (VOException e){
+            throw e;
+        }
     }
 }

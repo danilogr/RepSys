@@ -14,7 +14,7 @@ package presentation.Fatura;
  *
  * @author Endril
  */
-public class JPImportarFatura extends javax.swing.JPanel {
+public class JPImportarFatura extends javax.swing.JPanel implements presentation.lib.ReturnEvent {
 
     /** Creates new form JPImportarFatura */
     public JPImportarFatura() {
@@ -248,4 +248,8 @@ public class JPImportarFatura extends javax.swing.JPanel {
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;
     // End of variables declaration//GEN-END:variables
+
+    public void onReturnFromOtherWindow(Object returnedObject) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
 }

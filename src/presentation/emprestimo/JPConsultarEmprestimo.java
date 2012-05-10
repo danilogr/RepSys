@@ -14,7 +14,7 @@ package presentation.emprestimo;
  *
  * @author Endril
  */
-public class JPConsultarEmprestimo extends javax.swing.JPanel {
+public class JPConsultarEmprestimo extends javax.swing.JPanel implements presentation.lib.ReturnEvent {
 
     /** Creates new form JPConsultarEmprestimo */
     public JPConsultarEmprestimo() {
@@ -103,4 +103,8 @@ public class JPConsultarEmprestimo extends javax.swing.JPanel {
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTable jTable2;
     // End of variables declaration//GEN-END:variables
+
+    public void onReturnFromOtherWindow(Object returnedObject) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
 }
