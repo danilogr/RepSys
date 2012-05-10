@@ -34,7 +34,7 @@ public class CriaPopulaBD {
 
     private static void populaDadosIniciais() {
 
-        System.out.println("Populando com dados iniciais");
+        
 
         Connection con = CriaPopulaBD.getConnection();
 
@@ -52,7 +52,7 @@ public class CriaPopulaBD {
                     String q = scanner.next();
                     Statement stmt = con.createStatement();
                     if (q.length() > 0) {
-                        System.out.println(q);
+                        
                         stmt.execute(q);
                     }
                     stmt.close();

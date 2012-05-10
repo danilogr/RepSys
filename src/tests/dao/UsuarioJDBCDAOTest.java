@@ -49,9 +49,9 @@ public class UsuarioJDBCDAOTest extends AbstractJDBCDAOTest {
 		userDAO.insert(user);
 		
 		UsuarioVO inserted = userDAO.selectByEmail("teste@teste.com");
-		System.out.println(user);
+		
 		user.setSenha(AeSimpleMd5.md5(senha));
-		System.out.println(inserted);
+		
 		Assert.assertTrue(user.isEquals(inserted));
 	}
 	

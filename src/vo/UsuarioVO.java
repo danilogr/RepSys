@@ -72,9 +72,9 @@ public class UsuarioVO extends ObjectVO {
 	@Override
 	public boolean isEquals(ObjectVO vo) {
 		UsuarioVO emp = (UsuarioVO) vo;
-		return this.getEmail() == emp.getEmail()
-			&& this.getNome() == emp.getNome()
-			&& this.getSenha() == emp.getSenha();
+		return this.getEmail().equals(emp.getEmail())
+			&& this.getNome().equals(emp.getNome())
+			&& this.getSenha().equals(emp.getSenha());
 	}
 
 	@Override

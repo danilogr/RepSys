@@ -132,7 +132,7 @@ public class ContaValorFixoJDBCDAO extends ContaJDBCDAO implements IContaValorFi
 	public static void main(String[] argv) throws DAOException, VOException {
 		ContaValorFixoJDBCDAO cvfDAO = new ContaValorFixoJDBCDAO(Configuration.getInstance().getProperties());
 		ContaValorFixoVO vo = cvfDAO.selectByNome("Aluguel");
-		System.out.println(vo.toString());
+		
 	}
 
 }

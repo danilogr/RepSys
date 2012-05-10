@@ -25,7 +25,7 @@ abstract public class DAOFactory {
 			if (value.equals("JDBC")) {
 				instance = new JDBCDAOFactory(configuration.getProperties());
 			}
-			System.out.println(instance);
+			
 		}
 		return instance;
 	}
