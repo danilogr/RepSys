@@ -13,6 +13,7 @@ import dao.spec.IFaturaTelefonicaDAO;
 import dao.spec.IItemFaturaTelefonicaDAO;
 import dao.spec.INumeroTelefonicoDAO;
 import dao.spec.IUsuarioDAO;
+import dao.spec.IUsuarioNumeroTelefonicoDAO;
 
 public class JDBCDAOFactory extends DAOFactory {
 
@@ -77,5 +78,9 @@ public class JDBCDAOFactory extends DAOFactory {
 	public IContaUsuarioDevedorDAO getContaUsuarioDevedorDAO()
 			throws DAOException {
 		return new ContaUsuarioDevedorJDBCDAO(this.properties);
+	}
+	
+	public IUsuarioNumeroTelefonicoDAO getUsuarioNumeroTelefoneDAO() throws DAOException {
+		return new UsuarioNumeroTelefonicoJDBCDAO(this.properties);
 	}
 }
