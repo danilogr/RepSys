@@ -212,28 +212,26 @@ public class MainWindow extends javax.swing.JFrame {
         jPanelMiddle = new javax.swing.JPanel();
         jPanelContent = new javax.swing.JPanel();
         jPanelMenu = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTree1 = new javax.swing.JTree();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("I18n/Bundle"); // NOI18N
         setTitle(bundle.getString("MainWindow.title")); // NOI18N
-        setBackground(java.awt.SystemColor.activeCaptionBorder);
         setName("Form"); // NOI18N
 
-        jPanel1.setBackground(java.awt.SystemColor.activeCaptionBorder);
         jPanel1.setName("jPanel1"); // NOI18N
 
-        jPanelTop2.setBackground(java.awt.SystemColor.activeCaptionBorder);
         jPanelTop2.setName("jPanelTop"); // NOI18N
 
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/presentation/resources/repsys_logo_min.png"))); // NOI18N
         jLabel3.setText("");
         jLabel3.setName("jLabel1"); // NOI18N
 
-        jPanelLogin.setBackground(java.awt.SystemColor.controlHighlight);
         jPanelLogin.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
         jPanelLogin.setName("jPanelLogin"); // NOI18N
 
-        jLabelUsuarioNome.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabelUsuarioNome.setFont(new java.awt.Font("Tahoma", 1, 11));
         jLabelUsuarioNome.setText(bundle.getString("MainWindow.jLabelUsuarioNome.text")); // NOI18N
         jLabelUsuarioNome.setName("jLabelUsuarioNome"); // NOI18N
 
@@ -281,7 +279,7 @@ public class MainWindow extends javax.swing.JFrame {
             .addGroup(jPanelTop2Layout.createSequentialGroup()
                 .addGap(19, 19, 19)
                 .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 188, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 208, Short.MAX_VALUE)
                 .addComponent(jPanelLogin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -297,7 +295,6 @@ public class MainWindow extends javax.swing.JFrame {
 
         jPanelLogin.setVisible(false);
 
-        jPanelContainerBottom.setBackground(java.awt.SystemColor.activeCaptionBorder);
         jPanelContainerBottom.setName("jPanelContainerBottom"); // NOI18N
 
         jScrollPanelContent.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED));
@@ -312,18 +309,55 @@ public class MainWindow extends javax.swing.JFrame {
 
         jScrollPanelContent.setViewportView(jPanelMiddle);
 
-        jPanelMenu.setBackground(java.awt.SystemColor.activeCaptionBorder);
         jPanelMenu.setName("jPanelMenu"); // NOI18N
+
+        jScrollPane1.setName("jScrollPane1"); // NOI18N
+
+        jTree1.setFont(new java.awt.Font("Catriel", 0, 11)); // NOI18N
+        javax.swing.tree.DefaultMutableTreeNode treeNode1 = new javax.swing.tree.DefaultMutableTreeNode("RepSys");
+        javax.swing.tree.DefaultMutableTreeNode treeNode2 = new javax.swing.tree.DefaultMutableTreeNode("Usuário");
+        javax.swing.tree.DefaultMutableTreeNode treeNode3 = new javax.swing.tree.DefaultMutableTreeNode("Cadastrar");
+        treeNode2.add(treeNode3);
+        treeNode3 = new javax.swing.tree.DefaultMutableTreeNode("Consultar");
+        treeNode2.add(treeNode3);
+        treeNode3 = new javax.swing.tree.DefaultMutableTreeNode("Alterar");
+        treeNode2.add(treeNode3);
+        treeNode1.add(treeNode2);
+        treeNode2 = new javax.swing.tree.DefaultMutableTreeNode("Empréstimo");
+        treeNode3 = new javax.swing.tree.DefaultMutableTreeNode("Cadastrar");
+        treeNode2.add(treeNode3);
+        treeNode3 = new javax.swing.tree.DefaultMutableTreeNode("Consultar");
+        treeNode2.add(treeNode3);
+        treeNode1.add(treeNode2);
+        treeNode2 = new javax.swing.tree.DefaultMutableTreeNode("Número Telefônico");
+        treeNode3 = new javax.swing.tree.DefaultMutableTreeNode("Cadastrar");
+        treeNode2.add(treeNode3);
+        treeNode1.add(treeNode2);
+        treeNode2 = new javax.swing.tree.DefaultMutableTreeNode("Fatura Telefônica");
+        treeNode3 = new javax.swing.tree.DefaultMutableTreeNode("Importar");
+        treeNode2.add(treeNode3);
+        treeNode3 = new javax.swing.tree.DefaultMutableTreeNode("Consultar");
+        treeNode2.add(treeNode3);
+        treeNode1.add(treeNode2);
+        treeNode2 = new javax.swing.tree.DefaultMutableTreeNode("Conta");
+        treeNode3 = new javax.swing.tree.DefaultMutableTreeNode("Cadastrar");
+        treeNode2.add(treeNode3);
+        treeNode3 = new javax.swing.tree.DefaultMutableTreeNode("Consultar");
+        treeNode2.add(treeNode3);
+        treeNode1.add(treeNode2);
+        jTree1.setModel(new javax.swing.tree.DefaultTreeModel(treeNode1));
+        jTree1.setName("jTree1"); // NOI18N
+        jScrollPane1.setViewportView(jTree1);
 
         javax.swing.GroupLayout jPanelMenuLayout = new javax.swing.GroupLayout(jPanelMenu);
         jPanelMenu.setLayout(jPanelMenuLayout);
         jPanelMenuLayout.setHorizontalGroup(
             jPanelMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 177, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 177, Short.MAX_VALUE)
         );
         jPanelMenuLayout.setVerticalGroup(
             jPanelMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 352, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 352, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout jPanelContainerBottomLayout = new javax.swing.GroupLayout(jPanelContainerBottom);
@@ -415,8 +449,6 @@ public class MainWindow extends javax.swing.JFrame {
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabelUsuarioEmail;
     private javax.swing.JLabel jLabelUsuarioNome;
@@ -426,10 +458,10 @@ public class MainWindow extends javax.swing.JFrame {
     private javax.swing.JPanel jPanelLogin;
     private javax.swing.JPanel jPanelMenu;
     private javax.swing.JPanel jPanelMiddle;
-    private javax.swing.JPanel jPanelTop;
-    private javax.swing.JPanel jPanelTop1;
     private javax.swing.JPanel jPanelTop2;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPanelContent;
+    private javax.swing.JTree jTree1;
     // End of variables declaration//GEN-END:variables
 
     
