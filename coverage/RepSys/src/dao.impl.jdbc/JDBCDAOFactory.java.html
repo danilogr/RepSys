@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../../.resources/report.gif" type="image/gif"/><title>JDBCDAOFactory.java</title><link rel="stylesheet" href="../../../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="right"><a href="../../../.sessions.html" class="el_session">Sessions</a></span><a href="../../../index.html" class="el_report">AllTests (10/05/2012 06:09:34)</a> &gt; <a href="../../index.html" class="el_group">RepSys</a> &gt; <a href="../index.html" class="el_bundle">src</a> &gt; <a href="index.html" class="el_package">dao.impl.jdbc</a> &gt; <span class="el_source">JDBCDAOFactory.java</span></div><h1>JDBCDAOFactory.java</h1><pre class="source lang-java linenums">package dao.impl.jdbc;
+
+import java.util.Properties;
+
+import dao.DAOException;
+import dao.DAOFactory;
+import dao.spec.IContaDAO;
+import dao.spec.IContaUsuarioDevedorDAO;
+import dao.spec.IContaValorFixoDAO;
+import dao.spec.IContaValorVariavelDAO;
+import dao.spec.IEmprestimoDAO;
+import dao.spec.IEmprestimoUsuarioRelDAO;
+import dao.spec.IFaturaTelefonicaDAO;
+import dao.spec.IItemFaturaTelefonicaDAO;
+import dao.spec.INumeroTelefonicoDAO;
+import dao.spec.IUsuarioDAO;
+import dao.spec.IUsuarioNumeroTelefonicoDAO;
+
+public class JDBCDAOFactory extends DAOFactory {
+
+	private Properties properties;
+	
+	/**
+	 * Implementaçãoo do padrão Factory Method
+	 * 
+	 * java.util.Properties é uma extensão de java.util.HashTable.
+	 * @param properties
+	 */
+<span class="fc" id="L29">	public JDBCDAOFactory(Properties properties) {</span>
+<span class="fc" id="L30">		this.properties = properties;</span>
+<span class="fc" id="L31">	}</span>
+
+	public IEmprestimoDAO getEmprestimoDAO() throws DAOException {
+<span class="nc" id="L34">		return new EmprestimoJDBCDAO(this.properties);</span>
+	}
+        
+	//TODO: acertas estes métodos após implementar os DAOS
+    public IFaturaTelefonicaDAO getFaturaTelefonicaDAO() throws DAOException {
+<span class="nc" id="L39">        return new FaturaTelefonicaJDBCDAO(this.properties);</span>
+	}
+
+	public IItemFaturaTelefonicaDAO getItemFaturaTelefonicaDAO() throws DAOException {
+<span class="nc" id="L43">		return new ItemFaturaTelefonicaJDBCDAO(this.properties);</span>
+	}
+
+	public INumeroTelefonicoDAO getNumeroTelefonicoDAO() throws DAOException {
+<span class="nc" id="L47">		return new NumeroTelefonicoJDBCDAO(this.properties);</span>
+	}
+
+	@Override
+	public IUsuarioDAO getUsuarioDAO() throws DAOException {
+		// TODO Auto-generated method stub
+<span class="fc" id="L53">		return new UsuarioJDBCDAO(this.properties);</span>
+	}
+
+	@Override
+	public IContaDAO getContaDAO() throws DAOException {
+		// TODO Auto-generated method stub
+<span class="nc" id="L59">		return new ContaJDBCDAO(this.properties);</span>
+	}
+
+	@Override
+	public IContaValorFixoDAO getContaValorFixoDAO() throws DAOException {
+		// TODO Auto-generated method stub
+<span class="nc" id="L65">		return new ContaValorFixoJDBCDAO(this.properties);</span>
+	}
+
+	@Override
+	public IContaValorVariavelDAO getContaValorVariavelDAO()
+			throws DAOException {
+		// TODO Auto-generated method stub
+<span class="nc" id="L72">		return new ContaValorVariavelJDBCDAO(this.properties);</span>
+	}
+
+	@Override
+	public IContaUsuarioDevedorDAO getContaUsuarioDevedorDAO()
+			throws DAOException {
+<span class="nc" id="L78">		return new ContaUsuarioDevedorJDBCDAO(this.properties);</span>
+	}
+	
+	public IUsuarioNumeroTelefonicoDAO getUsuarioNumeroTelefonicoDAO() throws DAOException {
+<span class="nc" id="L82">		return new UsuarioNumeroTelefonicoJDBCDAO(this.properties);</span>
+	}
+        
+        
+        public IEmprestimoUsuarioRelDAO getEmprestimoUsuarioCredorDAO() throws DAOException
+        {
+<span class="nc" id="L88">               return new EmprestimoUsuarioCredorDAO(this.properties);</span>
+        }
+        
+        public IEmprestimoUsuarioRelDAO getEmprestimoUsuarioDevedorDAO() throws DAOException
+        {
+<span class="nc" id="L93">               return new EmprestimoUsuarioDevedorDAO(this.properties);</span>
+        }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.5.6.201201232323</span>AllTests (10/05/2012 06:09:34)</div></body></html>

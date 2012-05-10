@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../../.resources/report.gif" type="image/gif"/><title>ContaVO.java</title><link rel="stylesheet" href="../../../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="right"><a href="../../../.sessions.html" class="el_session">Sessions</a></span><a href="../../../index.html" class="el_report">AllTests (10/05/2012 06:09:34)</a> &gt; <a href="../../index.html" class="el_group">RepSys</a> &gt; <a href="../index.html" class="el_bundle">src</a> &gt; <a href="index.html" class="el_package">vo</a> &gt; <span class="el_source">ContaVO.java</span></div><h1>ContaVO.java</h1><pre class="source lang-java linenums">package vo;
+
+import java.util.List;
+import java.util.ArrayList;
+
+/**
+ * @author Henrique Barcelos
+ */
+public class ContaVO extends ObjectVO {
+
+	protected String nome;
+
+	protected Double valor;
+
+	protected UsuarioVO usuarioResponsavel;
+
+	protected String descricao;
+
+	protected List&lt;UsuarioVO&gt; devedores;
+
+	public ContaVO() {
+<span class="nc" id="L22">		super();</span>
+<span class="nc" id="L23">		devedores = (List&lt;UsuarioVO&gt;) new ArrayList&lt;UsuarioVO&gt;();</span>
+<span class="nc" id="L24">	}</span>
+
+	public ContaVO(String nome, Double valor, UsuarioVO usuarioResponsavel,
+			String descricao) {
+<span class="fc" id="L28">		super();</span>
+<span class="fc" id="L29">		this.nome = nome;</span>
+<span class="fc" id="L30">		this.valor = valor;</span>
+<span class="fc" id="L31">		this.usuarioResponsavel = usuarioResponsavel;</span>
+<span class="fc" id="L32">		this.descricao = descricao;</span>
+<span class="fc" id="L33">	}</span>
+
+	public String getNome() {
+<span class="fc" id="L36">		return this.nome;</span>
+	}
+
+	public void setNome(String nome) {
+<span class="nc" id="L40">		this.nome = nome;</span>
+<span class="nc" id="L41">	}</span>
+
+	public Double getValor() {
+<span class="fc" id="L44">		return this.valor;</span>
+	}
+
+	public void setValor(Double valor) {
+<span class="nc" id="L48">		this.valor = valor;</span>
+<span class="nc" id="L49">	}</span>
+
+	public UsuarioVO getUsuario() {
+<span class="fc" id="L52">		return this.usuarioResponsavel;</span>
+	}
+
+	public void setUsuario(UsuarioVO usuarioResponsavel) {
+<span class="nc" id="L56">		this.usuarioResponsavel = usuarioResponsavel;</span>
+<span class="nc" id="L57">	}</span>
+
+	public String getDescricao() {
+<span class="fc" id="L60">		return this.descricao;</span>
+	}
+
+	public void setDescricao(String descricao) {
+<span class="nc" id="L64">		this.descricao = descricao;</span>
+<span class="nc" id="L65">	}</span>
+
+	public List&lt;UsuarioVO&gt; getDevedores() {
+<span class="fc" id="L68">		return devedores;</span>
+	}
+
+	public void setDevedores(List&lt;UsuarioVO&gt; devedores) {
+<span class="nc" id="L72">		this.devedores = devedores;</span>
+<span class="nc" id="L73">	}</span>
+	
+	public void addDevedor(UsuarioVO user) {
+<span class="nc" id="L76">		this.devedores.add(user);</span>
+<span class="nc" id="L77">	}</span>
+	
+	public void removeDevedor(UsuarioVO user) {
+<span class="nc" id="L80">		this.devedores.remove(user);</span>
+<span class="nc" id="L81">	}</span>
+
+	@Override
+	public String toString() {
+<span class="nc" id="L85">		StringBuilder buffer = new StringBuilder();</span>
+<span class="nc" id="L86">		buffer.append(&quot;[&quot;);</span>
+<span class="nc" id="L87">		buffer.append(&quot;id = &quot;);</span>
+<span class="nc" id="L88">		buffer.append(this.getNome());</span>
+<span class="nc" id="L89">		buffer.append(&quot;, nome = &quot;);</span>
+<span class="nc" id="L90">		buffer.append(this.getNome());</span>
+<span class="nc" id="L91">		buffer.append(&quot;, valor = &quot;);</span>
+<span class="nc" id="L92">		buffer.append(this.getValor());</span>
+<span class="nc" id="L93">		buffer.append(&quot;, desc = &quot;);</span>
+<span class="nc" id="L94">		buffer.append(this.getDescricao());</span>
+<span class="nc" id="L95">		buffer.append(&quot;, usuarioResponsavel = &quot;);</span>
+<span class="nc" id="L96">		buffer.append(this.getUsuario().toString());</span>
+<span class="nc" id="L97">		buffer.append(&quot;]&quot;);</span>
+<span class="nc" id="L98">		return buffer.toString();</span>
+	}
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.5.6.201201232323</span>AllTests (10/05/2012 06:09:34)</div></body></html>

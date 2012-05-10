@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../../.resources/report.gif" type="image/gif"/><title>ContaValorFixoJDBCDAO.java</title><link rel="stylesheet" href="../../../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="right"><a href="../../../.sessions.html" class="el_session">Sessions</a></span><a href="../../../index.html" class="el_report">AllTests (10/05/2012 06:09:34)</a> &gt; <a href="../../index.html" class="el_group">RepSys</a> &gt; <a href="../index.html" class="el_bundle">src</a> &gt; <a href="index.html" class="el_package">dao.impl.jdbc</a> &gt; <span class="el_source">ContaValorFixoJDBCDAO.java</span></div><h1>ContaValorFixoJDBCDAO.java</h1><pre class="source lang-java linenums">package dao.impl.jdbc;
+
+import java.sql.Timestamp;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
+import java.util.List;
+import java.util.Properties;
+
+import util.Configuration;
+import vo.ContaVO;
+import vo.ContaValorFixoVO;
+import vo.EmprestimoVO;
+import vo.ObjectVO;
+import vo.UsuarioVO;
+import vo.VOException;
+import dao.DAOException;
+import dao.spec.IContaDAO;
+import dao.spec.IContaValorFixoDAO;
+
+public class ContaValorFixoJDBCDAO extends ContaJDBCDAO implements IContaValorFixoDAO {
+
+	public ContaValorFixoJDBCDAO(Properties properties) throws DAOException {
+<span class="nc" id="L27">		super(properties);</span>
+<span class="nc" id="L28">	}</span>
+
+	@Override
+	public void insert(ObjectVO vo) throws DAOException {
+<span class="nc" id="L32">		super.insert(vo);</span>
+<span class="nc" id="L33">		String sql = &quot;INSERT INTO &quot; + this.getTableName()</span>
+<span class="nc" id="L34">					+ &quot; (NOME, DATA_INICIAL, TEMPO_RECORRENCIA, PERIODO_RECORRENCIA)&quot;</span>
+<span class="nc" id="L35">					+ &quot; VALUES (?, ?, ?, ?)&quot;;</span>
+		try {
+<span class="nc" id="L37">			ContaValorFixoVO cvf = (ContaValorFixoVO) vo;</span>
+<span class="nc" id="L38">			PreparedStatement stmt = this.getConnection().prepareStatement(sql);</span>
+			
+<span class="nc" id="L40">			stmt.setString(1, cvf.getNome());</span>
+<span class="nc" id="L41">			stmt.setTimestamp(2, new Timestamp(cvf.getDataInicial().getTime().getTime()));</span>
+<span class="nc" id="L42">			stmt.setInt(3, cvf.getTempoRecorrencia());</span>
+<span class="nc" id="L43">			stmt.setString(4, cvf.getPeriodoRecorrencia());</span>
+			
+<span class="nc" id="L45">			stmt.executeUpdate();</span>
+<span class="nc" id="L46">		} catch(Exception e){</span>
+<span class="nc" id="L47">			throw new DAOException(e);</span>
+		}
+<span class="nc" id="L49">	}</span>
+
+	@Override
+	public void update(ObjectVO vo) throws DAOException {
+<span class="nc" id="L53">		super.update(vo);</span>
+<span class="nc" id="L54">		String sql  = &quot;UPDATE &quot; + this.getTableName() + &quot; SET&quot;</span>
+<span class="nc" id="L55">					+ &quot; DATA_INICIAL = ?, TEMPO_RECORRENCIA = ?, PERIODO_RECORRENCIA = ?&quot; </span>
+<span class="nc" id="L56">					+ &quot; WHERE NOME = ?&quot;;</span>
+		try {
+<span class="nc" id="L58">			ContaValorFixoVO cvf = (ContaValorFixoVO) vo;</span>
+<span class="nc" id="L59">			PreparedStatement stmt = this.getConnection().prepareStatement(sql);</span>
+<span class="nc" id="L60">			stmt.setTimestamp(1, new Timestamp(cvf.getDataInicial().getTime().getTime()));</span>
+<span class="nc" id="L61">			stmt.setInt(2, cvf.getTempoRecorrencia());</span>
+<span class="nc" id="L62">			stmt.setString(3, cvf.getPeriodoRecorrencia());</span>
+<span class="nc" id="L63">			stmt.setString(4, cvf.getNome());</span>
+			
+<span class="nc" id="L65">			stmt.executeUpdate();</span>
+<span class="nc" id="L66">		} catch(Exception e){</span>
+<span class="nc" id="L67">			throw new DAOException(e);</span>
+		}
+<span class="nc" id="L69">	}</span>
+	
+	public void delete(ObjectVO vo) throws DAOException {
+<span class="nc" id="L72">		String sql = &quot;DELETE FROM &quot; + this.getTableName()</span>
+<span class="nc" id="L73">					+ &quot; WHERE NOME = ?&quot;;</span>
+		try {
+<span class="nc" id="L75">			ContaVO conta = (ContaVO) vo;</span>
+<span class="nc" id="L76">			PreparedStatement stmt = this.getConnection().prepareStatement(sql);</span>
+<span class="nc" id="L77">			stmt.setString(1, conta.getNome());</span>
+<span class="nc" id="L78">			stmt.executeUpdate();</span>
+<span class="nc" id="L79">			super.delete(vo);</span>
+<span class="nc" id="L80">		} catch(Exception e){</span>
+<span class="nc" id="L81">			throw new DAOException(e);</span>
+		}
+<span class="nc" id="L83">	}</span>
+
+	@Override
+	protected String getTableName() {
+<span class="nc" id="L87">		return &quot;VALORFIXO&quot;;</span>
+	}
+
+	@Override
+	protected ObjectVO createVO(ResultSet rs) throws DAOException, VOException {
+		try {
+<span class="nc" id="L93">			ContaVO conta = (ContaVO) super.createVO(rs);</span>
+			
+<span class="nc" id="L95">			Calendar cal = new GregorianCalendar();</span>
+<span class="nc" id="L96">			cal.setTime(rs.getTimestamp(&quot;DATA_INICIAL&quot;));</span>
+<span class="nc" id="L97">			int tempoRec = rs.getInt(&quot;TEMPO_RECORRENCIA&quot;);</span>
+<span class="nc" id="L98">			String periodoRec = rs.getString(&quot;PERIODO_RECORRENCIA&quot;);</span>
+
+<span class="nc" id="L100">			return new ContaValorFixoVO(conta, cal, tempoRec, periodoRec);</span>
+<span class="nc" id="L101">		} catch (SQLException e) {</span>
+<span class="nc" id="L102">			throw new DAOException(e);</span>
+		}
+	}
+
+	@Override
+	public List selectByUsuario(String email) throws DAOException {
+		// TODO Auto-generated method stub
+<span class="nc" id="L109">		return null;</span>
+	}
+
+	@Override
+	public ContaValorFixoVO selectByNome(String nome) throws DAOException, VOException {
+<span class="nc" id="L114">		ContaValorFixoVO vo = null;</span>
+<span class="nc" id="L115">		String sql = &quot;SELECT * FROM &quot; + this.getTableName()</span>
+<span class="nc" id="L116">				+ &quot; AS CVF INNER JOIN &quot; + super.getTableName() + &quot; AS C&quot;</span>
+<span class="nc" id="L117">				+ &quot; ON CVF.NOME = C.NOME WHERE C.NOME = ?&quot;;</span>
+		try {
+<span class="nc" id="L119">			PreparedStatement stmt = this.getConnection().prepareStatement(sql);</span>
+<span class="nc" id="L120">			stmt.setString(1, nome);</span>
+<span class="nc" id="L121">			ResultSet rs = stmt.executeQuery();</span>
+<span class="nc bnc" id="L122" title="All 2 branches missed.">			if (rs.next()) {</span>
+<span class="nc" id="L123">				vo = (ContaValorFixoVO) this.createVO(rs);</span>
+			}
+<span class="nc" id="L125">		} catch (SQLException e) {</span>
+<span class="nc" id="L126">			throw new DAOException(e);</span>
+		}
+<span class="nc" id="L128">		return vo;</span>
+	}
+	
+	public static void main(String[] argv) throws DAOException, VOException {
+<span class="nc" id="L132">		ContaValorFixoJDBCDAO cvfDAO = new ContaValorFixoJDBCDAO(Configuration.getInstance().getProperties());</span>
+<span class="nc" id="L133">		ContaValorFixoVO vo = cvfDAO.selectByNome(&quot;Aluguel&quot;);</span>
+<span class="nc" id="L134">		System.out.println(vo.toString());</span>
+<span class="nc" id="L135">	}</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.5.6.201201232323</span>AllTests (10/05/2012 06:09:34)</div></body></html>

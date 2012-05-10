@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../../.resources/report.gif" type="image/gif"/><title>ItemFaturaTelefonicaVO.java</title><link rel="stylesheet" href="../../../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="right"><a href="../../../.sessions.html" class="el_session">Sessions</a></span><a href="../../../index.html" class="el_report">AllTests (10/05/2012 06:09:34)</a> &gt; <a href="../../index.html" class="el_group">RepSys</a> &gt; <a href="../index.html" class="el_bundle">src</a> &gt; <a href="index.html" class="el_package">vo</a> &gt; <span class="el_source">ItemFaturaTelefonicaVO.java</span></div><h1>ItemFaturaTelefonicaVO.java</h1><pre class="source lang-java linenums">package vo;
+
+import java.util.Calendar;
+
+/**
+ * @author Nelson
+ */
+public class ItemFaturaTelefonicaVO extends ObjectVO {
+    
+    private Calendar dataHora;
+
+    private FaturaTelefonicaVO fatura;
+    
+    private NumeroTelefonicoVO numero;
+    
+    private double valor;
+    
+    private String duracao;
+
+    
+<span class="nc" id="L21">    public ItemFaturaTelefonicaVO(Calendar dataHora, FaturaTelefonicaVO fatura, NumeroTelefonicoVO numero,</span>
+            double valor, String duracao) {
+<span class="nc" id="L23">        this.dataHora = dataHora;</span>
+<span class="nc" id="L24">        this.duracao = duracao;</span>
+<span class="nc" id="L25">        this.numero = numero;</span>
+<span class="nc" id="L26">        this.valor = valor;</span>
+<span class="nc" id="L27">        this.fatura = fatura;</span>
+<span class="nc" id="L28">    }</span>
+    
+    
+    public Calendar getDataHora() {
+<span class="nc" id="L32">        return dataHora;</span>
+    }
+
+    public void setDataHora(Calendar dataHora) {
+<span class="nc" id="L36">        this.dataHora = dataHora;</span>
+<span class="nc" id="L37">    }</span>
+
+    public String getDuracao() {
+<span class="nc" id="L40">        return duracao;</span>
+    }
+
+    public void setDuracao(String duracao) {
+<span class="nc" id="L44">        this.duracao = duracao;</span>
+<span class="nc" id="L45">    }</span>
+
+    public FaturaTelefonicaVO getFatura() {
+<span class="nc" id="L48">        return fatura;</span>
+    }
+
+    public void setFatura(FaturaTelefonicaVO fatura) {
+<span class="nc" id="L52">        this.fatura = fatura;</span>
+<span class="nc" id="L53">    }</span>
+
+    public NumeroTelefonicoVO getNumero() {
+<span class="nc" id="L56">        return numero;</span>
+    }
+
+    public void setNumero(NumeroTelefonicoVO numero) {
+<span class="nc" id="L60">        this.numero = numero;</span>
+<span class="nc" id="L61">    }</span>
+
+    public double getValor() {
+<span class="nc" id="L64">        return valor;</span>
+    }
+
+    public void setValor(int valor) {
+<span class="nc" id="L68">        this.valor = valor;</span>
+<span class="nc" id="L69">    }</span>
+    
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.5.6.201201232323</span>AllTests (10/05/2012 06:09:34)</div></body></html>

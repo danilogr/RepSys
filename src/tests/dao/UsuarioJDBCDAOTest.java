@@ -44,7 +44,7 @@ public class UsuarioJDBCDAOTest extends AbstractJDBCDAOTest {
 	public void testInsert() throws Exception {
 		String senha = "teste";
 		
-		UsuarioVO user = new UsuarioVO("teste@teste.com", senha, "Testonildo");
+		UsuarioVO user = new UsuarioVO("teste@teste.com", senha, "Testonildo", 20);
 		
 		userDAO.insert(user);
 		
@@ -57,7 +57,7 @@ public class UsuarioJDBCDAOTest extends AbstractJDBCDAOTest {
 	@Test
 	public void testUpdateName() throws Exception {
 		UsuarioVO oldData = userDAO.selectByEmail("nelsonguicg@gmail.com");
-		UsuarioVO newData = new UsuarioVO(oldData.getEmail(), oldData.getSenha(), "Vaginildo");
+		UsuarioVO newData = new UsuarioVO(oldData.getEmail(), oldData.getSenha(), "Vaginildo", 30);
 		UsuarioVO afterUpdate = null;
 		
 		userDAO.update(newData);
@@ -70,7 +70,7 @@ public class UsuarioJDBCDAOTest extends AbstractJDBCDAOTest {
 	public void testUpdatePassword() throws Exception {
 		String senha = "1234";
 		UsuarioVO oldData = userDAO.selectByEmail("nelsonguicg@gmail.com");
-		UsuarioVO newData = new UsuarioVO(oldData.getEmail(), senha, oldData.getNome());
+		UsuarioVO newData = new UsuarioVO(oldData.getEmail(), senha, oldData.getNome(), 20);
 		UsuarioVO afterUpdate = null;
 		
 		userDAO.update(newData, true);

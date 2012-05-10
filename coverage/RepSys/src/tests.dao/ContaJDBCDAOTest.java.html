@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../../.resources/report.gif" type="image/gif"/><title>ContaJDBCDAOTest.java</title><link rel="stylesheet" href="../../../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="right"><a href="../../../.sessions.html" class="el_session">Sessions</a></span><a href="../../../index.html" class="el_report">AllTests (10/05/2012 06:09:34)</a> &gt; <a href="../../index.html" class="el_group">RepSys</a> &gt; <a href="../index.html" class="el_bundle">src</a> &gt; <a href="index.html" class="el_package">tests.dao</a> &gt; <span class="el_source">ContaJDBCDAOTest.java</span></div><h1>ContaJDBCDAOTest.java</h1><pre class="source lang-java linenums">package tests.dao;
+
+import java.io.UnsupportedEncodingException;
+import java.security.NoSuchAlgorithmException;
+
+import org.junit.Before;
+import org.junit.Test;
+
+import dao.DAOException;
+import dao.impl.jdbc.ContaJDBCDAO;
+import dao.impl.jdbc.UsuarioJDBCDAO;
+import dao.spec.IContaDAO;
+import dao.spec.IUsuarioDAO;
+import junit.framework.Assert;
+import part3rd.AeSimpleMd5;
+import util.Configuration;
+import vo.ContaVO;
+import vo.UsuarioVO;
+
+<span class="fc" id="L20">public class ContaJDBCDAOTest extends AbstractJDBCDAOTest {</span>
+	private IUsuarioDAO uDAO;
+	private IContaDAO cDAO;
+	
+	@Override
+	protected void setupMainDAO() throws DAOException {
+<span class="fc" id="L26">		objDAO = new ContaJDBCDAO(Configuration.getInstance().getProperties());</span>
+<span class="fc" id="L27">		cDAO = (IContaDAO) objDAO;</span>
+<span class="fc" id="L28">	}</span>
+	
+	@Before
+	public void setupUser() throws DAOException {
+<span class="fc" id="L32">		 uDAO = new UsuarioJDBCDAO(Configuration.getInstance().getProperties());</span>
+<span class="fc" id="L33">	}</span>
+	
+	@Test
+	public void testInsert() throws Exception {
+<span class="fc" id="L37">		UsuarioVO usuarioResponsavel = uDAO.selectByEmail(&quot;danilod100@gmail.com&quot;);</span>
+<span class="fc" id="L38">		ContaVO conta = new ContaVO(&quot;Aluguel__04/12&quot;, 1400d, usuarioResponsavel, &quot;Teste&quot;);</span>
+		
+<span class="fc" id="L40">		cDAO.insert(conta);</span>
+		
+<span class="fc" id="L42">		ContaVO inserted = cDAO.selectByNome(&quot;Aluguel__04/12&quot;);</span>
+<span class="fc" id="L43">		Assert.assertTrue(conta.isEquals(inserted));</span>
+<span class="fc" id="L44">	}</span>
+	
+	@Test
+	public void testUpdate() throws Exception {
+<span class="fc" id="L48">		ContaVO before = cDAO.selectByNome(&quot;Carro&quot;);</span>
+<span class="fc" id="L49">		ContaVO updt = new ContaVO(before.getNome(), 900d, before.getUsuario(), before.getDescricao());</span>
+<span class="fc" id="L50">		cDAO.update(updt);</span>
+		
+<span class="fc" id="L52">		ContaVO after = cDAO.selectByNome(&quot;Carro&quot;);</span>
+<span class="fc" id="L53">		Assert.assertTrue(after.isEquals(before));</span>
+<span class="fc" id="L54">	}</span>
+	
+	@Test
+	public void testDelete() throws Exception {
+<span class="fc" id="L58">		ContaVO before = cDAO.selectByNome(&quot;Carro&quot;);</span>
+<span class="fc" id="L59">		cDAO.delete(before);</span>
+		
+<span class="fc" id="L61">		ContaVO after = cDAO.selectByNome(&quot;Carro&quot;);</span>
+<span class="fc" id="L62">		Assert.assertNull(after);</span>
+<span class="fc" id="L63">	}</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.5.6.201201232323</span>AllTests (10/05/2012 06:09:34)</div></body></html>

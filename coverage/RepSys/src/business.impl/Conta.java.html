@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../../.resources/report.gif" type="image/gif"/><title>Conta.java</title><link rel="stylesheet" href="../../../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="right"><a href="../../../.sessions.html" class="el_session">Sessions</a></span><a href="../../../index.html" class="el_report">AllTests (10/05/2012 06:09:34)</a> &gt; <a href="../../index.html" class="el_group">RepSys</a> &gt; <a href="../index.html" class="el_bundle">src</a> &gt; <a href="index.html" class="el_package">business.impl</a> &gt; <span class="el_source">Conta.java</span></div><h1>Conta.java</h1><pre class="source lang-java linenums">package business.impl;
+
+import java.util.List;
+
+import vo.ContaVO;
+import business.BusinessException;
+import business.spec.IConta;
+import dao.DAOFactory;
+import dao.spec.IContaDAO;
+import dao.spec.IContaUsuarioDevedorDAO;
+import dao.spec.IContaValorFixoDAO;
+import dao.spec.IContaValorVariavelDAO;
+import vo.ContaUsuarioDevedorVO;
+import vo.ContaValorFixoVO;
+import vo.ContaValorVariavelVO;
+
+<span class="nc" id="L17">public class Conta implements IConta {</span>
+
+	public void create(ContaUsuarioDevedorVO vo) throws BusinessException {
+                
+<span class="nc" id="L21">            ContaVO conta = vo.getConta();</span>
+ 		
+<span class="nc" id="L23">            DAOFactory factory = DAOFactory.getInstance();</span>
+            try {
+<span class="nc bnc" id="L25" title="All 2 branches missed.">                    if (conta instanceof ContaValorFixoVO){</span>
+<span class="nc" id="L26">                        IContaValorFixoDAO dao = factory.getContaValorFixoDAO();</span>
+<span class="nc" id="L27">                        dao.insert(conta);</span>
+                    }
+<span class="nc bnc" id="L29" title="All 2 branches missed.">                    if(conta instanceof ContaValorVariavelVO){</span>
+<span class="nc" id="L30">                        IContaValorVariavelDAO dao = factory.getContaValorVariavelDAO();</span>
+<span class="nc" id="L31">                        dao.insert(conta);</span>
+                    }
+
+<span class="nc" id="L34">                    IContaUsuarioDevedorDAO dao = factory.getContaUsuarioDevedorDAO();</span>
+<span class="nc" id="L35">                    dao.insert(vo);</span>
+
+<span class="nc" id="L37">            } catch (Exception e) {</span>
+<span class="nc" id="L38">                    throw new BusinessException(e);</span>
+            }
+<span class="nc" id="L40">	}</span>
+
+	public void delete(String name) throws BusinessException {
+<span class="nc" id="L43">		DAOFactory factory = DAOFactory.getInstance();</span>
+		try {
+<span class="nc" id="L45">			IContaDAO dao = factory.getContaDAO();</span>
+<span class="nc" id="L46">			ContaVO conta = getConta(name);</span>
+<span class="nc" id="L47">			dao.delete(conta);</span>
+<span class="nc" id="L48">		} catch (Exception e) {</span>
+<span class="nc" id="L49">			throw new BusinessException(e);</span>
+		}
+<span class="nc" id="L51">	}</span>
+
+	public void update(ContaVO vo, List&lt;String&gt; emails) throws BusinessException {
+<span class="nc" id="L54">		DAOFactory factory = DAOFactory.getInstance();</span>
+		try {
+<span class="nc" id="L56">			IContaDAO dao = factory.getContaDAO();</span>
+<span class="nc" id="L57">			dao.update(vo);</span>
+<span class="nc" id="L58">		} catch (Exception e) {</span>
+<span class="nc" id="L59">			throw new BusinessException(e);</span>
+		}
+<span class="nc" id="L61">	}</span>
+
+	public ContaVO getConta(String name) throws BusinessException {
+<span class="nc" id="L64">		DAOFactory factory = DAOFactory.getInstance();</span>
+		try {
+<span class="nc" id="L66">			IContaDAO dao = factory.getContaDAO();</span>
+<span class="nc" id="L67">			return (ContaVO) dao.selectByNome(name);</span>
+<span class="nc" id="L68">		} catch (Exception e) {</span>
+<span class="nc" id="L69">			throw new BusinessException(e);</span>
+		}
+	}
+
+	public List&lt;Object&gt; getAll() throws BusinessException {
+<span class="nc" id="L74">		DAOFactory factory = DAOFactory.getInstance();</span>
+		try {
+<span class="nc" id="L76">			IContaDAO dao = factory.getContaDAO();</span>
+<span class="nc" id="L77">			return dao.selectAll();</span>
+<span class="nc" id="L78">		} catch (Exception e) {</span>
+<span class="nc" id="L79">			throw new BusinessException(e);</span>
+		}
+	}
+
+	@Override
+	public List&lt;ContaVO&gt; getContasByUsuario(String email)
+			throws BusinessException {
+<span class="nc" id="L86">		DAOFactory factory = DAOFactory.getInstance();</span>
+		try {
+<span class="nc" id="L88">			IContaDAO dao = factory.getContaDAO();</span>
+<span class="nc" id="L89">			return dao.selectByUsuario(email);</span>
+<span class="nc" id="L90">		} catch (Exception e) {</span>
+<span class="nc" id="L91">			throw new BusinessException(e);</span>
+		}
+	}
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.5.6.201201232323</span>AllTests (10/05/2012 06:09:34)</div></body></html>

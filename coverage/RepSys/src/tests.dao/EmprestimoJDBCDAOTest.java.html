@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../../.resources/report.gif" type="image/gif"/><title>EmprestimoJDBCDAOTest.java</title><link rel="stylesheet" href="../../../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="right"><a href="../../../.sessions.html" class="el_session">Sessions</a></span><a href="../../../index.html" class="el_report">AllTests (10/05/2012 06:09:34)</a> &gt; <a href="../../index.html" class="el_group">RepSys</a> &gt; <a href="../index.html" class="el_bundle">src</a> &gt; <a href="index.html" class="el_package">tests.dao</a> &gt; <span class="el_source">EmprestimoJDBCDAOTest.java</span></div><h1>EmprestimoJDBCDAOTest.java</h1><pre class="source lang-java linenums">package tests.dao;
+
+import java.util.Calendar;
+import java.util.GregorianCalendar;
+
+import junit.framework.Assert;
+
+import org.junit.Test;
+
+import part3rd.AeSimpleMd5;
+
+import util.Configuration;
+import vo.EmprestimoVO;
+import vo.UsuarioVO;
+import dao.DAOException;
+import dao.impl.jdbc.EmprestimoJDBCDAO;
+import dao.impl.jdbc.UsuarioJDBCDAO;
+import dao.spec.IEmprestimoDAO;
+import dao.spec.IUsuarioDAO;
+
+<span class="fc" id="L21">public class EmprestimoJDBCDAOTest extends AbstractJDBCDAOTest {</span>
+	private IEmprestimoDAO eDAO;
+	
+	@Override
+	protected void setupMainDAO() throws DAOException {
+<span class="fc" id="L26">		objDAO = new EmprestimoJDBCDAO(Configuration.getInstance().getProperties());</span>
+<span class="fc" id="L27">		eDAO = (IEmprestimoDAO) objDAO;</span>
+<span class="fc" id="L28">	}</span>
+	
+	@Test
+	public void testInsert() throws Exception {
+<span class="fc" id="L32">		Calendar dt = new GregorianCalendar();</span>
+<span class="fc" id="L33">		dt.set(Calendar.YEAR, 2012);</span>
+<span class="fc" id="L34">		dt.set(Calendar.MONTH, 3);</span>
+<span class="fc" id="L35">		dt.set(Calendar.DAY_OF_MONTH, 10);</span>
+<span class="fc" id="L36">		dt.set(Calendar.HOUR_OF_DAY, 3);</span>
+<span class="fc" id="L37">		dt.set(Calendar.MINUTE, 37);</span>
+<span class="fc" id="L38">		dt.set(Calendar.SECOND, 10);</span>
+		
+<span class="fc" id="L40">		EmprestimoVO emp = new EmprestimoVO(dt, 30d, &quot;Teste&quot;);</span>
+		
+<span class="fc" id="L42">		eDAO.insert(emp);</span>
+		
+<span class="fc" id="L44">		EmprestimoVO inserted = eDAO.selectByData(dt);</span>
+<span class="fc" id="L45">		Assert.assertTrue(emp.isEquals(inserted));</span>
+<span class="fc" id="L46">	}</span>
+	
+	@Test(expected=DAOException.class)
+	public void testUpdate() throws Exception {
+<span class="nc" id="L50">		Calendar dt = new GregorianCalendar();</span>
+<span class="nc" id="L51">		dt.set(Calendar.YEAR, 2012);</span>
+<span class="nc" id="L52">		dt.set(Calendar.MONTH, 1);</span>
+<span class="nc" id="L53">		dt.set(Calendar.DAY_OF_MONTH, 15);</span>
+<span class="nc" id="L54">		dt.set(Calendar.HOUR_OF_DAY, 12);</span>
+<span class="nc" id="L55">		dt.set(Calendar.MINUTE, 23);</span>
+<span class="nc" id="L56">		dt.set(Calendar.SECOND, 0);</span>
+		
+<span class="nc" id="L58">		EmprestimoVO before = eDAO.selectByData(dt);</span>
+<span class="nc" id="L59">		EmprestimoVO updt = new EmprestimoVO(before.getDataHora(), 30d, before.getDescricao());</span>
+		
+<span class="nc" id="L61">		eDAO.update(updt);</span>
+<span class="nc" id="L62">		EmprestimoVO after = eDAO.selectByData(dt);</span>
+		
+<span class="nc" id="L64">		Assert.assertTrue(updt.isEquals(after));</span>
+<span class="nc" id="L65">	}</span>
+	
+	@Test
+	public void testDelete() throws Exception {
+<span class="fc" id="L69">		Calendar dt = new GregorianCalendar();</span>
+<span class="fc" id="L70">		dt.set(Calendar.YEAR, 2012);</span>
+<span class="fc" id="L71">		dt.set(Calendar.MONTH, 1);</span>
+<span class="fc" id="L72">		dt.set(Calendar.DAY_OF_MONTH, 15);</span>
+<span class="fc" id="L73">		dt.set(Calendar.HOUR_OF_DAY, 12);</span>
+<span class="fc" id="L74">		dt.set(Calendar.MINUTE, 23);</span>
+<span class="fc" id="L75">		dt.set(Calendar.SECOND, 0);</span>
+		
+<span class="fc" id="L77">		EmprestimoVO before = eDAO.selectByData(dt);</span>
+<span class="fc" id="L78">		eDAO.delete(before);</span>
+<span class="fc" id="L79">		EmprestimoVO after = eDAO.selectByData(dt);</span>
+		
+<span class="fc" id="L81">		Assert.assertNull(after);</span>
+<span class="fc" id="L82">	}</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.5.6.201201232323</span>AllTests (10/05/2012 06:09:34)</div></body></html>

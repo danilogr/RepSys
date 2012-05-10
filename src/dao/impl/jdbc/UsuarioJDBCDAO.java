@@ -106,7 +106,8 @@ public class UsuarioJDBCDAO extends GenericJDBCDAO implements IUsuarioDAO {
 			String login = rs.getString("EMAIL");
 			String password = rs.getString("SENHA");
 			String nome = rs.getString("NOME");
-			return new UsuarioVO(login, password, nome);
+			double saldo = rs.getDouble("SALDO");
+			return new UsuarioVO(login, password, nome, saldo);
 		} catch (SQLException e) {
 			throw new DAOException(e);
 		}
@@ -114,7 +115,7 @@ public class UsuarioJDBCDAO extends GenericJDBCDAO implements IUsuarioDAO {
 
 	public final UsuarioVO selectByEmail(String email) throws DAOException {
 		ObjectVO vo = null;
-		String sql = "SELECT * FROM " + this.getTableName()
+		String sql = "SELECT * FROM USUARIOV"
 				+ " WHERE EMAIL = '" + email + "'";
 		try {
 			Statement stmt = this.getConnection().createStatement();
