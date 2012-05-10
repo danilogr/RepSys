@@ -14,8 +14,11 @@ import business.BusinessException;
 import business.BusinessFactory;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
+import javax.swing.table.DefaultTableModel;
 import presentation.desktop.MainWindow;
 import presentation.lib.IMultiModePanel;
 import vo.UsuarioVO;
@@ -29,11 +32,13 @@ public class JPUsuariosCadastrados extends javax.swing.JPanel implements present
     /** Creates new form JPUsuariosCadastrados */
     public JPUsuariosCadastrados() {
         initComponents();
+        populaTabela();
         this.setMode(Mode.NORMAL);
     }
     
     public JPUsuariosCadastrados(Mode mode) {
         initComponents();
+        populaTabela();
         this.setMode(mode);
     }
 
@@ -59,7 +64,7 @@ public class JPUsuariosCadastrados extends javax.swing.JPanel implements present
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("I18n/Bundle"); // NOI18N
         jLabel1.setText(bundle.getString("JPUsuariosCadastrados.jLabel1.text")); // NOI18N
 
-        buttonVoltar.setFont(new java.awt.Font("Calibri", 1, 12)); // NOI18N
+        buttonVoltar.setFont(new java.awt.Font("Calibri", 1, 12));
         buttonVoltar.setText(bundle.getString("JPUsuariosCadastrados.buttonVoltar.text")); // NOI18N
         buttonVoltar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -67,34 +72,29 @@ public class JPUsuariosCadastrados extends javax.swing.JPanel implements present
             }
         });
 
-        jTable1.setFont(new java.awt.Font("Calibri", 1, 12));
+        jTable1.setFont(new java.awt.Font("Calibri", 1, 12)); // NOI18N
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
+
             },
             new String [] {
-                "Usuário", "E-mail", "Saldo em Empréstimos"
+                "Usuário", "E-mail"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false
+                false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
             }
         });
-        jTable1.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jTable1.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(jTable1);
         jTable1.getColumnModel().getColumn(0).setHeaderValue(bundle.getString("JPUsuariosCadastrados.jTable1.columnModel.title0")); // NOI18N
         jTable1.getColumnModel().getColumn(1).setHeaderValue(bundle.getString("JPUsuariosCadastrados.jTable1.columnModel.title1")); // NOI18N
-        jTable1.getColumnModel().getColumn(2).setHeaderValue(bundle.getString("JPUsuariosCadastrados.jTable1.columnModel.title2_1")); // NOI18N
 
-        buttonRemover.setFont(new java.awt.Font("Calibri", 1, 12)); // NOI18N
+        buttonRemover.setFont(new java.awt.Font("Calibri", 1, 12));
         buttonRemover.setText(bundle.getString("JPUsuariosCadastrados.buttonRemover.text")); // NOI18N
         buttonRemover.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -102,7 +102,7 @@ public class JPUsuariosCadastrados extends javax.swing.JPanel implements present
             }
         });
 
-        buttonConfirmarSelecao.setFont(new java.awt.Font("Calibri", 1, 12)); // NOI18N
+        buttonConfirmarSelecao.setFont(new java.awt.Font("Calibri", 1, 12));
         buttonConfirmarSelecao.setText(bundle.getString("JPUsuariosCadastrados.buttonConfirmarSelecao.text")); // NOI18N
         buttonConfirmarSelecao.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -110,7 +110,7 @@ public class JPUsuariosCadastrados extends javax.swing.JPanel implements present
             }
         });
 
-        buttonEditar.setFont(new java.awt.Font("Calibri", 1, 12)); // NOI18N
+        buttonEditar.setFont(new java.awt.Font("Calibri", 1, 12));
         buttonEditar.setText(bundle.getString("JPUsuariosCadastrados.buttonEditar.text")); // NOI18N
         buttonEditar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -234,7 +234,7 @@ private void buttonEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-
     }
 
     private void chamarEdicao() {
-        MainWindow.getInstance().showCard(this, new JPAtualizarUsuario());
+        MainWindow.getInstance().showCard(this, new JPAtualizarUsuario(usuarios.get((this.jTable1.getSelectedRow()))));
     }
 
     private void chamarRemocao() throws BusinessException {
@@ -245,6 +245,24 @@ private void buttonEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-
         }
         catch(BusinessException e){
             throw e;
+        }
+    }
+
+    private void populaTabela(){
+        usuarios = new ArrayList<UsuarioVO>();
+        BusinessFactory factory = BusinessFactory.getInstance();
+        
+        try {
+            usuarios = factory.getUsuario().getAll();
+        } catch (BusinessException ex) {
+            Logger.getLogger(JPUsuariosCadastrados.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        int counter=0;
+        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+        for (UsuarioVO usuario:usuarios) {
+            model.insertRow(counter, new Object[]{usuario.getNome(),usuario.getEmail()});
+            counter++;
         }
     }
 }

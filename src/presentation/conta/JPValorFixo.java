@@ -108,54 +108,44 @@ public class JPValorFixo extends javax.swing.JPanel {
     public String getRecorrencia() throws Exception, NumberFormatException{
         String returnValue="";
         String fieldText = this.jTextField1.getText();
-        try{
-            if(fieldText.equals("")) return null;
-            int fieldInt = Integer.parseInt(fieldText);
-            if(fieldInt <= 0)
-                throw new Exception();
-            int comboBoxIndex = this.jComboBox1.getSelectedIndex();
-            returnValue+=fieldInt;
-            if(comboBoxIndex == 0)
-                returnValue+=" days";
-            else if(comboBoxIndex == 1)
-                returnValue+=" months";
-            else if(comboBoxIndex == 2)
-                returnValue+=" years";
-            return returnValue;
-        }
-        catch(NumberFormatException e){
-            throw e;
-        }        
+        
+        if(fieldText.isEmpty()) return null;
+        
+        int fieldInt = Integer.parseInt(fieldText);
+        if(fieldInt <= 0)
+            throw new Exception();
+        int comboBoxIndex = this.jComboBox1.getSelectedIndex();
+        returnValue+=fieldInt;
+        if(comboBoxIndex == 0)
+            returnValue+=" days";
+        else if(comboBoxIndex == 1)
+            returnValue+=" months";
+        else if(comboBoxIndex == 2)
+            returnValue+=" years";
+        return returnValue;       
     }
     
     public Integer getRepeticoes() throws Exception,NumberFormatException{
         String fieldText = this.jTextField2.getText();
-        try{
-            if(fieldText.equals("")) return null;
-            int fieldInt = Integer.parseInt(fieldText);
-            if(fieldInt <= 0)
-                throw new Exception();
-            return fieldInt;
-            
-        }
-        catch(NumberFormatException e){
-            throw e;
-        }  
+        
+        if(fieldText.isEmpty()) return null;
+        
+        int fieldInt = Integer.parseInt(fieldText);
+        if(fieldInt <= 0)
+            throw new Exception();
+        return fieldInt;
     }
     
     public Calendar getDataInicial() throws ParseException{
         String fieldText = this.jTextField3.getText();
-        if(fieldText.equals("")) return null;
-        try{
-            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-            Date fieldDate = sdf.parse(fieldText);
-            Calendar fieldCal = Calendar.getInstance();
-            fieldCal.setTime(fieldDate);
-            return fieldCal;
-        }
-        catch(ParseException e){
-            throw e;
-        }          
+        
+        if(fieldText.isEmpty()) return null;
+        
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        Date fieldDate = sdf.parse(fieldText);
+        Calendar fieldCal = Calendar.getInstance();
+        fieldCal.setTime(fieldDate);
+        return fieldCal;        
     }
 
     private void myInit() {

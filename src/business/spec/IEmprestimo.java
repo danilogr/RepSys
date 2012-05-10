@@ -4,6 +4,7 @@ import java.util.Calendar;
 import java.util.List;
 import vo.EmprestimoVO;
 import business.BusinessException;
+import vo.EmprestimoUsuarioRelVO;
 
 /**
  * @author Nelson
@@ -20,5 +21,8 @@ public interface IEmprestimo {
 	EmprestimoVO getEmprestimo(Calendar date) throws BusinessException;
 
 	List getAll() throws BusinessException;
+        
+         public void createDevedores(List<EmprestimoUsuarioRelVO> vo) throws BusinessException;
+        public void createCredor(EmprestimoUsuarioRelVO vo) throws BusinessException;
 
 }

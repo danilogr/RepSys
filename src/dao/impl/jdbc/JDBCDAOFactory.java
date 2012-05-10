@@ -9,6 +9,7 @@ import dao.spec.IContaUsuarioDevedorDAO;
 import dao.spec.IContaValorFixoDAO;
 import dao.spec.IContaValorVariavelDAO;
 import dao.spec.IEmprestimoDAO;
+import dao.spec.IEmprestimoUsuarioRelDAO;
 import dao.spec.IFaturaTelefonicaDAO;
 import dao.spec.IItemFaturaTelefonicaDAO;
 import dao.spec.INumeroTelefonicoDAO;
@@ -80,4 +81,15 @@ public class JDBCDAOFactory extends DAOFactory {
 	public IUsuarioNumeroTelefonicoDAO getUsuarioNumeroTelefonicoDAO() throws DAOException {
 		return new UsuarioNumeroTelefonicoJDBCDAO(this.properties);
 	}
+        
+        
+        public IEmprestimoUsuarioRelDAO getEmprestimoUsuarioCredorDAO() throws DAOException
+        {
+               return new EmprestimoUsuarioCredorDAO(this.properties);
+        }
+        
+        public IEmprestimoUsuarioRelDAO getEmprestimoUsuarioDevedorDAO() throws DAOException
+        {
+               return new EmprestimoUsuarioDevedorDAO(this.properties);
+        }
 }
