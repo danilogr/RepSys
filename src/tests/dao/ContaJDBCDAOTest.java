@@ -38,8 +38,9 @@ public class ContaJDBCDAOTest extends AbstractJDBCDAOTest {
 		ContaVO conta = new ContaVO("Aluguel__04/12", 1400d, usuarioResponsavel, "Teste");
 		
 		cDAO.insert(conta);
-		
+		System.out.println(conta);
 		ContaVO inserted = cDAO.selectByNome("Aluguel__04/12");
+		System.out.println(inserted);
 		Assert.assertTrue(conta.isEquals(inserted));
 	}
 	

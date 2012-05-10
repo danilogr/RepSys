@@ -1,5 +1,7 @@
 package vo;
 
+import java.text.SimpleDateFormat;
+
 /**
  * @author Henrique Barcelos
  */
@@ -58,6 +60,14 @@ public class UsuarioVO extends ObjectVO {
 	public double getSaldo() {
 		return this.saldo;
 	}
+	
+	@Override
+	public boolean isEquals(ObjectVO vo) {
+		UsuarioVO emp = (UsuarioVO) vo;
+		return this.getEmail() == emp.getEmail()
+			&& this.getNome() == emp.getNome()
+			&& this.getSenha() == emp.getSenha();
+	}
 
 	@Override
 	public String toString() {
@@ -69,6 +79,8 @@ public class UsuarioVO extends ObjectVO {
 		buffer.append(this.getNome());
 		buffer.append(", senha = ");
 		buffer.append(this.getSenha());
+		buffer.append(", saldo = ");
+		buffer.append(this.getSaldo());
 		buffer.append("]");
 		return buffer.toString();
 	}
