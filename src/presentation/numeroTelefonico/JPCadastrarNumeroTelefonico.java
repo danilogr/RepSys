@@ -14,7 +14,7 @@ package presentation.numeroTelefonico;
  *
  * @author Nelson
  */
-public class JPCadastrarNumeroTelefonico extends javax.swing.JPanel {
+public class JPCadastrarNumeroTelefonico extends javax.swing.JPanel implements presentation.lib.ReturnEvent {
 
     /** Creates new form JPCadastrarNumeroTelefonico */
     public JPCadastrarNumeroTelefonico() {
@@ -259,4 +259,9 @@ private void jToggleButtonConfirmarActionPerformed(java.awt.event.ActionEvent ev
     private javax.swing.JTextField jTextFieldNumero;
     private javax.swing.JToggleButton jToggleButtonConfirmar;
     // End of variables declaration//GEN-END:variables
+
+    public void onReturnFromOtherWindow(Object returnedObject) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+    
 }

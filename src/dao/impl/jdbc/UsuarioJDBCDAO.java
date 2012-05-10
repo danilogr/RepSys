@@ -4,14 +4,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.List;
 import java.util.Properties;
 
-import util.Configuration;
-import vo.ContaVO;
-import vo.ObjectVO;
 import vo.UsuarioVO;
-import vo.VOException;
+import vo.ObjectVO;
 import dao.DAOException;
 import dao.spec.IUsuarioDAO;
 
@@ -71,7 +67,7 @@ public class UsuarioJDBCDAO extends GenericJDBCDAO implements IUsuarioDAO {
 		String sql = "DELETE FROM " + this.getTableName() 
 					+ " WHERE NOME = ?";
 		try {
-			ContaVO conta = (ContaVO) vo;
+			UsuarioVO conta = (UsuarioVO) vo;
 			PreparedStatement stmt = this.getConnection().prepareStatement(sql);
 			stmt.setString(1, conta.getNome());
 			stmt.executeUpdate();
@@ -130,14 +126,5 @@ public class UsuarioJDBCDAO extends GenericJDBCDAO implements IUsuarioDAO {
 			throw new DAOException(e);
 		}
 		return (UsuarioVO) vo;
-	}
-	
-	public static void main(String[] argv) throws DAOException, VOException {
-		UsuarioJDBCDAO uDAO = new UsuarioJDBCDAO(Configuration.getInstance().getProperties());
-		List l = uDAO.selectAll("EMAIL", "ASC");
-		for(Object o : l) {
-			UsuarioVO user = (UsuarioVO) o;
-			System.out.println(user.toString());
-		}
 	}
 }

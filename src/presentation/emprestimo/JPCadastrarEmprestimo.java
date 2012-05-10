@@ -14,7 +14,7 @@ package presentation.emprestimo;
  *
  * @author Endril
  */
-public class JPCadastrarEmprestimo extends javax.swing.JPanel {
+public class JPCadastrarEmprestimo extends javax.swing.JPanel implements presentation.lib.ReturnEvent {
 
     /** Creates new form JPCadastrarEmprestimo */
     public JPCadastrarEmprestimo() {
@@ -286,4 +286,8 @@ private void jCheckBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
     private javax.swing.JTextArea jTextArea2;
     private javax.swing.JTextField jTextField5;
     // End of variables declaration//GEN-END:variables
+
+    public void onReturnFromOtherWindow(Object returnedObject) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
 }
