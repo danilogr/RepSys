@@ -22,9 +22,6 @@ abstract public class ObjectVO {
 			m = p.matcher(mtd.getName());
 			if(m.find()) {
 				try {
-					System.out.println(mtd.getName());
-					System.out.println(mtd.invoke(this, params));
-					System.out.println(mtd.invoke(vo, params));
 					if(!mtd.invoke(this, params).equals(mtd.invoke(vo, params))) {
 						return false;
 					}
