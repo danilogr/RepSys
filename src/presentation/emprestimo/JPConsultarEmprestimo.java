@@ -37,11 +37,11 @@ public class JPConsultarEmprestimo extends javax.swing.JPanel implements present
         jTable2 = new javax.swing.JTable();
         jButton3 = new javax.swing.JButton();
 
-        jLabel1.setFont(new java.awt.Font("Cambria", 1, 30)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Cambria", 1, 30));
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("I18n/Bundle"); // NOI18N
         jLabel1.setText(bundle.getString("JPConsultarEmprestimo.jLabel1.text")); // NOI18N
 
-        jButton2.setFont(new java.awt.Font("Calibri", 1, 12)); // NOI18N
+        jButton2.setFont(new java.awt.Font("Calibri", 1, 12));
         jButton2.setText(bundle.getString("JPConsultarEmprestimo.jButton2.text")); // NOI18N
 
         jTable2.setFont(new java.awt.Font("Calibri", 0, 12)); // NOI18N
