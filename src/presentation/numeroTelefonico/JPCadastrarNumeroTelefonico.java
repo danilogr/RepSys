@@ -36,8 +36,11 @@ public class JPCadastrarNumeroTelefonico extends javax.swing.JPanel implements p
         // Carrega usuários
         try {
             List<UsuarioVO> usuarios = BusinessFactory.getInstance().getUsuario().getAll();
+            int i = 0;
             for (UsuarioVO usuario:usuarios) {
-                // insere o usuário na tabela jTableResponsaveis
+                jTableResponsaveis.setValueAt(false,i++,0);
+                jTableResponsaveis.setValueAt(usuario.getNome(),i++,1);
+                jTableResponsaveis.setValueAt(usuario.getEmail(),i++,2);
             }
         } catch (BusinessException ex) {
             Logger.getLogger(JPCadastrarNumeroTelefonico.class.getName()).log(Level.SEVERE, null, ex);
