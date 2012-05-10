@@ -27,11 +27,12 @@ import vo.EmprestimoVO;
  */
 public class JPConsultarEmprestimo extends javax.swing.JPanel implements presentation.lib.ReturnEvent {
 
+    private List<EmprestimoVO> emprestimos;
     /** Creates new form JPConsultarEmprestimo */
     public JPConsultarEmprestimo() {
         initComponents();
         try {
-             List<EmprestimoVO> emprestimos = BusinessFactory.getInstance().getEmprestimo().getAll();
+              emprestimos = BusinessFactory.getInstance().getEmprestimo().getAll();
             int counter = 0;
             DefaultTableModel model =(DefaultTableModel) jTable2.getModel();
             for (EmprestimoVO emprestimo:emprestimos) {
@@ -89,6 +90,11 @@ public class JPConsultarEmprestimo extends javax.swing.JPanel implements present
 
         jButton3.setFont(new java.awt.Font("Calibri", 1, 12));
         jButton3.setText(bundle.getString("JPConsultarEmprestimo.jButton3.text")); // NOI18N
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -126,6 +132,18 @@ public class JPConsultarEmprestimo extends javax.swing.JPanel implements present
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
        MainWindow.getInstance().closeCurrentCard();
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+      EmprestimoVO selecionado = emprestimos.get((this.jTable2.getSelectedRow()));
+        BusinessFactory factory = BusinessFactory.getInstance();
+        try{
+            factory.getEmprestimo().delete(selecionado);
+            MainWindow.getInstance().closeCurrentCard();
+        }
+        catch(BusinessException e){
+            
+        }
+    }//GEN-LAST:event_jButton3ActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton2;

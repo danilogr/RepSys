@@ -56,12 +56,12 @@ public class Emprestimo implements IEmprestimo {
 
         
         
-	public void delete(Calendar date) throws BusinessException {
+	public void delete(EmprestimoVO vo) throws BusinessException {
 		DAOFactory factory = DAOFactory.getInstance();
 		try {
 			IEmprestimoDAO dao = factory.getEmprestimoDAO();
-			EmprestimoVO emprestimo = getEmprestimo(date);
-			dao.delete(emprestimo);
+	//		EmprestimoVO emprestimo = getEmprestimo(date);
+			dao.delete(vo);
 		} catch (Exception e) {
 			throw new BusinessException(e);
 		}

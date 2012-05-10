@@ -14,7 +14,7 @@ public interface IEmprestimo {
 
 	void create(EmprestimoVO vo) throws BusinessException;
 
-	void delete(Calendar Date) throws BusinessException;
+	void delete(EmprestimoVO vo) throws BusinessException;
 
 	void update(EmprestimoVO vo) throws BusinessException;
 
