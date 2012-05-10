@@ -35,7 +35,7 @@ abstract public class DAOFactory {
 	
 	public abstract IContaUsuarioDevedorDAO getContaUsuarioDevedorDAO() throws DAOException;
 	
-	public abstract IUsuarioNumeroTelefonicoDAO getUsuarioNumeroTelefoneDAO() throws DAOException;
+	public abstract IUsuarioNumeroTelefonicoDAO getUsuarioNumeroTelefonicoDAO() throws DAOException;
 
 	public abstract IContaValorFixoDAO getContaValorFixoDAO()
 			throws DAOException;
