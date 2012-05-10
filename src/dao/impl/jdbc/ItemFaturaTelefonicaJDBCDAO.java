@@ -1,6 +1,6 @@
 package dao.impl.jdbc;
 
-import java.sql.Date;
+import java.sql.Timestamp;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.Calendar;
@@ -38,7 +38,7 @@ public class ItemFaturaTelefonicaJDBCDAO extends GenericJDBCDAO implements
 			PreparedStatement stmt = this.getConnection().prepareStatement(sql);
 			
 			stmt.setString(1, item.getNumero().getNumero());
-			stmt.setDate(2, new Date(item.getDataHora().getTime().getTime()));
+			stmt.setTimestamp(2, new Timestamp(item.getDataHora().getTime().getTime()));
 			stmt.setString(3, item.getDuracao());
 			stmt.setDouble(4, item.getValor());
 			stmt.setInt(5, item.getFatura().getMes());
@@ -60,7 +60,7 @@ public class ItemFaturaTelefonicaJDBCDAO extends GenericJDBCDAO implements
 			PreparedStatement stmt = this.getConnection().prepareStatement(sql);
 			
 			stmt.setString(1, item.getNumero().getNumero());
-			stmt.setDate(2, new Date(item.getDataHora().getTime().getTime()));
+			stmt.setTimestamp(2, new Timestamp(item.getDataHora().getTime().getTime()));
 			
 			stmt.executeUpdate();
 		} catch(Exception e) {
@@ -85,7 +85,7 @@ public class ItemFaturaTelefonicaJDBCDAO extends GenericJDBCDAO implements
 			stmt.setInt(4, item.getFatura().getAno());
 			
 			stmt.setString(5, item.getNumero().getNumero());
-			stmt.setDate(6, new Date(item.getDataHora().getTime().getTime()));
+			stmt.setTimestamp(6, new Timestamp(item.getDataHora().getTime().getTime()));
 			
 			stmt.executeUpdate();
 		} catch(Exception e) {
@@ -102,7 +102,7 @@ public class ItemFaturaTelefonicaJDBCDAO extends GenericJDBCDAO implements
 			PreparedStatement stmt = this.getConnection().prepareStatement(sql);
 			
 			stmt.setString(1, numero);
-			stmt.setDate(2, new Date(dataHora.getTime().getTime()));
+			stmt.setTimestamp(2, new Timestamp(dataHora.getTime().getTime()));
 			
 			ResultSet rs = stmt.executeQuery();
 			if(rs.next()) {
@@ -123,7 +123,7 @@ public class ItemFaturaTelefonicaJDBCDAO extends GenericJDBCDAO implements
 	protected ObjectVO createVO(ResultSet rs) throws DAOException, VOException {
 		try {
 			String numero = rs.getString("NUMERO");
-			Date dataHora = rs.getDate("DATA_HORA");
+			Timestamp dataHora = rs.getTimestamp("DATA_HORA");
 			Calendar cal = new GregorianCalendar();
 			cal.setTime(dataHora);
 			String duracao = rs.getString("DURACAO");
