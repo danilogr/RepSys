@@ -40,8 +40,25 @@ public class ContaJDBCDAOTest extends AbstractJDBCDAOTest {
 		cDAO.insert(conta);
 		
 		ContaVO inserted = cDAO.selectByNome("Aluguel__04/12");
-		System.out.println(conta);
-		System.out.println(inserted);
-		System.out.println(conta.equals(inserted));
+		Assert.assertTrue(conta.isEquals(inserted));
+	}
+	
+	@Test
+	public void testUpdate() throws Exception {
+		ContaVO before = cDAO.selectByNome("Carro");
+		ContaVO updt = new ContaVO(before.getNome(), 900d, before.getUsuario(), before.getDescricao());
+		cDAO.update(updt);
+		
+		ContaVO after = cDAO.selectByNome("Carro");
+		Assert.assertTrue(after.isEquals(before));
+	}
+	
+	@Test
+	public void testDelete() throws Exception {
+		ContaVO before = cDAO.selectByNome("Carro");
+		cDAO.delete(before);
+		
+		ContaVO after = cDAO.selectByNome("Carro");
+		Assert.assertNull(after);
 	}
 }
