@@ -51,7 +51,7 @@ public abstract class GenericJDBCDAO implements IGenericDAO {
 		connection.rollback();
 	}
 
-	public final List selectAll() throws DAOException, VOException {
+	public List selectAll() throws DAOException, VOException {
 		String sql = "SELECT * FROM " + this.getTableName();
 		List<ObjectVO> list = new ArrayList<ObjectVO>();
 		try {

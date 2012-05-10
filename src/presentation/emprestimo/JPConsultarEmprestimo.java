@@ -10,6 +10,17 @@
  */
 package presentation.emprestimo;
 
+import business.BusinessException;
+import business.BusinessFactory;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.table.DefaultTableModel;
+import presentation.desktop.MainWindow;
+import vo.EmprestimoVO;
+
 /**
  *
  * @author Endril
@@ -19,6 +30,19 @@ public class JPConsultarEmprestimo extends javax.swing.JPanel implements present
     /** Creates new form JPConsultarEmprestimo */
     public JPConsultarEmprestimo() {
         initComponents();
+        try {
+             List<EmprestimoVO> emprestimos = BusinessFactory.getInstance().getEmprestimo().getAll();
+            int counter = 0;
+            DefaultTableModel model =(DefaultTableModel) jTable2.getModel();
+            for (EmprestimoVO emprestimo:emprestimos) {
+                DateFormat df = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+                model.insertRow(counter, new Object[]{df.format(emprestimo.getDataHora().getTime()),emprestimo.getDescricao(),emprestimo.getValor()});
+                counter++;
+                }
+        } catch (BusinessException ex) {
+            Logger.getLogger(JPConsultarEmprestimo.class.getName()).log(Level.SEVERE, null, ex);
+        }
+              
     }
 
     /** This method is called from within the constructor to
@@ -43,24 +67,27 @@ public class JPConsultarEmprestimo extends javax.swing.JPanel implements present
 
         jButton2.setFont(new java.awt.Font("Calibri", 1, 12));
         jButton2.setText(bundle.getString("JPConsultarEmprestimo.jButton2.text")); // NOI18N
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
-        jTable2.setFont(new java.awt.Font("Calibri", 0, 12)); // NOI18N
+        jTable2.setFont(new java.awt.Font("Calibri", 0, 12));
         jTable2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null}
+
             },
             new String [] {
-                "Data do Empréstimo", "Descrição"
+                "Data do Empréstimo", "Descrição", "Valor"
             }
         ));
         jScrollPane3.setViewportView(jTable2);
         jTable2.getColumnModel().getColumn(0).setHeaderValue(bundle.getString("JPConsultarEmprestimo.jTable2.columnModel.title1")); // NOI18N
         jTable2.getColumnModel().getColumn(1).setHeaderValue(bundle.getString("JPConsultarEmprestimo.jTable2.columnModel.title2")); // NOI18N
+        jTable2.getColumnModel().getColumn(2).setHeaderValue(bundle.getString("JPConsultarEmprestimo.jTable2.columnModel.title2_1")); // NOI18N
 
-        jButton3.setFont(new java.awt.Font("Calibri", 1, 12)); // NOI18N
+        jButton3.setFont(new java.awt.Font("Calibri", 1, 12));
         jButton3.setText(bundle.getString("JPConsultarEmprestimo.jButton3.text")); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -95,6 +122,11 @@ public class JPConsultarEmprestimo extends javax.swing.JPanel implements present
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+       MainWindow.getInstance().closeCurrentCard();
+    }//GEN-LAST:event_jButton2ActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;

@@ -96,13 +96,14 @@
               <Font name="Calibri" size="12" style="1"/>
             </Property>
             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-              <Table columnCount="2" rowCount="0">
-                <Column editable="false" title="Usu&#xe1;rio" type="java.lang.Object"/>
-                <Column editable="false" title="E-mail" type="java.lang.Object"/>
+              <Table columnCount="3" rowCount="0">
+                <Column editable="true" title="Usu&#xe1;rio" type="java.lang.String"/>
+                <Column editable="true" title="E-mail" type="java.lang.String"/>
+                <Column editable="true" title="Saldo" type="java.lang.String"/>
               </Table>
             </Property>
             <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
-              <TableColumnModel selectionModel="0">
+              <TableColumnModel selectionModel="1">
                 <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
                   <Title editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
                     <ResourceString bundle="I18n/Bundle.properties" key="JPUsuariosCadastrados.jTable1.columnModel.title0" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
@@ -117,8 +118,16 @@
                   <Editor/>
                   <Renderer/>
                 </Column>
+                <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                  <Title editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+                    <ResourceString bundle="I18n/Bundle.properties" key="JPUsuariosCadastrados.jTable1.columnModel.title2" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+                  </Title>
+                  <Editor/>
+                  <Renderer/>
+                </Column>
               </TableColumnModel>
             </Property>
+            <Property name="columnSelectionAllowed" type="boolean" value="true"/>
             <Property name="tableHeader" type="javax.swing.table.JTableHeader" editor="org.netbeans.modules.form.editors2.JTableHeaderEditor">
               <TableHeader reorderingAllowed="false" resizingAllowed="true"/>
             </Property>

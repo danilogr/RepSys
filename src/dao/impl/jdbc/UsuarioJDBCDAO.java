@@ -18,7 +18,7 @@ public class UsuarioJDBCDAO extends GenericJDBCDAO implements IUsuarioDAO {
 	}
 
 	public void insert(ObjectVO vo) throws DAOException {
-		String sql = "INSERT INTO " + this.getTableName()
+		String sql = "INSERT INTO USUARIO"
 				+ " (EMAIL, SENHA, NOME) VALUES (?,MD5(?),?)";
 		try {
 			PreparedStatement stmt = this.getConnection().prepareStatement(sql);
@@ -38,7 +38,7 @@ public class UsuarioJDBCDAO extends GenericJDBCDAO implements IUsuarioDAO {
 
 	public void update(ObjectVO vo, boolean updatePassword) throws DAOException {
 		UsuarioVO user = (UsuarioVO) vo;
-		String sql = "UPDATE " + this.getTableName() 
+		String sql = "UPDATE USUARIO" 
 				   + " SET NOME = ?";
 
 		if (updatePassword) {
@@ -64,7 +64,7 @@ public class UsuarioJDBCDAO extends GenericJDBCDAO implements IUsuarioDAO {
 
 	@Override
 	public void delete(ObjectVO vo) throws DAOException {
-		String sql = "DELETE FROM " + this.getTableName() 
+		String sql = "DELETE FROM USUARIO" 
 					+ " WHERE NOME = ?";
 		try {
 			UsuarioVO conta = (UsuarioVO) vo;
@@ -79,7 +79,7 @@ public class UsuarioJDBCDAO extends GenericJDBCDAO implements IUsuarioDAO {
 	public boolean checkEmailSenha(String email, String senha)
 			throws DAOException {
 		boolean isAuthenticated = false;
-		String sql = "SELECT COUNT(*) AS TOTAL FROM " + this.getTableName()
+		String sql = "SELECT COUNT(*) AS TOTAL FROM USUARIO"
 				+ " WHERE EMAIL = ? AND SENHA = MD5(?)";
 		try {
 			PreparedStatement stmt = this.getConnection().prepareStatement(sql);
@@ -98,7 +98,7 @@ public class UsuarioJDBCDAO extends GenericJDBCDAO implements IUsuarioDAO {
 	}
 
 	public String getTableName() {
-		return "USUARIO";
+		return "USUARIOV";
 	}
 
 	protected ObjectVO createVO(ResultSet rs) throws DAOException {

@@ -72,27 +72,30 @@ public class JPUsuariosCadastrados extends javax.swing.JPanel implements present
             }
         });
 
-        jTable1.setFont(new java.awt.Font("Calibri", 1, 12)); // NOI18N
+        jTable1.setFont(new java.awt.Font("Calibri", 1, 12));
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Usuário", "E-mail"
+                "Usuário", "E-mail", "Saldo"
             }
         ) {
-            boolean[] canEdit = new boolean [] {
-                false, false
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
 
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
             }
         });
+        jTable1.setColumnSelectionAllowed(true);
         jTable1.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(jTable1);
+        jTable1.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jTable1.getColumnModel().getColumn(0).setHeaderValue(bundle.getString("JPUsuariosCadastrados.jTable1.columnModel.title0")); // NOI18N
         jTable1.getColumnModel().getColumn(1).setHeaderValue(bundle.getString("JPUsuariosCadastrados.jTable1.columnModel.title1")); // NOI18N
+        jTable1.getColumnModel().getColumn(2).setHeaderValue(bundle.getString("JPUsuariosCadastrados.jTable1.columnModel.title2")); // NOI18N
 
         buttonRemover.setFont(new java.awt.Font("Calibri", 1, 12));
         buttonRemover.setText(bundle.getString("JPUsuariosCadastrados.buttonRemover.text")); // NOI18N
@@ -257,11 +260,18 @@ private void buttonEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-
         } catch (BusinessException ex) {
             Logger.getLogger(JPUsuariosCadastrados.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+       
         int counter=0;
         DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
         for (UsuarioVO usuario:usuarios) {
-            model.insertRow(counter, new Object[]{usuario.getNome(),usuario.getEmail()});
+            float saida = (float) usuario.getSaldo();
+        
+            String fn = "";
+            if(saida<0.0)
+                fn = "DEVEDOR "+Float.toString(saida);
+            else
+                fn = "CREDOR "+Float.toString(saida);
+            model.insertRow(counter, new Object[]{usuario.getNome(),usuario.getEmail(),fn});
             counter++;
         }
     }

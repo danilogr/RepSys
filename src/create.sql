@@ -504,3 +504,48 @@ VALUES ( 'Mesa da sala', to_timestamp('22/04/2012', 'dd/mm/yyyy') ,  08 , '1 wee
 
 INSERT INTO ValorFixo (nome, data_inicial , tempo_recorrencia , periodo_recorrencia)
 VALUES ( 'Geladeira', to_timestamp('10/08/2012', 'dd/mm/yyyy') ,  19 , '1 week');
+
+
+CREATE OR REPLACE FUNCTION ValorPorUsuario (valor numeric, usuarios bigint)
+RETURNS real AS $$
+BEGIN
+	return valor/usuarios;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE OR REPLACE VIEW EmprestimoDetalhado AS
+	SELECT E.data_hora, E.valor Total,
+COUNT(DISTINCT D.email) Devedores,
+COUNT(DISTINCT C.email) Credores,
+ValorPorUsuario(E.valor,COUNT(DISTINCT D.email)) ValorPorDevedor,
+ValorPorUsuario(E.valor,COUNT(DISTINCT C.email)) ValorPorCredor
+	FROM Emprestimo E
+		JOIN Emprestimo_Usuario_Devedor D ON E.data_hora=D.data_hora
+		JOIN Emprestimo_Usuario_Credor C ON E.data_hora=C.data_hora
+	GROUP BY E.data_hora;
+
+CREATE OR REPLACE VIEW TotalDividas AS
+	SELECT U.email, COALESCE(SUM(E.ValorPorDevedor),0) Dividas
+	FROM Usuario U
+		LEFT JOIN Emprestimo_Usuario_Devedor D ON U.email=D.email
+		LEFT JOIN EmprestimoDetalhado E ON D.data_hora=E.data_hora
+	GROUP BY U.email;
+
+CREATE OR REPLACE VIEW TotalCreditos AS
+	SELECT U.email, COALESCE(SUM(E.ValorPorCredor),0) Creditos
+	FROM Usuario U
+		LEFT JOIN Emprestimo_Usuario_Credor C ON U.email=C.email
+		LEFT JOIN EmprestimoDetalhado E ON C.data_hora=E.data_hora
+	GROUP BY U.email;
+
+CREATE OR REPLACE FUNCTION Saldo (devedor real, credor real)
+RETURNS real AS $$
+BEGIN
+	return credor-devedor;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE OR REPLACE VIEW UsuarioV AS
+	SELECT U.email, U.nome, U.senha, Saldo(dividas,creditos)
+	FROM TotalDividas D, TotalCreditos C, Usuario U
+	WHERE D.email=C.email AND U.email=D.email;
