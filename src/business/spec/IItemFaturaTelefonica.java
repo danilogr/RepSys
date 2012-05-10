@@ -17,7 +17,7 @@ public interface IItemFaturaTelefonica {
 
 	void update(ItemFaturaTelefonicaVO vo) throws BusinessException;
 
-	ItemFaturaTelefonicaVO getItemFaturaTelefonica(String numero, Calendar dataHora) throws BusinessException;
+	ItemFaturaTelefonicaVO getItemFaturaTelefonica(String numero, int mes, int ano, Calendar dataHora) throws BusinessException;
 
 	List getAll() throws BusinessException;
 

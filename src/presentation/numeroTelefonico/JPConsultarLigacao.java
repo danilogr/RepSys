@@ -55,10 +55,9 @@ public class JPConsultarLigacao extends javax.swing.JPanel {
         jLabel1 = new javax.swing.JLabel();
         jSeparator4 = new javax.swing.JSeparator();
         jToggleButton1 = new javax.swing.JToggleButton();
-        jToggleButton2 = new javax.swing.JToggleButton();
 
         buttonGroup1.add(jRadioButton1);
-        jRadioButton1.setFont(new java.awt.Font("Catriel", 0, 12));
+        jRadioButton1.setFont(new java.awt.Font("Catriel", 0, 12)); // NOI18N
         jRadioButton1.setSelected(true);
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("I18n/Bundle"); // NOI18N
         jRadioButton1.setText(bundle.getString("JPConsultarLigacao.jRadioButton1.text")); // NOI18N
@@ -78,7 +77,7 @@ public class JPConsultarLigacao extends javax.swing.JPanel {
 
         jButton5.setText(bundle.getString("JPConsultarLigacao.jButton5.text")); // NOI18N
 
-        jButton3.setFont(new java.awt.Font("Calibri", 1, 12));
+        jButton3.setFont(new java.awt.Font("Calibri", 1, 12)); // NOI18N
         jButton3.setText(bundle.getString("JPConsultarLigacao.jButton3.text")); // NOI18N
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -121,10 +120,10 @@ public class JPConsultarLigacao extends javax.swing.JPanel {
         jButton6.setText(bundle.getString("JPConsultarLigacao.jButton6.text")); // NOI18N
 
         buttonGroup1.add(jRadioButton5);
-        jRadioButton5.setFont(new java.awt.Font("Catriel", 0, 12));
+        jRadioButton5.setFont(new java.awt.Font("Catriel", 0, 12)); // NOI18N
         jRadioButton5.setText(bundle.getString("JPConsultarLigacao.jRadioButton5.text")); // NOI18N
 
-        jButton4.setFont(new java.awt.Font("Calibri", 1, 12));
+        jButton4.setFont(new java.awt.Font("Calibri", 1, 12)); // NOI18N
         jButton4.setText(bundle.getString("JPConsultarLigacao.jButton4.text")); // NOI18N
         jButton4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -170,7 +169,7 @@ public class JPConsultarLigacao extends javax.swing.JPanel {
                 {null, null}
             },
             new String [] {
-                "Número", "Usuários Responsáveis"
+                "Nome", "Responsáveis"
             }
         ));
         jTable1.getTableHeader().setReorderingAllowed(false);
@@ -186,7 +185,7 @@ public class JPConsultarLigacao extends javax.swing.JPanel {
             }
         });
 
-        jLabel1.setFont(new java.awt.Font("Cambria", 1, 30));
+        jLabel1.setFont(new java.awt.Font("Cambria", 1, 30)); // NOI18N
         jLabel1.setText(bundle.getString("JPConsultarLigacao.jLabel1.text")); // NOI18N
 
         jToggleButton1.setText(bundle.getString("JPConsultarLigacao.jToggleButton1.text")); // NOI18N
@@ -195,8 +194,6 @@ public class JPConsultarLigacao extends javax.swing.JPanel {
                 jToggleButton1ActionPerformed(evt);
             }
         });
-
-        jToggleButton2.setText(bundle.getString("JPConsultarLigacao.jToggleButton2.text")); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -217,9 +214,7 @@ public class JPConsultarLigacao extends javax.swing.JPanel {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(209, 209, 209)
                         .addComponent(jButton2)
-                        .addGap(86, 86, 86)
-                        .addComponent(jToggleButton2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 126, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 317, Short.MAX_VALUE)
                         .addComponent(jToggleButton1)))
                 .addContainerGap())
         );
@@ -239,8 +234,7 @@ public class JPConsultarLigacao extends javax.swing.JPanel {
                 .addGap(35, 35, 35)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton2)
-                    .addComponent(jToggleButton1)
-                    .addComponent(jToggleButton2))
+                    .addComponent(jToggleButton1))
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -293,7 +287,6 @@ private void jToggleButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GE
     private javax.swing.JTextField jTextField5;
     private javax.swing.JTextField jTextField6;
     private javax.swing.JToggleButton jToggleButton1;
-    private javax.swing.JToggleButton jToggleButton2;
     // End of variables declaration//GEN-END:variables
 
     private List<ItemFaturaTelefonicaVO> itemFatura;

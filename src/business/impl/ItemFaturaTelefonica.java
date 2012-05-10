@@ -64,6 +64,5 @@ public class ItemFaturaTelefonica implements IItemFaturaTelefonica {
 		} catch (Exception e) {
 			throw new BusinessException(e);
 		}
-	} 
-    
+	}
 }
