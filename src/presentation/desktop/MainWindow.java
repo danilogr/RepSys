@@ -16,8 +16,10 @@ import business.spec.IUsuario;
 import java.awt.CardLayout;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import presentation.Fatura.JPConsultarFatura;
 import presentation.Fatura.JPImportarFatura;
 import presentation.JPLogin;
@@ -45,15 +47,9 @@ public class MainWindow extends javax.swing.JFrame implements presentation.lib.R
     private List<ReturnEvent> eventosDeRetorno; //pilha de eventos de retorno
     private List<String> eventosDeRetornoNome;  //pilha com os identificadores dos eventos
     private javax.swing.JPanel currentCard;                 //fecha a atual
-    
-    /*
-     * Parte que cuida da autenticação
-     */
-    private boolean USUARIO_AUTENTICADO = false;
-    // #TODO: DECLARAR VARIAVEL PARA GUARDAR OBJETO DO USUARIO AUTENTICADO.
-    
     private CardLayout content;
-    
+    //private int totalWindowsCount;
+
     
     /** Creates new form MainWindow */
     public MainWindow() {
@@ -66,18 +62,50 @@ public class MainWindow extends javax.swing.JFrame implements presentation.lib.R
         //salva os CardLayouts
         content = (CardLayout) jPanelContent.getLayout();
         
-        //Instanciar a tela de Login
-        //JPLogin login = new JPLogin();
-        //jPanelLoginArea.add(login, LOGIN);
-        //loginArea.show(jPanelLoginArea, LOGIN);
-        
+        //desativa os botoes
+        setButtonsEnabled(false);
+                
         //INSTANCIAR AQUI A JANELA PRINCIPAL
-        JPLogin jlogin = new JPLogin();   
-        showCard(jlogin, jlogin);
+ 
+        showFirstCard(new JPLogin(this));
         
        
         
             
+    }
+    
+    
+    /* Abre uma card 'inicial'
+     */
+    
+    private void showFirstCard(javax.swing.JPanel card)
+    {
+        //se tiver alguma 'card aberta'
+        
+        if(currentCard != null)
+        {
+            //remove a card atual
+            content.removeLayoutComponent(currentCard);
+            jPanelContent.remove(currentCard);
+            currentCard = null;
+            
+            if(eventosDeRetorno.size() > 1)
+            {
+                //remove todas as outras cards
+                do
+                {
+                    ReturnEvent re = eventosDeRetorno.remove(eventosDeRetorno.size()-1);  
+                    jPanelContent.remove((javax.swing.JPanel)re);              
+                } while(eventosDeRetorno.size() > 1);
+            }
+            
+            //remove o primeiro card
+            eventosDeRetorno.clear();
+            eventosDeRetornoNome.clear();
+        }
+         
+            //cria a card necessaria
+            showCard(this,card); 
     }
     
     /**  **/
@@ -92,6 +120,7 @@ public class MainWindow extends javax.swing.JFrame implements presentation.lib.R
         
         jPanelContent.add(card,cardName);
         content.show(jPanelContent,cardName);
+        refreshWindow();
     }
  
     /*
@@ -99,21 +128,20 @@ public class MainWindow extends javax.swing.JFrame implements presentation.lib.R
      */
     public void closeCurrentCard(Object returnedValue)
     {
-        if(!eventosDeRetorno.isEmpty())
+        if(currentCard != null)
         {
             int index = eventosDeRetornoNome.size()-1;
             ReturnEvent re = eventosDeRetorno.remove(index);
             eventosDeRetornoNome.remove(index);
-            
+
             //apenas executa a funcao de retorno quando o valor retornado for diferente de null
-            //e quando nao for a primeira janela criada (mesmo que ela indique um valor de retorno)
-            if(eventosDeRetorno.size() >= 1 && returnedValue != null)
+            if(returnedValue != null)
             {
                 //chama a funcao de retorno
                 re.onReturnFromOtherWindow(returnedValue);
             }
             
-            content.removeLayoutComponent(currentCard);
+         
             jPanelContent.remove(currentCard);
             
             if(index > 0)
@@ -160,6 +188,9 @@ public class MainWindow extends javax.swing.JFrame implements presentation.lib.R
         //fecha a tela de login
         closeCurrentCard();
         
+        //ativa os botoes
+        setButtonsEnabled(true);
+        
     }
     
     /**
@@ -180,11 +211,32 @@ public class MainWindow extends javax.swing.JFrame implements presentation.lib.R
         this.usuarioLogado = null;
         jPanelLogin.setVisible(false);
         
-        //Todo, chamar rotinas para liberar todas as telas
-        JPLogin jlogin = new JPLogin();   
-        showCard(jlogin, jlogin);
+        //Todo, chamar rotinas para liberar todas as telas  
+        showFirstCard( new JPLogin(this));
+        
+        //desativa os botoes
+        setButtonsEnabled(false);
     }
     
+    /**
+     *  Ativa/Desativa botoes da interface
+     */
+    
+    private void setButtonsEnabled(boolean state)
+    {       
+        jButton2.setEnabled(state);
+        jButton3.setEnabled(state);
+        jButton4.setEnabled(state);
+        jButton5.setEnabled(state);
+        jButton6.setEnabled(state);
+        jButton7.setEnabled(state);
+        jButton8.setEnabled(state);
+        jButton9.setEnabled(state);
+        jButton10.setEnabled(state);
+        jButton11.setEnabled(state);
+        jButton12.setEnabled(state);
+        jButton13.setEnabled(state);
+    }
     /*
        Funcao que permite pegar o objeto corrente desta classes
      */
@@ -216,6 +268,7 @@ public class MainWindow extends javax.swing.JFrame implements presentation.lib.R
         jLabelUsuarioNome = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         jLabelUsuarioEmail = new javax.swing.JLabel();
+        jle = new javax.swing.JLabel();
         jPanelContainerBottom = new javax.swing.JPanel();
         jScrollPanelContent = new javax.swing.JScrollPane();
         jPanelMiddle = new javax.swing.JPanel();
@@ -260,7 +313,7 @@ public class MainWindow extends javax.swing.JFrame implements presentation.lib.R
         jPanelLogin.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
         jPanelLogin.setName("jPanelLogin"); // NOI18N
 
-        jLabelUsuarioNome.setFont(new java.awt.Font("Tahoma", 1, 11));
+        jLabelUsuarioNome.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabelUsuarioNome.setText(bundle.getString("MainWindow.jLabelUsuarioNome.text")); // NOI18N
         jLabelUsuarioNome.setName("jLabelUsuarioNome"); // NOI18N
 
@@ -301,14 +354,22 @@ public class MainWindow extends javax.swing.JFrame implements presentation.lib.R
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        jle.setName("jle"); // NOI18N
+
         javax.swing.GroupLayout jPanelTop2Layout = new javax.swing.GroupLayout(jPanelTop2);
         jPanelTop2.setLayout(jPanelTop2Layout);
         jPanelTop2Layout.setHorizontalGroup(
             jPanelTop2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanelTop2Layout.createSequentialGroup()
-                .addGap(92, 92, 92)
-                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 208, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelTop2Layout.createSequentialGroup()
+                .addGroup(jPanelTop2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanelTop2Layout.createSequentialGroup()
+                        .addContainerGap(478, Short.MAX_VALUE)
+                        .addComponent(jle)
+                        .addGap(45, 45, 45))
+                    .addGroup(jPanelTop2Layout.createSequentialGroup()
+                        .addGap(58, 58, 58)
+                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
                 .addComponent(jPanelLogin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -317,8 +378,9 @@ public class MainWindow extends javax.swing.JFrame implements presentation.lib.R
             .addGroup(jPanelTop2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanelTop2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 56, Short.MAX_VALUE)
                     .addComponent(jPanelLogin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 56, Short.MAX_VALUE))
+                    .addComponent(jle))
                 .addContainerGap())
         );
 
@@ -348,9 +410,9 @@ public class MainWindow extends javax.swing.JFrame implements presentation.lib.R
         jButton2.setText(bundle.getString("MainWindow.jButton2.text")); // NOI18N
         jButton2.setMinimumSize(new java.awt.Dimension(0, 0));
         jButton2.setName("jButton2"); // NOI18N
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+        jButton2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton2MouseClicked(evt);
             }
         });
 
@@ -588,7 +650,7 @@ public class MainWindow extends javax.swing.JFrame implements presentation.lib.R
             .addGroup(jPanelContainerBottomLayout.createSequentialGroup()
                 .addComponent(jPanelMenu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPanelContent, javax.swing.GroupLayout.DEFAULT_SIZE, 602, Short.MAX_VALUE))
+                .addComponent(jScrollPanelContent, javax.swing.GroupLayout.DEFAULT_SIZE, 662, Short.MAX_VALUE))
         );
         jPanelContainerBottomLayout.setVerticalGroup(
             jPanelContainerBottomLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -633,64 +695,67 @@ public class MainWindow extends javax.swing.JFrame implements presentation.lib.R
         this.logout();
     }//GEN-LAST:event_jButton1MouseClicked
 
-private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-// TODO add your handling code here:
-    
-    MainWindow.getInstance().closeCurrentCard();
-    MainWindow.getInstance().showCard(this, new JPCadastrarUsuario());
-}//GEN-LAST:event_jButton2ActionPerformed
-
 private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
 // TODO add your handling code here:
-     MainWindow.getInstance().closeCurrentCard();
-    MainWindow.getInstance().showCard(this, new JPAtualizarUsuario());
+   
+   showFirstCard(  new JPAtualizarUsuario());
 }//GEN-LAST:event_jButton4ActionPerformed
 
 private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
 // TODO add your handling code here:
-     MainWindow.getInstance().closeCurrentCard();
-    MainWindow.getInstance().showCard(this, new JPUsuariosCadastrados());
+   
+    showFirstCard(   new JPUsuariosCadastrados());
 }//GEN-LAST:event_jButton3ActionPerformed
 
 private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
 // TODO add your handling code here:
-     MainWindow.getInstance().closeCurrentCard();
-    MainWindow.getInstance().showCard(this, new JPCadastrarEmprestimo());
+     
+    showFirstCard(  new JPCadastrarEmprestimo());
 }//GEN-LAST:event_jButton5ActionPerformed
 
 private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
 // TODO add your handling code here:
-     MainWindow.getInstance().closeCurrentCard();
-    MainWindow.getInstance().showCard(this, new JPConsultarEmprestimo());
+    
+    showFirstCard(  new JPConsultarEmprestimo());
 }//GEN-LAST:event_jButton6ActionPerformed
 
 private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
 // TODO add your handling code here:
-     MainWindow.getInstance().closeCurrentCard();
-    MainWindow.getInstance().showCard(this, new JPImportarFatura());
+    
+    showFirstCard(  new JPImportarFatura());
 }//GEN-LAST:event_jButton10ActionPerformed
 
 private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
 // TODO add your handling code here:
-     MainWindow.getInstance().closeCurrentCard();
-    MainWindow.getInstance().showCard(this, new JPConsultarFatura());
+     
+    showFirstCard(  new JPConsultarFatura());
 }//GEN-LAST:event_jButton11ActionPerformed
 
 private void jButton12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton12ActionPerformed
 // TODO add your handling code here:
-     MainWindow.getInstance().closeCurrentCard();
-    MainWindow.getInstance().showCard(this, new JPCriarConta());
+     
+    showFirstCard(  new JPCriarConta());
 }//GEN-LAST:event_jButton12ActionPerformed
 
 private void jButton13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton13ActionPerformed
 // TODO add your handling code here:
-     MainWindow.getInstance().closeCurrentCard();
-    MainWindow.getInstance().showCard(this, new JPConsultarConta());
+    
+    showFirstCard(  new JPConsultarConta());
 }//GEN-LAST:event_jButton13ActionPerformed
+
+private void jButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseClicked
+showFirstCard(  new JPCadastrarUsuario());
+}//GEN-LAST:event_jButton2MouseClicked
 
     /**
      * @param args the command line arguments
      */
+    //<editor-fold defaultstate="collapsed" desc=" Swing editor ">
+    private void refreshWindow()
+    {
+        jle.setVisible(false);
+        jle.setVisible(true);
+    }//</editor-fold>
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -758,10 +823,46 @@ private void jButton13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JSeparator jSeparator4;
     private javax.swing.JSeparator jSeparator5;
+    private javax.swing.JLabel jle;
     // End of variables declaration//GEN-END:variables
 
     public void onReturnFromOtherWindow(Object returnedObject) {
-        throw new UnsupportedOperationException("Not supported yet.");
+       //do nothing
+    }
+
+    public void updateComponents() {
+            ResourceBundle bundle = ResourceBundle.getBundle("I18n/Bundle");
+        
+        
+            jLabel1.setText(bundle.getString("MainWindow.jLabel1.text"));
+            jLabel2.setText(bundle.getString("MainWindow.jLabel2.text"));
+            jLabel4.setText(bundle.getString("MainWindow.jLabel4.text"));
+            jLabel5.setText(bundle.getString("MainWindow.jLabel5.text"));
+            jLabel6.setText(bundle.getString("MainWindow.jLabel6.text"));
+            jLabelUsuarioNome.setText(bundle.getString("MainWindow.jLabelUsuarioNome.text"));
+            jLabelUsuarioEmail.setText(bundle.getString("MainWindow.jLabelUsuarioEmail.text"));            
+            jButton1.setText(bundle.getString("MainWindow.jButton1.text"));
+            jButton2.setText(bundle.getString("MainWindow.jButton2.text"));
+            jButton3.setText(bundle.getString("MainWindow.jButton3text"));
+            jButton4.setText(bundle.getString("MainWindow.jButton4.text"));
+            jButton5.setText(bundle.getString("MainWindow.jButton5.text"));
+            jButton6.setText(bundle.getString("MainWindow.jButton6.text"));
+            jButton7.setText(bundle.getString("MainWindow.jButton7text"));
+            jButton8.setText(bundle.getString("MainWindow.jButton8.text"));
+            jButton9.setText(bundle.getString("MainWindow.jButton9.text"));
+            jButton10.setText(bundle.getString("MainWindow.jButton10.text"));
+            jButton11.setText(bundle.getString("MainWindow.jButton11text"));
+            jButton12.setText(bundle.getString("MainWindow.jButton12.text"));
+            jButton13.setText(bundle.getString("MainWindow.jButton13.text"));
+
+
+/*
+            jLabel4.setText(bundle.getString("JPLogin.jLabel4.text"));
+            jLabel5.setText(bundle.getString("JPLogin.jLabel5.text"));
+            jButton2.setText(bundle.getString("JPLogin.jButton2.text"));
+            jLabel7.setText(bundle.getString("JPLogin.jLabel7.text")); // NOI18N
+            jLabel8.setText(bundle.getString("JPLogin.jLabel8.text"));
+            jLabel9.setText(bundle.getString("JPLogin.jLabel9.text"));*/
     }
 
     
