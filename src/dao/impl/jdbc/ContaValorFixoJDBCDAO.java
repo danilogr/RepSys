@@ -1,6 +1,6 @@
 package dao.impl.jdbc;
 
-import java.sql.Date;
+import java.sql.Timestamp;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -38,7 +38,7 @@ public class ContaValorFixoJDBCDAO extends ContaJDBCDAO implements IContaValorFi
 			PreparedStatement stmt = this.getConnection().prepareStatement(sql);
 			
 			stmt.setString(1, cvf.getNome());
-			stmt.setDate(2, new Date(cvf.getDataInicial().getTime().getTime()));
+			stmt.setTimestamp(2, new Timestamp(cvf.getDataInicial().getTime().getTime()));
 			stmt.setInt(3, cvf.getTempoRecorrencia());
 			stmt.setString(4, cvf.getPeriodoRecorrencia());
 			
@@ -57,7 +57,7 @@ public class ContaValorFixoJDBCDAO extends ContaJDBCDAO implements IContaValorFi
 		try {
 			ContaValorFixoVO cvf = (ContaValorFixoVO) vo;
 			PreparedStatement stmt = this.getConnection().prepareStatement(sql);
-			stmt.setDate(1, new Date(cvf.getDataInicial().getTime().getTime()));
+			stmt.setTimestamp(1, new Timestamp(cvf.getDataInicial().getTime().getTime()));
 			stmt.setInt(2, cvf.getTempoRecorrencia());
 			stmt.setString(3, cvf.getPeriodoRecorrencia());
 			stmt.setString(4, cvf.getNome());
@@ -93,7 +93,7 @@ public class ContaValorFixoJDBCDAO extends ContaJDBCDAO implements IContaValorFi
 			ContaVO conta = (ContaVO) super.createVO(rs);
 			
 			Calendar cal = new GregorianCalendar();
-			cal.setTime(rs.getDate("DATA_INICIAL"));
+			cal.setTime(rs.getTimestamp("DATA_INICIAL"));
 			int tempoRec = rs.getInt("TEMPO_RECORRENCIA");
 			String periodoRec = rs.getString("PERIODO_RECORRENCIA");
 
