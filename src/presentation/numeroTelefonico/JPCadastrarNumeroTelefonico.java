@@ -79,7 +79,7 @@ public class JPCadastrarNumeroTelefonico extends javax.swing.JPanel implements p
 
         setPreferredSize(new java.awt.Dimension(560, 450));
 
-        jLabelNumero.setFont(new java.awt.Font("Calibri", 1, 18));
+        jLabelNumero.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("I18n/Bundle"); // NOI18N
         jLabelNumero.setText(bundle.getString("JPCadastrarNumeroTelefonico.jLabelNumero.text")); // NOI18N
 
@@ -171,7 +171,7 @@ public class JPCadastrarNumeroTelefonico extends javax.swing.JPanel implements p
             }
         });
 
-        jLabelCadastrarNumeroTelefonico.setFont(new java.awt.Font("Cambria", 1, 30));
+        jLabelCadastrarNumeroTelefonico.setFont(new java.awt.Font("Cambria", 1, 30)); // NOI18N
         jLabelCadastrarNumeroTelefonico.setText(bundle.getString("JPCadastrarNumeroTelefonico.jLabelCadastrarNumeroTelefonico.text")); // NOI18N
 
         jLabelResponsaveis.setFont(new java.awt.Font("Calibri", 1, 18));

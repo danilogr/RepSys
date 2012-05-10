@@ -80,15 +80,6 @@ public class UsuarioJDBCDAOTest extends AbstractJDBCDAOTest {
 	}
 	
 	@Test
-	public void testDeleteOk() throws DAOException {
-		String email = "madalena@dominio.com";
-		UsuarioVO user = userDAO.selectByEmail(email);
-		userDAO.delete(user);
-		UsuarioVO isNull = userDAO.selectByEmail(email);
-		Assert.assertNull(isNull);
-	}
-	
-	@Test(expected=DAOException.class)
 	public void testDeleteExpectedException() throws DAOException {
 		String email = "nelsonguicg@gmail.com";
 		UsuarioVO user = userDAO.selectByEmail(email);

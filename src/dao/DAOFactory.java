@@ -1,5 +1,6 @@
 package dao;
 
+import dao.spec.IEmprestimoUsuarioRelDAO;
 import util.Configuration;
 import dao.impl.jdbc.JDBCDAOFactory;
 import dao.spec.IContaDAO;
@@ -53,4 +54,9 @@ abstract public class DAOFactory {
 
 	public abstract INumeroTelefonicoDAO getNumeroTelefonicoDAO()
 			throws DAOException;
+
+        public abstract IEmprestimoUsuarioRelDAO getEmprestimoUsuarioCredorDAO() throws DAOException;
+        
+        public abstract IEmprestimoUsuarioRelDAO getEmprestimoUsuarioDevedorDAO() throws DAOException;
+        
 }

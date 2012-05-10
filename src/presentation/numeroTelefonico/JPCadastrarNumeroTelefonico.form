@@ -64,6 +64,9 @@
                                       </Group>
                                   </Group>
                               </Group>
+                              <Component id="jTextFieldData" alignment="0" max="32767" attributes="1"/>
+                              <Component id="jTextFieldHora" alignment="0" min="-2" pref="161" max="-2" attributes="1"/>
+                              <Component id="jLabel8" alignment="0" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <Component id="jToggleButtonConfirmar" alignment="0" min="-2" max="-2" attributes="0"/>
                       </Group>

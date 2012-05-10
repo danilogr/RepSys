@@ -3,6 +3,8 @@ package dao.impl.jdbc;
 import java.sql.Timestamp;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -30,15 +32,14 @@ public abstract class EmprestimoUsuarioRelJDBCDAO extends GenericJDBCDAO
 	@Override
 	public void insert(ObjectVO vo) throws DAOException {
 		String sql = "INSERT INTO " + this.getTableName()
-				+ " (DATA_HORA, EMAIL) VALUES(?, ?)";
+				+ " (DATA_HORA, EMAIL) VALUES(TO_TIMESTAMP(?, 'DD/MM/YYYY HH24:MI:SS'), ?)";
 		try {
-
 			PreparedStatement stmt = this.getConnection().prepareStatement(sql);
 			EmprestimoUsuarioRelVO eur = (EmprestimoUsuarioRelVO) vo;
 
-			Timestamp dt = new Timestamp(eur.getEmprestimo().getDataHora().getTime()
-					.getTime());
-			stmt.setTimestamp(1, dt);
+			DateFormat df = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+			String date = df.format(eur.getEmprestimo().getDataHora().getTime());
+			stmt.setString(1, date);
 			stmt.setString(2, eur.getUsuario().getEmail());
 
 			stmt.executeUpdate();
@@ -50,14 +51,14 @@ public abstract class EmprestimoUsuarioRelJDBCDAO extends GenericJDBCDAO
 	@Override
 	public void delete(ObjectVO vo) throws DAOException {
 		String sql = "DELETE FROM " + this.getTableName()
-				+ " WHERE DATA_HORA = ? AND EMAIL = ?";
+				+ " WHERE DATA_HORA = (TO_TIMESTAMP(?, 'DD/MM/YYYY HH24:MI:SS') AND EMAIL = ?";
 		try {
 			EmprestimoUsuarioRelVO euc = (EmprestimoUsuarioRelVO) vo;
 			PreparedStatement stmt = this.getConnection().prepareStatement(sql);
 
-			Timestamp dt = new Timestamp(euc.getEmprestimo().getDataHora().getTime()
-					.getTime());
-			stmt.setTimestamp(1, dt);
+			DateFormat df = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+			String date = df.format(euc.getEmprestimo().getDataHora().getTime());
+			stmt.setString(1, date);
 			stmt.setString(2, euc.getUsuario().getEmail());
 
 			stmt.executeUpdate();
