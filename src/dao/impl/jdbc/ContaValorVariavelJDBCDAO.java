@@ -104,7 +104,7 @@ public class ContaValorVariavelJDBCDAO extends ContaJDBCDAO implements
 	}
 
 	@Override
-	public ContaValorVariavelVO selectByName(String nome) throws DAOException,
+	public ContaValorVariavelVO selectByNome(String nome) throws DAOException,
 			VOException {
 		ContaValorVariavelVO vo = null;
 		String sql = "SELECT * FROM " + this.getTableName()

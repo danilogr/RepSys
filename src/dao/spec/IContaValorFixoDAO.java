@@ -9,5 +9,5 @@ import dao.DAOException;
 public interface IContaValorFixoDAO extends IGenericDAO {
 	
 	public List selectByUsuario(String email) throws DAOException, VOException;
-	public ContaValorFixoVO selectByName(String nome) throws DAOException, VOException;
+	public ContaValorFixoVO selectByNome(String nome) throws DAOException, VOException;
 }

@@ -7,8 +7,9 @@ import java.util.Properties;
 import vo.ContaUsuarioDevedorVO;
 import vo.ObjectVO;
 import dao.DAOException;
+import dao.spec.IContaUsuarioDevedorDAO;
 
-public class ContaUsuarioDevedorJDBCDAO extends GenericJDBCDAO {
+public class ContaUsuarioDevedorJDBCDAO extends GenericJDBCDAO implements IContaUsuarioDevedorDAO {
 
 	public ContaUsuarioDevedorJDBCDAO(Properties properties)
 			throws DAOException {

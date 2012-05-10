@@ -4,12 +4,13 @@ import java.util.List;
 
 import vo.ContaVO;
 import business.BusinessException;
+import vo.ContaUsuarioDevedorVO;
 
 public interface IConta {
 
-	public void create(ContaVO vo) throws BusinessException;
+	public void create(ContaUsuarioDevedorVO vo) throws BusinessException;
 
-	public void update(ContaVO vo) throws BusinessException;
+	public void update(ContaVO vo, List<String> emails) throws BusinessException;
         
 	public void delete(String name) throws BusinessException;
         

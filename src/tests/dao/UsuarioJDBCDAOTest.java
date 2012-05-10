@@ -1,12 +1,10 @@
 package tests.dao;
 
-import java.sql.SQLException;
-
 import junit.framework.Assert;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-
 import part3rd.AeSimpleMd5;
 
 import util.Configuration;
@@ -14,18 +12,14 @@ import vo.UsuarioVO;
 
 import dao.DAOException;
 import dao.impl.jdbc.UsuarioJDBCDAO;
+import dao.spec.IUsuarioDAO;
 
-public class UsuarioJDBCDAOTest {
-	private UsuarioJDBCDAO objDAO;
+public class UsuarioJDBCDAOTest extends AbstractJDBCDAOTest {
+	private IUsuarioDAO userDAO;
 	
-	public UsuarioJDBCDAOTest() throws DAOException, SQLException {
-		setup();
-	}
-	
-	@Before
-	public void setup() throws DAOException, SQLException {
+	protected void setupMainDAO() throws DAOException {
 		objDAO = new UsuarioJDBCDAO(Configuration.getInstance().getProperties());
-		objDAO.setAutoCommit(false);
+		userDAO = (IUsuarioDAO) objDAO;
 	}
 	
 	@Test
@@ -33,7 +27,7 @@ public class UsuarioJDBCDAOTest {
 		String email = "zepitanga@gmail.com";
 		String senha = "12345";
 		
-		boolean actual = objDAO.checkEmailSenha(email, senha);
+		boolean actual = userDAO.checkEmailSenha(email, senha);
 		Assert.assertEquals(actual, true);
 	}
 	
@@ -42,7 +36,7 @@ public class UsuarioJDBCDAOTest {
 		String email = "zepitanga@gmail.com";
 		String senha = "1234";
 		
-		boolean actual = objDAO.checkEmailSenha(email, senha);
+		boolean actual = userDAO.checkEmailSenha(email, senha);
 		Assert.assertEquals(actual, false);
 	}
 	
@@ -50,14 +44,56 @@ public class UsuarioJDBCDAOTest {
 	public void testInsert() throws Exception {
 		String senha = "teste";
 		
-		UsuarioJDBCDAOTest t = new UsuarioJDBCDAOTest();
 		UsuarioVO user = new UsuarioVO("teste@teste.com", senha, "Testonildo");
 		
-		t.objDAO.insert(user);
+		userDAO.insert(user);
 		
-		UsuarioVO inserted = t.objDAO.selectByEmail("teste@teste.com");
+		UsuarioVO inserted = userDAO.selectByEmail("teste@teste.com");
 		user.setSenha(AeSimpleMd5.md5(senha));
 		
 		Assert.assertTrue(user.equals(inserted));
+	}
+	
+	@Test
+	public void testUpdateName() throws Exception {
+		UsuarioVO oldData = userDAO.selectByEmail("nelsonguicg@gmail.com");
+		UsuarioVO newData = new UsuarioVO(oldData.getEmail(), oldData.getSenha(), "Vaginildo");
+		UsuarioVO afterUpdate = null;
+		
+		userDAO.update(newData);
+		afterUpdate = userDAO.selectByEmail(newData.getEmail());
+		
+		Assert.assertTrue(newData.equals(afterUpdate));
+	}
+	
+	@Test
+	public void testUpdatePassword() throws Exception {
+		String senha = "1234";
+		UsuarioVO oldData = userDAO.selectByEmail("nelsonguicg@gmail.com");
+		UsuarioVO newData = new UsuarioVO(oldData.getEmail(), senha, oldData.getNome());
+		UsuarioVO afterUpdate = null;
+		
+		userDAO.update(newData, true);
+		afterUpdate = userDAO.selectByEmail(newData.getEmail());
+		newData.setSenha(AeSimpleMd5.md5(senha));
+		Assert.assertTrue(newData.equals(afterUpdate));
+	}
+	
+	@Test
+	public void testDeleteOk() throws DAOException {
+		String email = "madalena@dominio.com";
+		UsuarioVO user = userDAO.selectByEmail(email);
+		userDAO.delete(user);
+		UsuarioVO isNull = userDAO.selectByEmail(email);
+		Assert.assertNull(isNull);
+	}
+	
+	@Test(expected=DAOException.class)
+	public void testDeleteExpectedException() throws DAOException {
+		String email = "nelsonguicg@gmail.com";
+		UsuarioVO user = userDAO.selectByEmail(email);
+		userDAO.delete(user);
+		UsuarioVO isNull = userDAO.selectByEmail(email);
+		Assert.assertNull(isNull);
 	}
 }

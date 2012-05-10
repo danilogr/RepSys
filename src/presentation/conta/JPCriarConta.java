@@ -10,26 +10,21 @@
  */
 package presentation.conta;
 
-import business.BusinessException;
 import business.BusinessFactory;
-import business.spec.IConta;
 import java.awt.CardLayout;
 import java.text.ParseException;
-import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.JRadioButton;
 import javax.swing.table.TableColumn;
-import org.hamcrest.Factory;
 import presentation.desktop.MainWindow;
 import presentation.lib.IMultiModePanel.Mode;
 import presentation.usuario.JPUsuariosCadastrados;
+import vo.ContaUsuarioDevedorVO;
 import vo.ContaVO;
 import vo.ContaValorFixoVO;
 import vo.ContaValorVariavelVO;
 import vo.UsuarioVO;
-import vo.VOException;
 
 /**
  *
@@ -58,8 +53,8 @@ public class JPCriarConta extends javax.swing.JPanel implements presentation.lib
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
-        jTextField3 = new javax.swing.JTextField();
-        jTextField4 = new javax.swing.JTextField();
+        textFieldNomeConta = new javax.swing.JTextField();
+        textFieldValorConta = new javax.swing.JTextField();
         jLabel12 = new javax.swing.JLabel();
         jRadioButton3 = new javax.swing.JRadioButton();
         jRadioButton4 = new javax.swing.JRadioButton();
@@ -92,14 +87,14 @@ public class JPCriarConta extends javax.swing.JPanel implements presentation.lib
         jLabel11.setFont(new java.awt.Font("Calibri", 3, 18));
         jLabel11.setText(bundle.getString("JPCriarConta.jLabel11.text")); // NOI18N
 
-        jTextField3.setFont(new java.awt.Font("Catriel", 0, 11));
-        jTextField3.addActionListener(new java.awt.event.ActionListener() {
+        textFieldNomeConta.setFont(new java.awt.Font("Catriel", 0, 11)); // NOI18N
+        textFieldNomeConta.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField3ActionPerformed(evt);
+                textFieldNomeContaActionPerformed(evt);
             }
         });
 
-        jTextField4.setFont(new java.awt.Font("Catriel", 0, 11));
+        textFieldValorConta.setFont(new java.awt.Font("Catriel", 0, 11)); // NOI18N
 
         jLabel12.setForeground(new java.awt.Color(255, 0, 0));
         jLabel12.setText(bundle.getString("JPCriarConta.jLabel12.text")); // NOI18N
@@ -136,7 +131,7 @@ public class JPCriarConta extends javax.swing.JPanel implements presentation.lib
         jLabel14.setText(bundle.getString("JPCriarConta.jLabel14.text")); // NOI18N
 
         jTextField5.setEditable(false);
-        jTextField5.setFont(new java.awt.Font("Catriel", 0, 11));
+        jTextField5.setFont(new java.awt.Font("Catriel", 0, 11)); // NOI18N
         jTextField5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField5ActionPerformed(evt);
@@ -185,6 +180,10 @@ public class JPCriarConta extends javax.swing.JPanel implements presentation.lib
         });
         jTable2.getTableHeader().setReorderingAllowed(false);
         jScrollPane4.setViewportView(jTable2);
+        jTable2.getColumnModel().getColumn(0).setHeaderValue(bundle.getString("JPCriarConta.jTable2.columnModel.title0")); // NOI18N
+        jTable2.getColumnModel().getColumn(1).setHeaderValue(bundle.getString("JPCriarConta.jTable2.columnModel.title1")); // NOI18N
+        jTable2.getColumnModel().getColumn(2).setHeaderValue(bundle.getString("JPCriarConta.jTable2.columnModel.title2")); // NOI18N
+        jTable2.getColumnModel().getColumn(3).setHeaderValue(bundle.getString("JPCriarConta.jTable2.columnModel.title3")); // NOI18N
 
         jLabel15.setFont(new java.awt.Font("Calibri", 3, 18));
         jLabel15.setText(bundle.getString("JPCriarConta.jLabel15.text")); // NOI18N
@@ -233,7 +232,7 @@ public class JPCriarConta extends javax.swing.JPanel implements presentation.lib
             }
         });
 
-        jButton2.setFont(new java.awt.Font("Calibri", 1, 12)); // NOI18N
+        jButton2.setFont(new java.awt.Font("Calibri", 1, 12));
         jButton2.setText(bundle.getString("JPCriarConta.jButton2.text")); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -255,8 +254,8 @@ public class JPCriarConta extends javax.swing.JPanel implements presentation.lib
                                     .addComponent(jLabel11))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jTextField4)
-                                    .addComponent(jTextField3, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(textFieldValorConta)
+                                    .addComponent(textFieldNomeConta, javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addGroup(layout.createSequentialGroup()
                                         .addComponent(jRadioButton3)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -297,9 +296,9 @@ public class JPCriarConta extends javax.swing.JPanel implements presentation.lib
                                     .addComponent(jRadioButton4)
                                     .addComponent(jRadioButton3))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(textFieldNomeConta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(11, 11, 11)
-                                .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(textFieldValorConta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -315,10 +314,10 @@ public class JPCriarConta extends javax.swing.JPanel implements presentation.lib
         );
     }// </editor-fold>//GEN-END:initComponents
 
-private void jTextField3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField3ActionPerformed
+private void textFieldNomeContaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textFieldNomeContaActionPerformed
 // TODO add your handling code here:
       
-}//GEN-LAST:event_jTextField3ActionPerformed
+}//GEN-LAST:event_textFieldNomeContaActionPerformed
 
 private void jRadioButton3StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jRadioButton3StateChanged
 // TODO add your handling code here:
@@ -326,6 +325,7 @@ private void jRadioButton3StateChanged(javax.swing.event.ChangeEvent evt) {//GEN
     if(rb.getModel() == buttonGroup1.getSelection()){
         CardLayout cl = (CardLayout)(this.jPanel3.getLayout());
         cl.show(this.jPanel3, "fix");
+        this.isValorFixo=true;
     }   
 }//GEN-LAST:event_jRadioButton3StateChanged
 
@@ -335,6 +335,7 @@ private void jRadioButton4StateChanged(javax.swing.event.ChangeEvent evt) {//GEN
     if(rb.getModel() == buttonGroup1.getSelection()){
         CardLayout cl = (CardLayout)(this.jPanel3.getLayout());
         cl.show(this.jPanel3, "var");
+        this.isValorFixo=false;
     }
 }//GEN-LAST:event_jRadioButton4StateChanged
 
@@ -344,6 +345,18 @@ private void jTextField5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
 
 private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
 // TODO add your handling code here:
+    try{
+        if(isTudoPreenchido()){
+            this.parseFormDataAndSave();
+            JOptionPane.showMessageDialog(this, "Conta cadastrada.");
+            MainWindow.getInstance().closeCurrentCard();
+        }
+        else
+            JOptionPane.showMessageDialog(this, "Checar campos");
+    }
+    catch(Exception e){
+        JOptionPane.showMessageDialog(this, "erro");
+    }
 }//GEN-LAST:event_jButton1ActionPerformed
 
 private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
@@ -376,16 +389,15 @@ private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JTable jTable2;
     private javax.swing.JTextArea jTextArea2;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
     private javax.swing.JTextField jTextField5;
+    private javax.swing.JTextField textFieldNomeConta;
+    private javax.swing.JTextField textFieldValorConta;
     // End of variables declaration//GEN-END:variables
     
     
     private JPValorFixo cardFix;
     private JPValorVariavel cardVar;
-    
-    private List usuariosEnvolvidos;
+        
     private String nomeConta;
     private double valorConta;
     private String descricaoConta;
@@ -425,23 +437,18 @@ private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
     public void onReturnFromOtherWindow(Object returnedObject) {
         if (returnedObject instanceof UsuarioVO){
             this.usuarioResponsavel = (UsuarioVO)returnedObject;
+            String text=this.usuarioResponsavel.getNome()+" ("+this.usuarioResponsavel.getEmail()+")";
+            jTextField5.setText(text);
+            jTextField5.setToolTipText(text);
         }
     }
 
-    private void parseFormData() throws ParseException,Exception, NumberFormatException{        
-        
-        usuariosEnvolvidos = new ArrayList();
-        for (int i=0; i < this.jTable2.getRowCount();i++){
-            if ((Boolean)this.jTable2.getValueAt(i, 2)){
-                usuariosEnvolvidos.add(this.jTable2.getValueAt(i,2));
-            }
-        }
-        
-        nomeConta = this.jTextField3.getText();
-        descricaoConta = this.jTextArea2.getText();
-        isValorFixo = this.jRadioButton3.isSelected();
-        try{            
-            valorConta = Double.parseDouble(jTextField4.getText());
+    private void parseFormDataAndSave() throws ParseException,Exception, NumberFormatException{        
+        try{ 
+            nomeConta = this.textFieldNomeConta.getText();
+            descricaoConta = this.jTextArea2.getText();
+                   
+            valorConta = Double.parseDouble(textFieldValorConta.getText());
             if(isValorFixo) {
                     recorrenciaContaValorFixo = this.cardFix.getRecorrencia();
                     repeticoesContaValorFixo = this.cardFix.getRepeticoes();
@@ -449,7 +456,25 @@ private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
             else {
                 vencimentoContaValorVariavel = this.cardVar.getVencimento();
             }
-        
+                        
+            ContaVO conta;
+            
+            if(isValorFixo){
+                conta = new ContaValorFixoVO(nomeConta, valorConta, usuarioResponsavel, descricaoConta, dataInicialContaValorFixo,  repeticoesContaValorFixo, recorrenciaContaValorFixo);
+            }
+            else{                
+                conta = new ContaValorVariavelVO(nomeConta, valorConta, usuarioResponsavel, descricaoConta, vencimentoContaValorVariavel);         
+            }
+            
+            BusinessFactory factory = BusinessFactory.getInstance();
+            for (int i=0; i < this.jTable2.getRowCount();i++){
+                if ((Boolean)this.jTable2.getValueAt(i, 0)){
+                    String email = (String)this.jTable2.getValueAt(i,2);
+                    Double prop = (Double)this.jTable2.getValueAt(i,3);
+                    if (email != null && prop != null)
+                        factory.getConta().create(new ContaUsuarioDevedorVO(factory.getUsuario().getUsuarioByEmail(email),conta,prop.floatValue()));
+                }
+            }
         }
         catch(ParseException e){
             throw e;
@@ -462,21 +487,17 @@ private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
         }        
     }
 
-    private void salvarConta() throws BusinessException, VOException {
-        //throw new UnsupportedOperationException("Not yet implemented");
-        BusinessFactory factory = BusinessFactory.getInstance();
-        try {
-            ContaVO conta = new ContaVO(nomeConta, valorConta, usuarioResponsavel, descricaoConta);
+    private boolean isTudoPreenchido() throws Exception {        
+        try{
+            if ( this.textFieldNomeConta.getText().equals("") || this.textFieldValorConta.getText().equals("") )
+                return false;
             
-            if(this.isValorFixo){
-                factory.getConta().create(new ContaValorFixoVO(conta, dataInicialContaValorFixo,  repeticoesContaValorFixo, recorrenciaContaValorFixo));
-            }
-            else{                
-                factory.getConta().create(new ContaValorVariavelVO(conta, vencimentoContaValorVariavel));         
-            }
-        } catch (BusinessException e) {
-            throw e;
-        } catch (VOException e){
+            else if(this.isValorFixo)
+                return ( ! ( this.cardFix.getDataInicial()==null || this.cardFix.getRecorrencia()==null || this.cardFix.getRepeticoes()==null ) );
+            else
+                return ( ! ( this.cardVar.getVencimento()==null ) );
+        }
+        catch(Exception e){
             throw e;
         }
     }

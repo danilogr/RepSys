@@ -1,5 +1,8 @@
 package business.impl;
 
+import dao.DAOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import vo.NumeroTelefonicoVO;
 import business.BusinessException;
 import business.spec.INumeroTelefonico;
@@ -43,6 +46,16 @@ public class NumeroTelefonico implements INumeroTelefonico {
 		}
 	}
 
+        public void addUsuarios(NumeroTelefonicoVO vo, List usuarios) throws BusinessException {
+            DAOFactory factory = DAOFactory.getInstance();
+            try {
+                INumeroTelefonicoDAO dao = factory.getNumeroTelefonicoDAO();
+                dao
+            } catch (DAOException ex) {
+                Logger.getLogger(NumeroTelefonico.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        
 	public NumeroTelefonicoVO getNumeroTelefonico(String numero)
 			throws BusinessException {
 		DAOFactory factory = DAOFactory.getInstance();

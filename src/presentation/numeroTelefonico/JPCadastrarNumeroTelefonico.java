@@ -10,12 +10,16 @@
  */
 package presentation.numeroTelefonico;
 
+import business.BusinessFactory;
+import java.awt.Color;
+import vo.NumeroTelefonicoVO;
+
 /**
  *
  * @author Nelson
  */
 public class JPCadastrarNumeroTelefonico extends javax.swing.JPanel implements presentation.lib.ReturnEvent {
-
+       
     /** Creates new form JPCadastrarNumeroTelefonico */
     public JPCadastrarNumeroTelefonico() {
         initComponents();
@@ -32,9 +36,7 @@ public class JPCadastrarNumeroTelefonico extends javax.swing.JPanel implements p
 
         buttonGroup1 = new javax.swing.ButtonGroup();
         jLabelNumero = new javax.swing.JLabel();
-        jLabelDescricao = new javax.swing.JLabel();
         jTextFieldNumero = new javax.swing.JTextField();
-        jTextFieldDescricao = new javax.swing.JTextField();
         jLabelRecorrencia = new javax.swing.JLabel();
         jRadioButtonUnica = new javax.swing.JRadioButton();
         jRadioButtonSempre = new javax.swing.JRadioButton();
@@ -54,12 +56,9 @@ public class JPCadastrarNumeroTelefonico extends javax.swing.JPanel implements p
         jLabelNumero.setFont(new java.awt.Font("Calibri", 1, 18));
         jLabelNumero.setText("Número:");
 
-        jLabelDescricao.setFont(new java.awt.Font("Calibri", 1, 18));
-        jLabelDescricao.setText("Descrição:");
-
-        jTextFieldDescricao.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextFieldDescricaoActionPerformed(evt);
+        jTextFieldNumero.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jTextFieldNumeroFocusLost(evt);
             }
         });
 
@@ -128,8 +127,8 @@ public class JPCadastrarNumeroTelefonico extends javax.swing.JPanel implements p
             }
         });
 
-        jLabelCadastrarNumeroTelefonico.setFont(new java.awt.Font("Cambria", 1, 30)); // NOI18N
-        jLabelCadastrarNumeroTelefonico.setText("Cadastrar número telefônico");
+        jLabelCadastrarNumeroTelefonico.setFont(new java.awt.Font("Cambria", 1, 30));
+        jLabelCadastrarNumeroTelefonico.setText("Cadastrar Ligação");
 
         jLabelResponsaveis.setFont(new java.awt.Font("Calibri", 1, 18));
         jLabelResponsaveis.setText("Responsáveis:");
@@ -148,28 +147,28 @@ public class JPCadastrarNumeroTelefonico extends javax.swing.JPanel implements p
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabelData)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                         .addComponent(jLabelCadastrarNumeroTelefonico, javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabelNumero)
-                                .addComponent(jLabelDescricao)
-                                .addComponent(jLabelRecorrencia)
-                                .addComponent(jLabelHora)
-                                .addComponent(jLabelResponsaveis))
-                            .addGap(39, 39, 39)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                    .addComponent(jRadioButtonUnica)
-                                    .addGap(18, 18, 18)
-                                    .addComponent(jRadioButtonSempre))
-                                .addComponent(jTextFieldDescricao, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jTextFieldNumero, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 375, Short.MAX_VALUE)
-                                .addComponent(jTextFieldData, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jTextFieldHora, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 161, Short.MAX_VALUE)))
+                            .addComponent(jLabelNumero)
+                            .addGap(78, 78, 78)
+                            .addComponent(jTextFieldNumero, javax.swing.GroupLayout.PREFERRED_SIZE, 274, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.LEADING))
+                    .addComponent(jLabelData)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabelRecorrencia)
+                            .addComponent(jLabelHora)
+                            .addComponent(jLabelResponsaveis))
+                        .addGap(39, 39, 39)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                .addComponent(jRadioButtonUnica)
+                                .addGap(18, 18, 18)
+                                .addComponent(jRadioButtonSempre))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 375, Short.MAX_VALUE)
+                            .addComponent(jTextFieldData, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jTextFieldHora, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(jToggleButtonConfirmar))
                 .addContainerGap(30, Short.MAX_VALUE))
         );
@@ -184,11 +183,7 @@ public class JPCadastrarNumeroTelefonico extends javax.swing.JPanel implements p
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jTextFieldNumero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabelNumero))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextFieldDescricao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabelDescricao))
-                .addGap(18, 18, 18)
+                .addGap(49, 49, 49)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jRadioButtonUnica)
                     .addComponent(jRadioButtonSempre)
@@ -207,13 +202,9 @@ public class JPCadastrarNumeroTelefonico extends javax.swing.JPanel implements p
                     .addComponent(jTextFieldHora, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jToggleButtonConfirmar)
-                .addGap(25, 25, 25))
+                .addGap(59, 59, 59))
         );
     }// </editor-fold>//GEN-END:initComponents
-
-private void jTextFieldDescricaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldDescricaoActionPerformed
-// TODO add your handling code here:
-}//GEN-LAST:event_jTextFieldDescricaoActionPerformed
 
 private void jTextFieldHoraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldHoraActionPerformed
 // TODO add your handling code here:
@@ -236,14 +227,64 @@ private void jRadioButtonUnicaActionPerformed(java.awt.event.ActionEvent evt) {/
 }//GEN-LAST:event_jRadioButtonUnicaActionPerformed
 
 private void jToggleButtonConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButtonConfirmarActionPerformed
-// TODO add your handling code here:
+    
+    String sNumero = jTextFieldNumero.getText();
+    NumeroTelefonicoVO voNumero;
+    BusinessFactory factory = BusinessFactory.getInstance();
+    //private List usuarios;
+    boolean ok = true;
+    
+    if (sNumero.isEmpty()) {
+        jTextFieldNumero.setBackground(Color.red);
+        jTextFieldNumero.grabFocus();
+        ok = false;
+    }
+    
+    //jLabel8.setVisible(!ok);
+    
+    if (ok) {
+        try {
+            // Procura o número (se não existir, numero==null)
+            voNumero = factory.getNumeroTelefonico().getNumeroTelefonico(sNumero);
+            if (voNumero == null) {
+                // Cria novo número
+                voNumero.setNumero(sNumero);
+                factory.getNumeroTelefonico().create(voNumero);
+            }
+            // Inserção na tabela Usuario_NumeroTelefonico
+            
+            // ---
+        } catch (BusinessException ex) {
+            Logger.getLogger(JPCadastrarUsuario.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    /*
+    NumeroTelefonicoVO numero;
+    if (novoNumero) {
+        numero = new NumeroTelefonicoVO(jTextFieldNumero.getText());
+    } else {
+        numero = 
+    }
+
+    try {
+        BusinessFactory.getInstance().getNumeroTelefonico().create(numero);
+    } catch (BusinessException ex) {
+        Logger.getLogger(JPCadastrarUsuario.class.getName()).log(Level.SEVERE, null, ex);
+        return;
+    }    
+    */
+    
 }//GEN-LAST:event_jToggleButtonConfirmarActionPerformed
+
+private void jTextFieldNumeroFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextFieldNumeroFocusLost
+    jTextFieldNumero.setBackground(Color.white);    
+}//GEN-LAST:event_jTextFieldNumeroFocusLost
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JLabel jLabelCadastrarNumeroTelefonico;
     private javax.swing.JLabel jLabelData;
-    private javax.swing.JLabel jLabelDescricao;
     private javax.swing.JLabel jLabelHora;
     private javax.swing.JLabel jLabelNumero;
     private javax.swing.JLabel jLabelRecorrencia;
@@ -254,7 +295,6 @@ private void jToggleButtonConfirmarActionPerformed(java.awt.event.ActionEvent ev
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTable jTableResponsaveis;
     private javax.swing.JTextField jTextFieldData;
-    private javax.swing.JTextField jTextFieldDescricao;
     private javax.swing.JTextField jTextFieldHora;
     private javax.swing.JTextField jTextFieldNumero;
     private javax.swing.JToggleButton jToggleButtonConfirmar;

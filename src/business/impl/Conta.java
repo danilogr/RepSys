@@ -7,28 +7,36 @@ import business.BusinessException;
 import business.spec.IConta;
 import dao.DAOFactory;
 import dao.spec.IContaDAO;
+import dao.spec.IContaUsuarioDevedorDAO;
 import dao.spec.IContaValorFixoDAO;
 import dao.spec.IContaValorVariavelDAO;
+import vo.ContaUsuarioDevedorVO;
 import vo.ContaValorFixoVO;
 import vo.ContaValorVariavelVO;
 
 public class Conta implements IConta {
 
-	public void create(ContaVO vo) throws BusinessException {
-		DAOFactory factory = DAOFactory.getInstance();
-		try {
-                        if (vo instanceof ContaValorFixoVO){
-                        	IContaValorFixoDAO dao = factory.getContaValorFixoDAO();
-                        	dao.insert(vo);
-                        }
-                        if(vo instanceof ContaValorVariavelVO){
-        			IContaValorVariavelDAO dao = factory.getContaValorVariavelDAO();
-                		dao.insert(vo);
-                        }
-                            
-		} catch (Exception e) {
-			throw new BusinessException(e);
-		}
+	public void create(ContaUsuarioDevedorVO vo) throws BusinessException {
+                
+            ContaVO conta = vo.getConta();
+ 		
+            DAOFactory factory = DAOFactory.getInstance();
+            try {
+                    if (conta instanceof ContaValorFixoVO){
+                        IContaValorFixoDAO dao = factory.getContaValorFixoDAO();
+                        dao.insert(conta);
+                    }
+                    if(conta instanceof ContaValorVariavelVO){
+                        IContaValorVariavelDAO dao = factory.getContaValorVariavelDAO();
+                        dao.insert(conta);
+                    }
+
+                    IContaUsuarioDevedorDAO dao = factory.getContaUsuarioDevedorDAO();
+                    dao.insert(vo);
+
+            } catch (Exception e) {
+                    throw new BusinessException(e);
+            }
 	}
 
 	public void delete(String name) throws BusinessException {
@@ -42,7 +50,7 @@ public class Conta implements IConta {
 		}
 	}
 
-	public void update(ContaVO vo) throws BusinessException {
+	public void update(ContaVO vo, List<String> emails) throws BusinessException {
 		DAOFactory factory = DAOFactory.getInstance();
 		try {
 			IContaDAO dao = factory.getContaDAO();
@@ -56,7 +64,7 @@ public class Conta implements IConta {
 		DAOFactory factory = DAOFactory.getInstance();
 		try {
 			IContaDAO dao = factory.getContaDAO();
-			return (ContaVO) dao.selectByName(name);
+			return (ContaVO) dao.selectByNome(name);
 		} catch (Exception e) {
 			throw new BusinessException(e);
 		}

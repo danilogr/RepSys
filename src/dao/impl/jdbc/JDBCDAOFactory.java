@@ -5,6 +5,7 @@ import java.util.Properties;
 import dao.DAOException;
 import dao.DAOFactory;
 import dao.spec.IContaDAO;
+import dao.spec.IContaUsuarioDevedorDAO;
 import dao.spec.IContaValorFixoDAO;
 import dao.spec.IContaValorVariavelDAO;
 import dao.spec.IEmprestimoDAO;
@@ -12,6 +13,7 @@ import dao.spec.IFaturaTelefonicaDAO;
 import dao.spec.IItemFaturaTelefonicaDAO;
 import dao.spec.INumeroTelefonicoDAO;
 import dao.spec.IUsuarioDAO;
+import dao.spec.IUsuarioNumeroTelefonicoDAO;
 
 public class JDBCDAOFactory extends DAOFactory {
 
@@ -71,6 +73,14 @@ public class JDBCDAOFactory extends DAOFactory {
 		// TODO Auto-generated method stub
 		return null;
 	}
-        
-        
+
+	@Override
+	public IContaUsuarioDevedorDAO getContaUsuarioDevedorDAO()
+			throws DAOException {
+		return new ContaUsuarioDevedorJDBCDAO(this.properties);
+	}
+	
+	public IUsuarioNumeroTelefonicoDAO getUsuarioNumeroTelefonicoDAO() throws DAOException {
+		return new UsuarioNumeroTelefonicoJDBCDAO(this.properties);
+	}
 }

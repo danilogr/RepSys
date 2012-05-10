@@ -14,6 +14,8 @@ public interface INumeroTelefonico {
 	void delete(String numero) throws BusinessException;
 
 	void update(NumeroTelefonicoVO vo) throws BusinessException;
+        
+        void addUsuarios(NumeroTelefonicoVO vo, List usuarios) throws BusinessException;
 
 	NumeroTelefonicoVO getNumeroTelefonico(String numero) throws BusinessException;
 
