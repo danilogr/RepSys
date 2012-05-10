@@ -91,7 +91,7 @@ public class ContaVO extends ObjectVO {
 		buffer.append(", valor = ");
 		buffer.append(this.getValor());
 		buffer.append(", usuarioResponsavel = ");
-		buffer.append(this.getUsuario().getNome());
+		buffer.append(this.getUsuario().toString());
 		buffer.append("]");
 		return buffer.toString();
 	}

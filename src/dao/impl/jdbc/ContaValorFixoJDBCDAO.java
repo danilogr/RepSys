@@ -110,7 +110,7 @@ public class ContaValorFixoJDBCDAO extends ContaJDBCDAO implements IContaValorFi
 	}
 
 	@Override
-	public ContaValorFixoVO selectByName(String nome) throws DAOException, VOException {
+	public ContaValorFixoVO selectByNome(String nome) throws DAOException, VOException {
 		ContaValorFixoVO vo = null;
 		String sql = "SELECT * FROM " + this.getTableName()
 				+ " AS CVF INNER JOIN " + super.getTableName() + " AS C"
@@ -130,7 +130,7 @@ public class ContaValorFixoJDBCDAO extends ContaJDBCDAO implements IContaValorFi
 	
 	public static void main(String[] argv) throws DAOException, VOException {
 		ContaValorFixoJDBCDAO cvfDAO = new ContaValorFixoJDBCDAO(Configuration.getInstance().getProperties());
-		ContaValorFixoVO vo = cvfDAO.selectByName("Aluguel");
+		ContaValorFixoVO vo = cvfDAO.selectByNome("Aluguel");
 		System.out.println(vo.toString());
 	}
 
