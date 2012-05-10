@@ -35,6 +35,7 @@ public class JPLogin extends javax.swing.JPanel implements ReturnEvent {
     
     private Map<String,Locale> locales = new HashMap<String,Locale>();
     private ResourceBundle bundle;
+    private MainWindow mainwindow;
 
     
     public void onReturnFromOtherWindow(Object returnedObject)
@@ -46,9 +47,10 @@ public class JPLogin extends javax.swing.JPanel implements ReturnEvent {
     
 
     /** Creates new form JPLogin */
-    public JPLogin() {
+    public JPLogin(MainWindow mw) {
         //inicializa os componentes da janela
         initComponents();
+        mainwindow = mw;
         
         //verifica os idiomas disponíveis
        	Configuration configuration = Configuration.getInstance();
@@ -385,6 +387,7 @@ public class JPLogin extends javax.swing.JPanel implements ReturnEvent {
        Atualiza os componentes da tela de login
      * Utilizado quando ocorre a troca de idiomas
      */
+  //  private boolean firstTime;
     private void updateComponents(){
             jLabel6.setText(bundle.getString("JPLogin.jLabel6.text")); // NOI18N
             jLabel4.setText(bundle.getString("JPLogin.jLabel4.text"));
@@ -394,7 +397,9 @@ public class JPLogin extends javax.swing.JPanel implements ReturnEvent {
             jLabel8.setText(bundle.getString("JPLogin.jLabel8.text"));
             jLabel9.setText(bundle.getString("JPLogin.jLabel9.text"));
             jButton1.setText(bundle.getString("JPLogin.jButton1.text"));
-            //TODO: Chamar o evento que atualiza os componentes do MainWindow
+            
+            //mainwindow.updateComponents();
+            
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
