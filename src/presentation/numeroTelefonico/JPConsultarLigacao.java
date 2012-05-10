@@ -295,8 +295,7 @@ private void jToggleButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GE
         ItemFaturaTelefonicaVO selecionado = itemFatura.get((this.jTable1.getSelectedRow()));
         BusinessFactory factory = BusinessFactory.getInstance();
         try{
-            factory.getItemFaturaTelefonica().delete(selecionado.getNumero().getNumero(),selecionado.getFatura().getMes(),
-                    selecionado.getFatura().getAno(),selecionado.getDataHora());
+            factory.getItemFaturaTelefonica().delete(selecionado.getNumero().getNumero(),selecionado.getDataHora());
         }
         catch(BusinessException e){
             throw e;
