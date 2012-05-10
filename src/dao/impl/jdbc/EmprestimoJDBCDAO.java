@@ -5,6 +5,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.Properties;
@@ -24,16 +26,15 @@ public class EmprestimoJDBCDAO extends GenericJDBCDAO implements IEmprestimoDAO 
 	@Override
 	public void insert(ObjectVO vo) throws DAOException {
 		String sql = "INSERT INTO " + this.getTableName()
-				+ " (DATA_HORA, VALOR, DESCRICAO) VALUES(?,?,?)";
+				+ " (DATA_HORA, VALOR, DESCRICAO) VALUES(TO_TIMESTAMP(?, 'DD/MM/YYYY HH24:MI:SS'),?,?)";
 		try {
 			EmprestimoVO emprestimo = (EmprestimoVO) vo;
 			PreparedStatement stmt = this.getConnection().prepareStatement(sql);
 
-			// Criando um objeto java.sql.Timestamp a partir de um objeto
-			// java.util.Calendar
-			Timestamp dt = new Timestamp(emprestimo.getDataHora().getTime()
-					.getTime());
-			stmt.setTimestamp(1, dt);
+			DateFormat df = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+			String date = df.format(emprestimo.getDataHora().getTime());
+
+			stmt.setString(1, date);
 			stmt.setDouble(2, emprestimo.getValor());
 			stmt.setString(3, emprestimo.getDescricao());
 			stmt.executeUpdate();
@@ -51,17 +52,16 @@ public class EmprestimoJDBCDAO extends GenericJDBCDAO implements IEmprestimoDAO 
 	@Override
 	public void delete(ObjectVO vo) throws DAOException {
 		String sql = "DELETE FROM " + this.getTableName()
-				+ " WHERE DATA_HORA = ?";
+				+ " WHERE DATA_HORA = TO_TIMESTAMP(?, 'DD/MM/YYYY HH24:MI:SS')";
 
 		try {
 			EmprestimoVO emprestimo = (EmprestimoVO) vo;
 			PreparedStatement stmt = this.getConnection().prepareStatement(sql);
 
-			// Criando um objeto java.sql.Timestamp a partir de um objeto
-			// java.util.Calendar
-			Timestamp dt = new Timestamp(emprestimo.getDataHora().getTime()
-					.getTime());
-			stmt.setTimestamp(1, dt);
+			DateFormat df = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+			String date = df.format(emprestimo.getDataHora().getTime());
+
+			stmt.setString(1, date);
 
 			stmt.executeUpdate();
 		} catch (Exception e) {
@@ -93,12 +93,15 @@ public class EmprestimoJDBCDAO extends GenericJDBCDAO implements IEmprestimoDAO 
 	@Override
 	public EmprestimoVO selectByData(Calendar date) throws DAOException {
 		String sql = "SELECT * FROM " + this.getTableName()
-				+ " WHERE data_hora = ?";
+				+ " WHERE data_hora = TO_TIMESTAMP(?, 'DD/MM/YYYY HH24:MI:SS')";
 		try {
-			Timestamp dt = new Timestamp(date.getTime().getTime());
 			PreparedStatement stmt = this.getConnection().prepareStatement(sql);
-
-			stmt.setTimestamp(1, dt);
+			
+			DateFormat df = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+			String dt = df.format(date.getTime());
+			
+			
+			stmt.setString(1, dt);
 			ResultSet rs = stmt.executeQuery();
 			if (rs.next()) {
 				return (EmprestimoVO) createVO(rs);
