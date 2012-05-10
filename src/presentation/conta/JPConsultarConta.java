@@ -14,7 +14,7 @@ package presentation.conta;
  *
  * @author Endril
  */
-public class JPConsultarConta extends javax.swing.JPanel {
+public class JPConsultarConta extends javax.swing.JPanel implements presentation.lib.ReturnEvent {
 
     /** Creates new form JPConsultarConta */
     public JPConsultarConta() {
@@ -286,4 +286,8 @@ private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
     private javax.swing.JTextField jTextField6;
     private javax.swing.JTextField jTextField7;
     // End of variables declaration//GEN-END:variables
+
+    public void onReturnFromOtherWindow(Object returnedObject) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
 }

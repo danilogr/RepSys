@@ -14,7 +14,7 @@ package presentation.Fatura;
  *
  * @author Nelson
  */
-public class JPConsultarFatura extends javax.swing.JPanel {
+public class JPConsultarFatura extends javax.swing.JPanel implements presentation.lib.ReturnEvent {
 
     /** Creates new form JPConsultarFatura */
     public JPConsultarFatura() {
@@ -176,4 +176,8 @@ private void jComboBoxFaturaActionPerformed(java.awt.event.ActionEvent evt) {//G
     private javax.swing.JTable jTableResumo;
     private javax.swing.JToggleButton jToggleButtonConfirmar;
     // End of variables declaration//GEN-END:variables
+
+    public void onReturnFromOtherWindow(Object returnedObject) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
 }
