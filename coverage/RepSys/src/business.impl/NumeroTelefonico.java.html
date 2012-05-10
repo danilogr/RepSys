@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../../.resources/report.gif" type="image/gif"/><title>NumeroTelefonico.java</title><link rel="stylesheet" href="../../../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="right"><a href="../../../.sessions.html" class="el_session">Sessions</a></span><a href="../../../index.html" class="el_report">AllTests (10/05/2012 06:09:34)</a> &gt; <a href="../../index.html" class="el_group">RepSys</a> &gt; <a href="../index.html" class="el_bundle">src</a> &gt; <a href="index.html" class="el_package">business.impl</a> &gt; <span class="el_source">NumeroTelefonico.java</span></div><h1>NumeroTelefonico.java</h1><pre class="source lang-java linenums">package business.impl;
+
+import dao.DAOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import vo.NumeroTelefonicoVO;
+import business.BusinessException;
+import business.spec.INumeroTelefonico;
+import dao.DAOFactory;
+import dao.spec.INumeroTelefonicoDAO;
+import dao.spec.IUsuarioNumeroTelefonicoDAO;
+import java.util.List;
+import vo.UsuarioNumeroTelefonicoVO;
+import vo.UsuarioVO;
+
+/**
+ * @author Nelson
+ */
+<span class="nc" id="L19">public class NumeroTelefonico implements INumeroTelefonico {</span>
+
+	public void create(NumeroTelefonicoVO vo) throws BusinessException {
+<span class="nc" id="L22">		DAOFactory factory = DAOFactory.getInstance();</span>
+		try {
+<span class="nc" id="L24">			INumeroTelefonicoDAO dao = factory.getNumeroTelefonicoDAO();</span>
+<span class="nc" id="L25">			dao.insert(vo);</span>
+<span class="nc" id="L26">		} catch (Exception e) {</span>
+<span class="nc" id="L27">			throw new BusinessException(e);</span>
+		}
+<span class="nc" id="L29">	}</span>
+
+	public void delete(String numero) throws BusinessException {
+<span class="nc" id="L32">		DAOFactory factory = DAOFactory.getInstance();</span>
+		try {
+<span class="nc" id="L34">			INumeroTelefonicoDAO dao = factory.getNumeroTelefonicoDAO();</span>
+<span class="nc" id="L35">			NumeroTelefonicoVO numeroTelefonico = getNumeroTelefonico(numero);</span>
+<span class="nc" id="L36">			dao.delete(numeroTelefonico);</span>
+<span class="nc" id="L37">		} catch (Exception e) {</span>
+<span class="nc" id="L38">			throw new BusinessException(e);</span>
+		}
+<span class="nc" id="L40">	}</span>
+
+	public void update(NumeroTelefonicoVO vo) throws BusinessException {
+<span class="nc" id="L43">		DAOFactory factory = DAOFactory.getInstance();</span>
+		try {
+<span class="nc" id="L45">			INumeroTelefonicoDAO dao = factory.getNumeroTelefonicoDAO();</span>
+<span class="nc" id="L46">			dao.update(vo);</span>
+<span class="nc" id="L47">		} catch (Exception e) {</span>
+<span class="nc" id="L48">			throw new BusinessException(e);</span>
+		}
+<span class="nc" id="L50">	}</span>
+
+        public void addLigacao(UsuarioNumeroTelefonicoVO ligacao) throws BusinessException {
+<span class="nc" id="L53">            DAOFactory factory = DAOFactory.getInstance();</span>
+            try {
+<span class="nc" id="L55">                IUsuarioNumeroTelefonicoDAO dao = factory.getUsuarioNumeroTelefonicoDAO();</span>
+<span class="nc" id="L56">                dao.insert(ligacao);</span>
+<span class="nc" id="L57">            } catch (DAOException ex) {</span>
+<span class="nc" id="L58">                Logger.getLogger(NumeroTelefonico.class.getName()).log(Level.SEVERE, null, ex);</span>
+            }
+<span class="nc" id="L60">        }</span>
+        
+	public NumeroTelefonicoVO getNumeroTelefonico(String numero)
+			throws BusinessException {
+<span class="nc" id="L64">		DAOFactory factory = DAOFactory.getInstance();</span>
+		try {
+<span class="nc" id="L66">			INumeroTelefonicoDAO dao = factory.getNumeroTelefonicoDAO();</span>
+<span class="nc" id="L67">			return (NumeroTelefonicoVO) dao.selectByNumero(numero);</span>
+<span class="nc" id="L68">		} catch (Exception e) {</span>
+<span class="nc" id="L69">			throw new BusinessException(e);</span>
+		}
+	}
+
+	public List getAll() throws BusinessException {
+<span class="nc" id="L74">		DAOFactory factory = DAOFactory.getInstance();</span>
+		try {
+<span class="nc" id="L76">			INumeroTelefonicoDAO dao = factory.getNumeroTelefonicoDAO();</span>
+<span class="nc" id="L77">			return dao.selectAll();</span>
+<span class="nc" id="L78">		} catch (Exception e) {</span>
+<span class="nc" id="L79">			throw new BusinessException(e);</span>
+		}
+	}
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.5.6.201201232323</span>AllTests (10/05/2012 06:09:34)</div></body></html>

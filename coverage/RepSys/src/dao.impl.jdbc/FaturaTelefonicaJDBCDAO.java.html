@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../../.resources/report.gif" type="image/gif"/><title>FaturaTelefonicaJDBCDAO.java</title><link rel="stylesheet" href="../../../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="right"><a href="../../../.sessions.html" class="el_session">Sessions</a></span><a href="../../../index.html" class="el_report">AllTests (10/05/2012 06:09:34)</a> &gt; <a href="../../index.html" class="el_group">RepSys</a> &gt; <a href="../index.html" class="el_bundle">src</a> &gt; <a href="index.html" class="el_package">dao.impl.jdbc</a> &gt; <span class="el_source">FaturaTelefonicaJDBCDAO.java</span></div><h1>FaturaTelefonicaJDBCDAO.java</h1><pre class="source lang-java linenums">package dao.impl.jdbc;
+
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Timestamp;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
+import java.util.Properties;
+
+import vo.EmprestimoVO;
+import vo.FaturaTelefonicaVO;
+import vo.ObjectVO;
+import vo.VOException;
+import dao.DAOException;
+import dao.spec.IFaturaTelefonicaDAO;
+
+public class FaturaTelefonicaJDBCDAO extends GenericJDBCDAO implements IFaturaTelefonicaDAO {
+
+	public FaturaTelefonicaJDBCDAO(Properties properties) throws DAOException {
+<span class="nc" id="L20">		super(properties);</span>
+		// TODO Auto-generated constructor stub
+<span class="nc" id="L22">	}</span>
+
+	@Override
+	public void insert(ObjectVO vo) throws DAOException {
+<span class="nc" id="L26">		String sql = &quot;INSERT INTO &quot; + this.getTableName() </span>
+<span class="nc" id="L27">					+ &quot; (MES, ANO, VENCIMENTO) VALUES(?, ?, ?)&quot;;</span>
+		
+<span class="nc" id="L29">		FaturaTelefonicaVO fatura = (FaturaTelefonicaVO) vo;</span>
+		try {
+<span class="nc" id="L31">			PreparedStatement stmt = this.getConnection().prepareStatement(sql);</span>
+			
+<span class="nc" id="L33">			stmt.setInt(1, fatura.getMes());</span>
+<span class="nc" id="L34">			stmt.setInt(2, fatura.getAno());</span>
+<span class="nc" id="L35">			stmt.setTimestamp(3, new Timestamp(fatura.getVencimento().getTime().getTime()));</span>
+			
+<span class="nc" id="L37">			stmt.executeUpdate();</span>
+<span class="nc" id="L38">		} catch(Exception e) {</span>
+<span class="nc" id="L39">			throw new DAOException(e);</span>
+		}
+<span class="nc" id="L41">	}</span>
+
+	@Override
+	public void delete(ObjectVO vo) throws DAOException {
+<span class="nc" id="L45">		String sql = &quot;DELETE FROM &quot; + this.getTableName()</span>
+<span class="nc" id="L46">					+ &quot; WHERE MES = ? AND ANO = ?&quot;;</span>
+<span class="nc" id="L47">		FaturaTelefonicaVO fatura = (FaturaTelefonicaVO) vo;</span>
+		
+		try {
+<span class="nc" id="L50">			PreparedStatement stmt = this.getConnection().prepareStatement(sql);</span>
+			
+<span class="nc" id="L52">			stmt.setInt(1, fatura.getMes());</span>
+<span class="nc" id="L53">			stmt.setInt(2, fatura.getAno());</span>
+			
+<span class="nc" id="L55">			stmt.executeUpdate();</span>
+<span class="nc" id="L56">		} catch(Exception e) {</span>
+<span class="nc" id="L57">			throw new DAOException(e);</span>
+		}
+<span class="nc" id="L59">	}</span>
+
+	@Override
+	public void update(ObjectVO vo) throws DAOException {
+<span class="nc" id="L63">		String sql = &quot;UPDATE &quot; + this.getTableName()</span>
+<span class="nc" id="L64">					+ &quot; SET VENCIMENTO = ?&quot;;</span>
+		
+<span class="nc" id="L66">		FaturaTelefonicaVO fatura = (FaturaTelefonicaVO) vo;</span>
+		
+		try {
+<span class="nc" id="L69">			PreparedStatement stmt = this.getConnection().prepareStatement(sql);</span>
+<span class="nc" id="L70">			stmt.setTimestamp(3, new Timestamp(fatura.getVencimento().getTime().getTime()));</span>
+<span class="nc" id="L71">			stmt.executeUpdate();</span>
+<span class="nc" id="L72">		} catch(Exception e) {</span>
+<span class="nc" id="L73">			throw new DAOException(e);</span>
+		}
+<span class="nc" id="L75">	}</span>
+
+	@Override
+	protected String getTableName() {
+<span class="nc" id="L79">		return &quot;FATURATELEFONICA&quot;;</span>
+	}
+
+	@Override
+	protected ObjectVO createVO(ResultSet rs) throws DAOException, VOException {
+		try {
+<span class="nc" id="L85">			int mes = rs.getInt(&quot;MES&quot;);</span>
+<span class="nc" id="L86">			int ano = rs.getInt(&quot;ANO&quot;);</span>
+<span class="nc" id="L87">			Calendar cal = new GregorianCalendar();</span>
+<span class="nc" id="L88">			cal.setTime(rs.getTimestamp(&quot;VENCIMENTO&quot;));</span>
+			
+<span class="nc" id="L90">			return new FaturaTelefonicaVO(mes, ano, cal);</span>
+<span class="nc" id="L91">		} catch(Exception e) {</span>
+<span class="nc" id="L92">			throw new DAOException(e);</span>
+		}
+	}
+
+	@Override
+	public FaturaTelefonicaVO selectByMesAno(int mes, int ano)
+			throws DAOException {
+<span class="nc" id="L99">		String sql = &quot;SELECT * FROM &quot; + this.getTableName()</span>
+<span class="nc" id="L100">					+ &quot; WHERE MES = ? AND ANO = ?&quot;;</span>
+		
+		try {
+<span class="nc" id="L103">			PreparedStatement stmt = this.getConnection().prepareStatement(sql);</span>
+<span class="nc" id="L104">			stmt.setInt(1, mes);</span>
+<span class="nc" id="L105">			stmt.setInt(2, ano);</span>
+			
+<span class="nc" id="L107">			ResultSet rs = stmt.executeQuery();</span>
+<span class="nc bnc" id="L108" title="All 2 branches missed.">			if(rs.next()) {</span>
+<span class="nc" id="L109">				return (FaturaTelefonicaVO) createVO(rs);</span>
+			}
+<span class="nc" id="L111">		} catch(Exception e) {</span>
+<span class="nc" id="L112">			throw new DAOException(e);</span>
+		}
+<span class="nc" id="L114">		return null;</span>
+	}
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.5.6.201201232323</span>AllTests (10/05/2012 06:09:34)</div></body></html>

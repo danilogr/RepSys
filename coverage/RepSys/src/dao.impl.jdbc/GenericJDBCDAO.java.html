@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../../.resources/report.gif" type="image/gif"/><title>GenericJDBCDAO.java</title><link rel="stylesheet" href="../../../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="right"><a href="../../../.sessions.html" class="el_session">Sessions</a></span><a href="../../../index.html" class="el_report">AllTests (10/05/2012 06:09:34)</a> &gt; <a href="../../index.html" class="el_group">RepSys</a> &gt; <a href="../index.html" class="el_bundle">src</a> &gt; <a href="index.html" class="el_package">dao.impl.jdbc</a> &gt; <span class="el_source">GenericJDBCDAO.java</span></div><h1>GenericJDBCDAO.java</h1><pre class="source lang-java linenums">package dao.impl.jdbc;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Properties;
+
+import vo.ObjectVO;
+import vo.VOException;
+import dao.DAOException;
+import dao.spec.IGenericDAO;
+
+public abstract class GenericJDBCDAO implements IGenericDAO {
+
+	private Connection connection;
+
+<span class="fc" id="L22">	public GenericJDBCDAO(Properties properties) throws DAOException {</span>
+		try {
+<span class="fc" id="L24">			String driver = properties.getProperty(&quot;jdbc.driver&quot;);</span>
+<span class="fc" id="L25">			String url = properties.getProperty(&quot;jdbc.url&quot;);</span>
+<span class="fc" id="L26">			String user = properties.getProperty(&quot;jdbc.user&quot;);</span>
+<span class="fc" id="L27">			String password = properties.getProperty(&quot;jdbc.password&quot;);</span>
+<span class="pc bpc" id="L28" title="1 of 2 branches missed.">			if (password == null) {</span>
+<span class="nc" id="L29">				password = &quot;&quot;;</span>
+			}
+<span class="fc" id="L31">			Class.forName(driver);</span>
+<span class="fc" id="L32">			connection = DriverManager.getConnection(url, user, password);</span>
+<span class="nc" id="L33">		} catch (Exception e) {</span>
+<span class="nc" id="L34">			throw new DAOException(e);</span>
+		}
+<span class="fc" id="L36">	}</span>
+
+	protected Connection getConnection() {
+<span class="fc" id="L39">		return connection;</span>
+	}
+	
+	public void setAutoCommit(boolean opt) throws SQLException {
+<span class="fc" id="L43">		connection.setAutoCommit(opt);</span>
+<span class="fc" id="L44">	}</span>
+	
+	public void commit() throws SQLException {
+<span class="nc" id="L47">		connection.commit();</span>
+<span class="nc" id="L48">	}</span>
+	
+	public void rollback() throws SQLException {
+<span class="fc" id="L51">		connection.rollback();</span>
+<span class="fc" id="L52">	}</span>
+
+	public final List selectAll() throws DAOException, VOException {
+<span class="nc" id="L55">		String sql = &quot;SELECT * FROM &quot; + this.getTableName();</span>
+<span class="nc" id="L56">		List&lt;ObjectVO&gt; list = new ArrayList&lt;ObjectVO&gt;();</span>
+		try {
+<span class="nc" id="L58">			Statement stmt = this.getConnection().createStatement();</span>
+<span class="nc" id="L59">			ResultSet rs = stmt.executeQuery(sql);</span>
+<span class="nc bnc" id="L60" title="All 2 branches missed.">			while (rs.next()) {</span>
+<span class="nc" id="L61">				list.add(this.createVO(rs));</span>
+			}
+<span class="nc" id="L63">		} catch (SQLException e) {</span>
+<span class="nc" id="L64">			throw new DAOException(e);</span>
+		}
+<span class="nc" id="L66">		return list;</span>
+	}
+	
+	public final List selectAll(String order, String sort) throws DAOException, VOException {
+<span class="nc bnc" id="L70" title="All 4 branches missed.">		if(!(sort.equalsIgnoreCase(&quot;DESC&quot;) || sort.equalsIgnoreCase(&quot;ASC&quot;))) {</span>
+<span class="nc" id="L71">			sort = &quot;DESC&quot;;</span>
+		}
+		
+<span class="nc" id="L74">		String sql = &quot;SELECT * FROM &quot; + this.getTableName()</span>
+<span class="nc" id="L75">					+ &quot; ORDER BY &quot; + order + &quot; &quot; + sort;</span>
+<span class="nc" id="L76">		List&lt;ObjectVO&gt; list = new ArrayList&lt;ObjectVO&gt;();</span>
+		try {
+<span class="nc" id="L78">			Statement stmt = this.getConnection().createStatement();</span>
+<span class="nc" id="L79">			ResultSet rs = stmt.executeQuery(sql);</span>
+<span class="nc bnc" id="L80" title="All 2 branches missed.">			while (rs.next()) {</span>
+<span class="nc" id="L81">				list.add(this.createVO(rs));</span>
+			}
+<span class="nc" id="L83">		} catch (SQLException e) {</span>
+<span class="nc" id="L84">			throw new DAOException(e);</span>
+		}
+<span class="nc" id="L86">		return list;</span>
+	}
+	
+	public final List selectAll(String order, String sort, int limit) throws DAOException, VOException {
+<span class="nc bnc" id="L90" title="All 4 branches missed.">		if(!(sort.equalsIgnoreCase(&quot;DESC&quot;) || sort.equalsIgnoreCase(&quot;ASC&quot;))) {</span>
+<span class="nc" id="L91">			sort = &quot;DESC&quot;;</span>
+		}
+		
+<span class="nc" id="L94">		String sql = &quot;SELECT * FROM &quot; + this.getTableName()</span>
+<span class="nc" id="L95">					+ &quot; ORDER BY &quot; + order + &quot; &quot; + sort</span>
+<span class="nc" id="L96">					+ &quot; LIMIT &quot; + limit;</span>
+<span class="nc" id="L97">		List&lt;ObjectVO&gt; list = new ArrayList&lt;ObjectVO&gt;();</span>
+		try {
+<span class="nc" id="L99">			Statement stmt = this.getConnection().createStatement();</span>
+<span class="nc" id="L100">			ResultSet rs = stmt.executeQuery(sql);</span>
+<span class="nc bnc" id="L101" title="All 2 branches missed.">			while (rs.next()) {</span>
+<span class="nc" id="L102">				list.add(this.createVO(rs));</span>
+			}
+<span class="nc" id="L104">		} catch (SQLException e) {</span>
+<span class="nc" id="L105">			throw new DAOException(e);</span>
+		}
+<span class="nc" id="L107">		return list;</span>
+	}
+	
+	public final List selectAll(String order, String sort, int limit, int offset) throws DAOException, VOException {
+<span class="nc bnc" id="L111" title="All 4 branches missed.">		if(!(sort.equalsIgnoreCase(&quot;DESC&quot;) || sort.equalsIgnoreCase(&quot;ASC&quot;))) {</span>
+<span class="nc" id="L112">			sort = &quot;DESC&quot;;</span>
+		}
+		
+<span class="nc" id="L115">		String sql = &quot;SELECT * FROM &quot; + this.getTableName()</span>
+<span class="nc" id="L116">					+ &quot; ORDER BY &quot; + order + &quot; &quot; + sort</span>
+<span class="nc" id="L117">					+ &quot; LIMIT &quot; + limit + &quot; OFFSET &quot; + offset;</span>
+<span class="nc" id="L118">		List&lt;ObjectVO&gt; list = new ArrayList&lt;ObjectVO&gt;();</span>
+		try {
+<span class="nc" id="L120">			Statement stmt = this.getConnection().createStatement();</span>
+<span class="nc" id="L121">			ResultSet rs = stmt.executeQuery(sql);</span>
+<span class="nc bnc" id="L122" title="All 2 branches missed.">			while (rs.next()) {</span>
+<span class="nc" id="L123">				list.add(this.createVO(rs));</span>
+			}
+<span class="nc" id="L125">		} catch (SQLException e) {</span>
+<span class="nc" id="L126">			throw new DAOException(e);</span>
+		}
+<span class="nc" id="L128">		return list;</span>
+	}
+
+	protected abstract String getTableName();
+
+	protected abstract ObjectVO createVO(ResultSet rs) throws DAOException, VOException;
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.5.6.201201232323</span>AllTests (10/05/2012 06:09:34)</div></body></html>

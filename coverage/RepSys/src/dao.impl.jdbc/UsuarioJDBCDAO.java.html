@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../../.resources/report.gif" type="image/gif"/><title>UsuarioJDBCDAO.java</title><link rel="stylesheet" href="../../../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="right"><a href="../../../.sessions.html" class="el_session">Sessions</a></span><a href="../../../index.html" class="el_report">AllTests (10/05/2012 06:09:34)</a> &gt; <a href="../../index.html" class="el_group">RepSys</a> &gt; <a href="../index.html" class="el_bundle">src</a> &gt; <a href="index.html" class="el_package">dao.impl.jdbc</a> &gt; <span class="el_source">UsuarioJDBCDAO.java</span></div><h1>UsuarioJDBCDAO.java</h1><pre class="source lang-java linenums">package dao.impl.jdbc;
+
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.Properties;
+
+import vo.UsuarioVO;
+import vo.ObjectVO;
+import dao.DAOException;
+import dao.spec.IUsuarioDAO;
+
+public class UsuarioJDBCDAO extends GenericJDBCDAO implements IUsuarioDAO {
+
+	public UsuarioJDBCDAO(Properties properties) throws DAOException {
+<span class="fc" id="L17">		super(properties);</span>
+<span class="fc" id="L18">	}</span>
+
+	public void insert(ObjectVO vo) throws DAOException {
+<span class="fc" id="L21">		String sql = &quot;INSERT INTO &quot; + this.getTableName()</span>
+<span class="fc" id="L22">				+ &quot; (EMAIL, SENHA, NOME) VALUES (?,MD5(?),?)&quot;;</span>
+		try {
+<span class="fc" id="L24">			PreparedStatement stmt = this.getConnection().prepareStatement(sql);</span>
+<span class="fc" id="L25">			UsuarioVO user = (UsuarioVO) vo;</span>
+<span class="fc" id="L26">			stmt.setString(1, user.getEmail());</span>
+<span class="fc" id="L27">			stmt.setString(2, user.getSenha());</span>
+<span class="fc" id="L28">			stmt.setString(3, user.getNome());</span>
+<span class="fc" id="L29">			stmt.executeUpdate();</span>
+<span class="nc" id="L30">		} catch (SQLException e) {</span>
+<span class="nc" id="L31">			throw new DAOException(e);</span>
+		}
+<span class="fc" id="L33">	}</span>
+
+	public void update(ObjectVO vo) throws DAOException {
+<span class="fc" id="L36">		update(vo, false);</span>
+<span class="fc" id="L37">	}</span>
+
+	public void update(ObjectVO vo, boolean updatePassword) throws DAOException {
+<span class="fc" id="L40">		UsuarioVO user = (UsuarioVO) vo;</span>
+<span class="fc" id="L41">		String sql = &quot;UPDATE &quot; + this.getTableName() </span>
+<span class="fc" id="L42">				   + &quot; SET NOME = ?&quot;;</span>
+
+<span class="fc bfc" id="L44" title="All 2 branches covered.">		if (updatePassword) {</span>
+<span class="fc" id="L45">			sql += &quot;, SENHA = MD5(?)&quot;;</span>
+		}
+		
+<span class="fc" id="L48">		sql += &quot; WHERE EMAIL = ?&quot;;</span>
+		
+		try {
+<span class="fc" id="L51">			PreparedStatement stmt = this.getConnection().prepareStatement(sql);</span>
+<span class="fc" id="L52">			stmt.setString(1, user.getNome());</span>
+<span class="fc bfc" id="L53" title="All 2 branches covered.">			if(updatePassword) {</span>
+<span class="fc" id="L54">				stmt.setString(2, user.getSenha());</span>
+<span class="fc" id="L55">				stmt.setString(3, user.getEmail());</span>
+			} else {
+<span class="fc" id="L57">				stmt.setString(2, user.getEmail());</span>
+			}
+<span class="fc" id="L59">			stmt.executeUpdate();</span>
+<span class="nc" id="L60">		} catch (SQLException e) {</span>
+<span class="nc" id="L61">			throw new DAOException(e);</span>
+		}
+<span class="fc" id="L63">	}</span>
+
+	@Override
+	public void delete(ObjectVO vo) throws DAOException {
+<span class="fc" id="L67">		String sql = &quot;DELETE FROM &quot; + this.getTableName() </span>
+<span class="fc" id="L68">					+ &quot; WHERE NOME = ?&quot;;</span>
+		try {
+<span class="fc" id="L70">			UsuarioVO conta = (UsuarioVO) vo;</span>
+<span class="fc" id="L71">			PreparedStatement stmt = this.getConnection().prepareStatement(sql);</span>
+<span class="fc" id="L72">			stmt.setString(1, conta.getNome());</span>
+<span class="fc" id="L73">			stmt.executeUpdate();</span>
+<span class="nc" id="L74">		} catch (Exception e) {</span>
+<span class="nc" id="L75">			throw new DAOException(e);</span>
+		}
+<span class="fc" id="L77">	}</span>
+
+	public boolean checkEmailSenha(String email, String senha)
+			throws DAOException {
+<span class="fc" id="L81">		boolean isAuthenticated = false;</span>
+<span class="fc" id="L82">		String sql = &quot;SELECT COUNT(*) AS TOTAL FROM &quot; + this.getTableName()</span>
+<span class="fc" id="L83">				+ &quot; WHERE EMAIL = ? AND SENHA = MD5(?)&quot;;</span>
+		try {
+<span class="fc" id="L85">			PreparedStatement stmt = this.getConnection().prepareStatement(sql);</span>
+<span class="fc" id="L86">			stmt.setString(1, email);</span>
+<span class="fc" id="L87">			stmt.setString(2, senha);</span>
+<span class="fc" id="L88">			ResultSet rs = stmt.executeQuery();</span>
+<span class="pc bpc" id="L89" title="1 of 2 branches missed.">			if (rs.next()) {</span>
+<span class="fc" id="L90">				int total = rs.getInt(&quot;TOTAL&quot;);</span>
+<span class="fc bfc" id="L91" title="All 2 branches covered.">				isAuthenticated = total == 1;</span>
+			}
+<span class="nc" id="L93">		} catch (SQLException e) {</span>
+<span class="nc" id="L94">			e.printStackTrace();</span>
+<span class="nc" id="L95">			throw new DAOException(e);</span>
+		}
+<span class="fc" id="L97">		return isAuthenticated;</span>
+	}
+
+	public String getTableName() {
+<span class="fc" id="L101">		return &quot;USUARIO&quot;;</span>
+	}
+
+	protected ObjectVO createVO(ResultSet rs) throws DAOException {
+		try {
+<span class="fc" id="L106">			String login = rs.getString(&quot;EMAIL&quot;);</span>
+<span class="fc" id="L107">			String password = rs.getString(&quot;SENHA&quot;);</span>
+<span class="fc" id="L108">			String nome = rs.getString(&quot;NOME&quot;);</span>
+<span class="fc" id="L109">			return new UsuarioVO(login, password, nome);</span>
+<span class="nc" id="L110">		} catch (SQLException e) {</span>
+<span class="nc" id="L111">			throw new DAOException(e);</span>
+		}
+	}
+
+	public final UsuarioVO selectByEmail(String email) throws DAOException {
+<span class="fc" id="L116">		ObjectVO vo = null;</span>
+<span class="fc" id="L117">		String sql = &quot;SELECT * FROM &quot; + this.getTableName()</span>
+<span class="fc" id="L118">				+ &quot; WHERE EMAIL = '&quot; + email + &quot;'&quot;;</span>
+		try {
+<span class="fc" id="L120">			Statement stmt = this.getConnection().createStatement();</span>
+<span class="fc" id="L121">			ResultSet rs = stmt.executeQuery(sql);</span>
+<span class="fc bfc" id="L122" title="All 2 branches covered.">			if (rs.next()) {</span>
+<span class="fc" id="L123">				vo = this.createVO(rs);</span>
+			}
+<span class="nc" id="L125">		} catch (SQLException e) {</span>
+<span class="nc" id="L126">			throw new DAOException(e);</span>
+		}
+<span class="fc" id="L128">		return (UsuarioVO) vo;</span>
+	}
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.5.6.201201232323</span>AllTests (10/05/2012 06:09:34)</div></body></html>

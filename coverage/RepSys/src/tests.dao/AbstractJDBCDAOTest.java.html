@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../../.resources/report.gif" type="image/gif"/><title>AbstractJDBCDAOTest.java</title><link rel="stylesheet" href="../../../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="right"><a href="../../../.sessions.html" class="el_session">Sessions</a></span><a href="../../../index.html" class="el_report">AllTests (10/05/2012 06:09:34)</a> &gt; <a href="../../index.html" class="el_group">RepSys</a> &gt; <a href="../index.html" class="el_bundle">src</a> &gt; <a href="index.html" class="el_package">tests.dao</a> &gt; <span class="el_source">AbstractJDBCDAOTest.java</span></div><h1>AbstractJDBCDAOTest.java</h1><pre class="source lang-java linenums">package tests.dao;
+
+import java.sql.SQLException;
+
+import org.junit.After;
+import org.junit.Before;
+
+import util.Configuration;
+import dao.DAOException;
+import dao.impl.jdbc.ContaJDBCDAO;
+import dao.impl.jdbc.UsuarioJDBCDAO;
+import dao.spec.IGenericDAO;
+
+<span class="fc" id="L14">public abstract class AbstractJDBCDAOTest {</span>
+	protected IGenericDAO objDAO;
+	
+	protected abstract void setupMainDAO() throws DAOException;
+	
+	@Before
+	public void setup() throws DAOException, SQLException {
+<span class="fc" id="L21">		setupMainDAO();</span>
+<span class="fc" id="L22">		objDAO.setAutoCommit(false);</span>
+<span class="fc" id="L23">	}</span>
+	
+	@After
+	public void tearDown() throws SQLException {
+<span class="fc" id="L27">		objDAO.rollback();</span>
+<span class="fc" id="L28">	}</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.5.6.201201232323</span>AllTests (10/05/2012 06:09:34)</div></body></html>

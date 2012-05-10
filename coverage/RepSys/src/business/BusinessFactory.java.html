@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../../.resources/report.gif" type="image/gif"/><title>BusinessFactory.java</title><link rel="stylesheet" href="../../../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="right"><a href="../../../.sessions.html" class="el_session">Sessions</a></span><a href="../../../index.html" class="el_report">AllTests (10/05/2012 06:09:34)</a> &gt; <a href="../../index.html" class="el_group">RepSys</a> &gt; <a href="../index.html" class="el_bundle">src</a> &gt; <a href="index.html" class="el_package">business</a> &gt; <span class="el_source">BusinessFactory.java</span></div><h1>BusinessFactory.java</h1><pre class="source lang-java linenums">package business;
+
+import business.impl.Conta;
+import business.impl.Emprestimo;
+import business.impl.ItemFaturaTelefonica;
+import business.impl.NumeroTelefonico;
+import business.impl.Usuario;
+import business.spec.IConta;
+import business.spec.IEmprestimo;
+import business.spec.IItemFaturaTelefonica;
+import business.spec.INumeroTelefonico;
+import business.spec.IUsuario;
+
+<span class="nc" id="L14">public class BusinessFactory {</span>
+
+<span class="nc" id="L16">	private static BusinessFactory instance = null;</span>
+
+<span class="nc" id="L18">	private BusinessFactory() {</span>
+<span class="nc" id="L19">	}</span>
+
+	public static BusinessFactory getInstance() {
+<span class="nc bnc" id="L22" title="All 2 branches missed.">		if (instance == null) {</span>
+<span class="nc" id="L23">			instance = new BusinessFactory();</span>
+		}
+<span class="nc" id="L25">		return instance;</span>
+	}
+
+	public IConta getConta() {
+<span class="nc" id="L29">		return new Conta();</span>
+	}
+
+	public IUsuario getUsuario() {
+<span class="nc" id="L33">		return new Usuario();</span>
+	}
+        
+        public INumeroTelefonico getNumeroTelefonico() {
+<span class="nc" id="L37">		return new NumeroTelefonico();</span>
+	}
+
+        public IItemFaturaTelefonica getItemFaturaTelefonica() {
+<span class="nc" id="L41">                return new ItemFaturaTelefonica();</span>
+        }
+        
+        public IEmprestimo getEmprestimo()
+        {
+<span class="nc" id="L46">                return new Emprestimo();</span>
+        }
+        
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.5.6.201201232323</span>AllTests (10/05/2012 06:09:34)</div></body></html>

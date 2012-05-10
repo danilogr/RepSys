@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../../.resources/report.gif" type="image/gif"/><title>NumeroTelefonicoJDBCDAOTest.java</title><link rel="stylesheet" href="../../../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="right"><a href="../../../.sessions.html" class="el_session">Sessions</a></span><a href="../../../index.html" class="el_report">AllTests (10/05/2012 06:09:34)</a> &gt; <a href="../../index.html" class="el_group">RepSys</a> &gt; <a href="../index.html" class="el_bundle">src</a> &gt; <a href="index.html" class="el_package">tests.dao</a> &gt; <span class="el_source">NumeroTelefonicoJDBCDAOTest.java</span></div><h1>NumeroTelefonicoJDBCDAOTest.java</h1><pre class="source lang-java linenums">package tests.dao;
+
+import junit.framework.Assert;
+
+import org.junit.Test;
+
+import util.Configuration;
+import vo.NumeroTelefonicoVO;
+import dao.DAOException;
+import dao.impl.jdbc.NumeroTelefonicoJDBCDAO;
+import dao.spec.INumeroTelefonicoDAO;
+
+<span class="fc" id="L13">public class NumeroTelefonicoJDBCDAOTest extends AbstractJDBCDAOTest {</span>
+	private INumeroTelefonicoDAO ntDAO;
+	
+	@Override
+	protected void setupMainDAO() throws DAOException {
+<span class="fc" id="L18">		objDAO = new NumeroTelefonicoJDBCDAO(Configuration.getInstance().getProperties());</span>
+<span class="fc" id="L19">		ntDAO = (INumeroTelefonicoDAO) objDAO;</span>
+<span class="fc" id="L20">	}</span>
+	
+	@Test
+	public void testInsert() throws Exception {
+<span class="fc" id="L24">		NumeroTelefonicoVO emp = new NumeroTelefonicoVO(&quot;999999999999&quot;);</span>
+		
+<span class="fc" id="L26">		ntDAO.insert(emp);</span>
+		
+<span class="fc" id="L28">		NumeroTelefonicoVO inserted = ntDAO.selectByNumero(&quot;999999999999&quot;);</span>
+<span class="fc" id="L29">		Assert.assertTrue(emp.isEquals(inserted));</span>
+<span class="fc" id="L30">	}</span>
+	
+	@Test(expected=DAOException.class)
+	public void testUpdate() throws Exception {
+<span class="nc" id="L34">		NumeroTelefonicoVO emp = new NumeroTelefonicoVO(&quot;999999999999&quot;);</span>
+<span class="nc" id="L35">		emp.setNumero(&quot;000000000000&quot;);</span>
+<span class="nc" id="L36">		ntDAO.update(emp);</span>
+<span class="nc" id="L37">	}</span>
+	
+	@Test
+	public void testDelete() throws Exception {
+<span class="fc" id="L41">		NumeroTelefonicoVO oldNum = ntDAO.selectByNumero(&quot;5534159898&quot;);</span>
+<span class="fc" id="L42">		ntDAO.delete(oldNum);</span>
+<span class="fc" id="L43">		NumeroTelefonicoVO newNum = ntDAO.selectByNumero(&quot;5534159898&quot;);</span>
+		
+<span class="fc" id="L45">		Assert.assertNull(newNum);</span>
+<span class="fc" id="L46">	}</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.5.6.201201232323</span>AllTests (10/05/2012 06:09:34)</div></body></html>

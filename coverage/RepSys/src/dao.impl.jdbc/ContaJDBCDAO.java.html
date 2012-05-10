@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../../.resources/report.gif" type="image/gif"/><title>ContaJDBCDAO.java</title><link rel="stylesheet" href="../../../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="right"><a href="../../../.sessions.html" class="el_session">Sessions</a></span><a href="../../../index.html" class="el_report">AllTests (10/05/2012 06:09:34)</a> &gt; <a href="../../index.html" class="el_group">RepSys</a> &gt; <a href="../index.html" class="el_bundle">src</a> &gt; <a href="index.html" class="el_package">dao.impl.jdbc</a> &gt; <span class="el_source">ContaJDBCDAO.java</span></div><h1>ContaJDBCDAO.java</h1><pre class="source lang-java linenums">package dao.impl.jdbc;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.Properties;
+
+import vo.ContaVO;
+import vo.ObjectVO;
+import vo.UsuarioVO;
+import vo.VOException;
+import dao.DAOException;
+import dao.DAOFactory;
+import dao.spec.IContaDAO;
+import dao.spec.IUsuarioDAO;
+
+public class ContaJDBCDAO extends GenericJDBCDAO implements IContaDAO {
+<span class="fc" id="L21">	private String tableName = &quot;CONTA&quot;;</span>
+	
+	public ContaJDBCDAO(Properties properties) throws DAOException {
+<span class="fc" id="L24">		super(properties);</span>
+<span class="fc" id="L25">	}</span>
+
+	public void update(ObjectVO vo) throws DAOException {
+<span class="fc" id="L28">		String sql = &quot;UPDATE &quot; + this.tableName</span>
+<span class="fc" id="L29">				+ &quot; SET VALOR = ?, EMAIL = ? WHERE NOME = ?&quot;;</span>
+		try {
+<span class="fc" id="L31">			PreparedStatement stmt = this.getConnection().prepareStatement(sql);</span>
+<span class="fc" id="L32">			ContaVO conta = (ContaVO) vo;</span>
+<span class="fc" id="L33">			stmt.setDouble(1, conta.getValor());</span>
+<span class="fc" id="L34">			stmt.setString(2, conta.getUsuario().getEmail());</span>
+<span class="fc" id="L35">			stmt.setString(3, conta.getNome());</span>
+<span class="fc" id="L36">			stmt.executeUpdate();</span>
+<span class="nc" id="L37">		} catch (SQLException e) {</span>
+<span class="nc" id="L38">			throw new DAOException(e);</span>
+		}
+<span class="fc" id="L40">	}</span>
+
+	public void insert(ObjectVO vo) throws DAOException {
+<span class="fc" id="L43">		String sql = &quot;INSERT INTO &quot; + this.tableName</span>
+<span class="fc" id="L44">				+ &quot; (NOME, VALOR, EMAIL, DESCRICAO) VALUES (?,?,?,?)&quot;;</span>
+		try {
+<span class="fc" id="L46">			ContaVO conta = (ContaVO) vo;</span>
+<span class="fc" id="L47">			PreparedStatement stmt = this.getConnection().prepareStatement(sql);</span>
+<span class="fc" id="L48">			stmt.setString(1, conta.getNome());</span>
+<span class="fc" id="L49">			stmt.setDouble(2, conta.getValor());</span>
+<span class="fc" id="L50">			stmt.setString(3, conta.getUsuario().getEmail());</span>
+<span class="fc" id="L51">			stmt.setString(4, conta.getDescricao());</span>
+<span class="fc" id="L52">			stmt.executeUpdate();</span>
+<span class="nc" id="L53">		} catch (SQLException e) {</span>
+<span class="nc" id="L54">			throw new DAOException(e);</span>
+		}
+<span class="fc" id="L56">	}</span>
+
+	public List&lt;ContaVO&gt; selectByUsuario(String email) throws DAOException, VOException {
+<span class="nc" id="L59">		List&lt;ContaVO&gt; list = new ArrayList&lt;ContaVO&gt;();</span>
+<span class="nc" id="L60">		String sql = &quot;SELECT * FROM &quot; + this.tableName</span>
+<span class="nc" id="L61">				+ &quot; WHERE EMAIL = &quot; + email;</span>
+		try {
+<span class="nc" id="L63">			Statement stmt = this.getConnection().createStatement();</span>
+<span class="nc" id="L64">			ResultSet rs = stmt.executeQuery(sql);</span>
+<span class="nc bnc" id="L65" title="All 2 branches missed.">			while(rs.next()) {</span>
+				try {
+<span class="nc" id="L67">					list.add((ContaVO) this.createVO(rs));</span>
+<span class="nc" id="L68">				} catch (Exception e) {</span>
+<span class="nc" id="L69">					throw new VOException(e);</span>
+				}
+			}
+<span class="nc" id="L72">		} catch (SQLException e) {</span>
+<span class="nc" id="L73">			throw new DAOException(e);</span>
+		}
+<span class="nc" id="L75">		return list;</span>
+	}
+	
+	@Override
+	public ContaVO selectByNome(String nome) throws DAOException, VOException {
+<span class="fc" id="L80">		ContaVO vo = null;</span>
+<span class="fc" id="L81">		String sql = &quot;SELECT * FROM &quot; + this.tableName</span>
+<span class="fc" id="L82">				+ &quot; WHERE NOME = ?&quot;;</span>
+		try {
+<span class="fc" id="L84">			PreparedStatement stmt = this.getConnection().prepareStatement(sql);</span>
+<span class="fc" id="L85">			stmt.setString(1, nome);</span>
+<span class="fc" id="L86">			ResultSet rs = stmt.executeQuery();</span>
+<span class="fc bfc" id="L87" title="All 2 branches covered.">			if (rs.next()) {</span>
+<span class="fc" id="L88">				vo = (ContaVO) this.createVO(rs);</span>
+			}
+<span class="nc" id="L90">		} catch (SQLException e) {</span>
+<span class="nc" id="L91">			throw new DAOException(e);</span>
+		}
+<span class="fc" id="L93">		return vo;</span>
+	}
+	
+	public void delete(ObjectVO vo) throws DAOException {
+<span class="fc" id="L97">		String sql = &quot;DELETE FROM &quot; + this.tableName</span>
+<span class="fc" id="L98">					+ &quot; WHERE NOME = ?&quot;;</span>
+		try {
+<span class="fc" id="L100">			ContaVO conta = (ContaVO) vo;</span>
+<span class="fc" id="L101">			PreparedStatement stmt = this.getConnection().prepareStatement(sql);</span>
+<span class="fc" id="L102">			stmt.setString(1, conta.getNome());</span>
+<span class="fc" id="L103">			stmt.executeUpdate();</span>
+<span class="nc" id="L104">		} catch(Exception e){</span>
+<span class="nc" id="L105">			throw new DAOException(e);</span>
+		}
+<span class="fc" id="L107">	}</span>
+
+	protected String getTableName() {
+<span class="nc" id="L110">		return this.tableName;</span>
+	}
+
+	protected ObjectVO createVO(ResultSet rs) throws DAOException, VOException {
+		try {
+<span class="fc" id="L115">			String nome = rs.getString(&quot;NOME&quot;);</span>
+<span class="fc" id="L116">			float valor = rs.getFloat(&quot;VALOR&quot;);</span>
+<span class="fc" id="L117">			String userEmail = rs.getString(&quot;EMAIL&quot;);</span>
+<span class="fc" id="L118">			String desc = rs.getString(&quot;DESCRICAO&quot;);</span>
+			
+<span class="fc" id="L120">			IUsuarioDAO userDAO = DAOFactory.getInstance().getUsuarioDAO();</span>
+<span class="fc" id="L121">			UsuarioVO user = (UsuarioVO) userDAO.selectByEmail(userEmail);</span>
+<span class="fc" id="L122">			return new ContaVO(nome, new Double(valor), user, desc);</span>
+<span class="nc" id="L123">		} catch (SQLException e) {</span>
+<span class="nc" id="L124">			throw new DAOException(e);</span>
+		}
+	}
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.5.6.201201232323</span>AllTests (10/05/2012 06:09:34)</div></body></html>

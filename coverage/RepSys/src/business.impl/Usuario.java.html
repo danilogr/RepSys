@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../../.resources/report.gif" type="image/gif"/><title>Usuario.java</title><link rel="stylesheet" href="../../../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="right"><a href="../../../.sessions.html" class="el_session">Sessions</a></span><a href="../../../index.html" class="el_report">AllTests (10/05/2012 06:09:34)</a> &gt; <a href="../../index.html" class="el_group">RepSys</a> &gt; <a href="../index.html" class="el_bundle">src</a> &gt; <a href="index.html" class="el_package">business.impl</a> &gt; <span class="el_source">Usuario.java</span></div><h1>Usuario.java</h1><pre class="source lang-java linenums">package business.impl;
+
+import java.util.List;
+
+import vo.UsuarioVO;
+import business.BusinessException;
+import business.spec.IUsuario;
+import dao.DAOFactory;
+import dao.spec.IUsuarioDAO;
+
+<span class="nc" id="L11">public class Usuario implements IUsuario {</span>
+
+	public void delete(String email) throws BusinessException {
+<span class="nc" id="L14">		DAOFactory factory = DAOFactory.getInstance();</span>
+		try {
+<span class="nc" id="L16">			IUsuarioDAO dao = factory.getUsuarioDAO();</span>
+<span class="nc" id="L17">			UsuarioVO user = getUsuario(email);</span>
+<span class="nc" id="L18">			dao.delete(user);</span>
+<span class="nc" id="L19">		} catch (Exception e) {</span>
+<span class="nc" id="L20">			throw new BusinessException(e);</span>
+		}
+<span class="nc" id="L22">	}</span>
+
+	public void create(UsuarioVO user) throws BusinessException {
+<span class="nc" id="L25">		DAOFactory factory = DAOFactory.getInstance();</span>
+		try {
+<span class="nc" id="L27">			IUsuarioDAO dao = factory.getUsuarioDAO();</span>
+<span class="nc" id="L28">			dao.insert(user);</span>
+<span class="nc" id="L29">		} catch (Exception e) {</span>
+<span class="nc" id="L30">			throw new BusinessException(e);</span>
+		}
+<span class="nc" id="L32">	}</span>
+
+	public void update(UsuarioVO user) throws BusinessException {
+<span class="nc" id="L35">		DAOFactory factory = DAOFactory.getInstance();</span>
+		try {
+<span class="nc" id="L37">			IUsuarioDAO dao = factory.getUsuarioDAO();</span>
+<span class="nc" id="L38">			dao.update(user);</span>
+<span class="nc" id="L39">		} catch (Exception e) {</span>
+<span class="nc" id="L40">			throw new BusinessException(e);</span>
+		}
+<span class="nc" id="L42">	}</span>
+
+	public UsuarioVO getUsuario(String email) throws BusinessException {
+<span class="nc" id="L45">		DAOFactory factory = DAOFactory.getInstance();</span>
+		try {
+<span class="nc" id="L47">			IUsuarioDAO dao = factory.getUsuarioDAO();</span>
+<span class="nc" id="L48">			return (UsuarioVO) dao.selectByEmail(email);</span>
+<span class="nc" id="L49">		} catch (Exception e) {</span>
+<span class="nc" id="L50">			throw new BusinessException(e);</span>
+		}
+	}
+
+	public List getAll() throws BusinessException {
+<span class="nc" id="L55">		DAOFactory factory = DAOFactory.getInstance();</span>
+		try {
+<span class="nc" id="L57">			IUsuarioDAO dao = factory.getUsuarioDAO();</span>
+<span class="nc" id="L58">			return dao.selectAll();</span>
+<span class="nc" id="L59">		} catch (Exception e) {</span>
+<span class="nc" id="L60">			throw new BusinessException(e);</span>
+		}
+	}
+
+	public UsuarioVO getUsuarioByEmail(String email) throws BusinessException {
+<span class="nc" id="L65">		DAOFactory factory = DAOFactory.getInstance();</span>
+		try {
+<span class="nc" id="L67">			IUsuarioDAO dao = factory.getUsuarioDAO();</span>
+<span class="nc" id="L68">			return (UsuarioVO) dao.selectByEmail(email);</span>
+<span class="nc" id="L69">		} catch (Exception e) {</span>
+<span class="nc" id="L70">			throw new BusinessException(e);</span>
+		}
+	}
+
+	public boolean authenticate(UsuarioVO user) throws BusinessException {
+<span class="nc" id="L75">		DAOFactory factory = DAOFactory.getInstance();</span>
+		try {
+<span class="nc" id="L77">			IUsuarioDAO dao = factory.getUsuarioDAO();</span>
+<span class="nc" id="L78">			return dao.checkEmailSenha(user.getEmail(), user.getSenha());</span>
+<span class="nc" id="L79">		} catch (Exception e) {</span>
+<span class="nc" id="L80">                    e.printStackTrace();</span>
+<span class="nc" id="L81">			throw new BusinessException(e);</span>
+		}
+	}
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.5.6.201201232323</span>AllTests (10/05/2012 06:09:34)</div></body></html>

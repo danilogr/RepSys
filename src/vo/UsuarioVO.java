@@ -11,19 +11,24 @@ public class UsuarioVO extends ObjectVO {
 
 	private String nome;
 
+	private double saldo;
+	
 	public UsuarioVO() {
+		super();
 	}
-
+	
 	public UsuarioVO(String email, String senha) {
+		super();
 		this.email = email;
 		this.senha = senha;
 	}
 
-	public UsuarioVO(String email, String senha, String nome) {
+	public UsuarioVO(String email, String senha, String nome, double saldo) {
 		super();
 		this.email = email;
 		this.senha = senha;
 		this.nome = nome;
+		this.saldo = saldo;
 	}
 
 	public String getEmail() {
@@ -49,13 +54,12 @@ public class UsuarioVO extends ObjectVO {
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
-        
-        static public boolean verificaEmail(String email) {
-            // TODO
-            return true;
-        }
 
-    @Override
+	public double getSaldo() {
+		return this.saldo;
+	}
+
+	@Override
 	public String toString() {
 		StringBuilder buffer = new StringBuilder();
 		buffer.append("[");

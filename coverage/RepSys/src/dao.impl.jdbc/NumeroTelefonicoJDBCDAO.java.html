@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../../.resources/report.gif" type="image/gif"/><title>NumeroTelefonicoJDBCDAO.java</title><link rel="stylesheet" href="../../../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="right"><a href="../../../.sessions.html" class="el_session">Sessions</a></span><a href="../../../index.html" class="el_report">AllTests (10/05/2012 06:09:34)</a> &gt; <a href="../../index.html" class="el_group">RepSys</a> &gt; <a href="../index.html" class="el_bundle">src</a> &gt; <a href="index.html" class="el_package">dao.impl.jdbc</a> &gt; <span class="el_source">NumeroTelefonicoJDBCDAO.java</span></div><h1>NumeroTelefonicoJDBCDAO.java</h1><pre class="source lang-java linenums">package dao.impl.jdbc;
+
+import java.sql.Timestamp;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.Properties;
+
+import vo.ItemFaturaTelefonicaVO;
+import vo.NumeroTelefonicoVO;
+import vo.ObjectVO;
+import vo.VOException;
+import dao.DAOException;
+import dao.spec.INumeroTelefonicoDAO;
+
+public class NumeroTelefonicoJDBCDAO extends GenericJDBCDAO implements
+		INumeroTelefonicoDAO {
+
+	public NumeroTelefonicoJDBCDAO(Properties properties) throws DAOException {
+<span class="fc" id="L19">		super(properties);</span>
+<span class="fc" id="L20">	}</span>
+
+	@Override
+	public void insert(ObjectVO vo) throws DAOException {
+<span class="fc" id="L24">		String sql = &quot;INSERT INTO &quot; + this.getTableName()</span>
+<span class="fc" id="L25">				+ &quot; (NUMERO) VALUES(?)&quot;;</span>
+
+<span class="fc" id="L27">		NumeroTelefonicoVO num = (NumeroTelefonicoVO) vo;</span>
+
+		try {
+<span class="fc" id="L30">			PreparedStatement stmt = this.getConnection().prepareStatement(sql);</span>
+
+<span class="fc" id="L32">			stmt.setString(1, num.getNumero());</span>
+
+<span class="fc" id="L34">			stmt.executeUpdate();</span>
+<span class="nc" id="L35">		} catch (Exception e) {</span>
+<span class="nc" id="L36">			throw new DAOException(e);</span>
+		}
+<span class="fc" id="L38">	}</span>
+
+	@Override
+	public void delete(ObjectVO vo) throws DAOException {
+<span class="fc" id="L42">		String sql = &quot;DELETE FROM &quot; + this.getTableName()</span>
+<span class="fc" id="L43">				+ &quot; WHERE NUMERO = ?&quot;;</span>
+
+<span class="fc" id="L45">		NumeroTelefonicoVO num = (NumeroTelefonicoVO) vo;</span>
+
+		try {
+<span class="fc" id="L48">			PreparedStatement stmt = this.getConnection().prepareStatement(sql);</span>
+
+<span class="fc" id="L50">			stmt.setString(1, num.getNumero());</span>
+
+<span class="fc" id="L52">			stmt.executeUpdate();</span>
+<span class="nc" id="L53">		} catch (Exception e) {</span>
+<span class="nc" id="L54">			throw new DAOException(e);</span>
+		}
+<span class="fc" id="L56">	}</span>
+
+	@Override
+	public void update(ObjectVO vo) throws DAOException {
+<span class="fc" id="L60">		throw new DAOException(&quot;Update não permitido em &quot; + this.getTableName());</span>
+	}
+
+	@Override
+	public NumeroTelefonicoVO selectByNumero(String numero) throws DAOException {
+<span class="fc" id="L65">		String sql = &quot;SELECT * FROM &quot; + this.getTableName()</span>
+<span class="fc" id="L66">					+ &quot; WHERE numero = ?&quot;;</span>
+		try {
+<span class="fc" id="L68">			PreparedStatement stmt = this.getConnection().prepareStatement(sql);</span>
+<span class="fc" id="L69">			stmt.setString(1, numero);</span>
+			
+<span class="fc" id="L71">			ResultSet rs = stmt.executeQuery();</span>
+<span class="fc bfc" id="L72" title="All 2 branches covered.">			if(rs.next()) {</span>
+<span class="fc" id="L73">				return (NumeroTelefonicoVO) this.createVO(rs);</span>
+			}
+<span class="nc" id="L75">		} catch (Exception e) {</span>
+<span class="nc" id="L76">			throw new DAOException(e);</span>
+		}
+<span class="fc" id="L78">		return null;</span>
+	}
+
+	@Override
+	protected String getTableName() {
+<span class="fc" id="L83">		return &quot;NUMEROTELEFONICO&quot;;</span>
+	}
+
+	@Override
+	protected ObjectVO createVO(ResultSet rs) throws DAOException, VOException {
+		try {
+<span class="fc" id="L89">			String numero = rs.getString(&quot;NUMERO&quot;);</span>
+<span class="fc" id="L90">			return new NumeroTelefonicoVO(numero);</span>
+<span class="nc" id="L91">		} catch (Exception e) {</span>
+<span class="nc" id="L92">			throw new DAOException(e);</span>
+		}
+	}
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.5.6.201201232323</span>AllTests (10/05/2012 06:09:34)</div></body></html>
