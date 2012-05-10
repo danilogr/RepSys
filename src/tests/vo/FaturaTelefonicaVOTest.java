@@ -1,4 +1,4 @@
-package tests;
+package tests.vo;
 
 import java.util.Date;
 import java.util.GregorianCalendar;
