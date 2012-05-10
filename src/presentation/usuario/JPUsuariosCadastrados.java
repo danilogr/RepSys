@@ -241,7 +241,7 @@ private void buttonEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-
         UsuarioVO selecionado = usuarios.get((this.jTable1.getSelectedRow()));
         BusinessFactory factory = BusinessFactory.getInstance();
         try{
-            factory.getUser().delete(selecionado.getEmail());
+            factory.getUsuario().delete(selecionado.getEmail());
         }
         catch(BusinessException e){
             throw e;

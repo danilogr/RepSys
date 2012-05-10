@@ -39,7 +39,7 @@ public class JPLogin extends javax.swing.JPanel implements ReturnEvent {
     
     public void onReturnFromOtherWindow(Object returnedObject)
     {
-       jTextName.setText((String) returnedObject);
+       jTextName.setText(((UsuarioVO) returnedObject).getEmail());
        //colocar funcao de retorno aqui
     }
 

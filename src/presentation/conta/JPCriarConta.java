@@ -469,10 +469,10 @@ private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
             ContaVO conta = new ContaVO(nomeConta, valorConta, usuarioResponsavel, descricaoConta);
             
             if(this.isValorFixo){
-                factory.getAccount().create(new ContaValorFixoVO(conta, dataInicialContaValorFixo,  repeticoesContaValorFixo, recorrenciaContaValorFixo));
+                factory.getConta().create(new ContaValorFixoVO(conta, dataInicialContaValorFixo,  repeticoesContaValorFixo, recorrenciaContaValorFixo));
             }
             else{                
-                factory.getAccount().create(new ContaValorVariavelVO(conta, vencimentoContaValorVariavel));         
+                factory.getConta().create(new ContaValorVariavelVO(conta, vencimentoContaValorVariavel));         
             }
         } catch (BusinessException e) {
             throw e;
