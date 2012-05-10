@@ -63,8 +63,6 @@ public class UsuarioVO extends ObjectVO {
 		buffer.append(this.getEmail());
 		buffer.append(", nome = ");
 		buffer.append(this.getNome());
-		buffer.append(", email = ");
-		buffer.append(this.getEmail());
 		buffer.append("]");
 		return buffer.toString();
 	}
