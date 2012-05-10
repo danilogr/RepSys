@@ -46,18 +46,23 @@ public class JPValorFixo extends javax.swing.JPanel {
         jLabel9 = new javax.swing.JLabel();
         jTextField3 = new javax.swing.JTextField();
 
-        jLabel7.setFont(new java.awt.Font("Calibri", 3, 18)); // NOI18N
+        jLabel7.setFont(new java.awt.Font("Calibri", 3, 18));
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("I18n/Bundle"); // NOI18N
         jLabel7.setText(bundle.getString("JPValorFixo.jLabel7.text")); // NOI18N
 
-        jLabel8.setFont(new java.awt.Font("Calibri", 3, 18)); // NOI18N
+        jLabel8.setFont(new java.awt.Font("Calibri", 3, 18));
         jLabel8.setText(bundle.getString("JPValorFixo.jLabel8.text")); // NOI18N
 
         jTextField1.setText(bundle.getString("JPValorFixo.jTextField1.text")); // NOI18N
 
         jTextField2.setText(bundle.getString("JPValorFixo.jTextField2.text")); // NOI18N
+        jTextField2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField2ActionPerformed(evt);
+            }
+        });
 
-        jLabel9.setFont(new java.awt.Font("Calibri", 3, 18)); // NOI18N
+        jLabel9.setFont(new java.awt.Font("Calibri", 3, 18));
         jLabel9.setText(bundle.getString("JPValorFixo.jLabel9.text")); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -95,6 +100,11 @@ public class JPValorFixo extends javax.swing.JPanel {
                     .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
     }// </editor-fold>//GEN-END:initComponents
+
+private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
+// TODO add your handling code here:
+}//GEN-LAST:event_jTextField2ActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox jComboBox1;
     private javax.swing.JLabel jLabel7;

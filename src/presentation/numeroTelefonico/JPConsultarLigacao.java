@@ -57,7 +57,7 @@ public class JPConsultarLigacao extends javax.swing.JPanel {
         jToggleButton1 = new javax.swing.JToggleButton();
 
         buttonGroup1.add(jRadioButton1);
-        jRadioButton1.setFont(new java.awt.Font("Catriel", 0, 12)); // NOI18N
+        jRadioButton1.setFont(new java.awt.Font("Catriel", 0, 12));
         jRadioButton1.setSelected(true);
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("I18n/Bundle"); // NOI18N
         jRadioButton1.setText(bundle.getString("JPConsultarLigacao.jRadioButton1.text")); // NOI18N
@@ -77,7 +77,7 @@ public class JPConsultarLigacao extends javax.swing.JPanel {
 
         jButton5.setText(bundle.getString("JPConsultarLigacao.jButton5.text")); // NOI18N
 
-        jButton3.setFont(new java.awt.Font("Calibri", 1, 12)); // NOI18N
+        jButton3.setFont(new java.awt.Font("Calibri", 1, 12));
         jButton3.setText(bundle.getString("JPConsultarLigacao.jButton3.text")); // NOI18N
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -93,7 +93,7 @@ public class JPConsultarLigacao extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addContainerGap(179, Short.MAX_VALUE)
+                        .addContainerGap(303, Short.MAX_VALUE)
                         .addComponent(jButton3)))
                 .addContainerGap())
         );
@@ -120,10 +120,10 @@ public class JPConsultarLigacao extends javax.swing.JPanel {
         jButton6.setText(bundle.getString("JPConsultarLigacao.jButton6.text")); // NOI18N
 
         buttonGroup1.add(jRadioButton5);
-        jRadioButton5.setFont(new java.awt.Font("Catriel", 0, 12)); // NOI18N
+        jRadioButton5.setFont(new java.awt.Font("Catriel", 0, 12));
         jRadioButton5.setText(bundle.getString("JPConsultarLigacao.jRadioButton5.text")); // NOI18N
 
-        jButton4.setFont(new java.awt.Font("Calibri", 1, 12)); // NOI18N
+        jButton4.setFont(new java.awt.Font("Calibri", 1, 12));
         jButton4.setText(bundle.getString("JPConsultarLigacao.jButton4.text")); // NOI18N
         jButton4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -177,7 +177,7 @@ public class JPConsultarLigacao extends javax.swing.JPanel {
         jTable1.getColumnModel().getColumn(0).setHeaderValue(bundle.getString("JPConsultarLigacao.jTable1.columnModel.title0")); // NOI18N
         jTable1.getColumnModel().getColumn(1).setHeaderValue(bundle.getString("JPConsultarLigacao.jTable1.columnModel.title1")); // NOI18N
 
-        jButton2.setFont(new java.awt.Font("Calibri", 1, 12)); // NOI18N
+        jButton2.setFont(new java.awt.Font("Calibri", 1, 12));
         jButton2.setText(bundle.getString("JPConsultarLigacao.jButton2.text")); // NOI18N
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -185,7 +185,7 @@ public class JPConsultarLigacao extends javax.swing.JPanel {
             }
         });
 
-        jLabel1.setFont(new java.awt.Font("Cambria", 1, 30)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Cambria", 1, 30));
         jLabel1.setText(bundle.getString("JPConsultarLigacao.jLabel1.text")); // NOI18N
 
         jToggleButton1.setText(bundle.getString("JPConsultarLigacao.jToggleButton1.text")); // NOI18N
@@ -204,17 +204,17 @@ public class JPConsultarLigacao extends javax.swing.JPanel {
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jSeparator4, javax.swing.GroupLayout.DEFAULT_SIZE, 826, Short.MAX_VALUE)
+                            .addComponent(jSeparator4, javax.swing.GroupLayout.DEFAULT_SIZE, 964, Short.MAX_VALUE)
                             .addComponent(jLabel1)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(14, 14, 14)
                                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 826, Short.MAX_VALUE)))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 964, Short.MAX_VALUE)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(209, 209, 209)
                         .addComponent(jButton2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 317, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 627, Short.MAX_VALUE)
                         .addComponent(jToggleButton1)))
                 .addContainerGap())
         );

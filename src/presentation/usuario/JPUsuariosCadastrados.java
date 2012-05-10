@@ -75,10 +75,7 @@ public class JPUsuariosCadastrados extends javax.swing.JPanel implements present
         jTable1.setFont(new java.awt.Font("Calibri", 1, 12)); // NOI18N
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null}
+
             },
             new String [] {
                 "Usuário", "E-mail"
@@ -92,7 +89,6 @@ public class JPUsuariosCadastrados extends javax.swing.JPanel implements present
                 return canEdit [columnIndex];
             }
         });
-        jTable1.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jTable1.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(jTable1);
         jTable1.getColumnModel().getColumn(0).setHeaderValue(bundle.getString("JPUsuariosCadastrados.jTable1.columnModel.title0")); // NOI18N
@@ -136,7 +132,7 @@ public class JPUsuariosCadastrados extends javax.swing.JPanel implements present
                         .addComponent(buttonRemover)
                         .addGap(18, 18, 18)
                         .addComponent(buttonEditar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 182, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 186, Short.MAX_VALUE)
                         .addComponent(buttonConfirmarSelecao)
                         .addGap(18, 18, 18)
                         .addComponent(buttonVoltar)))

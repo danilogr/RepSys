@@ -115,6 +115,34 @@ CREATE TABLE ValorFixo (
         CONSTRAINT VF_nome_e_inicial_pk PRIMARY KEY (nome,data_inicial)
 );
 
+
+alter table valorfixo drop constraint vf_nome_fk;
+alter table valorfixo add constraint vf_nome_fk foreign key (nome) references conta(nome) ON DELETE CASCADE;
+
+
+alter table valorvariavel drop constraint valor_variavel_nome_fk;
+alter table valorvariavel add constraint valor_variavel_nome_fk foreign key (nome) references conta(nome) ON DELETE CASCADE;
+
+alter table emprestimo_usuario_credor
+   drop constraint euc_data_hora_fk,
+   drop constraint euc_email_fk,
+   add constraint euc_data_hora_fk foreign key (data_hora) references emprestimo(data_hora) ON DELETE CASCADE,
+   add constraint euc_email_fk foreign key (email) references usuario(email) ON DELETE CASCADE;
+   
+   
+alter table emprestimo_usuario_devedor
+   drop constraint "fk_emprestimo_datahora",
+   drop constraint "fk_usuario_email",
+   add constraint "fk_emprestimo_datahora" FOREIGN KEY (data_hora) REFERENCES emprestimo(data_hora) ON DELETE CASCADE,
+   add constraint "fk_usuario_email" FOREIGN KEY (email) REFERENCES usuario(email) ON DELETE CASCADE;
+   
+
+alter table itemfaturatelefonica
+   drop constraint    "ift_mes_ano_fk",
+   drop constraint    "ift_numero_fk",
+   add constraint "ift_mes_ano_fk" FOREIGN KEY (mes, ano) REFERENCES faturatelefonica(mes, ano),
+   add constraint "ift_numero_fk" FOREIGN KEY (numero) REFERENCES numerotelefonico(numero);
+
 --------------------------------------
 
 

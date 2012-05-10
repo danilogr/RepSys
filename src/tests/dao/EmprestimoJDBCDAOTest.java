@@ -31,7 +31,7 @@ public class EmprestimoJDBCDAOTest extends AbstractJDBCDAOTest {
 	public void testInsert() throws Exception {
 		Calendar dt = new GregorianCalendar();
 		dt.set(Calendar.YEAR, 2012);
-		dt.set(Calendar.MONTH, 5);
+		dt.set(Calendar.MONTH, 3);
 		dt.set(Calendar.DAY_OF_MONTH, 10);
 		dt.set(Calendar.HOUR_OF_DAY, 3);
 		dt.set(Calendar.MINUTE, 37);
@@ -49,7 +49,7 @@ public class EmprestimoJDBCDAOTest extends AbstractJDBCDAOTest {
 	public void testUpdate() throws Exception {
 		Calendar dt = new GregorianCalendar();
 		dt.set(Calendar.YEAR, 2012);
-		dt.set(Calendar.MONTH, 2);
+		dt.set(Calendar.MONTH, 1);
 		dt.set(Calendar.DAY_OF_MONTH, 15);
 		dt.set(Calendar.HOUR_OF_DAY, 12);
 		dt.set(Calendar.MINUTE, 23);
@@ -62,5 +62,22 @@ public class EmprestimoJDBCDAOTest extends AbstractJDBCDAOTest {
 		EmprestimoVO after = eDAO.selectByData(dt);
 		
 		Assert.assertTrue(updt.isEquals(after));
+	}
+	
+	@Test
+	public void testDelete() throws Exception {
+		Calendar dt = new GregorianCalendar();
+		dt.set(Calendar.YEAR, 2012);
+		dt.set(Calendar.MONTH, 1);
+		dt.set(Calendar.DAY_OF_MONTH, 15);
+		dt.set(Calendar.HOUR_OF_DAY, 12);
+		dt.set(Calendar.MINUTE, 23);
+		dt.set(Calendar.SECOND, 0);
+		
+		EmprestimoVO before = eDAO.selectByData(dt);
+		eDAO.delete(before);
+		EmprestimoVO after = eDAO.selectByData(dt);
+		
+		Assert.assertNull(after);
 	}
 }

@@ -227,7 +227,6 @@ public class MainWindow extends javax.swing.JFrame implements presentation.lib.R
     {       
         jButton2.setEnabled(state);
         jButton3.setEnabled(state);
-        jButton4.setEnabled(state);
         jButton5.setEnabled(state);
         jButton6.setEnabled(state);
         jButton7.setEnabled(state);
@@ -277,7 +276,6 @@ public class MainWindow extends javax.swing.JFrame implements presentation.lib.R
         jLabel1 = new javax.swing.JLabel();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
         jSeparator2 = new javax.swing.JSeparator();
@@ -312,7 +310,7 @@ public class MainWindow extends javax.swing.JFrame implements presentation.lib.R
         jPanelLogin.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
         jPanelLogin.setName("jPanelLogin"); // NOI18N
 
-        jLabelUsuarioNome.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabelUsuarioNome.setFont(new java.awt.Font("Tahoma", 1, 11));
         jLabelUsuarioNome.setText(bundle.getString("MainWindow.jLabelUsuarioNome.text")); // NOI18N
         jLabelUsuarioNome.setName("jLabelUsuarioNome"); // NOI18N
 
@@ -401,11 +399,11 @@ public class MainWindow extends javax.swing.JFrame implements presentation.lib.R
 
         jPanelMenu.setName("jPanelMenu"); // NOI18N
 
-        jLabel1.setFont(new java.awt.Font("Calibri", 3, 12)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Calibri", 3, 12));
         jLabel1.setText(bundle.getString("MainWindow.jLabel1.text")); // NOI18N
         jLabel1.setName("jLabel1"); // NOI18N
 
-        jButton2.setFont(new java.awt.Font("Calibri", 0, 11)); // NOI18N
+        jButton2.setFont(new java.awt.Font("Calibri", 0, 11));
         jButton2.setText(bundle.getString("MainWindow.jButton2.text")); // NOI18N
         jButton2.setMinimumSize(new java.awt.Dimension(0, 0));
         jButton2.setName("jButton2"); // NOI18N
@@ -415,23 +413,13 @@ public class MainWindow extends javax.swing.JFrame implements presentation.lib.R
             }
         });
 
-        jButton3.setFont(new java.awt.Font("Calibri", 0, 11)); // NOI18N
+        jButton3.setFont(new java.awt.Font("Calibri", 0, 11));
         jButton3.setText(bundle.getString("MainWindow.jButton3.text")); // NOI18N
         jButton3.setMinimumSize(new java.awt.Dimension(0, 0));
         jButton3.setName("jButton3"); // NOI18N
         jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton3ActionPerformed(evt);
-            }
-        });
-
-        jButton4.setFont(new java.awt.Font("Calibri", 0, 11)); // NOI18N
-        jButton4.setText(bundle.getString("MainWindow.jButton4.text")); // NOI18N
-        jButton4.setMinimumSize(new java.awt.Dimension(0, 0));
-        jButton4.setName("jButton4"); // NOI18N
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
             }
         });
 
@@ -443,7 +431,7 @@ public class MainWindow extends javax.swing.JFrame implements presentation.lib.R
 
         jSeparator2.setName("jSeparator2"); // NOI18N
 
-        jButton5.setFont(new java.awt.Font("Calibri", 0, 11)); // NOI18N
+        jButton5.setFont(new java.awt.Font("Calibri", 0, 11));
         jButton5.setText(bundle.getString("MainWindow.jButton5.text")); // NOI18N
         jButton5.setMinimumSize(new java.awt.Dimension(0, 0));
         jButton5.setName("jButton5"); // NOI18N
@@ -453,7 +441,7 @@ public class MainWindow extends javax.swing.JFrame implements presentation.lib.R
             }
         });
 
-        jButton6.setFont(new java.awt.Font("Calibri", 0, 11)); // NOI18N
+        jButton6.setFont(new java.awt.Font("Calibri", 0, 11));
         jButton6.setText(bundle.getString("MainWindow.jButton6.text")); // NOI18N
         jButton6.setMinimumSize(new java.awt.Dimension(0, 0));
         jButton6.setName("jButton6"); // NOI18N
@@ -465,7 +453,7 @@ public class MainWindow extends javax.swing.JFrame implements presentation.lib.R
 
         jSeparator3.setName("jSeparator3"); // NOI18N
 
-        jLabel4.setFont(new java.awt.Font("Calibri", 3, 12)); // NOI18N
+        jLabel4.setFont(new java.awt.Font("Calibri", 3, 12));
         jLabel4.setText(bundle.getString("MainWindow.jLabel4.text")); // NOI18N
         jLabel4.setName("jLabel4"); // NOI18N
 
@@ -479,7 +467,7 @@ public class MainWindow extends javax.swing.JFrame implements presentation.lib.R
             }
         });
 
-        jButton8.setFont(new java.awt.Font("Calibri", 0, 11)); // NOI18N
+        jButton8.setFont(new java.awt.Font("Calibri", 0, 11));
         jButton8.setText(bundle.getString("MainWindow.jButton8.text")); // NOI18N
         jButton8.setMinimumSize(new java.awt.Dimension(0, 0));
         jButton8.setName("jButton8"); // NOI18N
@@ -491,11 +479,11 @@ public class MainWindow extends javax.swing.JFrame implements presentation.lib.R
 
         jSeparator4.setName("jSeparator4"); // NOI18N
 
-        jLabel5.setFont(new java.awt.Font("Calibri", 3, 12)); // NOI18N
+        jLabel5.setFont(new java.awt.Font("Calibri", 3, 12));
         jLabel5.setText(bundle.getString("MainWindow.jLabel5.text")); // NOI18N
         jLabel5.setName("jLabel5"); // NOI18N
 
-        jButton10.setFont(new java.awt.Font("Calibri", 0, 11)); // NOI18N
+        jButton10.setFont(new java.awt.Font("Calibri", 0, 11));
         jButton10.setText(bundle.getString("MainWindow.jButton10.text")); // NOI18N
         jButton10.setMinimumSize(new java.awt.Dimension(0, 0));
         jButton10.setName("jButton10"); // NOI18N
@@ -505,7 +493,7 @@ public class MainWindow extends javax.swing.JFrame implements presentation.lib.R
             }
         });
 
-        jButton11.setFont(new java.awt.Font("Calibri", 0, 11)); // NOI18N
+        jButton11.setFont(new java.awt.Font("Calibri", 0, 11));
         jButton11.setText(bundle.getString("MainWindow.jButton11.text")); // NOI18N
         jButton11.setMinimumSize(new java.awt.Dimension(0, 0));
         jButton11.setName("jButton11"); // NOI18N
@@ -517,11 +505,11 @@ public class MainWindow extends javax.swing.JFrame implements presentation.lib.R
 
         jSeparator5.setName("jSeparator5"); // NOI18N
 
-        jLabel6.setFont(new java.awt.Font("Calibri", 3, 12)); // NOI18N
+        jLabel6.setFont(new java.awt.Font("Calibri", 3, 12));
         jLabel6.setText(bundle.getString("MainWindow.jLabel6.text")); // NOI18N
         jLabel6.setName("jLabel6"); // NOI18N
 
-        jButton12.setFont(new java.awt.Font("Calibri", 0, 11)); // NOI18N
+        jButton12.setFont(new java.awt.Font("Calibri", 0, 11));
         jButton12.setText(bundle.getString("MainWindow.jButton12.text")); // NOI18N
         jButton12.setMinimumSize(new java.awt.Dimension(0, 0));
         jButton12.setName("jButton12"); // NOI18N
@@ -531,7 +519,7 @@ public class MainWindow extends javax.swing.JFrame implements presentation.lib.R
             }
         });
 
-        jButton13.setFont(new java.awt.Font("Calibri", 0, 11)); // NOI18N
+        jButton13.setFont(new java.awt.Font("Calibri", 0, 11));
         jButton13.setText(bundle.getString("MainWindow.jButton13.text")); // NOI18N
         jButton13.setMinimumSize(new java.awt.Dimension(0, 0));
         jButton13.setName("jButton13"); // NOI18N
@@ -547,56 +535,49 @@ public class MainWindow extends javax.swing.JFrame implements presentation.lib.R
             jPanelMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelMenuLayout.createSequentialGroup()
                 .addGroup(jPanelMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jSeparator3, javax.swing.GroupLayout.DEFAULT_SIZE, 127, Short.MAX_VALUE)
-                    .addComponent(jSeparator1, javax.swing.GroupLayout.DEFAULT_SIZE, 127, Short.MAX_VALUE)
-                    .addComponent(jSeparator2, javax.swing.GroupLayout.DEFAULT_SIZE, 127, Short.MAX_VALUE)
-                    .addGroup(jPanelMenuLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(jPanelMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(jButton4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jButton3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jButton2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 102, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 15, Short.MAX_VALUE))
-                    .addGroup(jPanelMenuLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabel2))
-                    .addGroup(jPanelMenuLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(jPanelMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(jButton6, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jButton5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 102, Short.MAX_VALUE)))
-                    .addGroup(jPanelMenuLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabel4))
-                    .addGroup(jPanelMenuLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabel1))
-                    .addGroup(jPanelMenuLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(jPanelMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jButton8, javax.swing.GroupLayout.Alignment.LEADING, 0, 0, Short.MAX_VALUE)
-                            .addComponent(jButton7, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE))
-                    .addComponent(jSeparator5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 127, Short.MAX_VALUE)
-                    .addComponent(jSeparator4, javax.swing.GroupLayout.DEFAULT_SIZE, 127, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(jSeparator5, javax.swing.GroupLayout.DEFAULT_SIZE, 127, Short.MAX_VALUE)
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanelMenuLayout.createSequentialGroup()
+                            .addContainerGap()
+                            .addGroup(jPanelMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanelMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addComponent(jButton8, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jButton7, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 99, Short.MAX_VALUE))))
+                        .addComponent(jSeparator4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 127, Short.MAX_VALUE)
+                        .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 127, Short.MAX_VALUE)
+                        .addComponent(jSeparator2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 127, Short.MAX_VALUE)
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanelMenuLayout.createSequentialGroup()
+                            .addContainerGap()
+                            .addGroup(jPanelMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(jButton3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jButton2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 102, Short.MAX_VALUE))
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 15, Short.MAX_VALUE))
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanelMenuLayout.createSequentialGroup()
+                            .addContainerGap()
+                            .addComponent(jLabel2))
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanelMenuLayout.createSequentialGroup()
+                            .addContainerGap()
+                            .addGroup(jPanelMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanelMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addComponent(jButton6, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jButton5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.LEADING)))
+                        .addComponent(jSeparator3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 127, Short.MAX_VALUE))
                     .addGroup(jPanelMenuLayout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(jPanelMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(jButton11, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jButton10, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.LEADING)))
-                    .addGroup(jPanelMenuLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabel6))
-                    .addGroup(jPanelMenuLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jButton12, javax.swing.GroupLayout.DEFAULT_SIZE, 106, Short.MAX_VALUE)
-                        .addGap(11, 11, 11))
-                    .addGroup(jPanelMenuLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jButton13, javax.swing.GroupLayout.DEFAULT_SIZE, 106, Short.MAX_VALUE)
-                        .addGap(11, 11, 11)))
+                            .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.LEADING))))
                 .addContainerGap())
+            .addGroup(jPanelMenuLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanelMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButton12, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 106, Short.MAX_VALUE)
+                    .addComponent(jButton13, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 106, Short.MAX_VALUE))
+                .addGap(11, 11, 11))
         );
         jPanelMenuLayout.setVerticalGroup(
             jPanelMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -608,17 +589,15 @@ public class MainWindow extends javax.swing.JFrame implements presentation.lib.R
                 .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(11, 11, 11)
-                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 2, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(4, 4, 4)
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel1)
@@ -626,7 +605,7 @@ public class MainWindow extends javax.swing.JFrame implements presentation.lib.R
                 .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel5)
@@ -634,8 +613,8 @@ public class MainWindow extends javax.swing.JFrame implements presentation.lib.R
                 .addComponent(jButton10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jSeparator5, javax.swing.GroupLayout.PREFERRED_SIZE, 2, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(11, 11, 11)
+                .addComponent(jSeparator5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel6)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -656,7 +635,7 @@ public class MainWindow extends javax.swing.JFrame implements presentation.lib.R
         );
         jPanelContainerBottomLayout.setVerticalGroup(
             jPanelContainerBottomLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPanelContent, javax.swing.GroupLayout.DEFAULT_SIZE, 484, Short.MAX_VALUE)
+            .addComponent(jScrollPanelContent, javax.swing.GroupLayout.DEFAULT_SIZE, 463, Short.MAX_VALUE)
             .addComponent(jPanelMenu, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
@@ -696,12 +675,6 @@ public class MainWindow extends javax.swing.JFrame implements presentation.lib.R
         // TODO: Verificar alguma tarefa em executacao
         this.logout();
     }//GEN-LAST:event_jButton1MouseClicked
-
-private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-// TODO add your handling code here:
-   
-   showFirstCard(  new JPAtualizarUsuario());
-}//GEN-LAST:event_jButton4ActionPerformed
 
 private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
 // TODO add your handling code here:
@@ -806,7 +779,6 @@ showFirstCard(  new JPConsultarLigacao());
     private javax.swing.JButton jButton13;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
@@ -852,14 +824,13 @@ showFirstCard(  new JPConsultarLigacao());
             jLabelUsuarioEmail.setText(bundle.getString("MainWindow.jLabelUsuarioEmail.text"));            
             jButton1.setText(bundle.getString("MainWindow.jButton1.text"));
             jButton2.setText(bundle.getString("MainWindow.jButton2.text"));
-            jButton3.setText(bundle.getString("MainWindow.jButton3text"));
-            jButton4.setText(bundle.getString("MainWindow.jButton4.text"));
+            jButton3.setText(bundle.getString("MainWindow.jButton3.text"));
             jButton5.setText(bundle.getString("MainWindow.jButton5.text"));
             jButton6.setText(bundle.getString("MainWindow.jButton6.text"));
-            jButton7.setText(bundle.getString("MainWindow.jButton7text"));
+            jButton7.setText(bundle.getString("MainWindow.jButton7.text"));
             jButton8.setText(bundle.getString("MainWindow.jButton8.text"));
             jButton10.setText(bundle.getString("MainWindow.jButton10.text"));
-            jButton11.setText(bundle.getString("MainWindow.jButton11text"));
+            jButton11.setText(bundle.getString("MainWindow.jButton11.text"));
             jButton12.setText(bundle.getString("MainWindow.jButton12.text"));
             jButton13.setText(bundle.getString("MainWindow.jButton13.text"));
 
