@@ -43,7 +43,7 @@ public class Emprestimo implements IEmprestimo {
         {
                 DAOFactory factory = DAOFactory.getInstance();
                 try {
-			IEmprestimoUsuarioRelDAO dao = factory.getEmprestimoUsuarioCredorDAO();
+			IEmprestimoUsuarioRelDAO dao = factory.getEmprestimoUsuarioDevedorDAO();
                         for(EmprestimoUsuarioRelVO a:vo)
                         {
                             dao.insert(a);

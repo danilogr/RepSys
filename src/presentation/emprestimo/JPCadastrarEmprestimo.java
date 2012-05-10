@@ -334,11 +334,11 @@ private void jCheckBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
         ResourceBundle bundle = ResourceBundle.getBundle("I18n/Bundle");
         
 
-        double valor = (Double) jFormattedTextField1.getValue();
+        double valor = Double.valueOf(jFormattedTextField1.getText()).doubleValue();
         if(valor > 0)
         {
             int contagem = 0;
-            EmprestimoVO emp = new EmprestimoVO(new GregorianCalendar(),0,jTextArea2.getText());
+            EmprestimoVO emp = new EmprestimoVO(new GregorianCalendar(),valor,jTextArea2.getText());
             //credor
             EmprestimoUsuarioRelVO ucredor =  new EmprestimoUsuarioRelVO(emp,credor);
             //devedores
@@ -347,13 +347,16 @@ private void jCheckBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
             //verificando que o valor é valido, basta cadastrar empréstimos no sistema
             for(int i =0; i < jTable1.getRowCount(); i++)
             {
-                boolean marcado = (Boolean) jTable1.getValueAt(i, 0);
-                udevedores.add(new EmprestimoUsuarioRelVO(emp,usuarios.get(i)));
+                if((Boolean) jTable1.getValueAt(i, 0))
+                {
+                    udevedores.add(new EmprestimoUsuarioRelVO(emp,usuarios.get(i)));
+                    contagem++;
+                }
             }
             if(contagem > 0)
             {
                 //define o valor do emprestimp
-                emp.setValor(valor/contagem);
+                //emp.setValor(valor/contagem);
                 
                 IEmprestimo e = BusinessFactory.getInstance().getEmprestimo();
                 try {
@@ -368,14 +371,16 @@ private void jCheckBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
  
             } else {
                 JOptionPane.showMessageDialog(MainWindow.getInstance(),
+                            bundle.getString("JPCadastrarEmprestimo.Messages.ErrorTitle"),   
                             bundle.getString("JPCadastrarEmprestimo.Messages.NoUsers"),
-                            bundle.getString("JPCadastrarEmprestimo.Messages.ErrorTitle"),
+                           
                             JOptionPane.WARNING_MESSAGE);               
             }
         } else {
             JOptionPane.showMessageDialog(MainWindow.getInstance(),
-                            bundle.getString("JPCadastrarEmprestimo.Messages.InvalidValue"),
                             bundle.getString("JPCadastrarEmprestimo.Messages.ErrorTitle"),
+                            bundle.getString("JPCadastrarEmprestimo.Messages.InvalidValue"),
+                            
                             JOptionPane.WARNING_MESSAGE);
         }
 
