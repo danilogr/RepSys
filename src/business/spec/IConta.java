@@ -7,9 +7,9 @@ import business.BusinessException;
 
 public interface IConta {
 
-	public void create(ContaVO vo) throws BusinessException;
+	public void create(ContaVO vo, List<String> emails) throws BusinessException;
 
-	public void update(ContaVO vo) throws BusinessException;
+	public void update(ContaVO vo, List<String> emails) throws BusinessException;
         
 	public void delete(String name) throws BusinessException;
         

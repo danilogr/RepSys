@@ -14,16 +14,20 @@ import vo.ContaValorVariavelVO;
 
 public class Conta implements IConta {
 
-	public void create(ContaVO vo) throws BusinessException {
+	public void create(ContaVO vo, List<String> emails) throws BusinessException {
 		DAOFactory factory = DAOFactory.getInstance();
 		try {
                         if (vo instanceof ContaValorFixoVO){
-                        	IContaValorFixoDAO dao = factory.getContaValorFixoDAO();
-                        	dao.insert(vo);
+                            IContaValorFixoDAO dao = factory.getContaValorFixoDAO();
+                            dao.insert(vo);
                         }
                         if(vo instanceof ContaValorVariavelVO){
-        			IContaValorVariavelDAO dao = factory.getContaValorVariavelDAO();
-                		dao.insert(vo);
+                            IContaValorVariavelDAO dao = factory.getContaValorVariavelDAO();
+                            dao.insert(vo);
+                        }
+                        IContaUsuarioDevedorDAO dao = factory.getContaUsuarioDevedorDAO();
+                        for(String email : emails){
+                            //todo
                         }
                             
 		} catch (Exception e) {
@@ -42,7 +46,7 @@ public class Conta implements IConta {
 		}
 	}
 
-	public void update(ContaVO vo) throws BusinessException {
+	public void update(ContaVO vo, List<String> emails) throws BusinessException {
 		DAOFactory factory = DAOFactory.getInstance();
 		try {
 			IContaDAO dao = factory.getContaDAO();

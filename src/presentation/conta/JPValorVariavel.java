@@ -66,6 +66,7 @@ public class JPValorVariavel extends javax.swing.JPanel {
 
     public Calendar getVencimento() throws ParseException{
         String fieldText = this.jTextField1.getText();
+        if(fieldText.equals("")) return null;
         try{
             SimpleDateFormat sdf = new SimpleDateFormat("dd/mmm/yyyy");
             Date fieldDate = sdf.parse(fieldText);

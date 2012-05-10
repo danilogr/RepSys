@@ -183,6 +183,10 @@ public class JPCriarConta extends javax.swing.JPanel implements presentation.lib
         });
         jTable2.getTableHeader().setReorderingAllowed(false);
         jScrollPane4.setViewportView(jTable2);
+        jTable2.getColumnModel().getColumn(0).setHeaderValue(bundle.getString("JPCriarConta.jTable2.columnModel.title0")); // NOI18N
+        jTable2.getColumnModel().getColumn(1).setHeaderValue(bundle.getString("JPCriarConta.jTable2.columnModel.title1")); // NOI18N
+        jTable2.getColumnModel().getColumn(2).setHeaderValue(bundle.getString("JPCriarConta.jTable2.columnModel.title2")); // NOI18N
+        jTable2.getColumnModel().getColumn(3).setHeaderValue(bundle.getString("JPCriarConta.jTable2.columnModel.title3")); // NOI18N
 
         jLabel15.setFont(new java.awt.Font("Calibri", 3, 18));
         jLabel15.setText(bundle.getString("JPCriarConta.jLabel15.text")); // NOI18N
@@ -398,7 +402,8 @@ private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
     private JPValorFixo cardFix;
     private JPValorVariavel cardVar;
     
-    private List usuariosEnvolvidos;
+    private List<String> usuariosEnvolvidos;
+    
     private String nomeConta;
     private double valorConta;
     private String descricaoConta;
@@ -448,8 +453,8 @@ private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
         
         usuariosEnvolvidos = new ArrayList();
         for (int i=0; i < this.jTable2.getRowCount();i++){
-            if ((Boolean)this.jTable2.getValueAt(i, 2)){
-                usuariosEnvolvidos.add(this.jTable2.getValueAt(i,2));
+            if ((Boolean)this.jTable2.getValueAt(i, 0)){
+                usuariosEnvolvidos.add((String)this.jTable2.getValueAt(i,2));
             }
         }
         
@@ -484,10 +489,10 @@ private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
             ContaVO conta = new ContaVO(nomeConta, valorConta, usuarioResponsavel, descricaoConta);
             
             if(this.isValorFixo){
-                factory.getConta().create(new ContaValorFixoVO(conta, dataInicialContaValorFixo,  repeticoesContaValorFixo, recorrenciaContaValorFixo));
+                factory.getConta().create(new ContaValorFixoVO(conta, dataInicialContaValorFixo,  repeticoesContaValorFixo, recorrenciaContaValorFixo),usuariosEnvolvidos);
             }
             else{                
-                factory.getConta().create(new ContaValorVariavelVO(conta, vencimentoContaValorVariavel));         
+                factory.getConta().create(new ContaValorVariavelVO(conta, vencimentoContaValorVariavel),usuariosEnvolvidos);         
             }
         } catch (BusinessException e) {
             throw e;

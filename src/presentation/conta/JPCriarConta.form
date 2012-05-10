@@ -361,6 +361,38 @@
                     <Column editable="true" title="Propor&#xe7;&#xe3;o (%)" type="java.lang.Double"/>
                   </Table>
                 </Property>
+                <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
+                  <TableColumnModel selectionModel="0">
+                    <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                      <Title editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+                        <ResourceString bundle="I18n/Bundle.properties" key="JPCriarConta.jTable2.columnModel.title0" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+                      </Title>
+                      <Editor/>
+                      <Renderer/>
+                    </Column>
+                    <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                      <Title editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+                        <ResourceString bundle="I18n/Bundle.properties" key="JPCriarConta.jTable2.columnModel.title1" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+                      </Title>
+                      <Editor/>
+                      <Renderer/>
+                    </Column>
+                    <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                      <Title editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+                        <ResourceString bundle="I18n/Bundle.properties" key="JPCriarConta.jTable2.columnModel.title2" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+                      </Title>
+                      <Editor/>
+                      <Renderer/>
+                    </Column>
+                    <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                      <Title editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+                        <ResourceString bundle="I18n/Bundle.properties" key="JPCriarConta.jTable2.columnModel.title3" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+                      </Title>
+                      <Editor/>
+                      <Renderer/>
+                    </Column>
+                  </TableColumnModel>
+                </Property>
                 <Property name="tableHeader" type="javax.swing.table.JTableHeader" editor="org.netbeans.modules.form.editors2.JTableHeaderEditor">
                   <TableHeader reorderingAllowed="false" resizingAllowed="true"/>
                 </Property>
