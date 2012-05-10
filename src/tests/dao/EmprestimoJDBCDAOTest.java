@@ -44,4 +44,23 @@ public class EmprestimoJDBCDAOTest extends AbstractJDBCDAOTest {
 		EmprestimoVO inserted = eDAO.selectByData(dt);
 		Assert.assertTrue(emp.isEquals(inserted));
 	}
+	
+	@Test(expected=DAOException.class)
+	public void testUpdate() throws Exception {
+		Calendar dt = new GregorianCalendar();
+		dt.set(Calendar.YEAR, 2012);
+		dt.set(Calendar.MONTH, 2);
+		dt.set(Calendar.DAY_OF_MONTH, 15);
+		dt.set(Calendar.HOUR_OF_DAY, 12);
+		dt.set(Calendar.MINUTE, 23);
+		dt.set(Calendar.SECOND, 0);
+		
+		EmprestimoVO before = eDAO.selectByData(dt);
+		EmprestimoVO updt = new EmprestimoVO(before.getDataHora(), 30d, before.getDescricao());
+		
+		eDAO.update(updt);
+		EmprestimoVO after = eDAO.selectByData(dt);
+		
+		Assert.assertTrue(updt.isEquals(after));
+	}
 }

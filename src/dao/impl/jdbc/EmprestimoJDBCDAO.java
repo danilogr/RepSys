@@ -31,7 +31,8 @@ public class EmprestimoJDBCDAO extends GenericJDBCDAO implements IEmprestimoDAO 
 
 			// Criando um objeto java.sql.Timestamp a partir de um objeto
 			// java.util.Calendar
-			Timestamp dt = new Timestamp(emprestimo.getDataHora().getTime().getTime());
+			Timestamp dt = new Timestamp(emprestimo.getDataHora().getTime()
+					.getTime());
 			stmt.setTimestamp(1, dt);
 			stmt.setDouble(2, emprestimo.getValor());
 			stmt.setString(3, emprestimo.getDescricao());
@@ -43,24 +44,8 @@ public class EmprestimoJDBCDAO extends GenericJDBCDAO implements IEmprestimoDAO 
 
 	@Override
 	public void update(ObjectVO vo) throws DAOException {
-		String sql = "UPDATE " + this.getTableName()
-				+ " SET VALOR = ?, DESCRICAO = ? WHERE DATA_HORA = ?";
-		try {
-			EmprestimoVO emprestimo = (EmprestimoVO) vo;
-			PreparedStatement stmt = this.getConnection().prepareStatement(sql);
-
-			stmt.setDouble(1, emprestimo.getValor());
-			stmt.setString(2, emprestimo.getDescricao());
-
-			// Criando um objeto java.sql.Timestamp a partir de um objeto
-			// java.util.Calendar
-			Timestamp dt = new Timestamp(emprestimo.getDataHora().getTime().getTime());
-			stmt.setTimestamp(3, dt);
-
-			stmt.executeUpdate();
-		} catch (Exception e) {
-			throw new DAOException(e);
-		}
+		throw new DAOException(
+				"Não é permitido atualizar empréstimos. Apague este e crie um novo!");
 	}
 
 	@Override
@@ -74,9 +59,10 @@ public class EmprestimoJDBCDAO extends GenericJDBCDAO implements IEmprestimoDAO 
 
 			// Criando um objeto java.sql.Timestamp a partir de um objeto
 			// java.util.Calendar
-			Timestamp dt = new Timestamp(emprestimo.getDataHora().getTime().getTime());
+			Timestamp dt = new Timestamp(emprestimo.getDataHora().getTime()
+					.getTime());
 			stmt.setTimestamp(1, dt);
-			
+
 			stmt.executeUpdate();
 		} catch (Exception e) {
 			throw new DAOException(e);
@@ -114,7 +100,7 @@ public class EmprestimoJDBCDAO extends GenericJDBCDAO implements IEmprestimoDAO 
 
 			stmt.setTimestamp(1, dt);
 			ResultSet rs = stmt.executeQuery();
-			if(rs.next()) {
+			if (rs.next()) {
 				return (EmprestimoVO) createVO(rs);
 			}
 		} catch (Exception e) {
