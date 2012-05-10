@@ -6,8 +6,10 @@ import business.spec.IEmprestimo;
 import dao.DAOFactory;
 import dao.spec.IEmprestimoDAO;
 
+import dao.spec.IEmprestimoUsuarioRelDAO;
 import java.util.Calendar;
 import java.util.List;
+import vo.EmprestimoUsuarioRelVO;
 
 /**
  * @author Nelson
@@ -24,7 +26,36 @@ public class Emprestimo implements IEmprestimo {
 			throw new BusinessException(e);
 		}
 	}
+        
+        public void createCredor(EmprestimoUsuarioRelVO vo) throws BusinessException
+        {
+                DAOFactory factory = DAOFactory.getInstance();
+                try {
+			IEmprestimoUsuarioRelDAO dao = factory.getEmprestimoUsuarioCredorDAO();
+			dao.insert(vo);
+		} catch (Exception e) {
+			throw new BusinessException(e);
+		}
+        }
 
+        
+        public void createDevedores(List<EmprestimoUsuarioRelVO> vo) throws BusinessException
+        {
+                DAOFactory factory = DAOFactory.getInstance();
+                try {
+			IEmprestimoUsuarioRelDAO dao = factory.getEmprestimoUsuarioCredorDAO();
+                        for(EmprestimoUsuarioRelVO a:vo)
+                        {
+                            dao.insert(a);
+                        }
+			
+		} catch (Exception e) {
+			throw new BusinessException(e);
+		}
+        }
+
+        
+        
 	public void delete(Calendar date) throws BusinessException {
 		DAOFactory factory = DAOFactory.getInstance();
 		try {

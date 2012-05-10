@@ -12,6 +12,8 @@ package presentation.emprestimo;
 
 import business.BusinessException;
 import business.BusinessFactory;
+import business.impl.Emprestimo;
+import business.spec.IEmprestimo;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -100,8 +102,13 @@ public class JPCadastrarEmprestimo extends javax.swing.JPanel implements present
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("I18n/Bundle"); // NOI18N
         jLabel1.setText(bundle.getString("JPCadastrarEmprestimo.jLabel1.text_1")); // NOI18N
 
-        jButton2.setFont(new java.awt.Font("Calibri", 1, 12));
+        jButton2.setFont(new java.awt.Font("Calibri", 1, 12)); // NOI18N
         jButton2.setText(bundle.getString("JPCadastrarEmprestimo.jButton2.text_1")); // NOI18N
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jLabel2.setFont(new java.awt.Font("Cambria", 3, 18)); // NOI18N
         jLabel2.setText(bundle.getString("JPCadastrarEmprestimo.jLabel2.text_1")); // NOI18N
@@ -347,6 +354,16 @@ private void jCheckBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
             {
                 //define o valor do emprestimp
                 emp.setValor(valor/contagem);
+                
+                IEmprestimo e = BusinessFactory.getInstance().getEmprestimo();
+                try {
+                    e.create(emp);
+                    e.createCredor(ucredor);
+                    e.createDevedores(udevedores);
+                } catch (BusinessException ex) {
+                    Logger.getLogger(JPCadastrarEmprestimo.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                 MainWindow.getInstance().closeCurrentCard();
                
  
             } else {
@@ -366,6 +383,10 @@ private void jCheckBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
         
        
     }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        MainWindow.getInstance().closeCurrentCard();
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton2;
