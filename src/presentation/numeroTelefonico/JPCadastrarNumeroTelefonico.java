@@ -20,6 +20,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
+import presentation.desktop.MainWindow;
 import presentation.usuario.JPCadastrarUsuario;
 import vo.NumeroTelefonicoVO;
 import vo.UsuarioNumeroTelefonicoVO;
@@ -73,6 +74,8 @@ public class JPCadastrarNumeroTelefonico extends javax.swing.JPanel implements p
         jLabelResponsaveis = new javax.swing.JLabel();
         jToggleButtonConfirmar = new javax.swing.JToggleButton();
         jLabel8 = new javax.swing.JLabel();
+        jButton2 = new javax.swing.JButton();
+        jLabel9 = new javax.swing.JLabel();
 
         setPreferredSize(new java.awt.Dimension(560, 450));
 
@@ -100,6 +103,7 @@ public class JPCadastrarNumeroTelefonico extends javax.swing.JPanel implements p
 
         buttonGroup1.add(jRadioButtonSempre);
         jRadioButtonSempre.setText(bundle.getString("JPCadastrarNumeroTelefonico.jRadioButtonSempre.text")); // NOI18N
+        jRadioButtonSempre.setEnabled(false);
         jRadioButtonSempre.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jRadioButtonSempreActionPerformed(evt);
@@ -108,8 +112,7 @@ public class JPCadastrarNumeroTelefonico extends javax.swing.JPanel implements p
 
         jTableResponsaveis.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null},
-                {null, null, null}
+
             },
             new String [] {
                 "Responsável", "Nome", "E-maill"
@@ -151,10 +154,20 @@ public class JPCadastrarNumeroTelefonico extends javax.swing.JPanel implements p
                 jTextFieldDataActionPerformed(evt);
             }
         });
+        jTextFieldData.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jTextFieldDataFocusLost(evt);
+            }
+        });
 
         jTextFieldHora.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextFieldHoraActionPerformed(evt);
+            }
+        });
+        jTextFieldHora.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jTextFieldHoraFocusLost(evt);
             }
         });
 
@@ -175,6 +188,18 @@ public class JPCadastrarNumeroTelefonico extends javax.swing.JPanel implements p
         jLabel8.setText(bundle.getString("JPCadastrarUsuario.jLabel8.text")); // NOI18N
         jLabel8.setVisible(false);
 
+        jButton2.setFont(new java.awt.Font("Calibri", 1, 12));
+        jButton2.setText(bundle.getString("JPCadastrarNumeroTelefonico.jButton2.text")); // NOI18N
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
+        jLabel9.setForeground(new java.awt.Color(255, 0, 0));
+        jLabel9.setText(bundle.getString("JPCadastrarNumeroTelefonico.jLabel9.text")); // NOI18N
+        jLabel9.setVisible(false);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -182,33 +207,39 @@ public class JPCadastrarNumeroTelefonico extends javax.swing.JPanel implements p
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(jLabelCadastrarNumeroTelefonico, javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                            .addComponent(jLabelNumero)
-                            .addGap(78, 78, 78)
-                            .addComponent(jTextFieldNumero, javax.swing.GroupLayout.PREFERRED_SIZE, 274, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.LEADING))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jLabelData)
-                        .addGroup(layout.createSequentialGroup()
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(jLabelCadastrarNumeroTelefonico, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                    .addComponent(jLabelNumero)
+                                    .addGap(78, 78, 78)
+                                    .addComponent(jTextFieldNumero, javax.swing.GroupLayout.PREFERRED_SIZE, 274, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.LEADING))
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabelRecorrencia)
-                                .addComponent(jLabelHora)
-                                .addComponent(jLabelResponsaveis))
-                            .addGap(39, 39, 39)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 274, Short.MAX_VALUE)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                        .addComponent(jRadioButtonUnica)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(jRadioButtonSempre))
-                                    .addComponent(jTextFieldData, javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jTextFieldHora, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel8, javax.swing.GroupLayout.Alignment.LEADING)))))
-                    .addComponent(jToggleButtonConfirmar))
-                .addContainerGap(131, Short.MAX_VALUE))
+                                .addComponent(jLabelData)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jLabelRecorrencia)
+                                        .addComponent(jLabelHora)
+                                        .addComponent(jLabelResponsaveis))
+                                    .addGap(39, 39, 39)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 279, Short.MAX_VALUE)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                                .addComponent(jRadioButtonUnica)
+                                                .addGap(18, 18, 18)
+                                                .addComponent(jRadioButtonSempre))
+                                            .addComponent(jTextFieldData, javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jTextFieldHora, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(jLabel8, javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jLabel9, javax.swing.GroupLayout.Alignment.LEADING)))))
+                            .addComponent(jToggleButtonConfirmar))
+                        .addContainerGap(131, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jButton2)
+                        .addGap(24, 24, 24))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -242,7 +273,14 @@ public class JPCadastrarNumeroTelefonico extends javax.swing.JPanel implements p
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jToggleButtonConfirmar)
                     .addComponent(jLabel8))
-                .addGap(59, 59, 59))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(jButton2))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(2, 2, 2)
+                        .addComponent(jLabel9)))
+                .addContainerGap(29, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -274,14 +312,20 @@ private void jToggleButtonConfirmarActionPerformed(java.awt.event.ActionEvent ev
     NumeroTelefonicoVO voNumero;
     BusinessFactory factory = BusinessFactory.getInstance();
     boolean ok = true;
+    boolean recorrente;
     
-    if (hora.isEmpty()) {
+    if (jRadioButtonUnica.isSelected())
+        recorrente = false;
+    else
+        recorrente = true;
+    
+    if (!recorrente && hora.isEmpty()) {
         jTextFieldHora.setBackground(Color.red);
         jTextFieldHora.grabFocus();
         ok = false;
     }
     
-    if (data.isEmpty()) {
+    if (!recorrente && data.isEmpty()) {
         jTextFieldData.setBackground(Color.red);
         jTextFieldData.grabFocus();
         ok = false;
@@ -301,36 +345,41 @@ private void jToggleButtonConfirmarActionPerformed(java.awt.event.ActionEvent ev
             voNumero = factory.getNumeroTelefonico().getNumeroTelefonico(sNumero);
             if (voNumero == null) {
                 // Cria novo número
-                voNumero.setNumero(sNumero);
+                voNumero = new NumeroTelefonicoVO(sNumero);
                 factory.getNumeroTelefonico().create(voNumero);
             }
             // --- Inserção na tabela Usuario_NumeroTelefonico ---
             // Data e Hora
             SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
             Calendar data_hora = Calendar.getInstance();
-            try {
-                data_hora.setTime(sdf.parse(data+" "+hora));
-            } catch (ParseException ex) {
-                Logger.getLogger(JPCadastrarNumeroTelefonico.class.getName()).log(Level.SEVERE, null, ex);
+            if (!recorrente) {
+                try {
+                    data_hora.setTime(sdf.parse(data+" "+hora));
+                    jLabel9.setVisible(false);
+                    jTextFieldData.setBackground(Color.white);
+                    jTextFieldHora.setBackground(Color.white);
+                } catch (ParseException ex) {
+                    jLabel9.setVisible(true);
+                    jTextFieldData.setBackground(Color.red);
+                    jTextFieldHora.setBackground(Color.red);
+                    jTextFieldData.grabFocus();
+                    return;
+                }
             }
-            // Recorrência
-            int recorrencia;
-            if (jRadioButtonUnica.isSelected())
-                recorrencia = 0;
-            else
-                recorrencia = 1;
             // Insert
             UsuarioNumeroTelefonicoVO ligacao = new UsuarioNumeroTelefonicoVO(
                 null,       // Usuário (será setado no loop abaixo)
                 voNumero,   // Número Telefônico
                 data_hora,  // Data/Hora
-                recorrencia
+                recorrente ? 1 : 0
             );
-            for (int i=0; i < jTableResponsaveis.getRowCount();i++){
+            for (int i=0; i < jTableResponsaveis.getRowCount();i++) {
                 if ((Boolean)jTableResponsaveis.getValueAt(i,0)){
                     ligacao.setUsuario(factory.getUsuario().getUsuarioByEmail((String)jTableResponsaveis.getValueAt(i,2)));
+                    factory.getNumeroTelefonico().addLigacao(ligacao);
                 }
             }
+            MainWindow.getInstance().closeCurrentCard(voNumero);
         } catch (BusinessException ex) {
             Logger.getLogger(JPCadastrarUsuario.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -342,9 +391,23 @@ private void jTextFieldNumeroFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIR
     jTextFieldNumero.setBackground(Color.white);    
 }//GEN-LAST:event_jTextFieldNumeroFocusLost
 
+private void jTextFieldDataFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextFieldDataFocusLost
+    jTextFieldData.setBackground(Color.white);    
+}//GEN-LAST:event_jTextFieldDataFocusLost
+
+private void jTextFieldHoraFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextFieldHoraFocusLost
+    jTextFieldHora.setBackground(Color.white);    
+}//GEN-LAST:event_jTextFieldHoraFocusLost
+
+private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    MainWindow.getInstance().closeCurrentCard();
+}//GEN-LAST:event_jButton2ActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroup1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JLabel jLabelCadastrarNumeroTelefonico;
     private javax.swing.JLabel jLabelData;
     private javax.swing.JLabel jLabelHora;
