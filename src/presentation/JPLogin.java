@@ -398,7 +398,7 @@ public class JPLogin extends javax.swing.JPanel implements ReturnEvent {
             jLabel9.setText(bundle.getString("JPLogin.jLabel9.text"));
             jButton1.setText(bundle.getString("JPLogin.jButton1.text"));
             
-            //mainwindow.updateComponents();
+            mainwindow.updateComponents();
             
     }
     
