@@ -136,7 +136,7 @@ public class JPUsuariosCadastrados extends javax.swing.JPanel implements present
                         .addComponent(buttonRemover)
                         .addGap(18, 18, 18)
                         .addComponent(buttonEditar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 182, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 186, Short.MAX_VALUE)
                         .addComponent(buttonConfirmarSelecao)
                         .addGap(18, 18, 18)
                         .addComponent(buttonVoltar)))

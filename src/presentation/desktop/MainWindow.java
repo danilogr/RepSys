@@ -227,7 +227,6 @@ public class MainWindow extends javax.swing.JFrame implements presentation.lib.R
     {       
         jButton2.setEnabled(state);
         jButton3.setEnabled(state);
-        jButton4.setEnabled(state);
         jButton5.setEnabled(state);
         jButton6.setEnabled(state);
         jButton7.setEnabled(state);
@@ -826,7 +825,6 @@ showFirstCard(  new JPConsultarLigacao());
             jButton1.setText(bundle.getString("MainWindow.jButton1.text"));
             jButton2.setText(bundle.getString("MainWindow.jButton2.text"));
             jButton3.setText(bundle.getString("MainWindow.jButton3text"));
-            jButton4.setText(bundle.getString("MainWindow.jButton4.text"));
             jButton5.setText(bundle.getString("MainWindow.jButton5.text"));
             jButton6.setText(bundle.getString("MainWindow.jButton6.text"));
             jButton7.setText(bundle.getString("MainWindow.jButton7text"));

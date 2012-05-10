@@ -38,33 +38,31 @@
                       </Group>
                       <Component id="jSeparator1" alignment="0" max="32767" attributes="1"/>
                   </Group>
-                  <Group type="103" alignment="0" groupAlignment="0" attributes="0">
-                      <Component id="jLabelData" alignment="0" min="-2" max="-2" attributes="0"/>
-                      <Group type="102" alignment="0" attributes="0">
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="jLabelRecorrencia" min="-2" max="-2" attributes="0"/>
-                              <Component id="jLabelHora" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="jLabelResponsaveis" alignment="0" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <EmptySpace min="-2" pref="39" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="jScrollPane1" pref="274" max="32767" attributes="1"/>
-                              <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <Component id="jRadioButtonUnica" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                                      <Component id="jRadioButtonSempre" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                                  <Component id="jTextFieldData" alignment="0" max="32767" attributes="1"/>
-                                  <Component id="jTextFieldHora" alignment="0" min="-2" pref="161" max="-2" attributes="1"/>
-                                  <Component id="jLabel8" alignment="0" min="-2" max="-2" attributes="0"/>
+                  <Component id="jLabelData" alignment="0" min="-2" max="-2" attributes="0"/>
+                  <Group type="102" alignment="0" attributes="0">
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="jLabelRecorrencia" min="-2" max="-2" attributes="0"/>
+                          <Component id="jLabelHora" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="jLabelResponsaveis" alignment="0" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace min="-2" pref="39" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="jScrollPane1" pref="634" max="32767" attributes="1"/>
+                          <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
+                              <Group type="102" alignment="0" attributes="0">
+                                  <Component id="jRadioButtonUnica" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                                  <Component id="jRadioButtonSempre" min="-2" max="-2" attributes="0"/>
                               </Group>
+                              <Component id="jTextFieldData" alignment="0" max="32767" attributes="1"/>
+                              <Component id="jTextFieldHora" alignment="0" min="-2" pref="161" max="-2" attributes="1"/>
+                              <Component id="jLabel8" alignment="0" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                   </Group>
                   <Component id="jToggleButtonConfirmar" alignment="0" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace pref="131" max="32767" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>

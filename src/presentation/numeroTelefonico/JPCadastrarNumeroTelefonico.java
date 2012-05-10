@@ -73,7 +73,7 @@ public class JPCadastrarNumeroTelefonico extends javax.swing.JPanel implements p
 
         setPreferredSize(new java.awt.Dimension(560, 450));
 
-        jLabelNumero.setFont(new java.awt.Font("Calibri", 1, 18));
+        jLabelNumero.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("I18n/Bundle"); // NOI18N
         jLabelNumero.setText(bundle.getString("JPCadastrarNumeroTelefonico.jLabelNumero.text")); // NOI18N
 
@@ -151,7 +151,7 @@ public class JPCadastrarNumeroTelefonico extends javax.swing.JPanel implements p
             }
         });
 
-        jLabelCadastrarNumeroTelefonico.setFont(new java.awt.Font("Cambria", 1, 30));
+        jLabelCadastrarNumeroTelefonico.setFont(new java.awt.Font("Cambria", 1, 30)); // NOI18N
         jLabelCadastrarNumeroTelefonico.setText(bundle.getString("JPCadastrarNumeroTelefonico.jLabelCadastrarNumeroTelefonico.text")); // NOI18N
 
         jLabelResponsaveis.setFont(new java.awt.Font("Calibri", 1, 18));
@@ -182,26 +182,25 @@ public class JPCadastrarNumeroTelefonico extends javax.swing.JPanel implements p
                             .addGap(78, 78, 78)
                             .addComponent(jTextFieldNumero, javax.swing.GroupLayout.PREFERRED_SIZE, 274, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.LEADING))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jLabelData)
-                        .addGroup(layout.createSequentialGroup()
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabelRecorrencia)
-                                .addComponent(jLabelHora)
-                                .addComponent(jLabelResponsaveis))
-                            .addGap(39, 39, 39)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 274, Short.MAX_VALUE)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                        .addComponent(jRadioButtonUnica)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(jRadioButtonSempre))
-                                    .addComponent(jTextFieldData, javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jTextFieldHora, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel8, javax.swing.GroupLayout.Alignment.LEADING)))))
+                    .addComponent(jLabelData)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabelRecorrencia)
+                            .addComponent(jLabelHora)
+                            .addComponent(jLabelResponsaveis))
+                        .addGap(39, 39, 39)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 634, Short.MAX_VALUE)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                    .addComponent(jRadioButtonUnica)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(jRadioButtonSempre))
+                                .addComponent(jTextFieldData, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jTextFieldHora, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel8, javax.swing.GroupLayout.Alignment.LEADING))))
                     .addComponent(jToggleButtonConfirmar))
-                .addContainerGap(131, Short.MAX_VALUE))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
