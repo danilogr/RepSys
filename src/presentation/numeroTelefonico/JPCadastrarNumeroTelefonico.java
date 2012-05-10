@@ -10,12 +10,8 @@
  */
 package presentation.numeroTelefonico;
 
-import business.BusinessException;
 import business.BusinessFactory;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import presentation.desktop.MainWindow;
-import presentation.usuario.JPCadastrarUsuario;
+import java.awt.Color;
 import vo.NumeroTelefonicoVO;
 
 /**
@@ -23,9 +19,7 @@ import vo.NumeroTelefonicoVO;
  * @author Nelson
  */
 public class JPCadastrarNumeroTelefonico extends javax.swing.JPanel implements presentation.lib.ReturnEvent {
-   
-    private boolean novoNumero;
-    
+       
     /** Creates new form JPCadastrarNumeroTelefonico */
     public JPCadastrarNumeroTelefonico() {
         initComponents();
@@ -234,6 +228,37 @@ private void jRadioButtonUnicaActionPerformed(java.awt.event.ActionEvent evt) {/
 
 private void jToggleButtonConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButtonConfirmarActionPerformed
     
+    String sNumero = jTextFieldNumero.getText();
+    NumeroTelefonicoVO voNumero;
+    BusinessFactory factory = BusinessFactory.getInstance();
+    //private List usuarios;
+    boolean ok = true;
+    
+    if (sNumero.isEmpty()) {
+        jTextFieldNumero.setBackground(Color.red);
+        jTextFieldNumero.grabFocus();
+        ok = false;
+    }
+    
+    //jLabel8.setVisible(!ok);
+    
+    if (ok) {
+        try {
+            // Procura o número (se não existir, numero==null)
+            voNumero = factory.getNumeroTelefonico().getNumeroTelefonico(sNumero);
+            if (voNumero == null) {
+                // Cria novo número
+                voNumero.setNumero(sNumero);
+                factory.getNumeroTelefonico().create(voNumero);
+            }
+            // Inserção na tabela Usuario_NumeroTelefonico
+            
+            // ---
+        } catch (BusinessException ex) {
+            Logger.getLogger(JPCadastrarUsuario.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
     /*
     NumeroTelefonicoVO numero;
     if (novoNumero) {
@@ -253,19 +278,7 @@ private void jToggleButtonConfirmarActionPerformed(java.awt.event.ActionEvent ev
 }//GEN-LAST:event_jToggleButtonConfirmarActionPerformed
 
 private void jTextFieldNumeroFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextFieldNumeroFocusLost
-    String numero = jTextFieldNumero.getText();
-    if (!numero.isEmpty()) {
-        BusinessFactory factory = BusinessFactory.getInstance();
-        try {
-            if (factory.getNumeroTelefonico().getNumeroTelefonico(numero) != null) {
-                novoNumero = false;
-            } else {
-                novoNumero = true;
-            }
-        } catch (BusinessException ex) {
-            Logger.getLogger(JPCadastrarUsuario.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
+    jTextFieldNumero.setBackground(Color.white);    
 }//GEN-LAST:event_jTextFieldNumeroFocusLost
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
