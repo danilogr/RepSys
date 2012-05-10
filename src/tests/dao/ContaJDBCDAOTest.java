@@ -3,21 +3,45 @@ package tests.dao;
 import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
 
+import org.junit.Before;
+import org.junit.Test;
+
 import dao.DAOException;
+import dao.impl.jdbc.ContaJDBCDAO;
+import dao.impl.jdbc.UsuarioJDBCDAO;
+import dao.spec.IContaDAO;
+import dao.spec.IUsuarioDAO;
 import junit.framework.Assert;
 import part3rd.AeSimpleMd5;
+import util.Configuration;
 import vo.ContaVO;
 import vo.UsuarioVO;
 
 public class ContaJDBCDAOTest extends AbstractJDBCDAOTest {
+	private IUsuarioDAO uDAO;
+	private IContaDAO cDAO;
+	
+	@Override
+	protected void setupMainDAO() throws DAOException {
+		objDAO = new ContaJDBCDAO(Configuration.getInstance().getProperties());
+		cDAO = (IContaDAO) objDAO;
+	}
+	
+	@Before
+	public void setupUser() throws DAOException {
+		 uDAO = new UsuarioJDBCDAO(Configuration.getInstance().getProperties());
+	}
+	
+	@Test
 	public void testInsert() throws Exception {
-		ContaVO user = new ContaVO("Aluguel__04/12", 1400d, usuarioResponsavel, descricao);
+		UsuarioVO usuarioResponsavel = uDAO.selectByEmail("danilod100@gmail.com");
+		ContaVO conta = new ContaVO("Aluguel__04/12", 1400d, usuarioResponsavel, "Teste");
 		
-		objDAO.insert(user);
+		cDAO.insert(conta);
 		
-		UsuarioVO inserted = objDAO.selectByEmail("teste@teste.com");
-		user.setSenha(AeSimpleMd5.md5(senha));
-		
-		Assert.assertTrue(user.equals(inserted));
+		ContaVO inserted = cDAO.selectByNome("Aluguel__04/12");
+		System.out.println(conta);
+		System.out.println(inserted);
+		System.out.println(conta.equals(inserted));
 	}
 }

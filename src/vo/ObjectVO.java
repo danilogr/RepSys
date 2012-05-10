@@ -1,7 +1,5 @@
 package vo;
 
-import java.lang.reflect.Field;
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -22,8 +20,17 @@ abstract public class ObjectVO {
 			m = p.matcher(mtd.getName());
 			if(m.find()) {
 				try {
-					if(!mtd.invoke(this, params).equals(mtd.invoke(vo, params))) {
-						return false;
+					if(mtd.getReturnType().isPrimitive()) {
+						if(mtd.invoke(this, params) != mtd.invoke(vo, params)) {
+							return false;
+						}
+					} else if(mtd.getReturnType().is) { 
+					} else {
+						if(!mtd.invoke(this, params).equals(mtd.invoke(vo, params))) {
+							System.out.println(mtd.invoke(this, params));
+							System.out.println(mtd.invoke(vo, params));
+							return false;
+						}
 					}
 				} catch (Exception e) {
 					throw e;

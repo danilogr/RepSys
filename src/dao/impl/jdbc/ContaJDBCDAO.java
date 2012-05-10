@@ -17,7 +17,7 @@ import dao.DAOFactory;
 import dao.spec.IContaDAO;
 import dao.spec.IUsuarioDAO;
 
-class ContaJDBCDAO extends GenericJDBCDAO implements IContaDAO {
+public class ContaJDBCDAO extends GenericJDBCDAO implements IContaDAO {
 	private String tableName = "CONTA";
 	
 	public ContaJDBCDAO(Properties properties) throws DAOException {
@@ -75,7 +75,7 @@ class ContaJDBCDAO extends GenericJDBCDAO implements IContaDAO {
 	}
 	
 	@Override
-	public ContaVO selectByName(String nome) throws DAOException, VOException {
+	public ContaVO selectByNome(String nome) throws DAOException, VOException {
 		ContaVO vo = null;
 		String sql = "SELECT * FROM " + this.tableName
 				+ " WHERE NOME = ?";

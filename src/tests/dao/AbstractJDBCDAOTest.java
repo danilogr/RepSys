@@ -7,14 +7,18 @@ import org.junit.Before;
 
 import util.Configuration;
 import dao.DAOException;
+import dao.impl.jdbc.ContaJDBCDAO;
 import dao.impl.jdbc.UsuarioJDBCDAO;
+import dao.spec.IGenericDAO;
 
 public abstract class AbstractJDBCDAOTest {
-	protected UsuarioJDBCDAO objDAO;
+	protected IGenericDAO objDAO;
+	
+	protected abstract void setupMainDAO() throws DAOException;
 	
 	@Before
 	public void setup() throws DAOException, SQLException {
-		objDAO = new UsuarioJDBCDAO(Configuration.getInstance().getProperties());
+		setupMainDAO();
 		objDAO.setAutoCommit(false);
 	}
 	
