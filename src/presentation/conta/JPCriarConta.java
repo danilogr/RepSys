@@ -14,6 +14,7 @@ import business.BusinessFactory;
 import java.awt.CardLayout;
 import java.text.ParseException;
 import java.util.Calendar;
+import java.util.ResourceBundle;
 import javax.swing.JOptionPane;
 import javax.swing.JRadioButton;
 import javax.swing.table.TableColumn;
@@ -341,18 +342,17 @@ private void jTextField5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
 }//GEN-LAST:event_jTextField5ActionPerformed
 
 private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-// TODO add your handling code here:
-    try{
+    ResourceBundle bundle = ResourceBundle.getBundle("I18n/Bundle");      
+    try {
         if(isTudoPreenchido()){
             this.parseFormDataAndSave();
-            JOptionPane.showMessageDialog(this, "Conta cadastrada.");
+            JOptionPane.showMessageDialog(this, bundle.getString("JPCriarConta.Mensagem.OK"));
             MainWindow.getInstance().closeCurrentCard();
         }
         else
-            JOptionPane.showMessageDialog(this, "Checar campos");
-    }
-    catch(Exception e){
-        JOptionPane.showMessageDialog(this, "erro");
+            jLabel14.setVisible(true);
+    } catch (Exception ex) {
+        JOptionPane.showMessageDialog(this, bundle.getString("JPCriarConta.Mensagem.Erro1"));
     }
 }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -431,6 +431,7 @@ private void jRadioButton3StateChanged(javax.swing.event.ChangeEvent evt) {//GEN
     private Calendar dataInicialContaValorFixo;
     private Calendar vencimentoContaValorVariavel;
     private UsuarioVO usuarioResponsavel;
+    private Boolean isAnyUsuarioSelecionado;
     
     
     private void initCardLayout(){
@@ -467,8 +468,7 @@ private void jRadioButton3StateChanged(javax.swing.event.ChangeEvent evt) {//GEN
         }
     }
 
-    private void parseFormDataAndSave() throws ParseException,Exception, NumberFormatException{        
-        try{ 
+    private void parseFormDataAndSave() throws ParseException,Exception, NumberFormatException{      
             nomeConta = this.textFieldNomeConta.getText();
             descricaoConta = this.jTextArea2.getText();
                    
@@ -491,38 +491,26 @@ private void jRadioButton3StateChanged(javax.swing.event.ChangeEvent evt) {//GEN
             }
             
             BusinessFactory factory = BusinessFactory.getInstance();
+            isAnyUsuarioSelecionado=false;
             for (int i=0; i < this.jTable2.getRowCount();i++){
                 if ((Boolean)this.jTable2.getValueAt(i, 0)){
+                    isAnyUsuarioSelecionado = true;
                     String email = (String)this.jTable2.getValueAt(i,2);
                     Double prop = (Double)this.jTable2.getValueAt(i,3);
                     if (email != null && prop != null)
                         factory.getConta().create(new ContaUsuarioDevedorVO(factory.getUsuario().getUsuarioByEmail(email),conta,prop.floatValue()));
                 }
             }
-        }
-        catch(ParseException e){
-            throw e;
-        }
-        catch(NumberFormatException e){
-            throw e;
-        }
-        catch(Exception e){
-            throw e;
-        }        
+            
     }
 
-    private boolean isTudoPreenchido() throws Exception {        
-        try{
-            if ( this.textFieldNomeConta.getText().equals("") || this.textFieldValorConta.getText().equals("") )
+    private boolean isTudoPreenchido() throws Exception {
+            if ( !isAnyUsuarioSelecionado || this.textFieldNomeConta.getText().equals("") || this.textFieldValorConta.getText().equals("") )
                 return false;
             
             else if(this.isValorFixo)
                 return ( ! ( this.cardFix.getDataInicial()==null || this.cardFix.getRecorrencia()==null || this.cardFix.getRepeticoes()==null ) );
             else
                 return ( ! ( this.cardVar.getVencimento()==null ) );
-        }
-        catch(Exception e){
-            throw e;
-        }
     }
 }
