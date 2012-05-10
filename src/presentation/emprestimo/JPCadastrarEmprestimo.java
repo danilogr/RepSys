@@ -10,15 +10,58 @@
  */
 package presentation.emprestimo;
 
+import business.BusinessException;
+import business.BusinessFactory;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import presentation.conta.JPConsultarConta;
+import presentation.desktop.MainWindow;
+import presentation.lib.IMultiModePanel.Mode;
+import presentation.usuario.JPUsuariosCadastrados;
+import vo.EmprestimoUsuarioRelVO;
+import vo.EmprestimoVO;
+import vo.UsuarioVO;
+
 /**
  *
  * @author Endril
  */
 public class JPCadastrarEmprestimo extends javax.swing.JPanel implements presentation.lib.ReturnEvent {
 
+    private List<UsuarioVO> usuarios;
+    private UsuarioVO credor;
     /** Creates new form JPCadastrarEmprestimo */
     public JPCadastrarEmprestimo() {
-        initComponents();
+          initComponents();
+        try {
+            usuarios = BusinessFactory.getInstance().getUsuario().getAll();
+            int counter = 0;
+            DefaultTableModel model =(DefaultTableModel) jTable1.getModel();
+            for (UsuarioVO usuario:usuarios) {
+                model.insertRow(counter, new Object[]{false,usuario.getNome(),usuario.getEmail()});
+                counter++;
+                }
+        } catch (BusinessException ex) {
+            Logger.getLogger(JPCadastrarEmprestimo.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        //o credor normalmente é o usuario logado
+        atualizaCredor(MainWindow.getInstance().getUsuarioLogado());
+      
+    }
+    
+    private void atualizaCredor(UsuarioVO novoCredor)
+    {
+         credor = novoCredor;
+         jTextField5.setText(credor.getNome());
     }
 
     /** This method is called from within the constructor to
@@ -35,6 +78,7 @@ public class JPCadastrarEmprestimo extends javax.swing.JPanel implements present
         jSeparator1 = new javax.swing.JSeparator();
         jPanel1 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
+        jLabel2.setVisible(false);
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
@@ -51,32 +95,32 @@ public class JPCadastrarEmprestimo extends javax.swing.JPanel implements present
         jCheckBox1 = new javax.swing.JCheckBox();
         jButton3 = new javax.swing.JButton();
         jSeparator2 = new javax.swing.JSeparator();
-        jButton4 = new javax.swing.JButton();
 
-        jLabel1.setFont(new java.awt.Font("Cambria", 1, 30)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Cambria", 1, 30));
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("I18n/Bundle"); // NOI18N
         jLabel1.setText(bundle.getString("JPCadastrarEmprestimo.jLabel1.text_1")); // NOI18N
 
-        jButton2.setFont(new java.awt.Font("Calibri", 1, 12)); // NOI18N
+        jButton2.setFont(new java.awt.Font("Calibri", 1, 12));
         jButton2.setText(bundle.getString("JPCadastrarEmprestimo.jButton2.text_1")); // NOI18N
 
         jLabel2.setFont(new java.awt.Font("Cambria", 3, 18)); // NOI18N
         jLabel2.setText(bundle.getString("JPCadastrarEmprestimo.jLabel2.text_1")); // NOI18N
 
-        jLabel3.setFont(new java.awt.Font("Calibri", 3, 18)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("Calibri", 3, 18));
         jLabel3.setText(bundle.getString("JPCadastrarEmprestimo.jLabel3.text_1")); // NOI18N
 
-        jLabel4.setFont(new java.awt.Font("Calibri", 3, 18)); // NOI18N
+        jLabel4.setFont(new java.awt.Font("Calibri", 3, 18));
         jLabel4.setText(bundle.getString("JPCadastrarEmprestimo.jLabel4.text_1")); // NOI18N
 
-        jLabel8.setFont(new java.awt.Font("Cambria", 3, 18)); // NOI18N
+        jLabel8.setFont(new java.awt.Font("Cambria", 3, 18));
         jLabel8.setText(bundle.getString("JPCadastrarEmprestimo.jLabel8.text_1")); // NOI18N
 
         jLabel14.setFont(new java.awt.Font("Calibri", 3, 18));
         jLabel14.setText(bundle.getString("JPCadastrarEmprestimo.jLabel14.text")); // NOI18N
 
         jTextField5.setEditable(false);
-        jTextField5.setFont(new java.awt.Font("Catriel", 0, 11));
+        jTextField5.setFont(new java.awt.Font("Catriel", 0, 11)); // NOI18N
+        jTextField5.setEnabled(false);
         jTextField5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField5ActionPerformed(evt);
@@ -84,13 +128,18 @@ public class JPCadastrarEmprestimo extends javax.swing.JPanel implements present
         });
 
         jButton5.setText(bundle.getString("JPCadastrarEmprestimo.jButton5.text")); // NOI18N
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
 
         jTextArea2.setColumns(20);
         jTextArea2.setLineWrap(true);
         jTextArea2.setRows(3);
         jScrollPane3.setViewportView(jTextArea2);
 
-        jFormattedTextField1.setText(bundle.getString("JPCadastrarEmprestimo.jFormattedTextField1.text")); // NOI18N
+        jFormattedTextField1.setText("0.0");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -101,12 +150,12 @@ public class JPCadastrarEmprestimo extends javax.swing.JPanel implements present
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel14)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextField5, javax.swing.GroupLayout.DEFAULT_SIZE, 142, Short.MAX_VALUE)
+                        .addComponent(jTextField5, javax.swing.GroupLayout.DEFAULT_SIZE, 324, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel8)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 213, Short.MAX_VALUE)
                         .addComponent(jLabel2))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -114,8 +163,8 @@ public class JPCadastrarEmprestimo extends javax.swing.JPanel implements present
                             .addComponent(jLabel3))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jFormattedTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, 204, Short.MAX_VALUE)
-                            .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 204, Short.MAX_VALUE))))
+                            .addComponent(jFormattedTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, 391, Short.MAX_VALUE)
+                            .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 391, Short.MAX_VALUE))))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -146,31 +195,40 @@ public class JPCadastrarEmprestimo extends javax.swing.JPanel implements present
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
-                "", "Nome", "E-mail", "Valor"
+                "", "", ""
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Boolean.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class
+                java.lang.Boolean.class, java.lang.String.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                true, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
             }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
         });
+        jTable1.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(jTable1);
+        jTable1.getColumnModel().getColumn(0).setResizable(false);
+        jTable1.getColumnModel().getColumn(0).setPreferredWidth(20);
         jTable1.getColumnModel().getColumn(0).setHeaderValue(bundle.getString("JPCadastrarEmprestimo.jTable1.columnModel.title0")); // NOI18N
+        jTable1.getColumnModel().getColumn(1).setResizable(false);
         jTable1.getColumnModel().getColumn(1).setHeaderValue(bundle.getString("JPCadastrarEmprestimo.jTable1.columnModel.title1")); // NOI18N
+        jTable1.getColumnModel().getColumn(2).setResizable(false);
         jTable1.getColumnModel().getColumn(2).setHeaderValue(bundle.getString("JPCadastrarEmprestimo.jTable1.columnModel.title2")); // NOI18N
-        jTable1.getColumnModel().getColumn(3).setHeaderValue(bundle.getString("JPCadastrarEmprestimo.jTable1.columnModel.title3")); // NOI18N
 
         jCheckBox1.setFont(new java.awt.Font("Cambria", 2, 12)); // NOI18N
         jCheckBox1.setText(bundle.getString("JPCadastrarEmprestimo.jCheckBox1.text_1")); // NOI18N
+        jCheckBox1.setVisible(false);
         jCheckBox1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jCheckBox1ActionPerformed(evt);
@@ -179,6 +237,11 @@ public class JPCadastrarEmprestimo extends javax.swing.JPanel implements present
 
         jButton3.setFont(new java.awt.Font("Calibri", 1, 12)); // NOI18N
         jButton3.setText(bundle.getString("JPCadastrarEmprestimo.jButton3.text")); // NOI18N
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -188,10 +251,10 @@ public class JPCadastrarEmprestimo extends javax.swing.JPanel implements present
                 .addComponent(jLabel15)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jCheckBox1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(154, Short.MAX_VALUE))
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(10, 10, 10)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 399, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 547, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jButton3))
@@ -210,9 +273,6 @@ public class JPCadastrarEmprestimo extends javax.swing.JPanel implements present
 
         jSeparator2.setOrientation(javax.swing.SwingConstants.VERTICAL);
 
-        jButton4.setFont(new java.awt.Font("Calibri", 1, 12)); // NOI18N
-        jButton4.setText(bundle.getString("JPCadastrarEmprestimo.jButton4.text_1")); // NOI18N
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -220,7 +280,7 @@ public class JPCadastrarEmprestimo extends javax.swing.JPanel implements present
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jSeparator1, javax.swing.GroupLayout.DEFAULT_SIZE, 731, Short.MAX_VALUE)
+                    .addComponent(jSeparator1, javax.swing.GroupLayout.DEFAULT_SIZE, 1101, Short.MAX_VALUE)
                     .addComponent(jLabel1)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -228,16 +288,12 @@ public class JPCadastrarEmprestimo extends javax.swing.JPanel implements present
                         .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButton4)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 521, Short.MAX_VALUE)
-                        .addComponent(jButton2)))
+                    .addComponent(jButton2, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel1)
                 .addGap(10, 10, 10)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -246,11 +302,9 @@ public class JPCadastrarEmprestimo extends javax.swing.JPanel implements present
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jSeparator2, javax.swing.GroupLayout.DEFAULT_SIZE, 211, Short.MAX_VALUE))
-                .addGap(55, 55, 55)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton4)
-                    .addComponent(jButton2))
-                .addContainerGap())
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 46, Short.MAX_VALUE)
+                .addComponent(jButton2)
+                .addGap(20, 20, 20))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -262,10 +316,60 @@ private void jCheckBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
 // TODO add your handling code here:
 }//GEN-LAST:event_jCheckBox1ActionPerformed
 
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        JPUsuariosCadastrados jpcu = new JPUsuariosCadastrados();
+        jpcu.setMode(Mode.SELECIONAVEL);
+        MainWindow.getInstance().showCard(this, jpcu);
+        
+    }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        ResourceBundle bundle = ResourceBundle.getBundle("I18n/Bundle");
+        
+
+        double valor = (Double) jFormattedTextField1.getValue();
+        if(valor > 0)
+        {
+            int contagem = 0;
+            EmprestimoVO emp = new EmprestimoVO(new GregorianCalendar(),0,jTextArea2.getText());
+            //credor
+            EmprestimoUsuarioRelVO ucredor =  new EmprestimoUsuarioRelVO(emp,credor);
+            //devedores
+            List<EmprestimoUsuarioRelVO> udevedores = new LinkedList<EmprestimoUsuarioRelVO>();
+            
+            //verificando que o valor é valido, basta cadastrar empréstimos no sistema
+            for(int i =0; i < jTable1.getRowCount(); i++)
+            {
+                boolean marcado = (Boolean) jTable1.getValueAt(i, 0);
+                udevedores.add(new EmprestimoUsuarioRelVO(emp,usuarios.get(i)));
+            }
+            if(contagem > 0)
+            {
+                //define o valor do emprestimp
+                emp.setValor(valor/contagem);
+               
+ 
+            } else {
+                JOptionPane.showMessageDialog(MainWindow.getInstance(),
+                            bundle.getString("JPCadastrarEmprestimo.Messages.NoUsers"),
+                            bundle.getString("JPCadastrarEmprestimo.Messages.ErrorTitle"),
+                            JOptionPane.WARNING_MESSAGE);               
+            }
+        } else {
+            JOptionPane.showMessageDialog(MainWindow.getInstance(),
+                            bundle.getString("JPCadastrarEmprestimo.Messages.InvalidValue"),
+                            bundle.getString("JPCadastrarEmprestimo.Messages.ErrorTitle"),
+                            JOptionPane.WARNING_MESSAGE);
+        }
+
+        
+        
+       
+    }//GEN-LAST:event_jButton3ActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JFormattedTextField jFormattedTextField1;
@@ -287,7 +391,13 @@ private void jCheckBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
     private javax.swing.JTextField jTextField5;
     // End of variables declaration//GEN-END:variables
 
+    //private javax.swing.
+    
     public void onReturnFromOtherWindow(Object returnedObject) {
-        throw new UnsupportedOperationException("Not supported yet.");
+       //se o valor retornado for um usuario ( consulta de usuarios )
+       if(returnedObject instanceof UsuarioVO)
+       {
+           atualizaCredor((UsuarioVO)returnedObject);
+       }
     }
 }
