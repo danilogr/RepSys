@@ -5,35 +5,42 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 abstract public class ObjectVO {
-	public boolean equals(ObjectVO vo) throws Exception {
+	public boolean isEquals(ObjectVO vo) throws Exception {
 		Class self = this.getClass();
 		Class other = vo.getClass();
 		Object params[] = {};
-		
-		if(!self.getName().equals(other.getName())) {
+
+		if (!self.getName().equals(other.getName())) {
 			return false;
 		}
-		
+
 		Pattern p = Pattern.compile("^get");
 		Matcher m = null;
-		for(Method mtd : self.getDeclaredMethods()) {
+		for (Method mtd : self.getDeclaredMethods()) {
 			m = p.matcher(mtd.getName());
-			if(m.find()) {
-				try {
-					if(mtd.getReturnType().isPrimitive()) {
-						if(mtd.invoke(this, params) != mtd.invoke(vo, params)) {
+			if (m.find()) {
+				Object srcIvk = mtd.invoke(this, params);
+				Object dstIvk = mtd.invoke(vo, params);
+				if (mtd.getReturnType().isPrimitive()) {
+					if (srcIvk != dstIvk) {
+						return false;
+					}
+				} else {
+					try {
+						mtd.getReturnType().asSubclass(ObjectVO.class);
+						if (srcIvk != null
+								&& dstIvk != null
+								&& !((ObjectVO) srcIvk)
+										.isEquals((ObjectVO) dstIvk)) {
 							return false;
 						}
-					} else if(mtd.getReturnType().is) { 
-					} else {
-						if(!mtd.invoke(this, params).equals(mtd.invoke(vo, params))) {
-							System.out.println(mtd.invoke(this, params));
-							System.out.println(mtd.invoke(vo, params));
+					} catch (ClassCastException e) {
+						if (srcIvk != null && dstIvk != null
+								&& !srcIvk.equals(srcIvk)) {
+
 							return false;
 						}
 					}
-				} catch (Exception e) {
-					throw e;
 				}
 			}
 		}

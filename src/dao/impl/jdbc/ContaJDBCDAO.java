@@ -41,13 +41,14 @@ public class ContaJDBCDAO extends GenericJDBCDAO implements IContaDAO {
 
 	public void insert(ObjectVO vo) throws DAOException {
 		String sql = "INSERT INTO " + this.tableName
-				+ " (NOME, VALOR, EMAIL) VALUES (?,?,?)";
+				+ " (NOME, VALOR, EMAIL, DESCRICAO) VALUES (?,?,?,?)";
 		try {
 			ContaVO conta = (ContaVO) vo;
 			PreparedStatement stmt = this.getConnection().prepareStatement(sql);
 			stmt.setString(1, conta.getNome());
 			stmt.setDouble(2, conta.getValor());
 			stmt.setString(3, conta.getUsuario().getEmail());
+			stmt.setString(4, conta.getDescricao());
 			stmt.executeUpdate();
 		} catch (SQLException e) {
 			throw new DAOException(e);
