@@ -148,7 +148,7 @@ public class JPValorFixo extends javax.swing.JPanel {
         String fieldText = this.jTextField3.getText();
         if(fieldText.equals("")) return null;
         try{
-            SimpleDateFormat sdf = new SimpleDateFormat("dd/mmm/yyyy");
+            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
             Date fieldDate = sdf.parse(fieldText);
             Calendar fieldCal = Calendar.getInstance();
             fieldCal.setTime(fieldDate);
