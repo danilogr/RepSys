@@ -76,14 +76,14 @@ public class JPCriarConta extends javax.swing.JPanel implements presentation.lib
         jLabel9 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
 
-        jLabel8.setFont(new java.awt.Font("Cambria", 1, 30));
+        jLabel8.setFont(new java.awt.Font("Cambria", 1, 30)); // NOI18N
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("I18n/Bundle"); // NOI18N
         jLabel8.setText(bundle.getString("JPCriarConta.jLabel8.text")); // NOI18N
 
         jLabel12.setForeground(new java.awt.Color(255, 0, 0));
         jLabel12.setText(bundle.getString("JPCriarConta.jLabel12.text")); // NOI18N
 
-        jLabel14.setFont(new java.awt.Font("Calibri", 3, 18));
+        jLabel14.setFont(new java.awt.Font("Calibri", 3, 18)); // NOI18N
         jLabel14.setText(bundle.getString("JPCriarConta.jLabel14.text")); // NOI18N
 
         jTextField5.setEditable(false);
@@ -144,7 +144,7 @@ public class JPCriarConta extends javax.swing.JPanel implements presentation.lib
         jLabel15.setFont(new java.awt.Font("Calibri", 3, 18)); // NOI18N
         jLabel15.setText(bundle.getString("JPCriarConta.jLabel15.text")); // NOI18N
 
-        jCheckBox2.setFont(new java.awt.Font("Calibri", 0, 14));
+        jCheckBox2.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         jCheckBox2.setText(bundle.getString("JPCriarConta.jCheckBox2.text")); // NOI18N
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
@@ -178,7 +178,7 @@ public class JPCriarConta extends javax.swing.JPanel implements presentation.lib
                 .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jCheckBox2)
-                .addContainerGap(35, Short.MAX_VALUE))
+                .addContainerGap(64, Short.MAX_VALUE))
         );
 
         jButton1.setFont(new java.awt.Font("Calibri", 1, 12));
@@ -244,7 +244,6 @@ public class JPCriarConta extends javax.swing.JPanel implements presentation.lib
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, 288, Short.MAX_VALUE)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel10)
@@ -261,6 +260,7 @@ public class JPCriarConta extends javax.swing.JPanel implements presentation.lib
                     .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 202, Short.MAX_VALUE)
                     .addComponent(textFieldNomeConta, javax.swing.GroupLayout.DEFAULT_SIZE, 202, Short.MAX_VALUE)
                     .addComponent(textFieldValorConta, javax.swing.GroupLayout.DEFAULT_SIZE, 202, Short.MAX_VALUE)))
+            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, 288, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -281,8 +281,8 @@ public class JPCriarConta extends javax.swing.JPanel implements presentation.lib
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel11)
                     .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(28, 28, 28)
-                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, 118, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         jSeparator1.setOrientation(javax.swing.SwingConstants.VERTICAL);
@@ -320,7 +320,7 @@ public class JPCriarConta extends javax.swing.JPanel implements presentation.lib
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jSeparator1, javax.swing.GroupLayout.DEFAULT_SIZE, 330, Short.MAX_VALUE))
+                        .addComponent(jSeparator1, javax.swing.GroupLayout.DEFAULT_SIZE, 359, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(9, 9, 9)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
