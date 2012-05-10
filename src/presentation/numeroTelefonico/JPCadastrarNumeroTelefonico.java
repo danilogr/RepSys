@@ -10,9 +10,19 @@
  */
 package presentation.numeroTelefonico;
 
+import business.BusinessException;
 import business.BusinessFactory;
 import java.awt.Color;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import presentation.usuario.JPCadastrarUsuario;
 import vo.NumeroTelefonicoVO;
+import vo.UsuarioNumeroTelefonicoVO;
+import vo.UsuarioVO;
 
 /**
  *
@@ -23,6 +33,15 @@ public class JPCadastrarNumeroTelefonico extends javax.swing.JPanel implements p
     /** Creates new form JPCadastrarNumeroTelefonico */
     public JPCadastrarNumeroTelefonico() {
         initComponents();
+        // Carrega usuários
+        try {
+            List<UsuarioVO> usuarios = BusinessFactory.getInstance().getUsuario().getAll();
+            for (UsuarioVO usuario:usuarios) {
+                // insere o usuário na tabela jTableResponsaveis
+            }
+        } catch (BusinessException ex) {
+            Logger.getLogger(JPCadastrarNumeroTelefonico.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /** This method is called from within the constructor to
@@ -50,11 +69,13 @@ public class JPCadastrarNumeroTelefonico extends javax.swing.JPanel implements p
         jSeparator1 = new javax.swing.JSeparator();
         jLabelResponsaveis = new javax.swing.JLabel();
         jToggleButtonConfirmar = new javax.swing.JToggleButton();
+        jLabel8 = new javax.swing.JLabel();
 
         setPreferredSize(new java.awt.Dimension(560, 450));
 
         jLabelNumero.setFont(new java.awt.Font("Calibri", 1, 18));
-        jLabelNumero.setText("Número:");
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("I18n/Bundle"); // NOI18N
+        jLabelNumero.setText(bundle.getString("JPCadastrarNumeroTelefonico.jLabelNumero.text")); // NOI18N
 
         jTextFieldNumero.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
@@ -63,10 +84,11 @@ public class JPCadastrarNumeroTelefonico extends javax.swing.JPanel implements p
         });
 
         jLabelRecorrencia.setFont(new java.awt.Font("Calibri", 1, 18));
-        jLabelRecorrencia.setText("Recorrência:");
+        jLabelRecorrencia.setText(bundle.getString("JPCadastrarNumeroTelefonico.jLabelRecorrencia.text")); // NOI18N
 
         buttonGroup1.add(jRadioButtonUnica);
-        jRadioButtonUnica.setText("Única");
+        jRadioButtonUnica.setSelected(true);
+        jRadioButtonUnica.setText(bundle.getString("JPCadastrarNumeroTelefonico.jRadioButtonUnica.text")); // NOI18N
         jRadioButtonUnica.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jRadioButtonUnicaActionPerformed(evt);
@@ -74,7 +96,7 @@ public class JPCadastrarNumeroTelefonico extends javax.swing.JPanel implements p
         });
 
         buttonGroup1.add(jRadioButtonSempre);
-        jRadioButtonSempre.setText("Sempre");
+        jRadioButtonSempre.setText(bundle.getString("JPCadastrarNumeroTelefonico.jRadioButtonSempre.text")); // NOI18N
         jRadioButtonSempre.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jRadioButtonSempreActionPerformed(evt);
@@ -83,18 +105,18 @@ public class JPCadastrarNumeroTelefonico extends javax.swing.JPanel implements p
 
         jTableResponsaveis.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null},
-                {null, null}
+                {null, null, null},
+                {null, null, null}
             },
             new String [] {
-                "Responsável", "Nome"
+                "Responsável", "Nome", "E-maill"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Boolean.class, java.lang.Object.class
+                java.lang.Boolean.class, java.lang.Object.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                true, false
+                true, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -107,13 +129,15 @@ public class JPCadastrarNumeroTelefonico extends javax.swing.JPanel implements p
         });
         jScrollPane1.setViewportView(jTableResponsaveis);
         jTableResponsaveis.getColumnModel().getColumn(0).setResizable(false);
+        jTableResponsaveis.getColumnModel().getColumn(0).setPreferredWidth(15);
         jTableResponsaveis.getColumnModel().getColumn(1).setResizable(false);
+        jTableResponsaveis.getColumnModel().getColumn(2).setResizable(false);
 
         jLabelData.setFont(new java.awt.Font("Calibri", 1, 18));
-        jLabelData.setText("Data:");
+        jLabelData.setText(bundle.getString("JPCadastrarNumeroTelefonico.jLabelData.text")); // NOI18N
 
         jLabelHora.setFont(new java.awt.Font("Calibri", 1, 18));
-        jLabelHora.setText("Hora:");
+        jLabelHora.setText(bundle.getString("JPCadastrarNumeroTelefonico.jLabelHora.text")); // NOI18N
 
         jTextFieldData.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -128,17 +152,21 @@ public class JPCadastrarNumeroTelefonico extends javax.swing.JPanel implements p
         });
 
         jLabelCadastrarNumeroTelefonico.setFont(new java.awt.Font("Cambria", 1, 30));
-        jLabelCadastrarNumeroTelefonico.setText("Cadastrar Ligação");
+        jLabelCadastrarNumeroTelefonico.setText(bundle.getString("JPCadastrarNumeroTelefonico.jLabelCadastrarNumeroTelefonico.text")); // NOI18N
 
         jLabelResponsaveis.setFont(new java.awt.Font("Calibri", 1, 18));
-        jLabelResponsaveis.setText("Responsáveis:");
+        jLabelResponsaveis.setText(bundle.getString("JPCadastrarNumeroTelefonico.jLabelResponsaveis.text")); // NOI18N
 
-        jToggleButtonConfirmar.setText("Confirmar");
+        jToggleButtonConfirmar.setText(bundle.getString("JPCadastrarNumeroTelefonico.jToggleButtonConfirmar.text")); // NOI18N
         jToggleButtonConfirmar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jToggleButtonConfirmarActionPerformed(evt);
             }
         });
+
+        jLabel8.setForeground(new java.awt.Color(255, 0, 0));
+        jLabel8.setText(bundle.getString("JPCadastrarUsuario.jLabel8.text")); // NOI18N
+        jLabel8.setVisible(false);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -154,23 +182,26 @@ public class JPCadastrarNumeroTelefonico extends javax.swing.JPanel implements p
                             .addGap(78, 78, 78)
                             .addComponent(jTextFieldNumero, javax.swing.GroupLayout.PREFERRED_SIZE, 274, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.LEADING))
-                    .addComponent(jLabelData)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabelRecorrencia)
-                            .addComponent(jLabelHora)
-                            .addComponent(jLabelResponsaveis))
-                        .addGap(39, 39, 39)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                .addComponent(jRadioButtonUnica)
-                                .addGap(18, 18, 18)
-                                .addComponent(jRadioButtonSempre))
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 375, Short.MAX_VALUE)
-                            .addComponent(jTextFieldData, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextFieldHora, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jLabelData)
+                        .addGroup(layout.createSequentialGroup()
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabelRecorrencia)
+                                .addComponent(jLabelHora)
+                                .addComponent(jLabelResponsaveis))
+                            .addGap(39, 39, 39)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 274, Short.MAX_VALUE)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                        .addComponent(jRadioButtonUnica)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(jRadioButtonSempre))
+                                    .addComponent(jTextFieldData, javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jTextFieldHora, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel8, javax.swing.GroupLayout.Alignment.LEADING)))))
                     .addComponent(jToggleButtonConfirmar))
-                .addContainerGap(30, Short.MAX_VALUE))
+                .addContainerGap(131, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -190,8 +221,8 @@ public class JPCadastrarNumeroTelefonico extends javax.swing.JPanel implements p
                     .addComponent(jLabelRecorrencia))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabelResponsaveis))
+                    .addComponent(jLabelResponsaveis)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(11, 11, 11)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabelData)
@@ -201,7 +232,9 @@ public class JPCadastrarNumeroTelefonico extends javax.swing.JPanel implements p
                     .addComponent(jLabelHora)
                     .addComponent(jTextFieldHora, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jToggleButtonConfirmar)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jToggleButtonConfirmar)
+                    .addComponent(jLabel8))
                 .addGap(59, 59, 59))
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -229,10 +262,23 @@ private void jRadioButtonUnicaActionPerformed(java.awt.event.ActionEvent evt) {/
 private void jToggleButtonConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButtonConfirmarActionPerformed
     
     String sNumero = jTextFieldNumero.getText();
+    String data = this.jTextFieldData.getText();
+    String hora = this.jTextFieldHora.getText();
     NumeroTelefonicoVO voNumero;
     BusinessFactory factory = BusinessFactory.getInstance();
-    //private List usuarios;
     boolean ok = true;
+    
+    if (hora.isEmpty()) {
+        jTextFieldHora.setBackground(Color.red);
+        jTextFieldHora.grabFocus();
+        ok = false;
+    }
+    
+    if (data.isEmpty()) {
+        jTextFieldData.setBackground(Color.red);
+        jTextFieldData.grabFocus();
+        ok = false;
+    }
     
     if (sNumero.isEmpty()) {
         jTextFieldNumero.setBackground(Color.red);
@@ -240,7 +286,7 @@ private void jToggleButtonConfirmarActionPerformed(java.awt.event.ActionEvent ev
         ok = false;
     }
     
-    //jLabel8.setVisible(!ok);
+    jLabel8.setVisible(!ok);
     
     if (ok) {
         try {
@@ -251,29 +297,37 @@ private void jToggleButtonConfirmarActionPerformed(java.awt.event.ActionEvent ev
                 voNumero.setNumero(sNumero);
                 factory.getNumeroTelefonico().create(voNumero);
             }
-            // Inserção na tabela Usuario_NumeroTelefonico
-            
-            // ---
+            // --- Inserção na tabela Usuario_NumeroTelefonico ---
+            // Data e Hora
+            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy hh:mm");
+            Calendar data_hora = Calendar.getInstance();
+            try {
+                data_hora.setTime(sdf.parse(data+" "+hora));
+            } catch (ParseException ex) {
+                Logger.getLogger(JPCadastrarNumeroTelefonico.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            // Recorrência
+            int recorrencia;
+            if (jRadioButtonUnica.isSelected())
+                recorrencia = 0;
+            else
+                recorrencia = 1;
+            // Insert
+            UsuarioNumeroTelefonicoVO ligacao = new UsuarioNumeroTelefonicoVO(
+                null,       // Usuário (será setado no loop abaixo)
+                voNumero,   // Número Telefônico
+                data_hora,  // Data/Hora
+                recorrencia
+            );
+            for (int i=0; i < jTableResponsaveis.getRowCount();i++){
+                if ((Boolean)jTableResponsaveis.getValueAt(i,0)){
+                    ligacao.setUsuario(factory.getUsuario().getUsuarioByEmail((String)jTableResponsaveis.getValueAt(i,2)));
+                }
+            }
         } catch (BusinessException ex) {
             Logger.getLogger(JPCadastrarUsuario.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
-    /*
-    NumeroTelefonicoVO numero;
-    if (novoNumero) {
-        numero = new NumeroTelefonicoVO(jTextFieldNumero.getText());
-    } else {
-        numero = 
-    }
-
-    try {
-        BusinessFactory.getInstance().getNumeroTelefonico().create(numero);
-    } catch (BusinessException ex) {
-        Logger.getLogger(JPCadastrarUsuario.class.getName()).log(Level.SEVERE, null, ex);
-        return;
-    }    
-    */
     
 }//GEN-LAST:event_jToggleButtonConfirmarActionPerformed
 
@@ -283,6 +337,7 @@ private void jTextFieldNumeroFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIR
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroup1;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabelCadastrarNumeroTelefonico;
     private javax.swing.JLabel jLabelData;
     private javax.swing.JLabel jLabelHora;

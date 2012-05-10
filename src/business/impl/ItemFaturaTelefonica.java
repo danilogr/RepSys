@@ -25,11 +25,11 @@ public class ItemFaturaTelefonica implements IItemFaturaTelefonica {
 		}
 	}
     
-    	public void delete(String numero, Calendar dataHora) throws BusinessException {
+    	public void delete(String numero,int mes, int ano, Calendar dataHora) throws BusinessException {
 		DAOFactory factory = DAOFactory.getInstance();
 		try {
 			IItemFaturaTelefonicaDAO dao = factory.getItemFaturaTelefonicaDAO();
-			ItemFaturaTelefonicaVO itemFatura = getItemFaturaTelefonica(numero, dataHora);
+			ItemFaturaTelefonicaVO itemFatura = getItemFaturaTelefonica(numero, mes, ano, dataHora);
 			dao.delete(itemFatura);
 		} catch (Exception e) {
 			throw new BusinessException(e);
@@ -46,11 +46,11 @@ public class ItemFaturaTelefonica implements IItemFaturaTelefonica {
             }
 	}
         
-       	public ItemFaturaTelefonicaVO getItemFaturaTelefonica(String numero, Calendar dataHora) throws BusinessException {
+       	public ItemFaturaTelefonicaVO getItemFaturaTelefonica(String numero,int mes, int ano, Calendar dataHora) throws BusinessException {
 	DAOFactory factory = DAOFactory.getInstance();
 	try {
 		IItemFaturaTelefonicaDAO dao = factory.getItemFaturaTelefonicaDAO();
-		return (ItemFaturaTelefonicaVO) dao.selectByNumeroDataHora(numero ,dataHora);
+		return (ItemFaturaTelefonicaVO) dao.selectByNumeroDataHora(numero, mes, ano ,dataHora);
             } catch (Exception e) {
 		throw new BusinessException(e);
             }
@@ -64,6 +64,5 @@ public class ItemFaturaTelefonica implements IItemFaturaTelefonica {
 		} catch (Exception e) {
 			throw new BusinessException(e);
 		}
-	} 
-    
+	}
 }
