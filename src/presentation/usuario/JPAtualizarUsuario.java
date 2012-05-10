@@ -72,7 +72,7 @@ public class JPAtualizarUsuario extends javax.swing.JPanel implements presentati
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("I18n/Bundle"); // NOI18N
         jLabel1.setText(bundle.getString("JPAtualizarUsuario.jLabel1.text_1")); // NOI18N
 
-        jButton1.setFont(new java.awt.Font("Calibri", 1, 12)); // NOI18N
+        jButton1.setFont(new java.awt.Font("Calibri", 1, 12));
         jButton1.setText(bundle.getString("JPAtualizarUsuario.jButton1.text_1")); // NOI18N
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -80,7 +80,7 @@ public class JPAtualizarUsuario extends javax.swing.JPanel implements presentati
             }
         });
 
-        jButton2.setFont(new java.awt.Font("Calibri", 1, 12)); // NOI18N
+        jButton2.setFont(new java.awt.Font("Calibri", 1, 12));
         jButton2.setText(bundle.getString("JPAtualizarUsuario.jButton2.text_1")); // NOI18N
 
         jLabel2.setFont(new java.awt.Font("Calibri", 3, 18));
@@ -89,7 +89,7 @@ public class JPAtualizarUsuario extends javax.swing.JPanel implements presentati
         jLabel3.setFont(new java.awt.Font("Calibri", 3, 18));
         jLabel3.setText(bundle.getString("JPAtualizarUsuario.jLabel3.text_1")); // NOI18N
 
-        jTextField1.setFont(new java.awt.Font("Catriel", 0, 11)); // NOI18N
+        jTextField1.setFont(new java.awt.Font("Catriel", 0, 11));
         jTextField1.setToolTipText(bundle.getString("JPAtualizarUsuario.jTextField1.toolTipText")); // NOI18N
         jTextField1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -97,7 +97,7 @@ public class JPAtualizarUsuario extends javax.swing.JPanel implements presentati
             }
         });
 
-        jTextField2.setFont(new java.awt.Font("Catriel", 0, 11)); // NOI18N
+        jTextField2.setFont(new java.awt.Font("Catriel", 0, 11));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -124,7 +124,7 @@ public class JPAtualizarUsuario extends javax.swing.JPanel implements presentati
                     .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
 
-        jLabel6.setFont(new java.awt.Font("Calibri", 3, 18));
+        jLabel6.setFont(new java.awt.Font("Calibri", 3, 18)); // NOI18N
         jLabel6.setText(bundle.getString("JPAtualizarUsuario.jLabel6.text_1")); // NOI18N
 
         jLabel4.setFont(new java.awt.Font("Calibri", 3, 18));
@@ -133,16 +133,16 @@ public class JPAtualizarUsuario extends javax.swing.JPanel implements presentati
         jLabel5.setFont(new java.awt.Font("Calibri", 3, 18));
         jLabel5.setText(bundle.getString("JPAtualizarUsuario.jLabel5.text_1")); // NOI18N
 
-        jPasswordField2.setFont(new java.awt.Font("Catriel", 0, 11)); // NOI18N
+        jPasswordField2.setFont(new java.awt.Font("Catriel", 0, 11));
         jPasswordField2.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 jPasswordField2FocusLost(evt);
             }
         });
 
-        jPasswordField1.setFont(new java.awt.Font("Catriel", 0, 11)); // NOI18N
+        jPasswordField1.setFont(new java.awt.Font("Catriel", 0, 11));
 
-        jPasswordField3.setFont(new java.awt.Font("Catriel", 0, 11)); // NOI18N
+        jPasswordField3.setFont(new java.awt.Font("Catriel", 0, 11));
         jPasswordField3.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 jPasswordField3FocusLost(evt);
@@ -183,15 +183,15 @@ public class JPAtualizarUsuario extends javax.swing.JPanel implements presentati
 
         jLabel7.setForeground(new java.awt.Color(255, 0, 0));
         jLabel7.setText(bundle.getString("JPAtualizarUsuario.jLabel7.text")); // NOI18N
-        jLabel6.setVisible(false);
+        jLabel7.setVisible(false);
 
         jLabel8.setForeground(new java.awt.Color(255, 0, 0));
         jLabel8.setText(bundle.getString("JPAtualizarUsuario.jLabel8.text")); // NOI18N
-        jLabel6.setVisible(false);
+        jLabel8.setVisible(false);
 
         jLabel9.setForeground(new java.awt.Color(255, 0, 0));
         jLabel9.setText(bundle.getString("JPAtualizarUsuario.jLabel9.text")); // NOI18N
-        jLabel6.setVisible(false);
+        jLabel9.setVisible(false);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
