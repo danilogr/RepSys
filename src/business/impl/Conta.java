@@ -7,6 +7,7 @@ import business.BusinessException;
 import business.spec.IConta;
 import dao.DAOFactory;
 import dao.spec.IContaDAO;
+import dao.spec.IContaUsuarioDevedorDAO;
 import dao.spec.IContaValorFixoDAO;
 import dao.spec.IContaValorVariavelDAO;
 import vo.ContaValorFixoVO;
