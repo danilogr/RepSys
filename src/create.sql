@@ -58,8 +58,6 @@ CREATE TABLE Emprestimo (
 );
 
 
-
-
 CREATE TABLE Emprestimo_Usuario_Devedor (
 	data_hora TIMESTAMP,
 	email VARCHAR(50),
@@ -68,6 +66,11 @@ CREATE TABLE Emprestimo_Usuario_Devedor (
 	CONSTRAINT pk_emprestimousuariodevedor PRIMARY KEY (data_hora,email)
 );
 
+alter table emprestimo_usuario_devedor
+    drop constraint "fk_emprestimo_datahora",
+    drop constraint "fk_usuario_email",
+    add constraint "fk_emprestimo_datahora" FOREIGN KEY (data_hora) REFERENCES emprestimo(data_hora) ON DELETE CASCADE,
+    add constraint "fk_usuario_email" FOREIGN KEY (email) REFERENCES usuario(email) ON DELETE CASCADE;
 
 
 CREATE TABLE Emprestimo_Usuario_Credor (
@@ -77,6 +80,12 @@ CREATE TABLE Emprestimo_Usuario_Credor (
     CONSTRAINT EUC_email_fk FOREIGN KEY (email) REFERENCES Usuario (email),
     CONSTRAINT EUC_data_hora_e_email_pk PRIMARY KEY (data_hora,email)
 );  
+
+alter table emprestimo_usuario_credor
+    drop constraint euc_data_hora_fk,
+    drop constraint euc_email_fk,
+    add constraint euc_data_hora_fk foreign key (data_hora) references emprestimo(data_hora) ON DELETE CASCADE,
+    add constraint euc_email_fk foreign key (email) references usuario(email) ON DELETE CASCADE;
 
 
 CREATE TABLE Conta (
