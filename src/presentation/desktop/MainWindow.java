@@ -310,7 +310,7 @@ public class MainWindow extends javax.swing.JFrame implements presentation.lib.R
         jPanelLogin.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
         jPanelLogin.setName("jPanelLogin"); // NOI18N
 
-        jLabelUsuarioNome.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabelUsuarioNome.setFont(new java.awt.Font("Tahoma", 1, 11));
         jLabelUsuarioNome.setText(bundle.getString("MainWindow.jLabelUsuarioNome.text")); // NOI18N
         jLabelUsuarioNome.setName("jLabelUsuarioNome"); // NOI18N
 
@@ -399,11 +399,11 @@ public class MainWindow extends javax.swing.JFrame implements presentation.lib.R
 
         jPanelMenu.setName("jPanelMenu"); // NOI18N
 
-        jLabel1.setFont(new java.awt.Font("Calibri", 3, 12)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Calibri", 3, 12));
         jLabel1.setText(bundle.getString("MainWindow.jLabel1.text")); // NOI18N
         jLabel1.setName("jLabel1"); // NOI18N
 
-        jButton2.setFont(new java.awt.Font("Calibri", 0, 11)); // NOI18N
+        jButton2.setFont(new java.awt.Font("Calibri", 0, 11));
         jButton2.setText(bundle.getString("MainWindow.jButton2.text")); // NOI18N
         jButton2.setMinimumSize(new java.awt.Dimension(0, 0));
         jButton2.setName("jButton2"); // NOI18N
@@ -413,7 +413,7 @@ public class MainWindow extends javax.swing.JFrame implements presentation.lib.R
             }
         });
 
-        jButton3.setFont(new java.awt.Font("Calibri", 0, 11)); // NOI18N
+        jButton3.setFont(new java.awt.Font("Calibri", 0, 11));
         jButton3.setText(bundle.getString("MainWindow.jButton3.text")); // NOI18N
         jButton3.setMinimumSize(new java.awt.Dimension(0, 0));
         jButton3.setName("jButton3"); // NOI18N
@@ -431,7 +431,7 @@ public class MainWindow extends javax.swing.JFrame implements presentation.lib.R
 
         jSeparator2.setName("jSeparator2"); // NOI18N
 
-        jButton5.setFont(new java.awt.Font("Calibri", 0, 11)); // NOI18N
+        jButton5.setFont(new java.awt.Font("Calibri", 0, 11));
         jButton5.setText(bundle.getString("MainWindow.jButton5.text")); // NOI18N
         jButton5.setMinimumSize(new java.awt.Dimension(0, 0));
         jButton5.setName("jButton5"); // NOI18N
@@ -441,7 +441,7 @@ public class MainWindow extends javax.swing.JFrame implements presentation.lib.R
             }
         });
 
-        jButton6.setFont(new java.awt.Font("Calibri", 0, 11)); // NOI18N
+        jButton6.setFont(new java.awt.Font("Calibri", 0, 11));
         jButton6.setText(bundle.getString("MainWindow.jButton6.text")); // NOI18N
         jButton6.setMinimumSize(new java.awt.Dimension(0, 0));
         jButton6.setName("jButton6"); // NOI18N
@@ -453,7 +453,7 @@ public class MainWindow extends javax.swing.JFrame implements presentation.lib.R
 
         jSeparator3.setName("jSeparator3"); // NOI18N
 
-        jLabel4.setFont(new java.awt.Font("Calibri", 3, 12)); // NOI18N
+        jLabel4.setFont(new java.awt.Font("Calibri", 3, 12));
         jLabel4.setText(bundle.getString("MainWindow.jLabel4.text")); // NOI18N
         jLabel4.setName("jLabel4"); // NOI18N
 
@@ -467,7 +467,7 @@ public class MainWindow extends javax.swing.JFrame implements presentation.lib.R
             }
         });
 
-        jButton8.setFont(new java.awt.Font("Calibri", 0, 11)); // NOI18N
+        jButton8.setFont(new java.awt.Font("Calibri", 0, 11));
         jButton8.setText(bundle.getString("MainWindow.jButton8.text")); // NOI18N
         jButton8.setMinimumSize(new java.awt.Dimension(0, 0));
         jButton8.setName("jButton8"); // NOI18N
@@ -479,11 +479,11 @@ public class MainWindow extends javax.swing.JFrame implements presentation.lib.R
 
         jSeparator4.setName("jSeparator4"); // NOI18N
 
-        jLabel5.setFont(new java.awt.Font("Calibri", 3, 12)); // NOI18N
+        jLabel5.setFont(new java.awt.Font("Calibri", 3, 12));
         jLabel5.setText(bundle.getString("MainWindow.jLabel5.text")); // NOI18N
         jLabel5.setName("jLabel5"); // NOI18N
 
-        jButton10.setFont(new java.awt.Font("Calibri", 0, 11)); // NOI18N
+        jButton10.setFont(new java.awt.Font("Calibri", 0, 11));
         jButton10.setText(bundle.getString("MainWindow.jButton10.text")); // NOI18N
         jButton10.setMinimumSize(new java.awt.Dimension(0, 0));
         jButton10.setName("jButton10"); // NOI18N
@@ -493,7 +493,7 @@ public class MainWindow extends javax.swing.JFrame implements presentation.lib.R
             }
         });
 
-        jButton11.setFont(new java.awt.Font("Calibri", 0, 11)); // NOI18N
+        jButton11.setFont(new java.awt.Font("Calibri", 0, 11));
         jButton11.setText(bundle.getString("MainWindow.jButton11.text")); // NOI18N
         jButton11.setMinimumSize(new java.awt.Dimension(0, 0));
         jButton11.setName("jButton11"); // NOI18N
@@ -505,11 +505,11 @@ public class MainWindow extends javax.swing.JFrame implements presentation.lib.R
 
         jSeparator5.setName("jSeparator5"); // NOI18N
 
-        jLabel6.setFont(new java.awt.Font("Calibri", 3, 12)); // NOI18N
+        jLabel6.setFont(new java.awt.Font("Calibri", 3, 12));
         jLabel6.setText(bundle.getString("MainWindow.jLabel6.text")); // NOI18N
         jLabel6.setName("jLabel6"); // NOI18N
 
-        jButton12.setFont(new java.awt.Font("Calibri", 0, 11)); // NOI18N
+        jButton12.setFont(new java.awt.Font("Calibri", 0, 11));
         jButton12.setText(bundle.getString("MainWindow.jButton12.text")); // NOI18N
         jButton12.setMinimumSize(new java.awt.Dimension(0, 0));
         jButton12.setName("jButton12"); // NOI18N
@@ -519,7 +519,7 @@ public class MainWindow extends javax.swing.JFrame implements presentation.lib.R
             }
         });
 
-        jButton13.setFont(new java.awt.Font("Calibri", 0, 11)); // NOI18N
+        jButton13.setFont(new java.awt.Font("Calibri", 0, 11));
         jButton13.setText(bundle.getString("MainWindow.jButton13.text")); // NOI18N
         jButton13.setMinimumSize(new java.awt.Dimension(0, 0));
         jButton13.setName("jButton13"); // NOI18N
