@@ -22,6 +22,14 @@ public class UsuarioVO extends ObjectVO {
 		this.email = email;
 		this.senha = senha;
 	}
+        
+	public UsuarioVO(String email, String senha, String nome) {
+		super();
+		this.email = email;
+		this.senha = senha;
+		this.nome = nome;
+	}
+
 
 	public UsuarioVO(String email, String senha, String nome, double saldo) {
 		super();

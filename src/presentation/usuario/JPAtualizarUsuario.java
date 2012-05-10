@@ -359,7 +359,7 @@ private void jPasswordField3FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRS
 
         if (ok && senhaAntigaOK && senhaNovaOK) {
             BusinessFactory factory = BusinessFactory.getInstance();
-            UsuarioVO user = new UsuarioVO(nome,email,senhaNova); 
+            UsuarioVO user = new UsuarioVO(nome,email,senhaNova,0); 
             try {
                 factory.getUsuario().update(user);
                 MainWindow.getInstance().closeCurrentCard();
