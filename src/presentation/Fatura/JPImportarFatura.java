@@ -58,30 +58,30 @@ public class JPImportarFatura extends javax.swing.JPanel implements presentation
         jButton2.setFont(new java.awt.Font("Calibri", 1, 12)); // NOI18N
         jButton2.setText(bundle.getString("JPImportarFatura.jButton2.text")); // NOI18N
 
-        jTextField2.setFont(new java.awt.Font("Catriel", 0, 11)); // NOI18N
+        jTextField2.setFont(new java.awt.Font("Catriel", 0, 11));
 
-        jLabel2.setFont(new java.awt.Font("Cambria", 3, 18)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Cambria", 3, 18));
         jLabel2.setText(bundle.getString("JPImportarFatura.jLabel2.text")); // NOI18N
 
-        jLabel6.setFont(new java.awt.Font("Calibri", 3, 18)); // NOI18N
+        jLabel6.setFont(new java.awt.Font("Calibri", 3, 18));
         jLabel6.setText(bundle.getString("JPImportarFatura.jLabel6.text")); // NOI18N
 
-        jPasswordField3.setFont(new java.awt.Font("Catriel", 0, 11)); // NOI18N
+        jPasswordField3.setFont(new java.awt.Font("Catriel", 0, 11));
 
-        jLabel3.setFont(new java.awt.Font("Calibri", 3, 18)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("Calibri", 3, 18));
         jLabel3.setText(bundle.getString("JPImportarFatura.jLabel3.text")); // NOI18N
 
-        jLabel4.setFont(new java.awt.Font("Calibri", 3, 18)); // NOI18N
+        jLabel4.setFont(new java.awt.Font("Calibri", 3, 18));
         jLabel4.setText(bundle.getString("JPImportarFatura.jLabel4.text")); // NOI18N
 
-        jLabel7.setFont(new java.awt.Font("Calibri", 3, 18)); // NOI18N
+        jLabel7.setFont(new java.awt.Font("Calibri", 3, 18));
         jLabel7.setText(bundle.getString("JPImportarFatura.jLabel7.text")); // NOI18N
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
-        jTextField3.setFont(new java.awt.Font("Catriel", 0, 11)); // NOI18N
+        jTextField3.setFont(new java.awt.Font("Catriel", 0, 11));
 
-        jButton3.setFont(new java.awt.Font("Calibri", 1, 12)); // NOI18N
+        jButton3.setFont(new java.awt.Font("Calibri", 1, 12));
         jButton3.setText(bundle.getString("JPImportarFatura.jButton3.text")); // NOI18N
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -137,15 +137,15 @@ public class JPImportarFatura extends javax.swing.JPanel implements presentation
                 .addContainerGap())
         );
 
-        jLabel5.setFont(new java.awt.Font("Cambria", 3, 18)); // NOI18N
+        jLabel5.setFont(new java.awt.Font("Cambria", 3, 18));
         jLabel5.setText(bundle.getString("JPImportarFatura.jLabel5.text")); // NOI18N
 
-        jLabel10.setFont(new java.awt.Font("Calibri", 3, 18)); // NOI18N
+        jLabel10.setFont(new java.awt.Font("Calibri", 3, 18));
         jLabel10.setText(bundle.getString("JPImportarFatura.jLabel10.text")); // NOI18N
 
         jComboBox2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
-        jButton4.setFont(new java.awt.Font("Calibri", 1, 12)); // NOI18N
+        jButton4.setFont(new java.awt.Font("Calibri", 1, 12));
         jButton4.setText(bundle.getString("JPImportarFatura.jButton4.text")); // NOI18N
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -183,26 +183,19 @@ public class JPImportarFatura extends javax.swing.JPanel implements presentation
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(533, Short.MAX_VALUE)
-                .addComponent(jButton2)
-                .addContainerGap())
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButton2, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jSeparator1, javax.swing.GroupLayout.DEFAULT_SIZE, 586, Short.MAX_VALUE)
+                    .addComponent(jLabel1)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jSeparator1, javax.swing.GroupLayout.DEFAULT_SIZE, 586, Short.MAX_VALUE)
-                        .addContainerGap())
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                        .addContainerGap())))
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

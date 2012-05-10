@@ -2,7 +2,7 @@ package dao.impl.jdbc;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.Date;
+import java.sql.Timestamp;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.Properties;
@@ -32,7 +32,7 @@ public class FaturaTelefonicaJDBCDAO extends GenericJDBCDAO implements IFaturaTe
 			
 			stmt.setInt(1, fatura.getMes());
 			stmt.setInt(2, fatura.getAno());
-			stmt.setDate(3, new Date(fatura.getVencimento().getTime().getTime()));
+			stmt.setTimestamp(3, new Timestamp(fatura.getVencimento().getTime().getTime()));
 			
 			stmt.executeUpdate();
 		} catch(Exception e) {
@@ -67,7 +67,7 @@ public class FaturaTelefonicaJDBCDAO extends GenericJDBCDAO implements IFaturaTe
 		
 		try {
 			PreparedStatement stmt = this.getConnection().prepareStatement(sql);
-			stmt.setDate(3, new Date(fatura.getVencimento().getTime().getTime()));
+			stmt.setTimestamp(3, new Timestamp(fatura.getVencimento().getTime().getTime()));
 			stmt.executeUpdate();
 		} catch(Exception e) {
 			throw new DAOException(e);
@@ -85,7 +85,7 @@ public class FaturaTelefonicaJDBCDAO extends GenericJDBCDAO implements IFaturaTe
 			int mes = rs.getInt("MES");
 			int ano = rs.getInt("ANO");
 			Calendar cal = new GregorianCalendar();
-			cal.setTime(rs.getDate("VENCIMENTO"));
+			cal.setTime(rs.getTimestamp("VENCIMENTO"));
 			
 			return new FaturaTelefonicaVO(mes, ano, cal);
 		} catch(Exception e) {

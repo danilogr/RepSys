@@ -50,7 +50,7 @@ public class ItemFaturaTelefonica implements IItemFaturaTelefonica {
 	DAOFactory factory = DAOFactory.getInstance();
 	try {
 		IItemFaturaTelefonicaDAO dao = factory.getItemFaturaTelefonicaDAO();
-		return (ItemFaturaTelefonicaVO) dao.selectByNumeroDataHora(numero ,dataHora);
+		return (ItemFaturaTelefonicaVO) dao.selectByNumeroDataHora(numero, dataHora);
             } catch (Exception e) {
 		throw new BusinessException(e);
             }
@@ -64,6 +64,5 @@ public class ItemFaturaTelefonica implements IItemFaturaTelefonica {
 		} catch (Exception e) {
 			throw new BusinessException(e);
 		}
-	} 
-    
+	}
 }
