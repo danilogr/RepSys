@@ -51,7 +51,7 @@ public class UsuarioJDBCDAOTest extends AbstractJDBCDAOTest {
 		UsuarioVO inserted = userDAO.selectByEmail("teste@teste.com");
 		user.setSenha(AeSimpleMd5.md5(senha));
 		
-		Assert.assertTrue(user.equals(inserted));
+		Assert.assertTrue(user.isEquals(inserted));
 	}
 	
 	@Test
@@ -63,7 +63,7 @@ public class UsuarioJDBCDAOTest extends AbstractJDBCDAOTest {
 		userDAO.update(newData);
 		afterUpdate = userDAO.selectByEmail(newData.getEmail());
 		
-		Assert.assertTrue(newData.equals(afterUpdate));
+		Assert.assertTrue(newData.isEquals(afterUpdate));
 	}
 	
 	@Test
@@ -76,7 +76,7 @@ public class UsuarioJDBCDAOTest extends AbstractJDBCDAOTest {
 		userDAO.update(newData, true);
 		afterUpdate = userDAO.selectByEmail(newData.getEmail());
 		newData.setSenha(AeSimpleMd5.md5(senha));
-		Assert.assertTrue(newData.equals(afterUpdate));
+		Assert.assertTrue(newData.isEquals(afterUpdate));
 	}
 	
 	@Test

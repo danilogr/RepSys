@@ -14,6 +14,8 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Enumeration;
+import java.util.ResourceBundle;
 
 /**
  *
@@ -24,6 +26,7 @@ public class JPValorFixo extends javax.swing.JPanel {
     /** Creates new form JPValorFixo */
     public JPValorFixo() {
         initComponents();
+        myInit();
     }
 
     /** This method is called from within the constructor to
@@ -50,16 +53,12 @@ public class JPValorFixo extends javax.swing.JPanel {
         jLabel8.setFont(new java.awt.Font("Calibri", 3, 18)); // NOI18N
         jLabel8.setText(bundle.getString("JPValorFixo.jLabel8.text")); // NOI18N
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Dias", "Meses", "Anos" }));
-
         jTextField1.setText(bundle.getString("JPValorFixo.jTextField1.text")); // NOI18N
 
         jTextField2.setText(bundle.getString("JPValorFixo.jTextField2.text")); // NOI18N
 
         jLabel9.setFont(new java.awt.Font("Calibri", 3, 18)); // NOI18N
         jLabel9.setText(bundle.getString("JPValorFixo.jLabel9.text")); // NOI18N
-
-        jTextField3.setText(bundle.getString("JPValorFixo.jTextField3.text")); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -72,12 +71,12 @@ public class JPValorFixo extends javax.swing.JPanel {
                     .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, 103, Short.MAX_VALUE))
                 .addGap(4, 4, 4)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.DEFAULT_SIZE, 336, Short.MAX_VALUE)
+                    .addComponent(jTextField3, javax.swing.GroupLayout.DEFAULT_SIZE, 239, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(jComboBox1, 0, 259, Short.MAX_VALUE))
-                    .addComponent(jTextField2, javax.swing.GroupLayout.DEFAULT_SIZE, 336, Short.MAX_VALUE)))
+                        .addComponent(jComboBox1, 0, 162, Short.MAX_VALUE))
+                    .addComponent(jTextField2, javax.swing.GroupLayout.DEFAULT_SIZE, 239, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -109,54 +108,51 @@ public class JPValorFixo extends javax.swing.JPanel {
     public String getRecorrencia() throws Exception, NumberFormatException{
         String returnValue="";
         String fieldText = this.jTextField1.getText();
-        try{
-            if(fieldText.equals("")) return null;
-            int fieldInt = Integer.parseInt(fieldText);
-            if(fieldInt <= 0)
-                throw new Exception();
-            int comboBoxIndex = this.jComboBox1.getSelectedIndex();
-            returnValue+=fieldInt;
-            if(comboBoxIndex == 0)
-                returnValue+=" days";
-            else if(comboBoxIndex == 1)
-                returnValue+=" months";
-            else if(comboBoxIndex == 2)
-                returnValue+=" years";
-            return returnValue;
-        }
-        catch(NumberFormatException e){
-            throw e;
-        }        
+        
+        if(fieldText.isEmpty()) return null;
+        
+        int fieldInt = Integer.parseInt(fieldText);
+        if(fieldInt <= 0)
+            throw new Exception();
+        int comboBoxIndex = this.jComboBox1.getSelectedIndex();
+        returnValue+=fieldInt;
+        if(comboBoxIndex == 0)
+            returnValue+=" days";
+        else if(comboBoxIndex == 1)
+            returnValue+=" months";
+        else if(comboBoxIndex == 2)
+            returnValue+=" years";
+        return returnValue;       
     }
     
     public Integer getRepeticoes() throws Exception,NumberFormatException{
         String fieldText = this.jTextField2.getText();
-        try{
-            if(fieldText.equals("")) return null;
-            int fieldInt = Integer.parseInt(fieldText);
-            if(fieldInt <= 0)
-                throw new Exception();
-            return fieldInt;
-            
-        }
-        catch(NumberFormatException e){
-            throw e;
-        }  
+        
+        if(fieldText.isEmpty()) return null;
+        
+        int fieldInt = Integer.parseInt(fieldText);
+        if(fieldInt <= 0)
+            throw new Exception();
+        return fieldInt;
     }
     
     public Calendar getDataInicial() throws ParseException{
         String fieldText = this.jTextField3.getText();
-        if(fieldText.equals("")) return null;
-        try{
-            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-            Date fieldDate = sdf.parse(fieldText);
-            Calendar fieldCal = Calendar.getInstance();
-            fieldCal.setTime(fieldDate);
-            return fieldCal;
-        }
-        catch(ParseException e){
-            throw e;
-        }          
+        
+        if(fieldText.isEmpty()) return null;
+        
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        Date fieldDate = sdf.parse(fieldText);
+        Calendar fieldCal = Calendar.getInstance();
+        fieldCal.setTime(fieldDate);
+        return fieldCal;        
+    }
+
+    private void myInit() {
+        ResourceBundle bundle = ResourceBundle.getBundle("I18n/Bundle");
+        this.jComboBox1.addItem((String)bundle.getString("JPValorFixo.jComboBox1.Item0"));
+        this.jComboBox1.addItem((String)bundle.getString("JPValorFixo.jComboBox1.Item1"));
+        this.jComboBox1.addItem((String)bundle.getString("JPValorFixo.jComboBox1.Item2"));
     }
 
 }

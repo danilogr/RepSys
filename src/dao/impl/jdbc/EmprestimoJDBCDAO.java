@@ -1,9 +1,10 @@
 package dao.impl.jdbc;
 
-import java.sql.Date;
+import java.sql.Timestamp;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.Properties;
@@ -28,10 +29,11 @@ public class EmprestimoJDBCDAO extends GenericJDBCDAO implements IEmprestimoDAO 
 			EmprestimoVO emprestimo = (EmprestimoVO) vo;
 			PreparedStatement stmt = this.getConnection().prepareStatement(sql);
 
-			// Criando um objeto java.sql.Date a partir de um objeto
+			// Criando um objeto java.sql.Timestamp a partir de um objeto
 			// java.util.Calendar
-			Date dt = new Date(emprestimo.getDataHora().getTime().getTime());
-			stmt.setDate(1, dt);
+			Timestamp dt = new Timestamp(emprestimo.getDataHora().getTime()
+					.getTime());
+			stmt.setTimestamp(1, dt);
 			stmt.setDouble(2, emprestimo.getValor());
 			stmt.setString(3, emprestimo.getDescricao());
 			stmt.executeUpdate();
@@ -42,24 +44,8 @@ public class EmprestimoJDBCDAO extends GenericJDBCDAO implements IEmprestimoDAO 
 
 	@Override
 	public void update(ObjectVO vo) throws DAOException {
-		String sql = "UPDATE " + this.getTableName()
-				+ " SET VALOR = ?, DESCRICAO = ? WHERE DATA_HORA = ?";
-		try {
-			EmprestimoVO emprestimo = (EmprestimoVO) vo;
-			PreparedStatement stmt = this.getConnection().prepareStatement(sql);
-
-			stmt.setDouble(1, emprestimo.getValor());
-			stmt.setString(2, emprestimo.getDescricao());
-
-			// Criando um objeto java.sql.Date a partir de um objeto
-			// java.util.Calendar
-			Date dt = new Date(emprestimo.getDataHora().getTime().getTime());
-			stmt.setDate(3, dt);
-
-			stmt.executeUpdate();
-		} catch (Exception e) {
-			throw new DAOException(e);
-		}
+		throw new DAOException(
+				"Não é permitido atualizar empréstimos. Apague este e crie um novo!");
 	}
 
 	@Override
@@ -71,10 +57,11 @@ public class EmprestimoJDBCDAO extends GenericJDBCDAO implements IEmprestimoDAO 
 			EmprestimoVO emprestimo = (EmprestimoVO) vo;
 			PreparedStatement stmt = this.getConnection().prepareStatement(sql);
 
-			// Criando um objeto java.sql.Date a partir de um objeto
+			// Criando um objeto java.sql.Timestamp a partir de um objeto
 			// java.util.Calendar
-			Date dt = new Date(emprestimo.getDataHora().getTime().getTime());
-			stmt.setDate(1, dt);
+			Timestamp dt = new Timestamp(emprestimo.getDataHora().getTime()
+					.getTime());
+			stmt.setTimestamp(1, dt);
 
 			stmt.executeUpdate();
 		} catch (Exception e) {
@@ -90,7 +77,7 @@ public class EmprestimoJDBCDAO extends GenericJDBCDAO implements IEmprestimoDAO 
 	@Override
 	protected ObjectVO createVO(ResultSet rs) throws DAOException {
 		try {
-			Date dt = rs.getDate("DATA_HORA");
+			Timestamp dt = rs.getTimestamp("DATA_HORA");
 			double valor = rs.getDouble("VALOR");
 			String desc = rs.getString("DESCRICAO");
 
@@ -108,13 +95,12 @@ public class EmprestimoJDBCDAO extends GenericJDBCDAO implements IEmprestimoDAO 
 		String sql = "SELECT * FROM " + this.getTableName()
 				+ " WHERE data_hora = ?";
 		try {
-			Date dt = new Date(date.getTime().getTime());
+			Timestamp dt = new Timestamp(date.getTime().getTime());
 			PreparedStatement stmt = this.getConnection().prepareStatement(sql);
-			
-			stmt.setDate(1, dt);
-			
+
+			stmt.setTimestamp(1, dt);
 			ResultSet rs = stmt.executeQuery();
-			if(rs.next()) {
+			if (rs.next()) {
 				return (EmprestimoVO) createVO(rs);
 			}
 		} catch (Exception e) {

@@ -35,18 +35,15 @@ public class JDBCDAOFactory extends DAOFactory {
         
 	//TODO: acertas estes métodos após implementar os DAOS
     public IFaturaTelefonicaDAO getFaturaTelefonicaDAO() throws DAOException {
-        //return new FaturaTelefonicaJDBCDAO(this.properties);
-    	return null;
+        return new FaturaTelefonicaJDBCDAO(this.properties);
 	}
 
 	public IItemFaturaTelefonicaDAO getItemFaturaTelefonicaDAO() throws DAOException {
-		//return new ItemFaturaTelefonicaJDBCDAO(this.properties);
-		return null;
+		return new ItemFaturaTelefonicaJDBCDAO(this.properties);
 	}
 
 	public INumeroTelefonicoDAO getNumeroTelefonicoDAO() throws DAOException {
-		//return new NumeroTelefonicoJDBCDAO(this.properties);
-		return null;
+		return new NumeroTelefonicoJDBCDAO(this.properties);
 	}
 
 	@Override
@@ -64,14 +61,14 @@ public class JDBCDAOFactory extends DAOFactory {
 	@Override
 	public IContaValorFixoDAO getContaValorFixoDAO() throws DAOException {
 		// TODO Auto-generated method stub
-		return null;
+		return new ContaValorFixoJDBCDAO(this.properties);
 	}
 
 	@Override
 	public IContaValorVariavelDAO getContaValorVariavelDAO()
 			throws DAOException {
 		// TODO Auto-generated method stub
-		return null;
+		return new ContaValorVariavelJDBCDAO(this.properties);
 	}
 
 	@Override

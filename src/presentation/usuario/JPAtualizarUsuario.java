@@ -10,15 +10,33 @@
  */
 package presentation.usuario;
 
+import business.BusinessException;
+import business.BusinessFactory;
+import business.spec.IUsuario;
+import java.awt.Color;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import presentation.desktop.MainWindow;
+import vo.UsuarioVO;
+
 /**
  *
  * @author Endril
  */
 public class JPAtualizarUsuario extends javax.swing.JPanel implements presentation.lib.ReturnEvent {
-
+    private UsuarioVO qual;
+    private String nome;
+    private String email;
+    private String senhaAntiga;
+    private String senhaNova;
+    private boolean senhaNovaOK = false;
+    private boolean senhaAntigaOK = false;
+    
     /** Creates new form JPAtualizarUsuario */
-    public JPAtualizarUsuario() {
+    public JPAtualizarUsuario(UsuarioVO qual) {
+        this.qual = qual;
         initComponents();
+        preencheCampos();
     }
 
     /** This method is called from within the constructor to
@@ -46,12 +64,15 @@ public class JPAtualizarUsuario extends javax.swing.JPanel implements presentati
         jPasswordField2 = new javax.swing.JPasswordField();
         jPasswordField1 = new javax.swing.JPasswordField();
         jPasswordField3 = new javax.swing.JPasswordField();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
 
-        jLabel1.setFont(new java.awt.Font("Cambria", 1, 30)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Cambria", 1, 30));
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("I18n/Bundle"); // NOI18N
         jLabel1.setText(bundle.getString("JPAtualizarUsuario.jLabel1.text_1")); // NOI18N
 
-        jButton1.setFont(new java.awt.Font("Calibri", 1, 12));
+        jButton1.setFont(new java.awt.Font("Calibri", 1, 12)); // NOI18N
         jButton1.setText(bundle.getString("JPAtualizarUsuario.jButton1.text_1")); // NOI18N
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -59,7 +80,7 @@ public class JPAtualizarUsuario extends javax.swing.JPanel implements presentati
             }
         });
 
-        jButton2.setFont(new java.awt.Font("Calibri", 1, 12));
+        jButton2.setFont(new java.awt.Font("Calibri", 1, 12)); // NOI18N
         jButton2.setText(bundle.getString("JPAtualizarUsuario.jButton2.text_1")); // NOI18N
 
         jLabel2.setFont(new java.awt.Font("Calibri", 3, 18));
@@ -113,10 +134,20 @@ public class JPAtualizarUsuario extends javax.swing.JPanel implements presentati
         jLabel5.setText(bundle.getString("JPAtualizarUsuario.jLabel5.text_1")); // NOI18N
 
         jPasswordField2.setFont(new java.awt.Font("Catriel", 0, 11)); // NOI18N
+        jPasswordField2.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jPasswordField2FocusLost(evt);
+            }
+        });
 
         jPasswordField1.setFont(new java.awt.Font("Catriel", 0, 11)); // NOI18N
 
         jPasswordField3.setFont(new java.awt.Font("Catriel", 0, 11)); // NOI18N
+        jPasswordField3.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jPasswordField3FocusLost(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -150,6 +181,18 @@ public class JPAtualizarUsuario extends javax.swing.JPanel implements presentati
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        jLabel7.setForeground(new java.awt.Color(255, 0, 0));
+        jLabel7.setText(bundle.getString("JPAtualizarUsuario.jLabel7.text")); // NOI18N
+        jLabel6.setVisible(false);
+
+        jLabel8.setForeground(new java.awt.Color(255, 0, 0));
+        jLabel8.setText(bundle.getString("JPAtualizarUsuario.jLabel8.text")); // NOI18N
+        jLabel6.setVisible(false);
+
+        jLabel9.setForeground(new java.awt.Color(255, 0, 0));
+        jLabel9.setText(bundle.getString("JPAtualizarUsuario.jLabel9.text")); // NOI18N
+        jLabel6.setVisible(false);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -163,9 +206,18 @@ public class JPAtualizarUsuario extends javax.swing.JPanel implements presentati
                     .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jButton1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 240, Short.MAX_VALUE)
+                        .addGap(10, 10, 10)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, 226, Short.MAX_VALUE)
+                            .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, 226, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton2)))
                 .addContainerGap())
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                    .addGap(107, 107, 107)
+                    .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, 226, Short.MAX_VALUE)
+                    .addGap(67, 67, 67)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -179,10 +231,19 @@ public class JPAtualizarUsuario extends javax.swing.JPanel implements presentati
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton2)
-                    .addComponent(jButton1))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jButton1)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel7)
+                        .addGap(2, 2, 2)
+                        .addComponent(jLabel8))
+                    .addComponent(jButton2))
                 .addContainerGap())
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                    .addContainerGap(242, Short.MAX_VALUE)
+                    .addComponent(jLabel9)
+                    .addGap(17, 17, 17)))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -191,8 +252,38 @@ private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
 }//GEN-LAST:event_jTextField1ActionPerformed
 
 private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-// TODO add your handling code here:
+    parseFormAndUpdate();
 }//GEN-LAST:event_jButton1ActionPerformed
+
+private void jPasswordField2FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jPasswordField2FocusLost
+    if (jPasswordField2.getPassword().length > 0) {
+        if (String.copyValueOf(jPasswordField2.getPassword()).equals(String.copyValueOf(jPasswordField1.getPassword()))) {
+            senhaNovaOK = true;
+            jPasswordField2.setBackground(Color.white);
+        } else {
+            senhaNovaOK = false;
+            jPasswordField2.setBackground(Color.red);
+        }
+        jLabel7.setVisible(!senhaNovaOK);
+    }   
+}//GEN-LAST:event_jPasswordField2FocusLost
+
+private void jPasswordField3FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jPasswordField3FocusLost
+    if(jPasswordField3.getPassword().length > 0) {
+        UsuarioVO userVO = new UsuarioVO(email, senhaAntiga);
+        IUsuario user = BusinessFactory.getInstance().getUsuario();
+        try {
+            senhaAntigaOK = user.authenticate(userVO);
+        } catch (Exception e) {
+            senhaAntigaOK = false;
+        }
+        if (senhaAntigaOK)
+            jPasswordField3.setBackground(Color.white);
+        else
+            jPasswordField3.setBackground(Color.red);
+    }
+    jLabel9.setVisible(!senhaAntigaOK);
+}//GEN-LAST:event_jPasswordField3FocusLost
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
@@ -203,6 +294,9 @@ private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPasswordField jPasswordField1;
@@ -212,8 +306,68 @@ private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
     // End of variables declaration//GEN-END:variables
-
+    
+    
     public void onReturnFromOtherWindow(Object returnedObject) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
+
+    private void preencheCampos() {
+        this.jTextField1.setText(this.qual.getNome());
+        this.jTextField2.setText(this.qual.getEmail());
+    }
+
+    private void parseFormAndUpdate() {
+        this.nome = this.jTextField1.getText();
+        this.email = this.jTextField2.getText();
+        this.senhaAntiga = String.copyValueOf(this.jPasswordField3.getPassword());
+        this.senhaNova = String.copyValueOf(this.jPasswordField1.getPassword());
+        
+        boolean ok = true;
+
+        if (String.copyValueOf(jPasswordField2.getPassword()).isEmpty()) {
+            jPasswordField2.setBackground(Color.red);
+            jPasswordField2.grabFocus();
+            ok = false;
+        }
+        
+        if (senhaAntiga.isEmpty()) {
+            jPasswordField3.setBackground(Color.red);
+            jPasswordField3.grabFocus();
+            ok = false;
+        }
+
+        if (senhaNova.isEmpty()) {
+            jPasswordField1.setBackground(Color.red);
+            jPasswordField1.grabFocus();
+            ok = false;
+        }
+
+        if (email.isEmpty()) {
+            jTextField2.setBackground(Color.red);
+            jTextField2.grabFocus();
+            ok = false;
+        }
+
+        if (nome.isEmpty()) {
+            jTextField1.setBackground(Color.red);
+            jTextField1.grabFocus();
+            ok = false;
+        }
+
+        jLabel8.setVisible(!ok);
+
+        if (ok && senhaAntigaOK && senhaNovaOK) {
+            BusinessFactory factory = BusinessFactory.getInstance();
+            UsuarioVO user = new UsuarioVO(nome,email,senhaNova); 
+            try {
+                factory.getUsuario().update(user);
+                MainWindow.getInstance().closeCurrentCard();
+            } catch (BusinessException ex) {
+                Logger.getLogger(JPCadastrarUsuario.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+
+
+        }
 }
