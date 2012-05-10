@@ -19,6 +19,7 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.table.DefaultTableModel;
 import presentation.usuario.JPCadastrarUsuario;
 import vo.NumeroTelefonicoVO;
 import vo.UsuarioNumeroTelefonicoVO;
@@ -36,11 +37,10 @@ public class JPCadastrarNumeroTelefonico extends javax.swing.JPanel implements p
         // Carrega usuários
         try {
             List<UsuarioVO> usuarios = BusinessFactory.getInstance().getUsuario().getAll();
+            DefaultTableModel model = (DefaultTableModel) jTableResponsaveis.getModel();
             int i = 0;
             for (UsuarioVO usuario:usuarios) {
-                jTableResponsaveis.setValueAt(false,i++,0);
-                jTableResponsaveis.setValueAt(usuario.getNome(),i++,1);
-                jTableResponsaveis.setValueAt(usuario.getEmail(),i++,2);
+                model.insertRow(i, new Object[]{false,usuario.getNome(),usuario.getEmail()});
             }
         } catch (BusinessException ex) {
             Logger.getLogger(JPCadastrarNumeroTelefonico.class.getName()).log(Level.SEVERE, null, ex);
@@ -130,11 +130,15 @@ public class JPCadastrarNumeroTelefonico extends javax.swing.JPanel implements p
                 return canEdit [columnIndex];
             }
         });
+        jTableResponsaveis.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(jTableResponsaveis);
         jTableResponsaveis.getColumnModel().getColumn(0).setResizable(false);
         jTableResponsaveis.getColumnModel().getColumn(0).setPreferredWidth(15);
+        jTableResponsaveis.getColumnModel().getColumn(0).setHeaderValue(bundle.getString("JPCadastrarNumeroTelefonico.jTableResponsaveis.columnModel.title0_1")); // NOI18N
         jTableResponsaveis.getColumnModel().getColumn(1).setResizable(false);
+        jTableResponsaveis.getColumnModel().getColumn(1).setHeaderValue(bundle.getString("JPCadastrarNumeroTelefonico.jTableResponsaveis.columnModel.title1_1")); // NOI18N
         jTableResponsaveis.getColumnModel().getColumn(2).setResizable(false);
+        jTableResponsaveis.getColumnModel().getColumn(2).setHeaderValue(bundle.getString("JPCadastrarNumeroTelefonico.jTableResponsaveis.columnModel.title2_1")); // NOI18N
 
         jLabelData.setFont(new java.awt.Font("Calibri", 1, 18));
         jLabelData.setText(bundle.getString("JPCadastrarNumeroTelefonico.jLabelData.text")); // NOI18N
@@ -302,7 +306,7 @@ private void jToggleButtonConfirmarActionPerformed(java.awt.event.ActionEvent ev
             }
             // --- Inserção na tabela Usuario_NumeroTelefonico ---
             // Data e Hora
-            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy hh:mm");
+            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
             Calendar data_hora = Calendar.getInstance();
             try {
                 data_hora.setTime(sdf.parse(data+" "+hora));
