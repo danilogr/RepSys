@@ -6,6 +6,7 @@ package business.spec;
 import java.util.List;
 import vo.NumeroTelefonicoVO;
 import business.BusinessException;
+import vo.UsuarioNumeroTelefonicoVO;
 
 public interface INumeroTelefonico {
 
@@ -15,7 +16,7 @@ public interface INumeroTelefonico {
 
 	void update(NumeroTelefonicoVO vo) throws BusinessException;
         
-        void addUsuarios(NumeroTelefonicoVO vo, List usuarios) throws BusinessException;
+        void addLigacao(UsuarioNumeroTelefonicoVO ligacao) throws BusinessException;
 
 	NumeroTelefonicoVO getNumeroTelefonico(String numero) throws BusinessException;
 

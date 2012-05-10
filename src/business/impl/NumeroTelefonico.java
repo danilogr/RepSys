@@ -8,7 +8,10 @@ import business.BusinessException;
 import business.spec.INumeroTelefonico;
 import dao.DAOFactory;
 import dao.spec.INumeroTelefonicoDAO;
+import dao.spec.IUsuarioNumeroTelefonicoDAO;
 import java.util.List;
+import vo.UsuarioNumeroTelefonicoVO;
+import vo.UsuarioVO;
 
 /**
  * @author Nelson
@@ -46,11 +49,11 @@ public class NumeroTelefonico implements INumeroTelefonico {
 		}
 	}
 
-        public void addUsuarios(NumeroTelefonicoVO vo, List usuarios) throws BusinessException {
+        public void addLigacao(UsuarioNumeroTelefonicoVO ligacao) throws BusinessException {
             DAOFactory factory = DAOFactory.getInstance();
             try {
-                INumeroTelefonicoDAO dao = factory.getNumeroTelefonicoDAO();
-                dao
+                IUsuarioNumeroTelefonicoDAO dao = factory.getUsuarioNumeroTelefonicoDAO();
+                dao.insert(ligacao);
             } catch (DAOException ex) {
                 Logger.getLogger(NumeroTelefonico.class.getName()).log(Level.SEVERE, null, ex);
             }
