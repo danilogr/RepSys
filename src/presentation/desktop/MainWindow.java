@@ -346,7 +346,12 @@ public class MainWindow extends javax.swing.JFrame {
         treeNode2.add(treeNode3);
         treeNode1.add(treeNode2);
         jTree1.setModel(new javax.swing.tree.DefaultTreeModel(treeNode1));
+        jTree1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jTree1.setInheritsPopupMenu(true);
         jTree1.setName("jTree1"); // NOI18N
+        jTree1.setRequestFocusEnabled(false);
+        jTree1.setRootVisible(false);
+        jTree1.setToggleClickCount(1);
         jScrollPane1.setViewportView(jTree1);
 
         javax.swing.GroupLayout jPanelMenuLayout = new javax.swing.GroupLayout(jPanelMenu);
