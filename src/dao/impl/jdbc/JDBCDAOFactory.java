@@ -80,7 +80,7 @@ public class JDBCDAOFactory extends DAOFactory {
 		return new ContaUsuarioDevedorJDBCDAO(this.properties);
 	}
 	
-	public IUsuarioNumeroTelefonicoDAO getUsuarioNumeroTelefoneDAO() throws DAOException {
+	public IUsuarioNumeroTelefonicoDAO getUsuarioNumeroTelefonicoDAO() throws DAOException {
 		return new UsuarioNumeroTelefonicoJDBCDAO(this.properties);
 	}
 }
