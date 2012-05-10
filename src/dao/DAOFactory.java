@@ -11,6 +11,7 @@ import dao.spec.IFaturaTelefonicaDAO;
 import dao.spec.IItemFaturaTelefonicaDAO;
 import dao.spec.INumeroTelefonicoDAO;
 import dao.spec.IUsuarioDAO;
+import dao.spec.IUsuarioNumeroTelefonicoDAO;
 
 abstract public class DAOFactory {
 
@@ -33,6 +34,8 @@ abstract public class DAOFactory {
 	public abstract IContaDAO getContaDAO() throws DAOException;
 	
 	public abstract IContaUsuarioDevedorDAO getContaUsuarioDevedorDAO() throws DAOException;
+	
+	public abstract IUsuarioNumeroTelefonicoDAO getUsuarioNumeroTelefonicoDAO() throws DAOException;
 
 	public abstract IContaValorFixoDAO getContaValorFixoDAO()
 			throws DAOException;

@@ -64,7 +64,7 @@ public class Conta implements IConta {
 		DAOFactory factory = DAOFactory.getInstance();
 		try {
 			IContaDAO dao = factory.getContaDAO();
-			return (ContaVO) dao.selectByName(name);
+			return (ContaVO) dao.selectByNome(name);
 		} catch (Exception e) {
 			throw new BusinessException(e);
 		}

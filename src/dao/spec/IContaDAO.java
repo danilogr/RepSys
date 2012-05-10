@@ -10,6 +10,6 @@ public interface IContaDAO extends IGenericDAO {
 
 	public List selectByUsuario(String email) throws DAOException, VOException;
 
-	public ContaVO selectByName(String conta) throws DAOException, VOException;
+	public ContaVO selectByNome(String conta) throws DAOException, VOException;
 
 }
