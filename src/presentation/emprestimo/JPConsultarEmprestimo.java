@@ -14,12 +14,18 @@ import business.BusinessException;
 import business.BusinessFactory;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumnModel;
 import presentation.desktop.MainWindow;
+import util.NumberRenderer;
 import vo.EmprestimoVO;
+import vo.UsuarioVO;
 
 /**
  *
@@ -31,18 +37,10 @@ public class JPConsultarEmprestimo extends javax.swing.JPanel implements present
     /** Creates new form JPConsultarEmprestimo */
     public JPConsultarEmprestimo() {
         initComponents();
-        try {
-              emprestimos = BusinessFactory.getInstance().getEmprestimo().getAll();
-            int counter = 0;
-            DefaultTableModel model =(DefaultTableModel) jTable2.getModel();
-            for (EmprestimoVO emprestimo:emprestimos) {
-                DateFormat df = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
-                model.insertRow(counter, new Object[]{df.format(emprestimo.getDataHora().getTime()),emprestimo.getDescricao(),emprestimo.getValor()});
-                counter++;
-                }
-        } catch (BusinessException ex) {
-            Logger.getLogger(JPConsultarEmprestimo.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        TableColumnModel m = jTable2.getColumnModel();
+        m.getColumn(4).setCellRenderer(NumberRenderer.getCurrencyRenderer());
+        m.getColumn(4).setMaxWidth(100);
+        this.populaTabela();
               
     }
 
@@ -74,21 +72,43 @@ public class JPConsultarEmprestimo extends javax.swing.JPanel implements present
             }
         });
 
-        jTable2.setFont(new java.awt.Font("Calibri", 0, 12));
+        jTable2.setFont(new java.awt.Font("Calibri", 0, 12)); // NOI18N
         jTable2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Data do Empréstimo", "Descrição", "Valor"
+                "Credor", "Devedor", "Data do Empréstimo", "Descrição", "Valor"
             }
-        ));
-        jScrollPane3.setViewportView(jTable2);
-        jTable2.getColumnModel().getColumn(0).setHeaderValue(bundle.getString("JPConsultarEmprestimo.jTable2.columnModel.title1")); // NOI18N
-        jTable2.getColumnModel().getColumn(1).setHeaderValue(bundle.getString("JPConsultarEmprestimo.jTable2.columnModel.title2")); // NOI18N
-        jTable2.getColumnModel().getColumn(2).setHeaderValue(bundle.getString("JPConsultarEmprestimo.jTable2.columnModel.title2_1")); // NOI18N
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Float.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false
+            };
 
-        jButton3.setFont(new java.awt.Font("Calibri", 1, 12));
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jTable2.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_NEXT_COLUMN);
+        jTable2.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        jTable2.getTableHeader().setReorderingAllowed(false);
+        jScrollPane3.setViewportView(jTable2);
+        jTable2.getColumnModel().getColumn(0).setHeaderValue(bundle.getString("JPConsultarEmprestimo.jTable2.columnModel.title3")); // NOI18N
+        jTable2.getColumnModel().getColumn(1).setHeaderValue(bundle.getString("JPConsultarEmprestimo.jTable2.columnModel.title4")); // NOI18N
+        jTable2.getColumnModel().getColumn(2).setHeaderValue(bundle.getString("JPConsultarEmprestimo.jTable2.columnModel.title1")); // NOI18N
+        jTable2.getColumnModel().getColumn(3).setHeaderValue(bundle.getString("JPConsultarEmprestimo.jTable2.columnModel.title2")); // NOI18N
+        jTable2.getColumnModel().getColumn(4).setResizable(false);
+        jTable2.getColumnModel().getColumn(4).setPreferredWidth(70);
+        jTable2.getColumnModel().getColumn(4).setHeaderValue(bundle.getString("JPConsultarEmprestimo.jTable2.columnModel.title2_1")); // NOI18N
+
+        jButton3.setFont(new java.awt.Font("Calibri", 1, 12)); // NOI18N
         jButton3.setText(bundle.getString("JPConsultarEmprestimo.jButton3.text")); // NOI18N
         jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -108,7 +128,7 @@ public class JPConsultarEmprestimo extends javax.swing.JPanel implements present
                     .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jButton3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 477, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 479, Short.MAX_VALUE)
                         .addComponent(jButton2)))
                 .addContainerGap())
         );
@@ -134,14 +154,19 @@ public class JPConsultarEmprestimo extends javax.swing.JPanel implements present
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-      EmprestimoVO selecionado = emprestimos.get((this.jTable2.getSelectedRow()));
-        BusinessFactory factory = BusinessFactory.getInstance();
-        try{
-            factory.getEmprestimo().delete(selecionado);
-            MainWindow.getInstance().closeCurrentCard();
-        }
-        catch(BusinessException e){
-            
+        if(jTable2.getSelectedRow() >= 0){
+            ResourceBundle bundle = ResourceBundle.getBundle("I18n/Bundle");
+            if(JOptionPane.YES_OPTION == JOptionPane.showConfirmDialog(this, bundle.getString("JPConsultarEmprestimo.Messages.ConfirmaRemocaoLn1")+"\n"+bundle.getString("JPConsultarEmprestimo.Messages.ConfirmaRemocaoLn2"), bundle.getString("JPUsuariosCadastrados.Messages.ConfirmaRemocaoTitle"), JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE)){
+                EmprestimoVO selecionado = emprestimos.get((this.jTable2.getSelectedRow()));
+                BusinessFactory factory = BusinessFactory.getInstance();
+                try{
+                    factory.getEmprestimo().delete(selecionado);
+                }
+                catch(BusinessException e){
+
+                }
+                this.repopulaTabela();
+            }
         }
     }//GEN-LAST:event_jButton3ActionPerformed
 
@@ -157,4 +182,33 @@ public class JPConsultarEmprestimo extends javax.swing.JPanel implements present
     public void onReturnFromOtherWindow(Object returnedObject) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
+
+    private void repopulaTabela() {
+        ((DefaultTableModel)jTable2.getModel()).setRowCount(0);
+        this.populaTabela();
+    }
+
+    private void populaTabela() {
+        int counter = 0;
+        try {
+            List<ArrayList> emprestimosComUsers = BusinessFactory.getInstance().getEmprestimo().getAllWithUsers();
+            DefaultTableModel model =(DefaultTableModel) jTable2.getModel();
+            emprestimos = new ArrayList<EmprestimoVO>();
+            for (ArrayList listElement:emprestimosComUsers) {
+                EmprestimoVO emprestimo = (EmprestimoVO) listElement.get(0);
+                emprestimos.add(emprestimo);
+                UsuarioVO usuarioCredor = (UsuarioVO) listElement.get(1);
+                UsuarioVO usuarioDevedor = (UsuarioVO) listElement.get(2);
+
+                DateFormat df = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+                model.insertRow(counter,new Object[]{usuarioCredor.getNome(), usuarioDevedor.getNome(), df.format(emprestimo.getDataHora().getTime()),emprestimo.getDescricao(),emprestimo.getValor()});
+                counter++;
+            }
+            jTable2.changeSelection(0, 0, false, false);
+        } catch (BusinessException ex) {
+            Logger.getLogger(JPConsultarEmprestimo.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    
 }

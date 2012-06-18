@@ -71,7 +71,7 @@ public class Conta implements IConta {
 		}
 	}
 
-	public List<Object> getAll() throws BusinessException {
+	public List getAll() throws BusinessException {
 		DAOFactory factory = DAOFactory.getInstance();
 		try {
 			IContaDAO dao = factory.getContaDAO();

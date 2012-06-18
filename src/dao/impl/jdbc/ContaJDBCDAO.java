@@ -5,7 +5,6 @@ import java.util.List;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.Properties;
 
 import vo.ContaVO;
@@ -58,10 +57,11 @@ public class ContaJDBCDAO extends GenericJDBCDAO implements IContaDAO {
 	public List<ContaVO> selectByUsuario(String email) throws DAOException, VOException {
 		List<ContaVO> list = new ArrayList<ContaVO>();
 		String sql = "SELECT * FROM " + this.tableName
-				+ " WHERE EMAIL = " + email;
+				+ " WHERE EMAIL = ?";
 		try {
-			Statement stmt = this.getConnection().createStatement();
-			ResultSet rs = stmt.executeQuery(sql);
+			PreparedStatement stmt = this.getConnection().prepareStatement(sql);
+                        stmt.setString(1, email);
+			ResultSet rs = stmt.executeQuery();
 			while(rs.next()) {
 				try {
 					list.add((ContaVO) this.createVO(rs));
@@ -74,6 +74,11 @@ public class ContaJDBCDAO extends GenericJDBCDAO implements IContaDAO {
 		}
 		return list;
 	}
+
+        @Override
+        public List selectAll() throws DAOException, VOException {
+            return super.selectAll();
+        }
 	
 	@Override
 	public ContaVO selectByNome(String nome) throws DAOException, VOException {

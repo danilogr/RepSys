@@ -7,8 +7,6 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.Properties;
 
-import business.impl.NumeroTelefonico;
-
 import util.Configuration;
 import vo.FaturaTelefonicaVO;
 import vo.ItemFaturaTelefonicaVO;

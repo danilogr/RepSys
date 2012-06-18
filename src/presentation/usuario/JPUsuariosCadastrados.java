@@ -14,13 +14,15 @@ import business.BusinessException;
 import business.BusinessFactory;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
-import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumnModel;
 import presentation.desktop.MainWindow;
 import presentation.lib.IMultiModePanel;
+import util.NumberRenderer;
 import vo.UsuarioVO;
 
 /**
@@ -32,6 +34,8 @@ public class JPUsuariosCadastrados extends javax.swing.JPanel implements present
     /** Creates new form JPUsuariosCadastrados */
     public JPUsuariosCadastrados() {
         initComponents();
+        TableColumnModel m = jTable1.getColumnModel();
+        m.getColumn(2).setCellRenderer(NumberRenderer.getCurrencyRenderer());
         populaTabela();
         this.setMode(Mode.NORMAL);
     }
@@ -59,6 +63,7 @@ public class JPUsuariosCadastrados extends javax.swing.JPanel implements present
         buttonRemover = new javax.swing.JButton();
         buttonConfirmarSelecao = new javax.swing.JButton();
         buttonEditar = new javax.swing.JButton();
+        buttonRefresh = new javax.swing.JButton();
 
         jLabel1.setFont(new java.awt.Font("Cambria", 1, 30));
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("I18n/Bundle"); // NOI18N
@@ -72,7 +77,7 @@ public class JPUsuariosCadastrados extends javax.swing.JPanel implements present
             }
         });
 
-        jTable1.setFont(new java.awt.Font("Calibri", 1, 12));
+        jTable1.setFont(new java.awt.Font("Calibri", 0, 12));
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -81,24 +86,23 @@ public class JPUsuariosCadastrados extends javax.swing.JPanel implements present
                 "Usuário", "E-mail", "Saldo"
             }
         ) {
-            Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class
+            boolean[] canEdit = new boolean [] {
+                false, false, false
             };
 
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
             }
         });
-        jTable1.setColumnSelectionAllowed(true);
+        jTable1.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jTable1.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(jTable1);
-        jTable1.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jTable1.getColumnModel().getColumn(0).setHeaderValue(bundle.getString("JPUsuariosCadastrados.jTable1.columnModel.title0")); // NOI18N
         jTable1.getColumnModel().getColumn(1).setHeaderValue(bundle.getString("JPUsuariosCadastrados.jTable1.columnModel.title1")); // NOI18N
         jTable1.getColumnModel().getColumn(2).setHeaderValue(bundle.getString("JPUsuariosCadastrados.jTable1.columnModel.title2")); // NOI18N
 
-        buttonRemover.setFont(new java.awt.Font("Calibri", 1, 12));
-        buttonRemover.setText(bundle.getString("JPUsuariosCadastrados.buttonRemover.text")); // NOI18N
+        buttonRemover.setFont(new java.awt.Font("Calibri", 1, 12)); // NOI18N
+        buttonRemover.setText(bundle.getString("JPConsultarEmprestimo.jButton3.text")); // NOI18N
         buttonRemover.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonRemoverActionPerformed(evt);
@@ -121,6 +125,13 @@ public class JPUsuariosCadastrados extends javax.swing.JPanel implements present
             }
         });
 
+        buttonRefresh.setIcon(new javax.swing.ImageIcon(getClass().getResource("/presentation/resources/refresh.png"))); // NOI18N
+        buttonRefresh.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonRefreshActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -133,11 +144,13 @@ public class JPUsuariosCadastrados extends javax.swing.JPanel implements present
                     .addComponent(jLabel1)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(buttonRemover)
-                        .addGap(18, 18, 18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(buttonEditar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 186, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 104, Short.MAX_VALUE)
+                        .addComponent(buttonRefresh, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(buttonConfirmarSelecao)
-                        .addGap(18, 18, 18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(buttonVoltar)))
                 .addContainerGap())
         );
@@ -150,11 +163,15 @@ public class JPUsuariosCadastrados extends javax.swing.JPanel implements present
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 274, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(31, 31, 31)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(buttonVoltar)
-                    .addComponent(buttonRemover)
-                    .addComponent(buttonConfirmarSelecao)
-                    .addComponent(buttonEditar))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(buttonVoltar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(buttonConfirmarSelecao, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(buttonRemover, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(buttonEditar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addComponent(buttonRefresh))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -163,7 +180,17 @@ private void buttonRemoverActionPerformed(java.awt.event.ActionEvent evt) {//GEN
 // TODO add your handling code here:
     if(this.mode == Mode.NORMAL){
         try{
-            this.chamarRemocao();
+            if(jTable1.getSelectedRow() >= 0){
+                ResourceBundle bundle = ResourceBundle.getBundle("I18n/Bundle");
+                if(MainWindow.getInstance().getUsuarioLogado().getEmail().equals(usuarios.get(jTable1.getSelectedRow()).getEmail()))
+                    JOptionPane.showMessageDialog(this, bundle.getString("JPUsuariosCadastrados.Messages.ErroUsuarioLogado"), bundle.getString("JPUsuariosCadastrados.Messages.ErroUsuarioLogadoTitle"), JOptionPane.WARNING_MESSAGE);
+                else{
+                    if(JOptionPane.YES_OPTION == JOptionPane.showConfirmDialog(this, bundle.getString("JPUsuariosCadastrados.Messages.ConfirmaRemocaoLn1")+"\n"+bundle.getString("JPUsuariosCadastrados.Messages.ConfirmaRemocaoLn2"), bundle.getString("JPUsuariosCadastrados.Messages.ConfirmaRemocaoTitle"), JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE)){
+                        this.chamarRemocao();
+                        this.repopula();
+                    }
+                }
+            }
         }
         catch(BusinessException e){
             JOptionPane.showMessageDialog(this, "erro:"+e.toString());
@@ -172,25 +199,27 @@ private void buttonRemoverActionPerformed(java.awt.event.ActionEvent evt) {//GEN
 }//GEN-LAST:event_buttonRemoverActionPerformed
 
 private void buttonConfirmarSelecaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonConfirmarSelecaoActionPerformed
-// TODO add your handling code here:
     if(this.mode == Mode.SELECIONAVEL)
         this.retornarUsuarioSelecionado();
 }//GEN-LAST:event_buttonConfirmarSelecaoActionPerformed
 
 private void buttonVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonVoltarActionPerformed
-// TODO add your handling code here:
     MainWindow.getInstance().closeCurrentCard();
 }//GEN-LAST:event_buttonVoltarActionPerformed
 
 private void buttonEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonEditarActionPerformed
-// TODO add your handling code here:
     if(this.mode == Mode.NORMAL)
         this.chamarEdicao();
 }//GEN-LAST:event_buttonEditarActionPerformed
 
+private void buttonRefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonRefreshActionPerformed
+    this.repopula();
+}//GEN-LAST:event_buttonRefreshActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonConfirmarSelecao;
     private javax.swing.JButton buttonEditar;
+    private javax.swing.JButton buttonRefresh;
     private javax.swing.JButton buttonRemover;
     private javax.swing.JButton buttonVoltar;
     private javax.swing.JLabel jLabel1;
@@ -215,43 +244,45 @@ private void buttonEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-
         
         switch (this.mode){
             case NORMAL:
-                this.buttonEditar.setEnabled(true);
-                this.buttonRemover.setEnabled(true);
-                this.jTable1.setRowSelectionAllowed(false);
-                this.jTable1.setColumnSelectionAllowed(false);
-                this.jTable1.setCellSelectionEnabled(false);
+                this.buttonEditar.setVisible(true);
+                this.buttonRemover.setVisible(true);
+                this.buttonConfirmarSelecao.setVisible(false);
+                this.buttonRefresh.setVisible(false);
                 break;
             case SELECIONAVEL:
-                this.buttonEditar.setEnabled(false);
-                this.buttonRemover.setEnabled(false);
-                this.jTable1.setRowSelectionAllowed(true);
-                this.jTable1.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-                this.jTable1.setColumnSelectionAllowed(false);
-                this.jTable1.setCellSelectionEnabled(false);
+                this.buttonEditar.setVisible(false);
+                this.buttonRemover.setVisible(false);
+                this.buttonConfirmarSelecao.setVisible(true);
+                this.buttonRefresh.setVisible(true);
                 break;
         }
     }
     
     private void retornarUsuarioSelecionado(){
-        MainWindow.getInstance().closeCurrentCard(usuarios.get((this.jTable1.getSelectedRow())));
+        if(jTable1.getSelectedRow() >= 0)
+            MainWindow.getInstance().closeCurrentCard(usuarios.get((this.jTable1.getSelectedRow())));
     }
 
     private void chamarEdicao() {
-        MainWindow.getInstance().showCard(this, new JPAtualizarUsuario(usuarios.get((this.jTable1.getSelectedRow()))));
+        if(jTable1.getSelectedRow() >= 0)
+            MainWindow.getInstance().showCard(this, new JPAtualizarUsuario(usuarios.get((this.jTable1.getSelectedRow()))));
     }
 
     private void chamarRemocao() throws BusinessException {
-        UsuarioVO selecionado = usuarios.get((this.jTable1.getSelectedRow()));
-        BusinessFactory factory = BusinessFactory.getInstance();
-        try{
-            factory.getUsuario().delete(selecionado.getEmail());
-        }
-        catch(BusinessException e){
-            throw e;
+        if(jTable1.getSelectedRow() >= 0){
+            UsuarioVO selecionado = usuarios.get((this.jTable1.getSelectedRow()));
+            BusinessFactory factory = BusinessFactory.getInstance();
+            try{
+                factory.getUsuario().delete(selecionado.getEmail());
+            }
+            catch(BusinessException e){
+                throw e;
+            }
         }
     }
 
     private void populaTabela(){
+                
         usuarios = new ArrayList<UsuarioVO>();
         BusinessFactory factory = BusinessFactory.getInstance();
         
@@ -274,5 +305,11 @@ private void buttonEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-
             model.insertRow(counter, new Object[]{usuario.getNome(),usuario.getEmail(),fn});
             counter++;
         }
+        jTable1.changeSelection(0, 0, false, false);
+    }
+
+    private void repopula() {
+        ((DefaultTableModel)jTable1.getModel()).setRowCount(0);
+        this.populaTabela();
     }
 }

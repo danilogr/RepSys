@@ -1,7 +1,5 @@
 package vo;
 
-import java.text.SimpleDateFormat;
-
 /**
  * @author Henrique Barcelos
  */

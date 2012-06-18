@@ -7,7 +7,6 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.Properties;
 
-import vo.EmprestimoVO;
 import vo.FaturaTelefonicaVO;
 import vo.ObjectVO;
 import vo.VOException;
