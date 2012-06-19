@@ -1,6 +1,8 @@
 package dao.impl.jdbc;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.List;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -38,7 +40,7 @@ public class ContaJDBCDAO extends GenericJDBCDAO implements IContaDAO {
 			throw new DAOException(e);
 		}
 	}
-
+	
 	public void insert(ObjectVO vo) throws DAOException {
 		String sql = "INSERT INTO " + this.tableName
 				+ " (NOME, VALOR, EMAIL, DESCRICAO) VALUES (?,?,?,?)";
@@ -50,6 +52,7 @@ public class ContaJDBCDAO extends GenericJDBCDAO implements IContaDAO {
 			stmt.setString(3, conta.getUsuario().getEmail());
 			stmt.setString(4, conta.getDescricao());
 			stmt.executeUpdate();
+			Calendar c = new GregorianCalendar();
 		} catch (SQLException e) {
 			throw new DAOException(e);
 		}
