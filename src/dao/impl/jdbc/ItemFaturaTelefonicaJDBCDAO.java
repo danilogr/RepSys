@@ -64,6 +64,8 @@ public class ItemFaturaTelefonicaJDBCDAO extends GenericJDBCDAO implements
 			stmt.setTimestamp(2, new Timestamp(item.getDataHora().getTime().getTime()));
 			
 			stmt.executeUpdate();
+                        this.commit();
+                        this.close();
 		} catch(Exception e) {
 			throw new DAOException(e);
 		}
@@ -89,6 +91,8 @@ public class ItemFaturaTelefonicaJDBCDAO extends GenericJDBCDAO implements
 			stmt.setTimestamp(6, new Timestamp(item.getDataHora().getTime().getTime()));
 			
 			stmt.executeUpdate();
+                        this.commit();
+                        this.close();
 		} catch(Exception e) {
 			throw new DAOException(e);
 		}
@@ -109,6 +113,9 @@ public class ItemFaturaTelefonicaJDBCDAO extends GenericJDBCDAO implements
 			if(rs.next()) {
 				return (ItemFaturaTelefonicaVO) createVO(rs);
 			}
+                        
+                        this.commit();
+                        this.close();
 		} catch (Exception e) {
 			throw new DAOException(e);
 		}
@@ -137,6 +144,8 @@ public class ItemFaturaTelefonicaJDBCDAO extends GenericJDBCDAO implements
 			
 			NumeroTelefonicoVO numVO = ntDAO.selectByNumero(numero);
 			FaturaTelefonicaVO fatVO = ftDAO.selectByMesAno(mes, ano);
+                        this.commit();
+                        this.close();
 			
 			return new ItemFaturaTelefonicaVO(cal, fatVO, numVO, valor, duracao);
 		} catch (Exception e) {

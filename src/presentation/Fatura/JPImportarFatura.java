@@ -9,6 +9,7 @@ package presentation.Fatura;
 
 import business.BusinessException;
 import business.BusinessFactory;
+import business.impl.ItemFaturaTelefonica;
 import java.awt.event.ItemEvent;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -129,7 +130,7 @@ public class JPImportarFatura extends javax.swing.JPanel implements presentation
         jLabel12.setText(bundle.getString("JPImportarFatura.jLabel12.text")); // NOI18N
 
         jFormattedTextField1.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(new java.text.SimpleDateFormat("dd/MM/yyyy"))));
-        jFormattedTextField1.setText(bundle.getString("JPImportarFatura.jFormattedTextField1.text")); // NOI18N
+        jFormattedTextField1.setToolTipText(bundle.getString("JPImportarFatura.jFormattedTextField1.toolTip")); // NOI18N
 
         jLabel13.setFont(new java.awt.Font("Calibri", 3, 18));
         jLabel13.setText(bundle.getString("JPImportarFatura.jLabel13.text")); // NOI18N
@@ -256,7 +257,13 @@ private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
                 if (this.parseFields()){
                     if(this.isFaturaSelecionada){
                         this.saveFatura();
-                        this.parseFaturaFile();
+                        if(!this.parseFaturaFile()){
+                            try {
+                                BusinessFactory.getInstance().getFaturaTelefonica().delete(fatura.getMes(), fatura.getAno());
+                            } catch (BusinessException ex) {
+                                Logger.getLogger(JPImportarFatura.class.getName()).log(Level.SEVERE, null, ex);
+                            }    
+                        }
                     }
                     else{
                     bundle = ResourceBundle.getBundle("I18n/Bundle");
@@ -279,11 +286,6 @@ private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
                           bundle.getString("JPImportarFatura.Messages.VencimentoIncorreto"), 
                           bundle.getString("JPLogin.Messages.LoginError.Title"),
                           JOptionPane.WARNING_MESSAGE);
-                try {
-                    BusinessFactory.getInstance().getFaturaTelefonica().delete(fatura.getMes(), fatura.getAno());
-                } catch (BusinessException ex1) {
-                    Logger.getLogger(JPImportarFatura.class.getName()).log(Level.SEVERE, null, ex1);
-                }
             }
             
     }
@@ -352,37 +354,69 @@ private void jComboBox1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIR
         }
     }
 
-    private void parseFaturaFile() throws ParseException {
-        try {
-            if(this.isFaturaSelecionada){
-                CSVReader reader = new CSVReader(new FileReader(faturaFile), ',','"', 3);
-                csvParsedList = reader.readAll();
-                for(String[] line : csvParsedList)
-                {
-                    ;                
-                    String numero = line[4].trim();
-                    String data = line[3].substring(0, 6)+"20"+line[3].substring(6, 8);
-                    String hora = line[7].trim();
-                    double valor = Double.parseDouble(line[13].trim());
-                    Double duracaoInt = Double.parseDouble(line[11].trim())*0.06; //numero de segundos
-                    String duracao = duracaoInt.toString()+" seconds";
-                    Calendar dataHora = Calendar.getInstance();
-                    if(!data.equals("99/99/2099"))
-                        dataHora.setTime(new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").parse(data+" "+hora));
-                    else
-                        dataHora.setTime(new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").parse("01/01/0001 00:00:00"));
-                    ItemFaturaTelefonicaVO itemFatura = new ItemFaturaTelefonicaVO(dataHora, fatura, new NumeroTelefonicoVO(numero), valor, duracao); 
+    private boolean parseFaturaFile() throws ParseException {
+        boolean flag=false;
+        if (this.operadoraSelecionada == Operadora.Embratel){
+            flag=true;
+            try {
+                if(this.isFaturaSelecionada){
+                    CSVReader reader = new CSVReader(new FileReader(faturaFile), ',','"', 3);
+                    csvParsedList = reader.readAll();
                     
-                    BusinessFactory.getInstance().getItemFaturaTelefonica().create(itemFatura);
+                    Calendar calendarInexistente = Calendar.getInstance();
+                    calendarInexistente.setTime(new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").parse("01/01/0001 00:00:00"));
+                        
+                    for(String[] line : csvParsedList)
+                    {               
+                        String numero = line[4].trim();
+                        String data = line[3].substring(0, 6)+"20"+line[3].substring(6, 8);
+                        String hora = line[7].trim();
+                        double valor = Double.parseDouble(line[13].trim());
+                        Double duracaoInt = Double.parseDouble(line[11].trim())*0.06; //numero de segundos
+                        String duracao = duracaoInt.toString()+" seconds";
+                        
+                        Calendar dataHora = Calendar.getInstance();
+                        
+                        if(!data.equals("99/99/2099")){
+                            dataHora.setTime(new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").parse(data+" "+hora));
+                        }
+                        else
+                            dataHora = calendarInexistente;
+
+                        ItemFaturaTelefonica temp = (ItemFaturaTelefonica) BusinessFactory.getInstance().getItemFaturaTelefonica();
+                        ItemFaturaTelefonicaVO temp2 = temp.getItemFaturaTelefonica(numero, dataHora);
+                        
+                        if (temp2!=null){ // se ja existe um item com esse numero e data_hora
+                            if(calendarInexistente.compareTo(temp2.getDataHora())!=0){ // se tem uma data_hora valida
+                                flag=false;
+                                break;
+                            } // se a data_hora for invalida, nao faz nada
+                        }
+                        else{ // pode inserir a vontade                   
+                            ItemFaturaTelefonicaVO itemFatura = new ItemFaturaTelefonicaVO(dataHora, fatura, new NumeroTelefonicoVO(numero), valor, duracao); 
+                            temp.create(itemFatura);
+                        }
+                    }
+                    if(!flag){
+                    ResourceBundle bundle = ResourceBundle.getBundle("I18n/Bundle");
+                            JOptionPane.showMessageDialog(this, 
+                            bundle.getString("JPImportarFatura.Messages.ItemJaExistente"), 
+                            bundle.getString("JPLogin.Messages.LoginError.Title"),
+                            JOptionPane.WARNING_MESSAGE);
+                    }
                 }
+            } catch (BusinessException ex) {
+                Logger.getLogger(JPImportarFatura.class.getName()).log(Level.SEVERE, null, ex);
+                return false;
+            } catch (FileNotFoundException ex) {
+                Logger.getLogger(JPImportarFatura.class.getName()).log(Level.SEVERE, null, ex);
+                return false;
+            } catch (IOException ex) {
+                Logger.getLogger(JPImportarFatura.class.getName()).log(Level.SEVERE, null, ex);
+                return false;
             }
-        } catch (BusinessException ex) {
-            Logger.getLogger(JPImportarFatura.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (FileNotFoundException ex) {
-            Logger.getLogger(JPImportarFatura.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IOException ex) {
-            Logger.getLogger(JPImportarFatura.class.getName()).log(Level.SEVERE, null, ex);
         }
+        return flag;
     }
 
     private boolean parseFields() throws ParseException {

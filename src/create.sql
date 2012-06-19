@@ -47,7 +47,7 @@ CREATE TABLE ItemFaturaTelefonica (
 	ano NUMERIC(4),
 	CONSTRAINT IFT_numero_fk FOREIGN KEY (numero) REFERENCES  NumeroTelefonico(numero) ON DELETE CASCADE,
 	CONSTRAINT IFT_mes_ano_fk FOREIGN KEY (mes,ano) REFERENCES FaturaTelefonica(mes,ano) ON DELETE CASCADE,
-	CONSTRAINT IFT_numero_data_hora PRIMARY KEY (numero, data_hora, mes, ano)
+	CONSTRAINT IFT_numero_data_hora PRIMARY KEY (numero, data_hora)
 );
 
 CREATE TABLE Emprestimo (
