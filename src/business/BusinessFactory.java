@@ -2,11 +2,13 @@ package business;
 
 import business.impl.Conta;
 import business.impl.Emprestimo;
+import business.impl.FaturaTelefonica;
 import business.impl.ItemFaturaTelefonica;
 import business.impl.NumeroTelefonico;
 import business.impl.Usuario;
 import business.spec.IConta;
 import business.spec.IEmprestimo;
+import business.spec.IFaturaTelefonica;
 import business.spec.IItemFaturaTelefonica;
 import business.spec.INumeroTelefonico;
 import business.spec.IUsuario;
@@ -37,6 +39,10 @@ public class BusinessFactory {
 		return new NumeroTelefonico();
 	}
 
+        public IFaturaTelefonica getFaturaTelefonica() {
+                return new FaturaTelefonica();
+        }
+        
         public IItemFaturaTelefonica getItemFaturaTelefonica() {
                 return new ItemFaturaTelefonica();
         }

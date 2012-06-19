@@ -15,6 +15,7 @@ import business.BusinessFactory;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -193,7 +194,7 @@ public class JPConsultarEmprestimo extends javax.swing.JPanel implements present
         try {
             List<ArrayList> emprestimosComUsers = BusinessFactory.getInstance().getEmprestimo().getAllWithUsers();
             DefaultTableModel model =(DefaultTableModel) jTable2.getModel();
-            emprestimos = new ArrayList<EmprestimoVO>();
+            emprestimos = new LinkedList<EmprestimoVO>();
             for (ArrayList listElement:emprestimosComUsers) {
                 EmprestimoVO emprestimo = (EmprestimoVO) listElement.get(0);
                 emprestimos.add(emprestimo);

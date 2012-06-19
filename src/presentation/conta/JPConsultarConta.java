@@ -42,13 +42,13 @@ public class JPConsultarConta extends javax.swing.JPanel implements presentation
         this.populaTabela();
     }
 
-    private enum modoBusca {
+    private enum ModoBusca {
 
         POR_USUARIO,
         POR_NOME_CONTA,
         TODAS
     }
-    private modoBusca modoBuscaSelecionado;
+    private ModoBusca modoBuscaSelecionado;
 
     /** Creates new form JPConsultarConta */
     public JPConsultarConta() {
@@ -56,7 +56,7 @@ public class JPConsultarConta extends javax.swing.JPanel implements presentation
         TableColumnModel m = jTable1.getColumnModel();
         m.getColumn(3).setCellRenderer(NumberRenderer.getCurrencyRenderer());
         m.getColumn(3).setMaxWidth(100);
-        modoBuscaSelecionado = modoBusca.POR_USUARIO;
+        modoBuscaSelecionado = ModoBusca.POR_USUARIO;
         refreshButtons();
     }
 
@@ -344,14 +344,14 @@ public class JPConsultarConta extends javax.swing.JPanel implements presentation
 
 private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
     if (!jTextField6.getText().equals("")) {
-        if (this.modoBuscaSelecionado == modoBusca.POR_NOME_CONTA) {
+        if (this.modoBuscaSelecionado == ModoBusca.POR_NOME_CONTA) {
             this.populaTabela();
         }
     }
 }//GEN-LAST:event_jButton4ActionPerformed
 
 private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-    if (this.modoBuscaSelecionado == modoBusca.TODAS) {
+    if (this.modoBuscaSelecionado == ModoBusca.TODAS) {
         this.populaTabela();
     }
 }//GEN-LAST:event_jButton6ActionPerformed
@@ -359,7 +359,7 @@ private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
 private void jRadioButton1StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jRadioButton1StateChanged
     JRadioButton rb = (JRadioButton) evt.getSource();
     if (rb.getModel() == buttonGroup1.getSelection()) {
-        this.modoBuscaSelecionado = modoBusca.POR_USUARIO;
+        this.modoBuscaSelecionado = ModoBusca.POR_USUARIO;
         refreshButtons();
     }
 }//GEN-LAST:event_jRadioButton1StateChanged
@@ -367,7 +367,7 @@ private void jRadioButton1StateChanged(javax.swing.event.ChangeEvent evt) {//GEN
 private void jRadioButton5StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jRadioButton5StateChanged
     JRadioButton rb = (JRadioButton) evt.getSource();
     if (rb.getModel() == buttonGroup1.getSelection()) {
-        this.modoBuscaSelecionado = modoBusca.POR_NOME_CONTA;
+        this.modoBuscaSelecionado = ModoBusca.POR_NOME_CONTA;
         refreshButtons();
     }
 }//GEN-LAST:event_jRadioButton5StateChanged
@@ -375,14 +375,14 @@ private void jRadioButton5StateChanged(javax.swing.event.ChangeEvent evt) {//GEN
 private void jRadioButton7StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jRadioButton7StateChanged
     JRadioButton rb = (JRadioButton) evt.getSource();
     if (rb.getModel() == buttonGroup1.getSelection()) {
-        this.modoBuscaSelecionado = modoBusca.TODAS;
+        this.modoBuscaSelecionado = ModoBusca.TODAS;
         refreshButtons();
     }
 }//GEN-LAST:event_jRadioButton7StateChanged
 
 private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
     if (!jTextField5.getText().equals("")) {
-        if (this.modoBuscaSelecionado == modoBusca.POR_USUARIO) {
+        if (this.modoBuscaSelecionado == ModoBusca.POR_USUARIO) {
             this.populaTabela();
         }
     }
@@ -459,9 +459,9 @@ private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
     }
 
     private void refreshButtons() {
-        jButton3.setEnabled(modoBuscaSelecionado == modoBusca.POR_USUARIO);
-        jButton4.setEnabled(modoBuscaSelecionado == modoBusca.POR_NOME_CONTA);
-        jButton6.setEnabled(modoBuscaSelecionado == modoBusca.TODAS);
+        jButton3.setEnabled(modoBuscaSelecionado == ModoBusca.POR_USUARIO);
+        jButton4.setEnabled(modoBuscaSelecionado == ModoBusca.POR_NOME_CONTA);
+        jButton6.setEnabled(modoBuscaSelecionado == ModoBusca.TODAS);
     }
 
     private void populaTabela() {

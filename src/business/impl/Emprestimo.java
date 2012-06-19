@@ -9,6 +9,7 @@ import dao.spec.IEmprestimoDAO;
 import dao.spec.IEmprestimoUsuarioRelDAO;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.LinkedList;
 import java.util.List;
 import vo.EmprestimoUsuarioRelVO;
 import vo.UsuarioVO;
@@ -104,7 +105,7 @@ public class Emprestimo implements IEmprestimo {
                 try {
 			IEmprestimoDAO dao = factory.getEmprestimoDAO();
 			List eList = dao.selectAll();
-                        ArrayList returnableList = new ArrayList();
+                        LinkedList returnableList = new LinkedList();
                         for (Object o:eList){
                             if(o instanceof EmprestimoVO){
                                 EmprestimoVO emp = (EmprestimoVO) o;

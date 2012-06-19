@@ -15,6 +15,7 @@ import vo.ObjectVO;
 import vo.VOException;
 import dao.DAOException;
 import dao.spec.IItemFaturaTelefonicaDAO;
+import org.postgresql.util.PGInterval;
 
 public class ItemFaturaTelefonicaJDBCDAO extends GenericJDBCDAO implements
 		IItemFaturaTelefonicaDAO {
@@ -37,12 +38,14 @@ public class ItemFaturaTelefonicaJDBCDAO extends GenericJDBCDAO implements
 			
 			stmt.setString(1, item.getNumero().getNumero());
 			stmt.setTimestamp(2, new Timestamp(item.getDataHora().getTime().getTime()));
-			stmt.setString(3, item.getDuracao());
+			stmt.setObject(3, new PGInterval(item.getDuracao()));
 			stmt.setDouble(4, item.getValor());
 			stmt.setInt(5, item.getFatura().getMes());
 			stmt.setInt(6, item.getFatura().getAno());
 			
 			stmt.executeUpdate();
+                        this.commit();
+                        this.close();
 		} catch(Exception e) {
 			throw new DAOException(e);
 		}
