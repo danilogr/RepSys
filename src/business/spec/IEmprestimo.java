@@ -22,7 +22,9 @@ public interface IEmprestimo {
 
 	List getAll() throws BusinessException;
         
-         public void createDevedores(List<EmprestimoUsuarioRelVO> vo) throws BusinessException;
+        List getAllWithUsers() throws BusinessException;
+        
+        public void createDevedores(List<EmprestimoUsuarioRelVO> vo) throws BusinessException;
         public void createCredor(EmprestimoUsuarioRelVO vo) throws BusinessException;
 
 }

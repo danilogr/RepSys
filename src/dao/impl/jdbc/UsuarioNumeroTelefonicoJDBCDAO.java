@@ -17,6 +17,8 @@ import vo.UsuarioVO;
 import vo.VOException;
 import dao.DAOException;
 import dao.spec.IUsuarioNumeroTelefonicoDAO;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 
 public class UsuarioNumeroTelefonicoJDBCDAO extends GenericJDBCDAO implements
 		IUsuarioNumeroTelefonicoDAO {
@@ -150,5 +152,62 @@ public class UsuarioNumeroTelefonicoJDBCDAO extends GenericJDBCDAO implements
 			throw new DAOException(e);
 		}
 	}
+
+        public List<UsuarioNumeroTelefonicoVO> getLigacoes(NumeroTelefonicoVO num) throws DAOException {
+                List<UsuarioNumeroTelefonicoVO> list = new ArrayList<UsuarioNumeroTelefonicoVO>();
+                String sql = "SELECT * FROM " + this.getTableName()
+                                        + " WHERE NUMERO = ?";
+                try {
+                        PreparedStatement stmt = this.getConnection().prepareStatement(sql);
+                        stmt.setString(1, num.getNumero());
+
+                        ResultSet rs = stmt.executeQuery();
+                        while(rs.next()) {
+                                list.add((UsuarioNumeroTelefonicoVO) createVO(rs));
+                        }
+                        return list;
+                } catch(Exception e) {
+                        throw new DAOException(e);
+                }
+        }
+
+        public List<UsuarioNumeroTelefonicoVO> getLigacoesPorUsuario(String email) throws DAOException {
+                List<UsuarioNumeroTelefonicoVO> list = new ArrayList<UsuarioNumeroTelefonicoVO>();
+                String sql = "SELECT * FROM " + this.getTableName()
+                                        + " WHERE EMAIL = ?";
+                try {
+                        PreparedStatement stmt = this.getConnection().prepareStatement(sql);
+                        stmt.setString(1, email);
+
+                        ResultSet rs = stmt.executeQuery();
+                        while(rs.next()) {
+                                list.add((UsuarioNumeroTelefonicoVO) createVO(rs));
+                        }
+                        return list;
+                } catch(Exception e) {
+                        throw new DAOException(e);
+                }
+        }
+
+        public UsuarioNumeroTelefonicoVO getLigacao(String numero, Calendar dataHora) throws DAOException{
+                String sql = "SELECT * FROM " + this.getTableName()
+                                + " WHERE data_hora = TO_TIMESTAMP(?, 'DD/MM/YYYY HH24:MI:SS')";
+                try {
+                        PreparedStatement stmt = this.getConnection().prepareStatement(sql);
+
+                        DateFormat df = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+                        String dt = df.format(dataHora.getTime());
+
+
+                        stmt.setString(1, dt);
+                        ResultSet rs = stmt.executeQuery();
+                        if (rs.next()) {
+                                return (UsuarioNumeroTelefonicoVO) createVO(rs);
+                        }
+                } catch (Exception e) {
+                        throw new DAOException(e);
+                }
+                return null;
+        }
 
 }

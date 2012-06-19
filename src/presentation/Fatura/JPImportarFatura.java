@@ -1,7 +1,4 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
+
 
 /*
  * JPImportarFatura.java
@@ -10,15 +7,61 @@
  */
 package presentation.Fatura;
 
+import business.BusinessException;
+import business.BusinessFactory;
+import business.impl.ItemFaturaTelefonica;
+import java.awt.event.ItemEvent;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
+import javax.swing.filechooser.FileNameExtensionFilter;
+import util.csvParser.CSVReader;
+import vo.FaturaTelefonicaVO;
+import vo.ItemFaturaTelefonicaVO;
+import vo.NumeroTelefonicoVO;
+
 /**
  *
  * @author Endril
  */
 public class JPImportarFatura extends javax.swing.JPanel implements presentation.lib.ReturnEvent {
+    private enum Operadora{
+        // TODO: Adicionar mais operadoras (lembrar de adicionar no comboBox pelo construtor abaixo)
+        Embratel
+    }
+    
+    private Operadora operadoraSelecionada;
+    private File faturaFile;
+    private List<String[]> csvParsedList;
+    private LinkedList<ItemFaturaTelefonicaVO> itensFatura;
+    private FaturaTelefonicaVO fatura;
+    private Boolean isFaturaSelecionada;
 
     /** Creates new form JPImportarFatura */
     public JPImportarFatura() {
         initComponents();
+        operadoraSelecionada=Operadora.Embratel;
+        faturaFile = null;
+        csvParsedList = null;
+        itensFatura = new LinkedList<ItemFaturaTelefonicaVO>();
+        fatura = null;
+        isFaturaSelecionada = false;
+        // Operadoras:
+        this.jComboBox1.addItem(Operadora.Embratel);
+        // Meses:
+        for(int i = 1;i<=12;i++)
+            this.jComboBox2.addItem((Integer)i);
     }
 
     /** This method is called from within the constructor to
@@ -30,112 +73,43 @@ public class JPImportarFatura extends javax.swing.JPanel implements presentation
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jFrame1 = new javax.swing.JFrame();
+        jFileChooser1 = new javax.swing.JFileChooser();
         jLabel1 = new javax.swing.JLabel();
         jButton2 = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JSeparator();
-        jPanel1 = new javax.swing.JPanel();
-        jTextField2 = new javax.swing.JTextField();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
-        jPasswordField3 = new javax.swing.JPasswordField();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox();
-        jTextField3 = new javax.swing.JTextField();
-        jButton3 = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
+        jTextField1 = new javax.swing.JTextField();
+        jLabel11 = new javax.swing.JLabel();
+        jLabel12 = new javax.swing.JLabel();
+        jFormattedTextField1 = new javax.swing.JFormattedTextField();
+        jLabel13 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
+        jTextField4 = new javax.swing.JTextField();
+        jComboBox1 = new javax.swing.JComboBox();
+        jLabel14 = new javax.swing.JLabel();
         jComboBox2 = new javax.swing.JComboBox();
         jButton4 = new javax.swing.JButton();
-        jSeparator2 = new javax.swing.JSeparator();
 
-        jLabel1.setFont(new java.awt.Font("Cambria", 1, 30)); // NOI18N
+        javax.swing.GroupLayout jFrame1Layout = new javax.swing.GroupLayout(jFrame1.getContentPane());
+        jFrame1.getContentPane().setLayout(jFrame1Layout);
+        jFrame1Layout.setHorizontalGroup(
+            jFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jFileChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
+        jFrame1Layout.setVerticalGroup(
+            jFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jFileChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
+
+        jLabel1.setFont(new java.awt.Font("Cambria", 1, 30));
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("I18n/Bundle"); // NOI18N
         jLabel1.setText(bundle.getString("JPImportarFatura.jLabel1.text")); // NOI18N
 
-        jButton2.setFont(new java.awt.Font("Calibri", 1, 12)); // NOI18N
+        jButton2.setFont(new java.awt.Font("Calibri", 1, 12));
         jButton2.setText(bundle.getString("JPImportarFatura.jButton2.text")); // NOI18N
-
-        jTextField2.setFont(new java.awt.Font("Catriel", 0, 11));
-
-        jLabel2.setFont(new java.awt.Font("Cambria", 3, 18));
-        jLabel2.setText(bundle.getString("JPImportarFatura.jLabel2.text")); // NOI18N
-
-        jLabel6.setFont(new java.awt.Font("Calibri", 3, 18));
-        jLabel6.setText(bundle.getString("JPImportarFatura.jLabel6.text")); // NOI18N
-
-        jPasswordField3.setFont(new java.awt.Font("Catriel", 0, 11));
-
-        jLabel3.setFont(new java.awt.Font("Calibri", 3, 18));
-        jLabel3.setText(bundle.getString("JPImportarFatura.jLabel3.text")); // NOI18N
-
-        jLabel4.setFont(new java.awt.Font("Calibri", 3, 18));
-        jLabel4.setText(bundle.getString("JPImportarFatura.jLabel4.text")); // NOI18N
-
-        jLabel7.setFont(new java.awt.Font("Calibri", 3, 18));
-        jLabel7.setText(bundle.getString("JPImportarFatura.jLabel7.text")); // NOI18N
-
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
-        jTextField3.setFont(new java.awt.Font("Catriel", 0, 11));
-
-        jButton3.setFont(new java.awt.Font("Calibri", 1, 12));
-        jButton3.setText(bundle.getString("JPImportarFatura.jButton3.text")); // NOI18N
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel2)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel4))
-                        .addGap(85, 85, 85)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jComboBox1, 0, 173, Short.MAX_VALUE)
-                            .addComponent(jTextField2, javax.swing.GroupLayout.DEFAULT_SIZE, 173, Short.MAX_VALUE)))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel6)
-                        .addGap(103, 103, 103)
-                        .addComponent(jPasswordField3, javax.swing.GroupLayout.DEFAULT_SIZE, 173, Short.MAX_VALUE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel7)
-                        .addGap(10, 10, 10)
-                        .addComponent(jTextField3, javax.swing.GroupLayout.DEFAULT_SIZE, 173, Short.MAX_VALUE))
-                    .addComponent(jButton3, javax.swing.GroupLayout.Alignment.TRAILING))
-                .addContainerGap())
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel2)
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel6)
-                    .addComponent(jPasswordField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(12, 12, 12)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel7)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 9, Short.MAX_VALUE)
-                .addComponent(jButton3)
-                .addContainerGap())
-        );
 
         jLabel5.setFont(new java.awt.Font("Cambria", 3, 18));
         jLabel5.setText(bundle.getString("JPImportarFatura.jLabel5.text")); // NOI18N
@@ -143,58 +117,120 @@ public class JPImportarFatura extends javax.swing.JPanel implements presentation
         jLabel10.setFont(new java.awt.Font("Calibri", 3, 18));
         jLabel10.setText(bundle.getString("JPImportarFatura.jLabel10.text")); // NOI18N
 
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField1ActionPerformed(evt);
+            }
+        });
 
-        jButton4.setFont(new java.awt.Font("Calibri", 1, 12));
-        jButton4.setText(bundle.getString("JPImportarFatura.jButton4.text")); // NOI18N
+        jLabel11.setFont(new java.awt.Font("Calibri", 3, 18));
+        jLabel11.setText(bundle.getString("JPImportarFatura.jLabel11.text")); // NOI18N
+
+        jLabel12.setFont(new java.awt.Font("Calibri", 3, 18));
+        jLabel12.setText(bundle.getString("JPImportarFatura.jLabel12.text")); // NOI18N
+
+        jFormattedTextField1.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(new java.text.SimpleDateFormat("dd/MM/yyyy"))));
+        jFormattedTextField1.setToolTipText(bundle.getString("JPImportarFatura.jFormattedTextField1.toolTip")); // NOI18N
+
+        jLabel13.setFont(new java.awt.Font("Calibri", 3, 18));
+        jLabel13.setText(bundle.getString("JPImportarFatura.jLabel13.text")); // NOI18N
+
+        jButton1.setText(bundle.getString("JPImportarFatura.jButton1.text")); // NOI18N
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        jTextField4.setEditable(false);
+        jTextField4.setText(bundle.getString("JPImportarFatura.jTextField4.text")); // NOI18N
+        jTextField4.setEnabled(false);
+
+        jComboBox1.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                jComboBox1ItemStateChanged(evt);
+            }
+        });
+
+        jLabel14.setFont(new java.awt.Font("Calibri", 3, 18));
+        jLabel14.setText(bundle.getString("JPImportarFatura.jLabel14.text")); // NOI18N
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel5)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jLabel5)
-                        .addGroup(jPanel2Layout.createSequentialGroup()
-                            .addComponent(jLabel10)
-                            .addGap(18, 18, 18)
-                            .addComponent(jComboBox2, 0, 143, Short.MAX_VALUE)))
-                    .addComponent(jButton4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addComponent(jLabel14)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jComboBox1, 0, 381, Short.MAX_VALUE))
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addComponent(jLabel10)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel11)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, 231, Short.MAX_VALUE))
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addComponent(jLabel12)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jFormattedTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, 374, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addComponent(jLabel13)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jTextField4, javax.swing.GroupLayout.DEFAULT_SIZE, 376, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
                 .addComponent(jLabel5)
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel14)
+                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel10)
+                    .addComponent(jLabel11)
+                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 112, Short.MAX_VALUE)
-                .addComponent(jButton4)
-                .addContainerGap())
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel12)
+                    .addComponent(jFormattedTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton1)
+                    .addComponent(jLabel13)
+                    .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jSeparator2.setOrientation(javax.swing.SwingConstants.VERTICAL);
+        jButton4.setFont(new java.awt.Font("Calibri", 1, 12));
+        jButton4.setText(bundle.getString("JPImportarFatura.jButton4.text")); // NOI18N
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton2, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jSeparator1, javax.swing.GroupLayout.DEFAULT_SIZE, 586, Short.MAX_VALUE)
-                    .addComponent(jLabel1)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 479, Short.MAX_VALUE)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addComponent(jButton2)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -205,44 +241,215 @@ public class JPImportarFatura extends javax.swing.JPanel implements presentation
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 4, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jSeparator2, javax.swing.GroupLayout.DEFAULT_SIZE, 222, Short.MAX_VALUE)
-                            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(54, 54, 54))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
-                .addComponent(jButton2)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton2)
+                    .addComponent(jButton4))
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 
+private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+    ResourceBundle bundle = ResourceBundle.getBundle("I18n/Bundle");
+    if(this.isCamposPreenchidos()){
+            try {
+                if (this.parseFields()){
+                    if(this.isFaturaSelecionada){
+                        this.saveFatura();
+                        if(!this.parseFaturaFile()){
+                            try {
+                                BusinessFactory.getInstance().getFaturaTelefonica().delete(fatura.getMes(), fatura.getAno());
+                            } catch (BusinessException ex) {
+                                Logger.getLogger(JPImportarFatura.class.getName()).log(Level.SEVERE, null, ex);
+                            }    
+                        }
+                    }
+                    else{
+                    bundle = ResourceBundle.getBundle("I18n/Bundle");
+                    JOptionPane.showMessageDialog(this, 
+                          bundle.getString("JPImportarFatura.Messages.FaturaNaoSelecionada"), 
+                          bundle.getString("JPLogin.Messages.LoginError.Title"),
+                          JOptionPane.WARNING_MESSAGE);
+                    }
+                }
+                else{
+                    bundle = ResourceBundle.getBundle("I18n/Bundle");
+                    JOptionPane.showMessageDialog(this, 
+                          bundle.getString("JPImportarFatura.Messages.FaturaJaCadastrada"), 
+                          bundle.getString("JPLogin.Messages.LoginError.Title"),
+                          JOptionPane.WARNING_MESSAGE);
+                }
+            } catch (ParseException ex) {
+                bundle = ResourceBundle.getBundle("I18n/Bundle");
+                    JOptionPane.showMessageDialog(this, 
+                          bundle.getString("JPImportarFatura.Messages.VencimentoIncorreto"), 
+                          bundle.getString("JPLogin.Messages.LoginError.Title"),
+                          JOptionPane.WARNING_MESSAGE);
+            }
+            
+    }
+    else{
+            bundle = ResourceBundle.getBundle("I18n/Bundle");
+            JOptionPane.showMessageDialog(this, 
+                  bundle.getString("JPImportarFatura.Messages.CampoVazio"), 
+                  bundle.getString("JPLogin.Messages.LoginError.Title"),
+                  JOptionPane.WARNING_MESSAGE);
+    }
+}//GEN-LAST:event_jButton4ActionPerformed
+
+private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+// TODO add your handling code here:
+}//GEN-LAST:event_jTextField1ActionPerformed
+
+private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    this.openFileChooser();
+}//GEN-LAST:event_jButton1ActionPerformed
+
+private void jComboBox1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBox1ItemStateChanged
+    if (ItemEvent.SELECTED==evt.getStateChange()){
+        Object item = evt.getItem();
+        if(item instanceof Operadora){
+            this.operadoraSelecionada=(Operadora) item;
+        }
+    }
+}//GEN-LAST:event_jComboBox1ItemStateChanged
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JComboBox jComboBox1;
     private javax.swing.JComboBox jComboBox2;
+    private javax.swing.JFileChooser jFileChooser1;
+    private javax.swing.JFormattedTextField jFormattedTextField1;
+    private javax.swing.JFrame jFrame1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JPasswordField jPasswordField3;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JSeparator jSeparator2;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
+    private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextField jTextField4;
     // End of variables declaration//GEN-END:variables
 
     public void onReturnFromOtherWindow(Object returnedObject) {
         throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    private void openFileChooser() {
+        JFileChooser chooser = new JFileChooser();
+        FileNameExtensionFilter filter = new FileNameExtensionFilter("Arquivos CSV", "csv");
+        chooser.setAcceptAllFileFilterUsed(false);
+        chooser.setFileFilter(filter);
+        int returnVal = chooser.showOpenDialog(this);
+        if(returnVal == JFileChooser.APPROVE_OPTION) {
+               this.faturaFile = chooser.getSelectedFile();
+               this.isFaturaSelecionada=true;
+               this.jTextField4.setText(this.faturaFile.getName());
+        }
+    }
+
+    private boolean parseFaturaFile() throws ParseException {
+        boolean flag=false;
+        if (this.operadoraSelecionada == Operadora.Embratel){
+            flag=true;
+            try {
+                if(this.isFaturaSelecionada){
+                    CSVReader reader = new CSVReader(new FileReader(faturaFile), ',','"', 3);
+                    csvParsedList = reader.readAll();
+                    
+                    Calendar calendarInexistente = Calendar.getInstance();
+                    calendarInexistente.setTime(new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").parse("01/01/0001 00:00:00"));
+                        
+                    for(String[] line : csvParsedList)
+                    {               
+                        String numero = line[4].trim();
+                        String data = line[3].substring(0, 6)+"20"+line[3].substring(6, 8);
+                        String hora = line[7].trim();
+                        double valor = Double.parseDouble(line[13].trim());
+                        Double duracaoInt = Double.parseDouble(line[11].trim())*0.06; //numero de segundos
+                        String duracao = duracaoInt.toString()+" seconds";
+                        
+                        Calendar dataHora = Calendar.getInstance();
+                        
+                        if(!data.equals("99/99/2099")){
+                            dataHora.setTime(new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").parse(data+" "+hora));
+                        }
+                        else
+                            dataHora = calendarInexistente;
+
+                        ItemFaturaTelefonica temp = (ItemFaturaTelefonica) BusinessFactory.getInstance().getItemFaturaTelefonica();
+                        ItemFaturaTelefonicaVO temp2 = temp.getItemFaturaTelefonica(numero, dataHora);
+                        
+                        if (temp2!=null){ // se ja existe um item com esse numero e data_hora
+                            if(calendarInexistente.compareTo(temp2.getDataHora())!=0){ // se tem uma data_hora valida
+                                flag=false;
+                                break;
+                            } // se a data_hora for invalida, nao faz nada
+                        }
+                        else{ // pode inserir a vontade                   
+                            ItemFaturaTelefonicaVO itemFatura = new ItemFaturaTelefonicaVO(dataHora, fatura, new NumeroTelefonicoVO(numero), valor, duracao); 
+                            temp.create(itemFatura);
+                        }
+                    }
+                    if(!flag){
+                    ResourceBundle bundle = ResourceBundle.getBundle("I18n/Bundle");
+                            JOptionPane.showMessageDialog(this, 
+                            bundle.getString("JPImportarFatura.Messages.ItemJaExistente"), 
+                            bundle.getString("JPLogin.Messages.LoginError.Title"),
+                            JOptionPane.WARNING_MESSAGE);
+                    }
+                }
+            } catch (BusinessException ex) {
+                Logger.getLogger(JPImportarFatura.class.getName()).log(Level.SEVERE, null, ex);
+                return false;
+            } catch (FileNotFoundException ex) {
+                Logger.getLogger(JPImportarFatura.class.getName()).log(Level.SEVERE, null, ex);
+                return false;
+            } catch (IOException ex) {
+                Logger.getLogger(JPImportarFatura.class.getName()).log(Level.SEVERE, null, ex);
+                return false;
+            }
+        }
+        return flag;
+    }
+
+    private boolean parseFields() throws ParseException {
+        try {
+            if(this.isCamposPreenchidos())
+            {
+                Calendar fieldCal = Calendar.getInstance();
+                fieldCal.setTime(new SimpleDateFormat("dd/MM/yyyy").parse(jFormattedTextField1.getText()));
+                int mes = (Integer)jComboBox2.getSelectedItem();
+                int ano = Integer.parseInt(jTextField1.getText());
+                
+                if(BusinessFactory.getInstance().getFaturaTelefonica().getFaturaTelefonica(mes, ano)!=null)
+                    return false;
+                else {                
+                    fatura = new FaturaTelefonicaVO(mes, ano, fieldCal);
+                    return true;
+                }
+            }
+        } catch (BusinessException ex) {
+            Logger.getLogger(JPImportarFatura.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
+    }
+
+    private boolean isCamposPreenchidos() {
+        return (!jTextField1.getText().isEmpty() && !jFormattedTextField1.getText().isEmpty());
+    }
+
+    private void saveFatura() {
+        try {
+            BusinessFactory.getInstance().getFaturaTelefonica().create(fatura);
+        } catch (BusinessException ex) {
+            Logger.getLogger(JPImportarFatura.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 }

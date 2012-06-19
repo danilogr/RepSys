@@ -18,6 +18,6 @@ public interface IConta {
 
 	public List<ContaVO> getContasByUsuario(String email) throws BusinessException;
 
-	public List<Object> getAll() throws BusinessException;
+	public List getAll() throws BusinessException;
 
 }

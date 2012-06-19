@@ -335,7 +335,7 @@ public class JPLogin extends javax.swing.JPanel implements ReturnEvent {
             Locale l = locales.get((String) evt.getItem());
             if(l != null)
             {
-               Locale.setDefault(l);
+                Locale.setDefault(l);
                 bundle = ResourceBundle.getBundle("I18n/Bundle");
                 updateComponents();
             }

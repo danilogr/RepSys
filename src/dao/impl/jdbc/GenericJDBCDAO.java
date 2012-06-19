@@ -2,7 +2,6 @@ package dao.impl.jdbc;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -18,24 +17,30 @@ import dao.spec.IGenericDAO;
 public abstract class GenericJDBCDAO implements IGenericDAO {
 
 	private Connection connection;
+        
+        
+        private String driver;
+        private String url;
+        private String user;
+        private String password;
 
 	public GenericJDBCDAO(Properties properties) throws DAOException {
 		try {
-			String driver = properties.getProperty("jdbc.driver");
-			String url = properties.getProperty("jdbc.url");
-			String user = properties.getProperty("jdbc.user");
-			String password = properties.getProperty("jdbc.password");
+			driver = properties.getProperty("jdbc.driver");
+			url = properties.getProperty("jdbc.url");
+			user = properties.getProperty("jdbc.user");
+			password = properties.getProperty("jdbc.password");
 			if (password == null) {
 				password = "";
 			}
 			Class.forName(driver);
-			connection = DriverManager.getConnection(url, user, password);
 		} catch (Exception e) {
 			throw new DAOException(e);
 		}
 	}
 
-	protected Connection getConnection() {
+	protected Connection getConnection() throws SQLException {
+                connection = DriverManager.getConnection(url, user, password);
 		return connection;
 	}
 	
@@ -50,6 +55,10 @@ public abstract class GenericJDBCDAO implements IGenericDAO {
 	public void rollback() throws SQLException {
 		connection.rollback();
 	}
+        
+        public void close() throws SQLException {
+                connection.close();
+        }
 
 	public List selectAll() throws DAOException, VOException {
 		String sql = "SELECT * FROM " + this.getTableName();

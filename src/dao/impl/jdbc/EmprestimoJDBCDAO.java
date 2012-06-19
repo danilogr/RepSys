@@ -1,6 +1,5 @@
 package dao.impl.jdbc;
 
-import java.sql.Timestamp;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;

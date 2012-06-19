@@ -10,7 +10,8 @@ package presentation.lib;
  */
 public interface IMultiModePanel {
     public enum Mode  {
-        NORMAL, SELECIONAVEL
+        NORMAL, 
+        SELECIONAVEL
     }
     
     public Mode getMode();

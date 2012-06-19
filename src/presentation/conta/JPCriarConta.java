@@ -38,7 +38,23 @@ import vo.UsuarioVO;
  * @author Daniel
  */
 public class JPCriarConta extends javax.swing.JPanel implements presentation.lib.ReturnEvent{
-
+    
+    private JPValorFixo cardFix;
+    private JPValorVariavel cardVar;
+        
+    private String nomeConta;
+    private double valorConta;
+    private String descricaoConta;
+    private Boolean isValorFixo;
+    private String recorrenciaContaValorFixo;
+    private int repeticoesContaValorFixo;
+    private Calendar dataInicialContaValorFixo;
+    private Calendar vencimentoContaValorVariavel;
+    private UsuarioVO usuarioResponsavel;
+    private Boolean isAnyUsuarioSelecionado;
+    private Boolean isProporcaoPreenchida;
+    
+    
     /** Creates new form JPCriarConta */
     public JPCriarConta() {
         initComponents();
@@ -112,7 +128,7 @@ public class JPCriarConta extends javax.swing.JPanel implements presentation.lib
 
             },
             new String [] {
-                "Selecionar", "Nome", "e-mail", "Proporção (%)"
+                "", "Nome", "e-mail", "Proporção (%)"
             }
         ) {
             Class[] types = new Class [] {
@@ -130,11 +146,15 @@ public class JPCriarConta extends javax.swing.JPanel implements presentation.lib
                 return canEdit [columnIndex];
             }
         });
+        jTable2.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_NEXT_COLUMN);
+        jTable2.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jTable2.getTableHeader().setReorderingAllowed(false);
         jScrollPane4.setViewportView(jTable2);
-        jTable2.getColumnModel().getColumn(0).setHeaderValue(bundle.getString("JPCriarConta.jTable2.columnModel.title0")); // NOI18N
+        jTable2.getColumnModel().getColumn(0).setResizable(false);
+        jTable2.getColumnModel().getColumn(0).setHeaderValue("");
         jTable2.getColumnModel().getColumn(1).setHeaderValue(bundle.getString("JPCriarConta.jTable2.columnModel.title1")); // NOI18N
         jTable2.getColumnModel().getColumn(2).setHeaderValue(bundle.getString("JPCriarConta.jTable2.columnModel.title2")); // NOI18N
+        jTable2.getColumnModel().getColumn(3).setResizable(false);
         jTable2.getColumnModel().getColumn(3).setHeaderValue(bundle.getString("JPCriarConta.jTable2.columnModel.title3")); // NOI18N
 
         jLabel15.setFont(new java.awt.Font("Calibri", 3, 18));
@@ -147,13 +167,13 @@ public class JPCriarConta extends javax.swing.JPanel implements presentation.lib
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jTextField5, javax.swing.GroupLayout.DEFAULT_SIZE, 381, Short.MAX_VALUE)
+                .addComponent(jTextField5, javax.swing.GroupLayout.DEFAULT_SIZE, 194, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addComponent(jLabel15)
                 .addContainerGap())
-            .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 584, Short.MAX_VALUE)
+            .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 397, Short.MAX_VALUE)
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -165,11 +185,11 @@ public class JPCriarConta extends javax.swing.JPanel implements presentation.lib
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel15)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(91, Short.MAX_VALUE))
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 276, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
-        jButton1.setFont(new java.awt.Font("Calibri", 1, 12)); // NOI18N
+        jButton1.setFont(new java.awt.Font("Calibri", 1, 12));
         jButton1.setText(bundle.getString("JPCriarConta.jButton1.text")); // NOI18N
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -177,13 +197,14 @@ public class JPCriarConta extends javax.swing.JPanel implements presentation.lib
             }
         });
 
-        jButton2.setFont(new java.awt.Font("Calibri", 1, 12)); // NOI18N
+        jButton2.setFont(new java.awt.Font("Calibri", 1, 12));
         jButton2.setText(bundle.getString("JPCriarConta.jButton2.text")); // NOI18N
 
         textFieldValorConta.setFont(new java.awt.Font("Catriel", 0, 11));
 
         buttonGroup1.add(jRadioButton3);
         jRadioButton3.setFont(new java.awt.Font("Calibri", 0, 14));
+        jRadioButton3.setSelected(true);
         jRadioButton3.setText(bundle.getString("JPCriarConta.jRadioButton3.text")); // NOI18N
         jRadioButton3.addChangeListener(new javax.swing.event.ChangeListener() {
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
@@ -281,7 +302,7 @@ public class JPCriarConta extends javax.swing.JPanel implements presentation.lib
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jSeparator2, javax.swing.GroupLayout.DEFAULT_SIZE, 910, Short.MAX_VALUE)
+                    .addComponent(jSeparator2, javax.swing.GroupLayout.DEFAULT_SIZE, 723, Short.MAX_VALUE)
                     .addComponent(jLabel8)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -291,7 +312,7 @@ public class JPCriarConta extends javax.swing.JPanel implements presentation.lib
                         .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel12)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 536, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 349, Short.MAX_VALUE)
                         .addComponent(jButton1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jButton2)))
@@ -333,10 +354,14 @@ private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
         if(isTudoPreenchido()){
             jLabel12.setVisible(false);
             this.parseFormDataAndSave();
-            if (!isAnyUsuarioSelecionado)
-                throw new Exception();
-            JOptionPane.showMessageDialog(this, bundle.getString("JPCriarConta.Mensagem.OK"));
-            MainWindow.getInstance().closeCurrentCard();
+            if (!isAnyUsuarioSelecionado || !isProporcaoPreenchida)
+                JOptionPane.showMessageDialog(this, bundle.getString("JPCriarConta.Mensagem.ErroVerifiqueProporcao"),
+                                                    bundle.getString("JPCriarConta.Mensagem.ErroVerifiqueProporcaoTitle"),
+                                                    JOptionPane.WARNING_MESSAGE);
+            else{
+                JOptionPane.showMessageDialog(this, bundle.getString("JPCriarConta.Mensagem.OK"));
+                MainWindow.getInstance().closeCurrentCard();
+            }
         }
         else
             jLabel12.setVisible(true);
@@ -408,19 +433,6 @@ private void jRadioButton3StateChanged(javax.swing.event.ChangeEvent evt) {//GEN
     // End of variables declaration//GEN-END:variables
     
     
-    private JPValorFixo cardFix;
-    private JPValorVariavel cardVar;
-        
-    private String nomeConta;
-    private double valorConta;
-    private String descricaoConta;
-    private Boolean isValorFixo;
-    private String recorrenciaContaValorFixo;
-    private int repeticoesContaValorFixo;
-    private Calendar dataInicialContaValorFixo;
-    private Calendar vencimentoContaValorVariavel;
-    private UsuarioVO usuarioResponsavel;
-    private Boolean isAnyUsuarioSelecionado;
     
     
     private void initCardLayout(){
@@ -434,20 +446,21 @@ private void jRadioButton3StateChanged(javax.swing.event.ChangeEvent evt) {//GEN
 
     private void myInit(){
         jLabel12.setVisible(false);
+        isValorFixo=true;
         
         int colIndex = 0;
-        int width = 75;
+        int width = 30;
         TableColumn col = this.jTable2.getColumnModel().getColumn(colIndex);
         col.setMinWidth(width);
         col.setMaxWidth(width);
-        col.setPreferredWidth(width);
+        col.setPreferredWidth(width); 
         
         colIndex = 3;
-        width=100;
+        width = 100;
         col = this.jTable2.getColumnModel().getColumn(colIndex);
-        col.setMinWidth(width);
         col.setMaxWidth(width);
-        col.setPreferredWidth(width);
+        width = 40;
+        col.setMinWidth(width);
         
         List<UsuarioVO> usuarios = new ArrayList<UsuarioVO>();
         BusinessFactory factory = BusinessFactory.getInstance();
@@ -500,21 +513,31 @@ private void jRadioButton3StateChanged(javax.swing.event.ChangeEvent evt) {//GEN
             
             BusinessFactory factory = BusinessFactory.getInstance();
             isAnyUsuarioSelecionado=false;
+            isProporcaoPreenchida=true;
+            ArrayList<ContaUsuarioDevedorVO> contas = new ArrayList<ContaUsuarioDevedorVO>();
             int counter=0;
             for (int i=0; i < this.jTable2.getRowCount();i++){
                 if ((Boolean)this.jTable2.getValueAt(i, 0)){
                     String email = (String)this.jTable2.getValueAt(i,2);
                     Double prop = (Double)this.jTable2.getValueAt(i,3);
                     if (email != null && prop != null){
-                    isAnyUsuarioSelecionado = true;
-                        if(++counter==1)
-                            factory.getConta().create(new ContaUsuarioDevedorVO(factory.getUsuario().getUsuarioByEmail(email),conta,prop.floatValue()), true);
-                        else
-                            factory.getConta().create(new ContaUsuarioDevedorVO(factory.getUsuario().getUsuarioByEmail(email),conta,prop.floatValue()), false);
+                        isAnyUsuarioSelecionado = true;
+                        contas.add(new ContaUsuarioDevedorVO(factory.getUsuario().getUsuarioByEmail(email),conta,prop.floatValue()));
+                    }
+                    else{
+                        isProporcaoPreenchida = false;
+                        break;
                     }
                 }
             }
-            
+            if (isProporcaoPreenchida){
+                for (ContaUsuarioDevedorVO item : contas){
+                    if(++counter==1)
+                        factory.getConta().create(item, true);
+                    else
+                        factory.getConta().create(item, false);
+                }
+            }
     }
 
     private boolean isTudoPreenchido() throws Exception {

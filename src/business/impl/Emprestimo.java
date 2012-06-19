@@ -7,9 +7,12 @@ import dao.DAOFactory;
 import dao.spec.IEmprestimoDAO;
 
 import dao.spec.IEmprestimoUsuarioRelDAO;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.LinkedList;
 import java.util.List;
 import vo.EmprestimoUsuarioRelVO;
+import vo.UsuarioVO;
 
 /**
  * @author Nelson
@@ -96,4 +99,34 @@ public class Emprestimo implements IEmprestimo {
 			throw new BusinessException(e);
 		}
 	}
+
+        public List getAllWithUsers() throws BusinessException {
+                DAOFactory factory = DAOFactory.getInstance();
+                try {
+			IEmprestimoDAO dao = factory.getEmprestimoDAO();
+			List eList = dao.selectAll();
+                        LinkedList returnableList = new LinkedList();
+                        for (Object o:eList){
+                            if(o instanceof EmprestimoVO){
+                                EmprestimoVO emp = (EmprestimoVO) o;
+                                List<UsuarioVO> usuariosCredores;
+                                List<UsuarioVO> usuariosDevedores;
+                                usuariosCredores = factory.getEmprestimoUsuarioCredorDAO().getUsuarios(emp);
+                                usuariosDevedores = factory.getEmprestimoUsuarioDevedorDAO().getUsuarios(emp);
+                                for (UsuarioVO uc : usuariosCredores){
+                                    for (UsuarioVO ud: usuariosDevedores){
+                                        ArrayList temp = new ArrayList();
+                                        temp.add(emp);
+                                        temp.add(uc);
+                                        temp.add(ud);
+                                        returnableList.add(temp);
+                                    }
+                                }
+                            }
+                        }
+                        return returnableList;
+		} catch (Exception e) {
+			throw new BusinessException(e);
+		}
+        }
 }

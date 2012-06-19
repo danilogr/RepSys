@@ -122,6 +122,9 @@ public abstract class EmprestimoUsuarioRelJDBCDAO extends GenericJDBCDAO
 				String email = rs.getString("EMAIL");
 				list.add(uDAO.selectByEmail(email));
 			}
+                        
+                        this.commit();
+                        this.close();
 
 			return list;
 		} catch (Exception e) {

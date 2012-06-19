@@ -10,15 +10,54 @@
  */
 package presentation.conta;
 
+import business.BusinessException;
+import business.BusinessFactory;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import javax.swing.JRadioButton;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumnModel;
+import presentation.desktop.MainWindow;
+import presentation.lib.IMultiModePanel.Mode;
+import presentation.usuario.JPUsuariosCadastrados;
+import util.NumberRenderer;
+import vo.ContaVO;
+import vo.UsuarioVO;
+
 /**
  *
  * @author Endril
  */
 public class JPConsultarConta extends javax.swing.JPanel implements presentation.lib.ReturnEvent {
 
+    private UsuarioVO usuarioSelecionado;
+    private List<ContaVO> contas;
+
+    private void repopulaTabela() {
+        ((DefaultTableModel)jTable1.getModel()).setRowCount(0);
+        this.populaTabela();
+    }
+
+    private enum ModoBusca {
+
+        POR_USUARIO,
+        POR_NOME_CONTA,
+        TODAS
+    }
+    private ModoBusca modoBuscaSelecionado;
+
     /** Creates new form JPConsultarConta */
     public JPConsultarConta() {
         initComponents();
+        TableColumnModel m = jTable1.getColumnModel();
+        m.getColumn(3).setCellRenderer(NumberRenderer.getCurrencyRenderer());
+        m.getColumn(3).setMaxWidth(100);
+        modoBuscaSelecionado = ModoBusca.POR_USUARIO;
+        refreshButtons();
     }
 
     /** This method is called from within the constructor to
@@ -30,6 +69,7 @@ public class JPConsultarConta extends javax.swing.JPanel implements presentation
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        buttonGroup1 = new javax.swing.ButtonGroup();
         jLabel1 = new javax.swing.JLabel();
         jButton2 = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JSeparator();
@@ -41,7 +81,6 @@ public class JPConsultarConta extends javax.swing.JPanel implements presentation
         jButton3 = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jTextField6 = new javax.swing.JTextField();
-        jButton6 = new javax.swing.JButton();
         jLabel15 = new javax.swing.JLabel();
         jRadioButton5 = new javax.swing.JRadioButton();
         jButton4 = new javax.swing.JButton();
@@ -51,38 +90,56 @@ public class JPConsultarConta extends javax.swing.JPanel implements presentation
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         jSeparator4 = new javax.swing.JSeparator();
+        jButton6 = new javax.swing.JButton();
+        jButton7 = new javax.swing.JButton();
 
-        jLabel1.setFont(new java.awt.Font("Cambria", 1, 30)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Cambria", 1, 30));
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("I18n/Bundle"); // NOI18N
         jLabel1.setText(bundle.getString("JPConsultarConta.jLabel1.text")); // NOI18N
 
         jButton2.setFont(new java.awt.Font("Calibri", 1, 12)); // NOI18N
         jButton2.setText(bundle.getString("JPConsultarConta.jButton2.text")); // NOI18N
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
-        jRadioButton1.setFont(new java.awt.Font("Catriel", 0, 12)); // NOI18N
+        buttonGroup1.add(jRadioButton1);
+        jRadioButton1.setFont(new java.awt.Font("Catriel", 0, 12));
         jRadioButton1.setSelected(true);
         jRadioButton1.setText(bundle.getString("JPConsultarConta.jRadioButton1.text")); // NOI18N
-        jRadioButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jRadioButton1ActionPerformed(evt);
+        jRadioButton1.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                jRadioButton1StateChanged(evt);
             }
         });
 
         jTextField5.setEditable(false);
-        jTextField5.setFont(new java.awt.Font("Catriel", 0, 11)); // NOI18N
-        jTextField5.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField5ActionPerformed(evt);
+        jTextField5.setFont(new java.awt.Font("Catriel", 0, 11));
+        jTextField5.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jTextField5FocusGained(evt);
             }
         });
 
         jButton5.setText(bundle.getString("JPConsultarConta.jButton5.text")); // NOI18N
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
 
-        jLabel14.setFont(new java.awt.Font("Calibri", 3, 18)); // NOI18N
+        jLabel14.setFont(new java.awt.Font("Calibri", 3, 18));
         jLabel14.setText(bundle.getString("JPConsultarConta.jLabel14.text")); // NOI18N
 
-        jButton3.setFont(new java.awt.Font("Calibri", 1, 12)); // NOI18N
+        jButton3.setFont(new java.awt.Font("Calibri", 1, 12));
         jButton3.setText(bundle.getString("JPConsultarConta.jButton3.text")); // NOI18N
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -94,13 +151,12 @@ public class JPConsultarConta extends javax.swing.JPanel implements presentation
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel14)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(6, 6, 6)
-                        .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addContainerGap(202, Short.MAX_VALUE)
-                        .addComponent(jButton3)))
-                .addContainerGap())
+                        .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jButton3))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -109,29 +165,32 @@ public class JPConsultarConta extends javax.swing.JPanel implements presentation
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton5)
-                    .addComponent(jLabel14))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 11, Short.MAX_VALUE)
+                    .addComponent(jLabel14)
+                    .addComponent(jButton5))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jButton3))
         );
 
-        jTextField6.setEditable(false);
-        jTextField6.setFont(new java.awt.Font("Catriel", 0, 11)); // NOI18N
-        jTextField6.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField6ActionPerformed(evt);
+        jTextField6.setFont(new java.awt.Font("Catriel", 0, 11));
+        jTextField6.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jTextField6FocusGained(evt);
             }
         });
 
-        jButton6.setText(bundle.getString("JPConsultarConta.jButton6.text")); // NOI18N
-
-        jLabel15.setFont(new java.awt.Font("Calibri", 3, 18)); // NOI18N
+        jLabel15.setFont(new java.awt.Font("Calibri", 3, 18));
         jLabel15.setText(bundle.getString("JPConsultarConta.jLabel15.text")); // NOI18N
 
-        jRadioButton5.setFont(new java.awt.Font("Catriel", 0, 12)); // NOI18N
+        buttonGroup1.add(jRadioButton5);
+        jRadioButton5.setFont(new java.awt.Font("Catriel", 0, 12));
         jRadioButton5.setText(bundle.getString("JPConsultarConta.jRadioButton5.text")); // NOI18N
+        jRadioButton5.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                jRadioButton5StateChanged(evt);
+            }
+        });
 
-        jButton4.setFont(new java.awt.Font("Calibri", 1, 12)); // NOI18N
+        jButton4.setFont(new java.awt.Font("Calibri", 1, 12));
         jButton4.setText(bundle.getString("JPConsultarConta.jButton4.text")); // NOI18N
         jButton4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -147,25 +206,20 @@ public class JPConsultarConta extends javax.swing.JPanel implements presentation
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addComponent(jLabel15)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addComponent(jTextField6, javax.swing.GroupLayout.DEFAULT_SIZE, 172, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(210, Short.MAX_VALUE)
-                .addComponent(jButton4)
-                .addContainerGap())
+                .addGap(167, 167, 167)
+                .addComponent(jButton4))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addComponent(jRadioButton5)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel15)
-                    .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton6))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 7, Short.MAX_VALUE)
                 .addComponent(jButton4))
         );
 
@@ -173,25 +227,62 @@ public class JPConsultarConta extends javax.swing.JPanel implements presentation
 
         jSeparator3.setOrientation(javax.swing.SwingConstants.VERTICAL);
 
-        jRadioButton7.setFont(new java.awt.Font("Catriel", 0, 12)); // NOI18N
+        buttonGroup1.add(jRadioButton7);
+        jRadioButton7.setFont(new java.awt.Font("Catriel", 0, 12));
         jRadioButton7.setText(bundle.getString("JPConsultarConta.jRadioButton7.text")); // NOI18N
+        jRadioButton7.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                jRadioButton7StateChanged(evt);
+            }
+        });
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
                 "Nome da Conta", "Usuário Responsável", "Descrição", "Valor"
             }
-        ));
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Double.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jTable1.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_NEXT_COLUMN);
+        jTable1.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(jTable1);
         jTable1.getColumnModel().getColumn(0).setHeaderValue(bundle.getString("JPConsultarConta.jTable1.columnModel.title0")); // NOI18N
         jTable1.getColumnModel().getColumn(1).setHeaderValue(bundle.getString("JPConsultarConta.jTable1.columnModel.title1")); // NOI18N
         jTable1.getColumnModel().getColumn(2).setHeaderValue(bundle.getString("JPConsultarConta.jTable1.columnModel.title2")); // NOI18N
+        jTable1.getColumnModel().getColumn(3).setResizable(false);
         jTable1.getColumnModel().getColumn(3).setHeaderValue(bundle.getString("JPConsultarConta.jTable1.columnModel.title3")); // NOI18N
+
+        jButton6.setFont(new java.awt.Font("Calibri", 1, 12)); // NOI18N
+        jButton6.setText("OK");
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton6ActionPerformed(evt);
+            }
+        });
+
+        jButton7.setFont(new java.awt.Font("Calibri", 1, 12)); // NOI18N
+        jButton7.setText(bundle.getString("JPConsultarEmprestimo.jButton3.text")); // NOI18N
+        jButton7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton7ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -200,21 +291,25 @@ public class JPConsultarConta extends javax.swing.JPanel implements presentation
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jSeparator4, javax.swing.GroupLayout.DEFAULT_SIZE, 716, Short.MAX_VALUE)
-                    .addComponent(jSeparator1, javax.swing.GroupLayout.DEFAULT_SIZE, 716, Short.MAX_VALUE)
+                    .addComponent(jSeparator4, javax.swing.GroupLayout.DEFAULT_SIZE, 660, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 660, Short.MAX_VALUE)
+                    .addComponent(jSeparator1, javax.swing.GroupLayout.DEFAULT_SIZE, 660, Short.MAX_VALUE)
                     .addComponent(jLabel1)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jButton7)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 458, Short.MAX_VALUE)
+                        .addComponent(jButton2))
+                    .addComponent(jButton6, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 268, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 2, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 277, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 2, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jRadioButton7))
-                    .addComponent(jButton2, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 716, Short.MAX_VALUE))
+                        .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 6, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jRadioButton7, javax.swing.GroupLayout.DEFAULT_SIZE, 155, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -226,39 +321,111 @@ public class JPConsultarConta extends javax.swing.JPanel implements presentation
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(jSeparator2, javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jSeparator3, javax.swing.GroupLayout.DEFAULT_SIZE, 82, Short.MAX_VALUE)
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(jSeparator2)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addComponent(jSeparator3, javax.swing.GroupLayout.DEFAULT_SIZE, 85, Short.MAX_VALUE)
-                    .addComponent(jRadioButton7))
-                .addGap(8, 8, 8)
-                .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(20, 20, 20)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(35, 35, 35)
-                .addComponent(jButton2)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jRadioButton7)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
+                        .addComponent(jButton6)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, 2, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 276, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton2)
+                    .addComponent(jButton7))
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 
-private void jTextField5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField5ActionPerformed
-// TODO add your handling code here:
-}//GEN-LAST:event_jTextField5ActionPerformed
-
-private void jRadioButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton1ActionPerformed
-// TODO add your handling code here:
-}//GEN-LAST:event_jRadioButton1ActionPerformed
-
-private void jTextField6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField6ActionPerformed
-// TODO add your handling code here:
-}//GEN-LAST:event_jTextField6ActionPerformed
-
 private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-// TODO add your handling code here:
+    if (!jTextField6.getText().equals("")) {
+        if (this.modoBuscaSelecionado == ModoBusca.POR_NOME_CONTA) {
+            this.populaTabela();
+        }
+    }
 }//GEN-LAST:event_jButton4ActionPerformed
 
+private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+    if (this.modoBuscaSelecionado == ModoBusca.TODAS) {
+        this.populaTabela();
+    }
+}//GEN-LAST:event_jButton6ActionPerformed
+
+private void jRadioButton1StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jRadioButton1StateChanged
+    JRadioButton rb = (JRadioButton) evt.getSource();
+    if (rb.getModel() == buttonGroup1.getSelection()) {
+        this.modoBuscaSelecionado = ModoBusca.POR_USUARIO;
+        refreshButtons();
+    }
+}//GEN-LAST:event_jRadioButton1StateChanged
+
+private void jRadioButton5StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jRadioButton5StateChanged
+    JRadioButton rb = (JRadioButton) evt.getSource();
+    if (rb.getModel() == buttonGroup1.getSelection()) {
+        this.modoBuscaSelecionado = ModoBusca.POR_NOME_CONTA;
+        refreshButtons();
+    }
+}//GEN-LAST:event_jRadioButton5StateChanged
+
+private void jRadioButton7StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jRadioButton7StateChanged
+    JRadioButton rb = (JRadioButton) evt.getSource();
+    if (rb.getModel() == buttonGroup1.getSelection()) {
+        this.modoBuscaSelecionado = ModoBusca.TODAS;
+        refreshButtons();
+    }
+}//GEN-LAST:event_jRadioButton7StateChanged
+
+private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    if (!jTextField5.getText().equals("")) {
+        if (this.modoBuscaSelecionado == ModoBusca.POR_USUARIO) {
+            this.populaTabela();
+        }
+    }
+}//GEN-LAST:event_jButton3ActionPerformed
+
+private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+    buttonGroup1.setSelected(jRadioButton1.getModel(), true);
+    JPUsuariosCadastrados jpanel = new JPUsuariosCadastrados();
+    jpanel.setMode(Mode.SELECIONAVEL);
+    MainWindow.getInstance().showCard(this, jpanel);
+}//GEN-LAST:event_jButton5ActionPerformed
+
+private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    MainWindow.getInstance().closeCurrentCard();
+}//GEN-LAST:event_jButton2ActionPerformed
+
+private void jTextField6FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextField6FocusGained
+    buttonGroup1.setSelected(jRadioButton5.getModel(), true);
+}//GEN-LAST:event_jTextField6FocusGained
+
+private void jTextField5FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextField5FocusGained
+    buttonGroup1.setSelected(jRadioButton1.getModel(), true);
+}//GEN-LAST:event_jTextField5FocusGained
+
+private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
+    if(jTable1.getSelectedRow() >= 0){
+        ResourceBundle bundle = ResourceBundle.getBundle("I18n/Bundle");
+        if(JOptionPane.YES_OPTION == JOptionPane.showConfirmDialog(this, bundle.getString("JPConsultarConta.Messages.ConfirmaRemocaoLn1")+"\n"+bundle.getString("JPConsultarEmprestimo.Messages.ConfirmaRemocaoLn2"), bundle.getString("JPUsuariosCadastrados.Messages.ConfirmaRemocaoTitle"), JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE)){
+            ContaVO selecionado = contas.get((this.jTable1.getSelectedRow()));
+            BusinessFactory factory = BusinessFactory.getInstance();
+            try{
+                factory.getConta().delete(selecionado.getNome());
+            }
+            catch(BusinessException e){
+
+            }
+            this.repopulaTabela();
+        }
+    }
+}//GEN-LAST:event_jButton7ActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
@@ -268,13 +435,10 @@ private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
-    private javax.swing.JLabel jLabel16;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
     private javax.swing.JRadioButton jRadioButton1;
     private javax.swing.JRadioButton jRadioButton5;
-    private javax.swing.JRadioButton jRadioButton6;
     private javax.swing.JRadioButton jRadioButton7;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
@@ -284,10 +448,70 @@ private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
     private javax.swing.JTable jTable1;
     private javax.swing.JTextField jTextField5;
     private javax.swing.JTextField jTextField6;
-    private javax.swing.JTextField jTextField7;
     // End of variables declaration//GEN-END:variables
 
     public void onReturnFromOtherWindow(Object returnedObject) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        if (returnedObject instanceof UsuarioVO) {
+            this.usuarioSelecionado = (UsuarioVO) returnedObject;
+            String text = this.usuarioSelecionado.getNome() + " (" + this.usuarioSelecionado.getEmail() + ")";
+            jTextField5.setText(text);
+        }
+    }
+
+    private void refreshButtons() {
+        jButton3.setEnabled(modoBuscaSelecionado == ModoBusca.POR_USUARIO);
+        jButton4.setEnabled(modoBuscaSelecionado == ModoBusca.POR_NOME_CONTA);
+        jButton6.setEnabled(modoBuscaSelecionado == ModoBusca.TODAS);
+    }
+
+    private void populaTabela() {
+
+        switch (modoBuscaSelecionado) {
+            case POR_USUARIO:
+                try {
+                    contas = BusinessFactory.getInstance().getConta().getContasByUsuario(usuarioSelecionado.getEmail());
+                } catch (BusinessException ex) {
+                    Logger.getLogger(JPConsultarConta.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                break;
+
+            case POR_NOME_CONTA:
+                try {
+                    String text = jTextField6.getText();
+                    if (!text.equals("")) {
+                        contas = new LinkedList<ContaVO>();
+                        contas.add(BusinessFactory.getInstance().getConta().getConta(text));
+                    }
+                } catch (BusinessException ex) {
+                    Logger.getLogger(JPConsultarConta.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                break;
+
+            case TODAS:
+                try {
+                    contas = BusinessFactory.getInstance().getConta().getAll();
+                } catch (BusinessException ex) {
+                    Logger.getLogger(JPConsultarConta.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                break;
+        }
+        
+            int counter = 0;
+            DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+            model.setRowCount(0);
+            for (ContaVO conta : contas) {
+                if(conta!=null){
+                    model.insertRow(counter, new Object[]{
+                                conta.getNome(),
+                                conta.getUsuario().getNome(),
+                                conta.getDescricao(),
+                                conta.getValor()
+                            });
+                    counter++;
+                }
+            }
+            jTable1.changeSelection(0, 0, false, false);
+
+
     }
 }

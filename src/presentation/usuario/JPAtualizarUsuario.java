@@ -80,8 +80,13 @@ public class JPAtualizarUsuario extends javax.swing.JPanel implements presentati
             }
         });
 
-        jButton2.setFont(new java.awt.Font("Calibri", 1, 12));
+        jButton2.setFont(new java.awt.Font("Calibri", 1, 12)); // NOI18N
         jButton2.setText(bundle.getString("JPAtualizarUsuario.jButton2.text_1")); // NOI18N
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jLabel2.setFont(new java.awt.Font("Calibri", 3, 18));
         jLabel2.setText(bundle.getString("JPAtualizarUsuario.jLabel2.text_1")); // NOI18N
@@ -124,7 +129,7 @@ public class JPAtualizarUsuario extends javax.swing.JPanel implements presentati
                     .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
 
-        jLabel6.setFont(new java.awt.Font("Calibri", 3, 18)); // NOI18N
+        jLabel6.setFont(new java.awt.Font("Calibri", 3, 18));
         jLabel6.setText(bundle.getString("JPAtualizarUsuario.jLabel6.text_1")); // NOI18N
 
         jLabel4.setFont(new java.awt.Font("Calibri", 3, 18));
@@ -284,6 +289,10 @@ private void jPasswordField3FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRS
     }
     jLabel9.setVisible(!senhaAntigaOK);
 }//GEN-LAST:event_jPasswordField3FocusLost
+
+private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    MainWindow.getInstance().closeCurrentCard();
+}//GEN-LAST:event_jButton2ActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;

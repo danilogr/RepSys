@@ -12,21 +12,35 @@ package presentation.numeroTelefonico;
 
 import business.BusinessException;
 import business.BusinessFactory;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.List;
+import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JRadioButton;
+import javax.swing.table.DefaultTableModel;
 import presentation.desktop.MainWindow;
-import vo.ItemFaturaTelefonicaVO;
+import presentation.lib.IMultiModePanel.Mode;
+import presentation.usuario.JPUsuariosCadastrados;
+import vo.NumeroTelefonicoVO;
+import vo.UsuarioNumeroTelefonicoVO;
+import vo.UsuarioVO;
 
 /**
  *
  * @author Nelson
  */
-public class JPConsultarLigacao extends javax.swing.JPanel {
-
+public class JPConsultarLigacao extends javax.swing.JPanel implements presentation.lib.ReturnEvent {
+    
+    private boolean isConsultaPorResponsavel;
+    private UsuarioVO usuarioSelecionado;
+    List<UsuarioNumeroTelefonicoVO> ligacoes;
     /** Creates new form JPConsultarLigacao */
     public JPConsultarLigacao() {
         initComponents();
+        isConsultaPorResponsavel = false;
+        refreshButtons();
     }
 
     /** This method is called from within the constructor to
@@ -42,7 +56,6 @@ public class JPConsultarLigacao extends javax.swing.JPanel {
         jPanel1 = new javax.swing.JPanel();
         jRadioButton1 = new javax.swing.JRadioButton();
         jTextField5 = new javax.swing.JTextField();
-        jButton5 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jTextField6 = new javax.swing.JTextField();
@@ -61,67 +74,77 @@ public class JPConsultarLigacao extends javax.swing.JPanel {
         jRadioButton1.setSelected(true);
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("I18n/Bundle"); // NOI18N
         jRadioButton1.setText(bundle.getString("JPConsultarLigacao.jRadioButton1.text")); // NOI18N
-        jRadioButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jRadioButton1ActionPerformed(evt);
+        jRadioButton1.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                jRadioButton1StateChanged(evt);
             }
         });
 
-        jTextField5.setEditable(false);
         jTextField5.setFont(new java.awt.Font("Catriel", 0, 11));
         jTextField5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField5ActionPerformed(evt);
             }
         });
-
-        jButton5.setText(bundle.getString("JPConsultarLigacao.jButton5.text")); // NOI18N
+        jTextField5.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jTextField5FocusGained(evt);
+            }
+        });
 
         jButton3.setFont(new java.awt.Font("Calibri", 1, 12));
         jButton3.setText(bundle.getString("JPConsultarLigacao.jButton3.text")); // NOI18N
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jRadioButton1)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jTextField5, javax.swing.GroupLayout.DEFAULT_SIZE, 348, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addContainerGap(303, Short.MAX_VALUE)
-                        .addComponent(jButton3)))
+                .addComponent(jRadioButton1)
                 .addContainerGap())
+            .addComponent(jTextField5, javax.swing.GroupLayout.DEFAULT_SIZE, 199, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jButton3))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(jRadioButton1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton5))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
+                .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 16, Short.MAX_VALUE)
                 .addComponent(jButton3))
         );
 
         jTextField6.setEditable(false);
         jTextField6.setFont(new java.awt.Font("Catriel", 0, 11));
-        jTextField6.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField6ActionPerformed(evt);
+        jTextField6.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jTextField6FocusGained(evt);
             }
         });
 
         jButton6.setText(bundle.getString("JPConsultarLigacao.jButton6.text")); // NOI18N
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton6ActionPerformed(evt);
+            }
+        });
 
         buttonGroup1.add(jRadioButton5);
         jRadioButton5.setFont(new java.awt.Font("Catriel", 0, 12));
         jRadioButton5.setText(bundle.getString("JPConsultarLigacao.jRadioButton5.text")); // NOI18N
+        jRadioButton5.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                jRadioButton5StateChanged(evt);
+            }
+        });
 
         jButton4.setFont(new java.awt.Font("Calibri", 1, 12));
         jButton4.setText(bundle.getString("JPConsultarLigacao.jButton4.text")); // NOI18N
@@ -135,50 +158,55 @@ public class JPConsultarLigacao extends javax.swing.JPanel {
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jRadioButton5)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(6, 6, 6)
-                        .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(136, Short.MAX_VALUE)
-                .addComponent(jButton4)
-                .addContainerGap())
+                .addComponent(jTextField6, javax.swing.GroupLayout.DEFAULT_SIZE, 279, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addComponent(jRadioButton5)
+                .addContainerGap(190, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap(224, Short.MAX_VALUE)
+                .addComponent(jButton4))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addComponent(jRadioButton5)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton6)
-                    .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton6))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
                 .addComponent(jButton4))
         );
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null}
+
             },
             new String [] {
-                "Nome", "Responsáveis"
+                "Número", "Responsável", "Data e Hora", "Recorrência"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jTable1.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jTable1.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(jTable1);
         jTable1.getColumnModel().getColumn(0).setHeaderValue(bundle.getString("JPConsultarLigacao.jTable1.columnModel.title0")); // NOI18N
         jTable1.getColumnModel().getColumn(1).setHeaderValue(bundle.getString("JPConsultarLigacao.jTable1.columnModel.title1")); // NOI18N
+        jTable1.getColumnModel().getColumn(2).setHeaderValue(bundle.getString("JPConsultarLigacao.jTable1.columnModel.title2")); // NOI18N
+        jTable1.getColumnModel().getColumn(3).setHeaderValue(bundle.getString("JPConsultarLigacao.jTable1.columnModel.title3")); // NOI18N
 
-        jButton2.setFont(new java.awt.Font("Calibri", 1, 12));
-        jButton2.setText(bundle.getString("JPConsultarLigacao.jButton2.text")); // NOI18N
+        jButton2.setFont(new java.awt.Font("Calibri", 1, 12)); // NOI18N
+        jButton2.setText(bundle.getString("JPConsultarEmprestimo.jButton3.text")); // NOI18N
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
@@ -188,6 +216,7 @@ public class JPConsultarLigacao extends javax.swing.JPanel {
         jLabel1.setFont(new java.awt.Font("Cambria", 1, 30));
         jLabel1.setText(bundle.getString("JPConsultarLigacao.jLabel1.text")); // NOI18N
 
+        jToggleButton1.setFont(new java.awt.Font("Calibri", 1, 12));
         jToggleButton1.setText(bundle.getString("JPConsultarLigacao.jToggleButton1.text")); // NOI18N
         jToggleButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -200,21 +229,18 @@ public class JPConsultarLigacao extends javax.swing.JPanel {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jSeparator4, javax.swing.GroupLayout.DEFAULT_SIZE, 522, Short.MAX_VALUE)
+                    .addComponent(jLabel1)
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jSeparator4, javax.swing.GroupLayout.DEFAULT_SIZE, 964, Short.MAX_VALUE)
-                            .addComponent(jLabel1)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(14, 14, 14)
-                                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 964, Short.MAX_VALUE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(209, 209, 209)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 522, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(jButton2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 627, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 320, Short.MAX_VALUE)
                         .addComponent(jToggleButton1)))
                 .addContainerGap())
         );
@@ -227,54 +253,83 @@ public class JPConsultarLigacao extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(8, 8, 8)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(20, 20, 20)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(35, 35, 35)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton2)
-                    .addComponent(jToggleButton1))
+                    .addComponent(jToggleButton1)
+                    .addComponent(jButton2))
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
-
-private void jRadioButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton1ActionPerformed
-// TODO add your handling code here:
-}//GEN-LAST:event_jRadioButton1ActionPerformed
 
 private void jTextField5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField5ActionPerformed
 // TODO add your handling code here:
 }//GEN-LAST:event_jTextField5ActionPerformed
 
-private void jTextField6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField6ActionPerformed
-// TODO add your handling code here:
-}//GEN-LAST:event_jTextField6ActionPerformed
-
 private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-// TODO add your handling code here:
+    if(!jTextField6.getText().equals(""))
+        if(this.isConsultaPorResponsavel)
+            this.populaTabela();
 }//GEN-LAST:event_jButton4ActionPerformed
 
 private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         try {
-            // TODO add your handling code here:
-                this.chamarRemocao();
+            this.chamarRemocao();
+            this.repopulaTabela();
         } catch (BusinessException ex) {
             Logger.getLogger(JPConsultarLigacao.class.getName()).log(Level.SEVERE, null, ex);
         }
 }//GEN-LAST:event_jButton2ActionPerformed
 
 private void jToggleButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton1ActionPerformed
-// TODO add your handling code here:
     MainWindow.getInstance().closeCurrentCard();
 }//GEN-LAST:event_jToggleButton1ActionPerformed
+
+private void jRadioButton1StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jRadioButton1StateChanged
+    JRadioButton rb = (JRadioButton)evt.getSource();
+    if(rb.getModel() == buttonGroup1.getSelection()){
+        this.isConsultaPorResponsavel=false;
+        refreshButtons();
+    }
+}//GEN-LAST:event_jRadioButton1StateChanged
+
+private void jRadioButton5StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jRadioButton5StateChanged
+    JRadioButton rb = (JRadioButton)evt.getSource();
+    if(rb.getModel() == buttonGroup1.getSelection()){
+        this.isConsultaPorResponsavel=true;
+        refreshButtons();
+    }
+}//GEN-LAST:event_jRadioButton5StateChanged
+
+private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    if(!jTextField5.getText().equals(""))    
+        if(!this.isConsultaPorResponsavel)
+            this.populaTabela();
+}//GEN-LAST:event_jButton3ActionPerformed
+
+private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+    buttonGroup1.setSelected(jRadioButton5.getModel(), true);
+    JPUsuariosCadastrados jpanel = new JPUsuariosCadastrados();
+    jpanel.setMode(Mode.SELECIONAVEL);
+    MainWindow.getInstance().showCard(this, jpanel);
+}//GEN-LAST:event_jButton6ActionPerformed
+
+private void jTextField5FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextField5FocusGained
+    buttonGroup1.setSelected(jRadioButton1.getModel(), true);
+}//GEN-LAST:event_jTextField5FocusGained
+
+private void jTextField6FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextField6FocusGained
+    buttonGroup1.setSelected(jRadioButton5.getModel(), true);
+}//GEN-LAST:event_jTextField6FocusGained
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
@@ -289,17 +344,88 @@ private void jToggleButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GE
     private javax.swing.JToggleButton jToggleButton1;
     // End of variables declaration//GEN-END:variables
 
-    private List<ItemFaturaTelefonicaVO> itemFatura;
     
     private void chamarRemocao() throws BusinessException {
-        ItemFaturaTelefonicaVO selecionado = itemFatura.get((this.jTable1.getSelectedRow()));
-        BusinessFactory factory = BusinessFactory.getInstance();
-        try{
-            factory.getItemFaturaTelefonica().delete(selecionado.getNumero().getNumero(),selecionado.getDataHora());
+        UsuarioNumeroTelefonicoVO selecionado;
+        BusinessFactory factory;
+        if(jTable1.getSelectedRow()>=0){
+            selecionado = ligacoes.get((this.jTable1.getSelectedRow()));
+            factory = BusinessFactory.getInstance();
+            try{
+                factory.getNumeroTelefonico().delete(selecionado.getNumero().getNumero());
+            }
+            catch(BusinessException e){
+                throw e;
+            }
         }
-        catch(BusinessException e){
-            throw e;
+        
+    }
+
+    private void refreshButtons() {
+        jButton3.setEnabled(!this.isConsultaPorResponsavel);
+        jButton4.setEnabled(this.isConsultaPorResponsavel);
+    }
+
+    private void populaTabela() {
+        
+        int counter = 0;
+        if(this.isConsultaPorResponsavel){
+            try {
+                ligacoes = BusinessFactory.getInstance().getNumeroTelefonico().getLigacoesPorUsuario(usuarioSelecionado.getEmail());
+                
+            } catch (BusinessException ex) {
+                Logger.getLogger(JPConsultarLigacao.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }else{
+            try {           
+                ligacoes = BusinessFactory.getInstance().getNumeroTelefonico().getLigacoes(new NumeroTelefonicoVO(jTextField5.getText()));
+                
+            } catch (BusinessException ex) {
+                Logger.getLogger(JPConsultarLigacao.class.getName()).log(Level.SEVERE, null, ex);
+            }
+                
+        } 
+        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+        model.setRowCount(0);
+        for (UsuarioNumeroTelefonicoVO ligacao:ligacoes) {
+            DateFormat df = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+            String recorrencia = "";
+            
+            ResourceBundle bundle = ResourceBundle.getBundle("I18n/Bundle");
+            
+            
+            if (ligacao.getRecorrencia() == 1){
+                recorrencia = bundle.getString("JPConsultarNumeroTelefonico.CellText.Recorrente");
+            }else if (ligacao.getRecorrencia() == 0){
+                recorrencia = bundle.getString("JPConsultarNumeroTelefonico.CellText.NaoRecorrente");
+            }
+            
+            
+            
+            model.insertRow(counter,new Object[]{
+                ligacao.getNumero().getNumero(), 
+                ligacao.getUsuario().getNome(), 
+                df.format(ligacao.getDataHora().getTime()), 
+                recorrencia
+            });
+            
+            counter++;
         }
+        jTable1.changeSelection(0, 0, false, false);
+            
+    }
+
+    public void onReturnFromOtherWindow(Object returnedObject) {
+        if (returnedObject instanceof UsuarioVO){
+            this.usuarioSelecionado = (UsuarioVO)returnedObject;
+            String text=this.usuarioSelecionado.getNome()+" ("+this.usuarioSelecionado.getEmail()+")";
+            jTextField6.setText(text);
+        }
+    }
+
+    private void repopulaTabela() {
+        ((DefaultTableModel)jTable1.getModel()).setRowCount(0);
+        this.populaTabela();
     }
 
     

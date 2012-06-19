@@ -1,15 +1,15 @@
-DROP TABLE IF EXISTS ValorVariavel;
-DROP TABLE IF EXISTS ValorFixo;
-DROP TABLE IF EXISTS Conta_Usuario_Devedor;
-DROP TABLE IF EXISTS Conta;
-DROP TABLE IF EXISTS Emprestimo_Usuario_Credor;
-DROP TABLE IF EXISTS Emprestimo_Usuario_Devedor;
-DROP TABLE IF EXISTS Emprestimo;
-DROP TABLE IF EXISTS ItemFaturaTelefonica;
-DROP TABLE IF EXISTS FaturaTelefonica;
-DROP TABLE IF EXISTS Usuario_NumeroTelefonico;
-DROP TABLE IF EXISTS NumeroTelefonico;
-DROP TABLE IF EXISTS Usuario;
+﻿DROP TABLE IF EXISTS ValorVariavel CASCADE;
+DROP TABLE IF EXISTS ValorFixo CASCADE; 
+DROP TABLE IF EXISTS Conta_Usuario_Devedor CASCADE;
+DROP TABLE IF EXISTS Conta CASCADE;
+DROP TABLE IF EXISTS Emprestimo_Usuario_Credor CASCADE;
+DROP TABLE IF EXISTS Emprestimo_Usuario_Devedor CASCADE;
+DROP TABLE IF EXISTS Emprestimo CASCADE;
+DROP TABLE IF EXISTS ItemFaturaTelefonica CASCADE;
+DROP TABLE IF EXISTS FaturaTelefonica CASCADE;
+DROP TABLE IF EXISTS Usuario_NumeroTelefonico CASCADE;
+DROP TABLE IF EXISTS NumeroTelefonico CASCADE;
+DROP TABLE IF EXISTS Usuario CASCADE;
 
 CREATE TABLE Usuario (
 	email VARCHAR(50) CONSTRAINT usuario_pk PRIMARY KEY,
@@ -25,7 +25,7 @@ CREATE TABLE Usuario_NumeroTelefonico (
 	email VARCHAR(50),
 	numero VARCHAR(16),
 	data_hora TIMESTAMP,
-	recorrencia NUMERIC(1) CONSTRAINT usuario_numtelefonico_nn NOT NULL,   -- o inteiro indicará se a recorrência será					
+	recorrencia NUMERIC(1) CONSTRAINT usuario_numtelefonico_nn NOT NULL, 					
 	CONSTRAINT usuario_numtelefonico_email_fk FOREIGN KEY (email) REFERENCES Usuario(email) ON DELETE CASCADE,
 	CONSTRAINT usuario_numtelefonico_num_fk FOREIGN KEY (numero) REFERENCES NumeroTelefonico(numero) ON DELETE CASCADE,
 	CONSTRAINT usuario_numtel_data_hora_pk PRIMARY KEY (email, numero, data_hora)
@@ -45,8 +45,8 @@ CREATE TABLE ItemFaturaTelefonica (
 	valor REAL NOT NULL,
 	mes NUMERIC(2),
 	ano NUMERIC(4),
-	CONSTRAINT IFT_numero_fk FOREIGN KEY (numero) REFERENCES  NumeroTelefonico(numero),
-	CONSTRAINT IFT_mes_ano_fk FOREIGN KEY (mes,ano) REFERENCES FaturaTelefonica(mes,ano),
+	CONSTRAINT IFT_numero_fk FOREIGN KEY (numero) REFERENCES  NumeroTelefonico(numero) ON DELETE CASCADE,
+	CONSTRAINT IFT_mes_ano_fk FOREIGN KEY (mes,ano) REFERENCES FaturaTelefonica(mes,ano) ON DELETE CASCADE,
 	CONSTRAINT IFT_numero_data_hora PRIMARY KEY (numero, data_hora)
 );
 
@@ -149,8 +149,8 @@ alter table emprestimo_usuario_devedor
 alter table itemfaturatelefonica
    drop constraint    "ift_mes_ano_fk",
    drop constraint    "ift_numero_fk",
-   add constraint "ift_mes_ano_fk" FOREIGN KEY (mes, ano) REFERENCES faturatelefonica(mes, ano),
-   add constraint "ift_numero_fk" FOREIGN KEY (numero) REFERENCES numerotelefonico(numero);
+   add constraint "ift_mes_ano_fk" FOREIGN KEY (mes, ano) REFERENCES faturatelefonica(mes, ano) ON DELETE CASCADE,
+   add constraint "ift_numero_fk" FOREIGN KEY (numero) REFERENCES numerotelefonico(numero) ON DELETE CASCADE;
 
 --------------------------------------
 
@@ -558,3 +558,37 @@ CREATE OR REPLACE VIEW UsuarioV AS
 	SELECT U.email, U.nome, U.senha, Saldo(dividas,creditos)
 	FROM TotalDividas D, TotalCreditos C, Usuario U
 	WHERE D.email=C.email AND U.email=D.email;
+
+
+
+
+CREATE OR REPLACE FUNCTION insereItemFaturaProcedure()
+RETURNS TRIGGER AS
+$$
+DECLARE
+	temp1 numeric;
+	temp2 numeric;
+BEGIN
+	SELECT count(numero) INTO temp1 FROM NumeroTelefonico WHERE numero=new.numero;
+	SELECT count(numero) INTO temp2 FROM ItemFaturaTelefonica WHERE numero=new.numero AND data_hora=new.data_hora;
+
+	IF (temp1=0) THEN
+		INSERT INTO NumeroTelefonico(numero) VALUES (new.numero);
+	END IF;	
+
+	
+	return new;
+END;
+$$ LANGUAGE plpgsql;
+
+
+
+CREATE TRIGGER insertLigacao
+BEFORE INSERT ON Usuario_NumeroTelefonico
+FOR EACH ROW
+EXECUTE PROCEDURE seNovoInsereNumeroTelefonico();
+
+CREATE TRIGGER insereItemFaturaTrigger
+BEFORE INSERT ON ItemFaturaTelefonica
+FOR EACH ROW
+EXECUTE PROCEDURE insereItemFaturaProcedure();
