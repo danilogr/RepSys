@@ -86,7 +86,7 @@ public class JPCadastrarNumeroTelefonico extends javax.swing.JPanel implements p
 
         setPreferredSize(new java.awt.Dimension(560, 450));
 
-        jLabelNumero.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
+        jLabelNumero.setFont(new java.awt.Font("Calibri", 1, 18));
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("I18n/Bundle"); // NOI18N
         jLabelNumero.setText(bundle.getString("JPCadastrarNumeroTelefonico.jLabelNumero.text")); // NOI18N
 
@@ -96,7 +96,7 @@ public class JPCadastrarNumeroTelefonico extends javax.swing.JPanel implements p
             }
         });
 
-        jLabelRecorrencia.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
+        jLabelRecorrencia.setFont(new java.awt.Font("Calibri", 1, 18));
         jLabelRecorrencia.setText(bundle.getString("JPCadastrarNumeroTelefonico.jLabelRecorrencia.text")); // NOI18N
 
         buttonGroup1.add(jRadioButtonUnica);
@@ -143,7 +143,6 @@ public class JPCadastrarNumeroTelefonico extends javax.swing.JPanel implements p
         jScrollPane1.setViewportView(jTableResponsaveis);
         jTableResponsaveis.getColumnModel().getColumn(0).setResizable(false);
         jTableResponsaveis.getColumnModel().getColumn(0).setPreferredWidth(15);
-        jTableResponsaveis.getColumnModel().getColumn(0).setHeaderValue(bundle.getString("JPCadastrarNumeroTelefonico.jTableResponsaveis.columnModel.title0")); // NOI18N
         jTableResponsaveis.getColumnModel().getColumn(1).setHeaderValue(bundle.getString("JPCadastrarNumeroTelefonico.jTableResponsaveis.columnModel.title1_1")); // NOI18N
         jTableResponsaveis.getColumnModel().getColumn(2).setResizable(false);
         jTableResponsaveis.getColumnModel().getColumn(2).setHeaderValue(bundle.getString("JPCadastrarNumeroTelefonico.jTableResponsaveis.columnModel.title2_1")); // NOI18N
@@ -179,10 +178,10 @@ public class JPCadastrarNumeroTelefonico extends javax.swing.JPanel implements p
         jLabelCadastrarNumeroTelefonico.setFont(new java.awt.Font("Cambria", 1, 30));
         jLabelCadastrarNumeroTelefonico.setText(bundle.getString("JPCadastrarNumeroTelefonico.jLabelCadastrarNumeroTelefonico.text")); // NOI18N
 
-        jLabelResponsaveis.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
+        jLabelResponsaveis.setFont(new java.awt.Font("Calibri", 1, 18));
         jLabelResponsaveis.setText(bundle.getString("JPCadastrarNumeroTelefonico.jLabelResponsaveis.text")); // NOI18N
 
-        jToggleButtonConfirmar.setFont(new java.awt.Font("Calibri", 1, 12)); // NOI18N
+        jToggleButtonConfirmar.setFont(new java.awt.Font("Calibri", 1, 12));
         jToggleButtonConfirmar.setText(bundle.getString("JPCadastrarNumeroTelefonico.jToggleButtonConfirmar.text")); // NOI18N
         jToggleButtonConfirmar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -194,7 +193,7 @@ public class JPCadastrarNumeroTelefonico extends javax.swing.JPanel implements p
         jLabel8.setText(bundle.getString("JPCadastrarUsuario.jLabel8.text")); // NOI18N
         jLabel8.setVisible(false);
 
-        jButton2.setFont(new java.awt.Font("Calibri", 1, 12)); // NOI18N
+        jButton2.setFont(new java.awt.Font("Calibri", 1, 12));
         jButton2.setText(bundle.getString("JPCadastrarNumeroTelefonico.jButton2.text")); // NOI18N
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -219,7 +218,7 @@ public class JPCadastrarNumeroTelefonico extends javax.swing.JPanel implements p
                         .addComponent(jButton2))
                     .addComponent(jLabelCadastrarNumeroTelefonico, javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabelNumero, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 474, Short.MAX_VALUE)
+                    .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 540, Short.MAX_VALUE)
                     .addComponent(jLabelData, javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -228,7 +227,7 @@ public class JPCadastrarNumeroTelefonico extends javax.swing.JPanel implements p
                             .addComponent(jLabelRecorrencia))
                         .addGap(39, 39, 39)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 334, Short.MAX_VALUE)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 395, Short.MAX_VALUE)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                 .addComponent(jTextFieldData, javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(jTextFieldHora, javax.swing.GroupLayout.Alignment.LEADING)
@@ -277,7 +276,7 @@ public class JPCadastrarNumeroTelefonico extends javax.swing.JPanel implements p
                 .addComponent(jLabel8)
                 .addGap(2, 2, 2)
                 .addComponent(jLabel9)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 66, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton2)
                     .addComponent(jToggleButtonConfirmar))

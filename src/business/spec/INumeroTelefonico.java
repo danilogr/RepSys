@@ -25,6 +25,8 @@ public interface INumeroTelefonico {
         
         List getLigacoes(NumeroTelefonicoVO vo) throws BusinessException;
         
+        List getUsuariosPorNumero(NumeroTelefonicoVO vo) throws BusinessException;
+        
         List getLigacoesPorUsuario(String email) throws BusinessException;
 
         List getAll() throws BusinessException;

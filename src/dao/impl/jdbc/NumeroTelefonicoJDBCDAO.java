@@ -68,8 +68,12 @@ public class NumeroTelefonicoJDBCDAO extends GenericJDBCDAO implements
 			
 			ResultSet rs = stmt.executeQuery();
 			if(rs.next()) {
+                                this.commit();
+                                this.close();
 				return (NumeroTelefonicoVO) this.createVO(rs);
 			}
+                        this.commit();
+                        this.close();
 		} catch (Exception e) {
 			throw new DAOException(e);
 		}

@@ -105,8 +105,12 @@ public class FaturaTelefonicaJDBCDAO extends GenericJDBCDAO implements IFaturaTe
 			
 			ResultSet rs = stmt.executeQuery();
 			if(rs.next()) {
+                                this.commit();
+                                this.close();
 				return (FaturaTelefonicaVO) createVO(rs);
 			}
+                        this.commit();
+                        this.close();
 		} catch(Exception e) {
 			throw new DAOException(e);
 		}

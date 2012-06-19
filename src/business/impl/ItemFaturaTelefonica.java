@@ -7,6 +7,7 @@ import dao.DAOFactory;
 import dao.spec.IItemFaturaTelefonicaDAO;
 import java.util.Calendar;
 import java.util.List;
+import vo.FaturaTelefonicaVO;
 
 /**
  * @author Nelson
@@ -55,6 +56,16 @@ public class ItemFaturaTelefonica implements IItemFaturaTelefonica {
 		throw new BusinessException(e);
             }
 	}
+        
+        public List getItemFaturaTelefonicaPorFatura(FaturaTelefonicaVO fatura) throws BusinessException{
+            DAOFactory factory = DAOFactory.getInstance();
+            try {
+		IItemFaturaTelefonicaDAO dao = factory.getItemFaturaTelefonicaDAO();
+		return  dao.selectByMesAno(fatura.getMes(),fatura.getAno());
+            } catch (Exception e) {
+		throw new BusinessException(e);
+            }
+        }
 
 	public List getAll() throws BusinessException {
 		DAOFactory factory = DAOFactory.getInstance();

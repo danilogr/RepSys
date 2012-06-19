@@ -26,6 +26,7 @@ import java.util.logging.Logger;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import util.Operadora;
 import util.csvParser.CSVReader;
 import vo.FaturaTelefonicaVO;
 import vo.ItemFaturaTelefonicaVO;
@@ -36,10 +37,6 @@ import vo.NumeroTelefonicoVO;
  * @author Endril
  */
 public class JPImportarFatura extends javax.swing.JPanel implements presentation.lib.ReturnEvent {
-    private enum Operadora{
-        // TODO: Adicionar mais operadoras (lembrar de adicionar no comboBox pelo construtor abaixo)
-        Embratel
-    }
     
     private Operadora operadoraSelecionada;
     private File faturaFile;

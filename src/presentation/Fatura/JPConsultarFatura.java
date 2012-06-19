@@ -10,15 +10,38 @@
  */
 package presentation.Fatura;
 
+import business.BusinessException;
+import business.BusinessFactory;
+import java.text.SimpleDateFormat;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import util.NumberRenderer;
+import vo.FaturaTelefonicaVO;
+import vo.ItemFaturaTelefonicaVO;
+import vo.UsuarioNumeroTelefonicoVO;
+import vo.UsuarioVO;
+
 /**
  *
  * @author Nelson
  */
 public class JPConsultarFatura extends javax.swing.JPanel implements presentation.lib.ReturnEvent {
-
+    private FaturaTelefonicaVO fatura;
+    private List<ItemFaturaTelefonicaVO> itensFatura;
     /** Creates new form JPConsultarFatura */
     public JPConsultarFatura() {
         initComponents();
+        
+        jTableDetalhes.getColumnModel().getColumn(4).setCellRenderer(NumberRenderer.getCurrencyRenderer());
+        jTableDetalhes1.getColumnModel().getColumn(1).setCellRenderer(NumberRenderer.getCurrencyRenderer());
+        // Meses:
+        for(int i = 1;i<=12;i++)
+            this.jComboBox2.addItem((Integer)i);
     }
 
     /** This method is called from within the constructor to
@@ -31,43 +54,34 @@ public class JPConsultarFatura extends javax.swing.JPanel implements presentatio
     private void initComponents() {
 
         jLabelConsultarFaturas = new javax.swing.JLabel();
-        jLabelFatura = new javax.swing.JLabel();
-        jComboBoxFatura = new javax.swing.JComboBox();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableDetalhes = new javax.swing.JTable();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        jTableResumo = new javax.swing.JTable();
-        jLabelResumo = new javax.swing.JLabel();
-        jLabelDetalhes = new javax.swing.JLabel();
-        jToggleButtonConfirmar = new javax.swing.JToggleButton();
         jSeparator1 = new javax.swing.JSeparator();
+        jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
+        jLabel10 = new javax.swing.JLabel();
+        jComboBox2 = new javax.swing.JComboBox();
+        jLabel11 = new javax.swing.JLabel();
+        jTextField1 = new javax.swing.JTextField();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTableDetalhes1 = new javax.swing.JTable();
+        jLabel12 = new javax.swing.JLabel();
+        jLabel13 = new javax.swing.JLabel();
 
-        jLabelConsultarFaturas.setFont(new java.awt.Font("Cambria", 1, 30)); // NOI18N
-        jLabelConsultarFaturas.setText("Consultar faturas");
-
-        jLabelFatura.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
-        jLabelFatura.setText("Fatura:");
-
-        jComboBoxFatura.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jComboBoxFatura.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBoxFaturaActionPerformed(evt);
-            }
-        });
+        jLabelConsultarFaturas.setFont(new java.awt.Font("Cambria", 1, 30));
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("I18n/Bundle"); // NOI18N
+        jLabelConsultarFaturas.setText(bundle.getString("JPConsultarFatura.jLabelConsultarFaturas.text")); // NOI18N
 
         jTableDetalhes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null}
+
             },
             new String [] {
-                "Data", "Hora", "Duração", "Valor", "Local", "Número", "Responsáveis"
+                "Numero", "Data", "Hora", "Duração", "Valor"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false
+                false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -76,22 +90,50 @@ public class JPConsultarFatura extends javax.swing.JPanel implements presentatio
         });
         jScrollPane1.setViewportView(jTableDetalhes);
         jTableDetalhes.getColumnModel().getColumn(0).setResizable(false);
+        jTableDetalhes.getColumnModel().getColumn(0).setHeaderValue(bundle.getString("JPConsultarFatura.jTableDetalhes.columnModel.title5")); // NOI18N
         jTableDetalhes.getColumnModel().getColumn(1).setResizable(false);
+        jTableDetalhes.getColumnModel().getColumn(1).setHeaderValue(bundle.getString("JPConsultarFatura.jTableDetalhes.columnModel.title0")); // NOI18N
         jTableDetalhes.getColumnModel().getColumn(2).setResizable(false);
+        jTableDetalhes.getColumnModel().getColumn(2).setHeaderValue(bundle.getString("JPConsultarFatura.jTableDetalhes.columnModel.title1")); // NOI18N
         jTableDetalhes.getColumnModel().getColumn(3).setResizable(false);
+        jTableDetalhes.getColumnModel().getColumn(3).setHeaderValue(bundle.getString("JPConsultarFatura.jTableDetalhes.columnModel.title2")); // NOI18N
         jTableDetalhes.getColumnModel().getColumn(4).setResizable(false);
-        jTableDetalhes.getColumnModel().getColumn(5).setResizable(false);
-        jTableDetalhes.getColumnModel().getColumn(6).setResizable(false);
+        jTableDetalhes.getColumnModel().getColumn(4).setHeaderValue(bundle.getString("JPConsultarFatura.jTableDetalhes.columnModel.title3")); // NOI18N
 
-        jTableResumo.setModel(new javax.swing.table.DefaultTableModel(
+        jButton1.setFont(new java.awt.Font("Calibri", 1, 12));
+        jButton1.setText(bundle.getString("JPConsultarFatura.jButton1.text")); // NOI18N
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        jButton2.setFont(new java.awt.Font("Calibri", 1, 12)); // NOI18N
+        jButton2.setText(bundle.getString("JPConsultarFatura.jButton2.text")); // NOI18N
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
+        jLabel10.setFont(new java.awt.Font("Calibri", 3, 18));
+        jLabel10.setText(bundle.getString("JPConsultarFatura.jLabel10.text")); // NOI18N
+
+        jLabel11.setFont(new java.awt.Font("Calibri", 3, 18));
+        jLabel11.setText(bundle.getString("JPConsultarFatura.jLabel11.text")); // NOI18N
+
+        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField1ActionPerformed(evt);
+            }
+        });
+
+        jTableDetalhes1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null}
+
             },
             new String [] {
-                "Nome", "Valor(R$)"
+                "Usuario", "Total"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -102,37 +144,42 @@ public class JPConsultarFatura extends javax.swing.JPanel implements presentatio
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane2.setViewportView(jTableResumo);
-        jTableResumo.getColumnModel().getColumn(0).setResizable(false);
-        jTableResumo.getColumnModel().getColumn(1).setResizable(false);
+        jScrollPane2.setViewportView(jTableDetalhes1);
+        jTableDetalhes1.getColumnModel().getColumn(0).setResizable(false);
+        jTableDetalhes1.getColumnModel().getColumn(0).setHeaderValue(bundle.getString("JPConsultarFatura.jTableDetalhes1.columnModel.title5")); // NOI18N
+        jTableDetalhes1.getColumnModel().getColumn(1).setResizable(false);
+        jTableDetalhes1.getColumnModel().getColumn(1).setHeaderValue(bundle.getString("JPConsultarFatura.jTableDetalhes1.columnModel.title0")); // NOI18N
 
-        jLabelResumo.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
-        jLabelResumo.setText("Resumo");
+        jLabel12.setFont(new java.awt.Font("Calibri", 3, 18));
+        jLabel12.setText(bundle.getString("JPConsultarFatura.jLabel12.text")); // NOI18N
 
-        jLabelDetalhes.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
-        jLabelDetalhes.setText("Detalhes");
-
-        jToggleButtonConfirmar.setText("Confirmar");
+        jLabel13.setFont(new java.awt.Font("Calibri", 3, 18));
+        jLabel13.setText(bundle.getString("JPConsultarFatura.jLabel13.text")); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(31, 31, 31)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 537, Short.MAX_VALUE)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 537, Short.MAX_VALUE)
-                    .addComponent(jLabelResumo)
-                    .addComponent(jLabelDetalhes)
-                    .addComponent(jLabelConsultarFaturas)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 481, Short.MAX_VALUE)
+                    .addComponent(jLabelConsultarFaturas, javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabelFatura)
-                        .addGap(18, 18, 18)
-                        .addComponent(jComboBoxFatura, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(77, 77, 77)
-                        .addComponent(jToggleButtonConfirmar, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jSeparator1, javax.swing.GroupLayout.DEFAULT_SIZE, 537, Short.MAX_VALUE))
+                        .addComponent(jLabel10)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel11)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, 168, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton1))
+                    .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 481, Short.MAX_VALUE)
+                    .addComponent(jButton2)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 481, Short.MAX_VALUE)
+                    .addComponent(jLabel12, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel13, javax.swing.GroupLayout.Alignment.LEADING))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -142,42 +189,157 @@ public class JPConsultarFatura extends javax.swing.JPanel implements presentatio
                 .addComponent(jLabelConsultarFaturas)
                 .addGap(3, 3, 3)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(5, 5, 5)
+                .addGap(11, 11, 11)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabelFatura)
-                    .addComponent(jComboBoxFatura, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jToggleButtonConfirmar))
-                .addGap(30, 30, 30)
-                .addComponent(jLabelResumo)
+                    .addComponent(jLabel10)
+                    .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel11)
+                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton1))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel13)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabelDetalhes)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 171, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(62, 62, 62))
+                .addComponent(jLabel12)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jButton2)
+                .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 
-private void jComboBoxFaturaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxFaturaActionPerformed
+private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
 // TODO add your handling code here:
-}//GEN-LAST:event_jComboBoxFaturaActionPerformed
+}//GEN-LAST:event_jTextField1ActionPerformed
+
+private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    ResourceBundle bundle;
+    if(this.isCampoPreenchido()){
+        this.fetchFatura();
+        if(fatura!=null){
+            this.getItensFatura();
+            this.populaTabela1();
+            this.populaTabela2();
+        }
+    }
+    else{
+        bundle = ResourceBundle.getBundle("I18n/Bundle");
+        JOptionPane.showMessageDialog(this, 
+              bundle.getString("JPImportarFatura.Messages.CampoVazio"), 
+              bundle.getString("JPLogin.Messages.LoginError.Title"),
+              JOptionPane.WARNING_MESSAGE);
+    }
+}//GEN-LAST:event_jButton1ActionPerformed
+
+private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    this.removerFatura();
+}//GEN-LAST:event_jButton2ActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JComboBox jComboBoxFatura;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JComboBox jComboBox2;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabelConsultarFaturas;
-    private javax.swing.JLabel jLabelDetalhes;
-    private javax.swing.JLabel jLabelFatura;
-    private javax.swing.JLabel jLabelResumo;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTable jTableDetalhes;
-    private javax.swing.JTable jTableResumo;
-    private javax.swing.JToggleButton jToggleButtonConfirmar;
+    private javax.swing.JTable jTableDetalhes1;
+    private javax.swing.JTextField jTextField1;
     // End of variables declaration//GEN-END:variables
 
     public void onReturnFromOtherWindow(Object returnedObject) {
         throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    private void fetchFatura() {
+        if(this.isCampoPreenchido()){
+            try {
+                if((this.fatura = BusinessFactory.getInstance().getFaturaTelefonica().getFaturaTelefonica((Integer)this.jComboBox2.getSelectedItem(), Integer.parseInt(this.jTextField1.getText())))==null){
+                    ResourceBundle bundle = ResourceBundle.getBundle("I18n/Bundle");
+                    JOptionPane.showMessageDialog(this, 
+                        bundle.getString("JPConsultarFatura.Messages.FaturaNaoEncontrada"), 
+                        bundle.getString("JPLogin.Messages.LoginError.Title"),
+                        JOptionPane.WARNING_MESSAGE);
+                }
+                    
+            } catch (BusinessException ex) {
+                Logger.getLogger(JPConsultarFatura.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }
+
+    private boolean isCampoPreenchido() {
+        return (!this.jTextField1.getText().isEmpty());
+    }
+
+    private void populaTabela1() {
+        int counter = 0;
+        DefaultTableModel model = (DefaultTableModel) jTableDetalhes.getModel();
+        model.setRowCount(0);
+        for(ItemFaturaTelefonicaVO item : itensFatura){
+               model.insertRow(counter++,new Object[] {
+                    item.getNumero().getNumero(),
+                    new SimpleDateFormat("dd/MM/yyyy").format(item.getDataHora().getTime()),
+                    new SimpleDateFormat("HH:mm:ss").format(item.getDataHora().getTime()),
+                    item.getDuracao(),
+                    item.getValor(),                             
+                });
+        }
+    }
+
+    private void getItensFatura() {
+        try {
+            itensFatura = (LinkedList<ItemFaturaTelefonicaVO>) BusinessFactory.getInstance().getItemFaturaTelefonica().getItemFaturaTelefonicaPorFatura(fatura);
+        } catch (BusinessException ex) {
+            Logger.getLogger(JPConsultarFatura.class.getName()).log(Level.SEVERE, null, ex);
+        }        
+    }
+
+    private void populaTabela2() {
+        try {
+            int counter = 0;
+            DefaultTableModel model = (DefaultTableModel) jTableDetalhes1.getModel();
+            model.setRowCount(0);
+            List <UsuarioVO> usuarios = BusinessFactory.getInstance().getUsuario().getAll();
+            for(UsuarioVO u : usuarios){
+                double total=0;
+                List <UsuarioNumeroTelefonicoVO> ligacoes = BusinessFactory.getInstance().getNumeroTelefonico().getLigacoesPorUsuario(u.getEmail());
+                for(UsuarioNumeroTelefonicoVO ligacao : ligacoes){
+                    for(ItemFaturaTelefonicaVO item : itensFatura){
+                        if (ligacao.getNumero().getNumero().equals(item.getNumero().getNumero()))
+                            if(ligacao.getRecorrencia()>0){
+                                int nUsers = BusinessFactory.getInstance().getNumeroTelefonico().getUsuariosPorNumero(item.getNumero()).size();
+                                total+=item.getValor()/nUsers;
+                            }
+                    }
+                }
+                model.insertRow(counter++,new Object[] {
+                    u.getNome()+" ("+u.getEmail()+")",
+                    total                            
+                });
+            }
+        }
+        catch (BusinessException ex) {
+            Logger.getLogger(JPConsultarFatura.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    private void removerFatura() {
+        try {
+            BusinessFactory.getInstance().getFaturaTelefonica().delete(fatura.getMes(), fatura.getAno());
+            DefaultTableModel m = (DefaultTableModel)jTableDetalhes.getModel();
+            m.setRowCount(0);
+            m = (DefaultTableModel)jTableDetalhes1.getModel();
+            m.setRowCount(0);
+        } catch (BusinessException ex) {
+            Logger.getLogger(JPConsultarFatura.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 }

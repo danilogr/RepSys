@@ -62,8 +62,5 @@ public class FaturaTelefonica implements IFaturaTelefonica {
 			throw new BusinessException(e);
 		}
 	}
-
-    
-    
 }
 

@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import java.util.List;
 import java.util.Properties;
 
 import util.Configuration;
@@ -15,6 +16,7 @@ import vo.ObjectVO;
 import vo.VOException;
 import dao.DAOException;
 import dao.spec.IItemFaturaTelefonicaDAO;
+import java.util.LinkedList;
 import org.postgresql.util.PGInterval;
 
 public class ItemFaturaTelefonicaJDBCDAO extends GenericJDBCDAO implements
@@ -100,7 +102,7 @@ public class ItemFaturaTelefonicaJDBCDAO extends GenericJDBCDAO implements
 
 	@Override
 	public ItemFaturaTelefonicaVO selectByNumeroDataHora(String numero,
-			Calendar dataHora) throws DAOException {
+                Calendar dataHora) throws DAOException {
 		String sql = "SELECT * FROM " + this.getTableName()
 				+ " WHERE NUMERO = ? AND DATA_HORA = ?";
 		try {
@@ -152,5 +154,30 @@ public class ItemFaturaTelefonicaJDBCDAO extends GenericJDBCDAO implements
 			throw new DAOException(e);
 		}
 	}
+
+    public List selectByMesAno(int mes, int ano) throws DAOException {
+        String sql = "SELECT * FROM " + this.getTableName()
+                        + " WHERE MES = ? AND ANO = ?";
+        try {
+                PreparedStatement stmt = this.getConnection().prepareStatement(sql);
+                List<ItemFaturaTelefonicaVO> returnList = new LinkedList<ItemFaturaTelefonicaVO>();
+                        
+                stmt.setInt(1, mes);
+                stmt.setInt(2, ano);
+
+                ResultSet rs = stmt.executeQuery();
+                while (rs.next()) {
+                    returnList.add((ItemFaturaTelefonicaVO)this.createVO(rs));
+                }
+                        
+                this.commit();
+                this.close();
+
+                return returnList;
+                
+        } catch (Exception e) {
+                throw new DAOException(e);
+        }
+    }
 
 }

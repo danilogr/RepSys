@@ -12,6 +12,7 @@ import dao.spec.INumeroTelefonicoDAO;
 import dao.spec.IUsuarioNumeroTelefonicoDAO;
 import java.util.List;
 import vo.UsuarioNumeroTelefonicoVO;
+import vo.UsuarioVO;
 
 /**
  * @author Nelson
@@ -109,6 +110,17 @@ public class NumeroTelefonico implements INumeroTelefonico {
 		} catch (Exception e) {
 			throw new BusinessException(e);
 		}
+    }
+
+    public List getUsuariosPorNumero(NumeroTelefonicoVO vo) throws BusinessException {
+        DAOFactory factory = DAOFactory.getInstance();
+        try {
+                IUsuarioNumeroTelefonicoDAO dao = factory.getUsuarioNumeroTelefonicoDAO();
+                List<UsuarioVO> returnValue = dao.getUsuarios(vo);
+                return returnValue;
+        } catch (Exception e) {
+                throw new BusinessException(e);
+        }
     }
 
 }

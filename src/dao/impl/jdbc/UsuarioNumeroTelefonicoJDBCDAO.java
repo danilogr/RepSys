@@ -19,6 +19,7 @@ import dao.DAOException;
 import dao.spec.IUsuarioNumeroTelefonicoDAO;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.LinkedList;
 
 public class UsuarioNumeroTelefonicoJDBCDAO extends GenericJDBCDAO implements
 		IUsuarioNumeroTelefonicoDAO {
@@ -109,6 +110,8 @@ public class UsuarioNumeroTelefonicoJDBCDAO extends GenericJDBCDAO implements
 			UsuarioVO user = uDAO.selectByEmail(email);
 			NumeroTelefonicoVO num = ntDAO.selectByNumero(numero);
 			
+                        this.commit();
+                        this.close();
 			return new UsuarioNumeroTelefonicoVO(user, num, cal, recorrencia);
 		} catch (Exception e) {
 			throw new DAOException(e);
@@ -117,7 +120,7 @@ public class UsuarioNumeroTelefonicoJDBCDAO extends GenericJDBCDAO implements
 
 	@Override
 	public List<UsuarioVO> getUsuarios(NumeroTelefonicoVO num) throws DAOException {
-		List<UsuarioVO> list = new ArrayList<UsuarioVO>();
+		List<UsuarioVO> list = new LinkedList<UsuarioVO>();
 		String sql = "SELECT EMAIL FROM " + this.getTableName()
 					+ " WHERE NUMERO = ?";
 		try {
@@ -126,8 +129,10 @@ public class UsuarioNumeroTelefonicoJDBCDAO extends GenericJDBCDAO implements
 			
 			ResultSet rs = stmt.executeQuery();
 			while(rs.next()) {
-				list.add((UsuarioVO) createVO(rs));
+				list.add((UsuarioVO) new UsuarioJDBCDAO(Configuration.getInstance().getProperties()).selectByEmail(rs.getString("EMAIL")));
 			}
+                        this.commit();
+                        this.close();
 			return list;
 		} catch(Exception e) {
 			throw new DAOException(e);
