@@ -1,4 +1,4 @@
-﻿DROP TABLE IF EXISTS ValorVariavel CASCADE;
+DROP TABLE IF EXISTS ValorVariavel CASCADE;
 DROP TABLE IF EXISTS ValorFixo CASCADE; 
 DROP TABLE IF EXISTS Conta_Usuario_Devedor CASCADE;
 DROP TABLE IF EXISTS Conta CASCADE;
@@ -567,10 +567,8 @@ RETURNS TRIGGER AS
 $$
 DECLARE
 	temp1 numeric;
-	temp2 numeric;
 BEGIN
 	SELECT count(numero) INTO temp1 FROM NumeroTelefonico WHERE numero=new.numero;
-	SELECT count(numero) INTO temp2 FROM ItemFaturaTelefonica WHERE numero=new.numero AND data_hora=new.data_hora;
 
 	IF (temp1=0) THEN
 		INSERT INTO NumeroTelefonico(numero) VALUES (new.numero);
@@ -586,7 +584,7 @@ $$ LANGUAGE plpgsql;
 CREATE TRIGGER insertLigacao
 BEFORE INSERT ON Usuario_NumeroTelefonico
 FOR EACH ROW
-EXECUTE PROCEDURE seNovoInsereNumeroTelefonico();
+EXECUTE PROCEDURE insereItemFaturaProcedure();
 
 CREATE TRIGGER insereItemFaturaTrigger
 BEFORE INSERT ON ItemFaturaTelefonica
