@@ -166,9 +166,6 @@ INSERT INTO Usuario (email, nome, senha)
 VALUES ('endril.caps@gmail.com','Endril Capelli da Silva',md5('12345'));
 
 INSERT INTO Usuario (email, nome, senha)
-VALUES ('danielpes91@gmail.com','Daniel de Paula e Silva',md5('12345'));
-
-INSERT INTO Usuario (email, nome, senha)
 VALUES ('zepitanga@gmail.com','Henrique Jose Pires Barcelos',md5('12345'));
 
 INSERT INTO Usuario (email, nome, senha)
@@ -242,12 +239,6 @@ INSERT INTO Usuario_NumeroTelefonico (email, numero, data_hora, recorrencia)
 VALUES ('celsorock_skate@dominio.com', '5591873456', to_timestamp('20/10/2011 - 19:00','dd/mm/yyyy - HH24:mi'), 0);
 
 INSERT INTO Usuario_NumeroTelefonico (email, numero, data_hora, recorrencia)
-VALUES ('danielpes91@gmail.com', '5588836575', to_timestamp('15/04/2011 - 16:55','dd/mm/yyyy - HH24:mi'), 1);
-
-INSERT INTO Usuario_NumeroTelefonico (email, numero, data_hora, recorrencia)
-VALUES ('danielpes91@gmail.com', '5535837698', to_timestamp('15/04/2011 - 17:00','dd/mm/yyyy - HH24:mi'), 0);
-
-INSERT INTO Usuario_NumeroTelefonico (email, numero, data_hora, recorrencia)
 VALUES ('daisyflor@dominio.com', '5534153467', to_timestamp('15/03/2012 - 07:30','dd/mm/yyyy - HH24:mi'), 1);
 
 
@@ -282,7 +273,6 @@ INSERT INTO Emprestimo_Usuario_Devedor (data_hora,email) VALUES (to_timestamp('1
 INSERT INTO Emprestimo_Usuario_Devedor (data_hora,email) VALUES (to_timestamp('23/03/2012 15:01','dd/mm/yyyy hh24:mi'),'zepitanga@gmail.com');
 INSERT INTO Emprestimo_Usuario_Devedor (data_hora,email) VALUES (to_timestamp('23/03/2012 15:01','dd/mm/yyyy hh24:mi'),'nelsonguicg@gmail.com');
 INSERT INTO Emprestimo_Usuario_Devedor (data_hora,email) VALUES (to_timestamp('07/04/2012 20:10','dd/mm/yyyy hh24:mi'),'alexcrondon@gmail.com');
-INSERT INTO Emprestimo_Usuario_Devedor (data_hora,email) VALUES (to_timestamp('22/06/2012 07:51','dd/mm/yyyy hh24:mi'),'danielpes91@gmail.com');
 INSERT INTO Emprestimo_Usuario_Devedor (data_hora,email) VALUES (to_timestamp('30/04/2012 11:42','dd/mm/yyyy hh24:mi'),'neco2neco@dominio.com');
 INSERT INTO Emprestimo_Usuario_Devedor (data_hora,email) VALUES (to_timestamp('05/02/2012 10:25','dd/mm/yyyy hh24:mi'),'danilod100@gmail.com');
 INSERT INTO Emprestimo_Usuario_Devedor (data_hora,email) VALUES (to_timestamp('05/02/2012 10:25','dd/mm/yyyy hh24:mi'),'daisyflor@dominio.com');
@@ -303,9 +293,6 @@ VALUES ( to_timestamp('23/03/2012 15:01','dd/mm/yyyy hh24:mi') , 'nelsonguicg@gm
 INSERT INTO Emprestimo_Usuario_Credor (data_hora , email )
 VALUES (  to_timestamp('07/04/2012 20:10','dd/mm/yyyy hh24:mi') , 'endril.caps@gmail.com' );
 
-INSERT INTO Emprestimo_Usuario_Credor (data_hora , email )
-VALUES (  to_timestamp('22/06/2012 07:51','dd/mm/yyyy hh24:mi') , 'danielpes91@gmail.com' );
-	
 INSERT INTO Emprestimo_Usuario_Credor (data_hora , email )
 VALUES (  to_timestamp('30/04/2012 11:42','dd/mm/yyyy hh24:mi') , 'zepitanga@gmail.com' );
 	
@@ -400,9 +387,6 @@ VALUES ('Empregada', 250.00, 'zepitanga@gmail.com', 'Pagamento da empregada');
 INSERT INTO Conta (nome, valor, email)
 VALUES ('Sky', 254.72, 'alexcrondon@gmail.com');
 
-INSERT INTO Conta(nome, valor, email, descricao)
-VALUES ('Carro', 811.02, 'danielpes91@gmail.com', 'Mensalidade da compra do carro');
-    
 INSERT INTO Conta (nome, valor, email, descricao)
 VALUES('Pintura', 2871.14, 'zepitanga@gmail.com', 'Referente à pintura realizada');
 
@@ -428,9 +412,6 @@ VALUES ('Aluguel','nelsonguicg@gmail.com', 0.05);
 
 INSERT INTO Conta_Usuario_Devedor (nome, email, proporcao)
 VALUES ('Aluguel','endril.caps@gmail.com', 0.05);
-
-INSERT INTO Conta_Usuario_Devedor (nome, email, proporcao)
-VALUES ('Aluguel','danielpes91@gmail.com', 0.75);
 
 INSERT INTO Conta_Usuario_Devedor (nome, email, proporcao)
 VALUES ('Aluguel','zepitanga@gmail.com', 0.75);
